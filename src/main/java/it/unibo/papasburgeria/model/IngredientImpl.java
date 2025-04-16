@@ -23,4 +23,8 @@ public class IngredientImpl implements Ingredient {
         return accuracy;
     }
     
+    public String toString(){
+        return "[ type:"+this.getIngredientType()+", acc:"+this.getPlacementAccuracy()+" ]";
+    }
+    
 }

@@ -1,4 +1,4 @@
-package it.unibo.papasburgeria.model;
+package it.unibo.papasburgeria.model.api;
 
 import java.util.List;
 

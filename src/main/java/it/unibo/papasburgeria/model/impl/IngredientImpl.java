@@ -1,4 +1,7 @@
-package it.unibo.papasburgeria.model;
+package it.unibo.papasburgeria.model.impl;
+
+import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.api.Ingredient;
 
 public class IngredientImpl implements Ingredient {
     private IngredientEnum type;

@@ -1,4 +1,8 @@
-package it.unibo.papasburgeria.model;
+package it.unibo.papasburgeria.model.impl;
+
+import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.api.Hamburger;
+import it.unibo.papasburgeria.model.api.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;

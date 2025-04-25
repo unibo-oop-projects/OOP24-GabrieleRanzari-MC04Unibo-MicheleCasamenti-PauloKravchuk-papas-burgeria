@@ -1,5 +1,7 @@
-package it.unibo.papasburgeria.model;
+package it.unibo.papasburgeria.model.api;
 
+
+import it.unibo.papasburgeria.model.IngredientEnum;
 
 public interface Ingredient {
 

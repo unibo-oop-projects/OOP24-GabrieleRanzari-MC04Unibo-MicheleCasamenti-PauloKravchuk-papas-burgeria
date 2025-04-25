@@ -1,10 +1,10 @@
 package it.unibo.papasburgeria;
 
-import it.unibo.papasburgeria.model.Hamburger;
-import it.unibo.papasburgeria.model.HamburgerImpl;
+import it.unibo.papasburgeria.model.api.Hamburger;
+import it.unibo.papasburgeria.model.impl.HamburgerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.IngredientImpl;
-import it.unibo.papasburgeria.model.MeatImpl;
+import it.unibo.papasburgeria.model.impl.IngredientImpl;
+import it.unibo.papasburgeria.model.impl.MeatImpl;
 
 public class Main {
 

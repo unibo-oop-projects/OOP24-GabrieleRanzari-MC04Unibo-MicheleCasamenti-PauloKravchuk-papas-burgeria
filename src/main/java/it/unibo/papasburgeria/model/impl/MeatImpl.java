@@ -1,6 +1,8 @@
-package it.unibo.papasburgeria.model;
+package it.unibo.papasburgeria.model.impl;
 
-public class MeatImpl extends IngredientImpl{
+import it.unibo.papasburgeria.model.IngredientEnum;
+
+public class MeatImpl extends IngredientImpl {
 
     private double cookLevel;
 

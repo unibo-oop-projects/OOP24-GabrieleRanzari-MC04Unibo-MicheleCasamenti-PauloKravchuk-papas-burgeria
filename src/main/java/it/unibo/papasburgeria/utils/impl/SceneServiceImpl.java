@@ -40,13 +40,14 @@ public class SceneServiceImpl implements SceneService {
             throw new IllegalArgumentException("Scene " + sceneName + " not found.");
         }
 
-        if (currentView == view) {
-            return;
-        }
-
         if (currentView != null) {
+            if (currentView.equals(view)) {
+                return;
+            }
+
             currentView.hide();
         }
+
         currentView = view;
         currentView.show();
     }

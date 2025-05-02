@@ -11,14 +11,14 @@ public interface Ingredient {
     IngredientEnum getIngredientType();
 
     /*
-     * @param a double value representing how accurately the ingredient was placed (in %)
-     */
-    void setPlacementAccuracy(double accuracy);
-
-    /*
      * @return a double value representing how accurately the ingredient was placed (in %)
      */
     double getPlacementAccuracy();
+
+    /*
+     * @param a double value representing how accurately the ingredient was placed (in %)
+     */
+    void setPlacementAccuracy(double accuracy);
 
     /*
      * @return a string with the ingredient and their current status

@@ -12,10 +12,10 @@ public class MainModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        // as per documentation, lighter modules are better, hence the subdivision
-        install(new ModelModule());
-        install(new ViewModule());
-        install(new ControllerModule());
+        // follows an instantiation order to an extent, utils first and views last
         install(new UtilsModule());
+        install(new ModelModule());
+        install(new ControllerModule());
+        install(new ViewModule());
     }
 }

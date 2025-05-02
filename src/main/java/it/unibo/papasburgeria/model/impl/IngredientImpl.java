@@ -18,13 +18,13 @@ public class IngredientImpl implements Ingredient {
     }
 
     @Override
-    public void setPlacementAccuracy(double accuracy) {
-        this.accuracy = accuracy;
+    public double getPlacementAccuracy() {
+        return accuracy;
     }
 
     @Override
-    public double getPlacementAccuracy() {
-        return accuracy;
+    public void setPlacementAccuracy(double accuracy) {
+        this.accuracy = accuracy;
     }
 
     public String toString() {

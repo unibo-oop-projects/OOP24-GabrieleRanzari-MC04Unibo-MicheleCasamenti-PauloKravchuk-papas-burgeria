@@ -19,4 +19,6 @@ repositories {
 dependencies {
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.9.3")
     implementation("com.google.inject:guice:7.0.0")
+    implementation("org.tinylog:tinylog-api:2.7.0")
+    implementation("org.tinylog:tinylog-impl:2.7.0")
 }

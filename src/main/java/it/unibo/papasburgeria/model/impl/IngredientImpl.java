@@ -7,7 +7,7 @@ public class IngredientImpl implements Ingredient {
     private final IngredientEnum type;
     private double accuracy;
 
-    public IngredientImpl(IngredientEnum type) {
+    public IngredientImpl(final IngredientEnum type) {
         this.type = type;
         accuracy = 1.0;
     }
@@ -18,15 +18,16 @@ public class IngredientImpl implements Ingredient {
     }
 
     @Override
+    public void setPlacementAccuracy(final double accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    @Override
     public double getPlacementAccuracy() {
         return accuracy;
     }
 
     @Override
-    public void setPlacementAccuracy(double accuracy) {
-        this.accuracy = accuracy;
-    }
-
     public String toString() {
         return "[ type:" + this.getIngredientType() + ", acc:" + this.getPlacementAccuracy() + " ]";
     }

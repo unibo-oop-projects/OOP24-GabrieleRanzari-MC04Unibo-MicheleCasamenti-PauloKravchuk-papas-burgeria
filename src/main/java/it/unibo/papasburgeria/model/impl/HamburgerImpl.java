@@ -9,29 +9,28 @@ import java.util.List;
 
 public class HamburgerImpl implements Hamburger {
 
-    private final ArrayList<Ingredient> ingredientList;
+    private final List<Ingredient> ingredientList;
 
     public HamburgerImpl() {
-        ingredientList = new ArrayList<Ingredient>();
+        ingredientList = new ArrayList<>();
     }
 
-    public HamburgerImpl(ArrayList<Ingredient> ingredientList) {
+    public HamburgerImpl(final List<Ingredient> ingredientList) {
         this.ingredientList = ingredientList;
     }
 
     @Override
-    public void addIngredient(Ingredient ingredient) throws Exception {
+    public boolean addIngredient(final Ingredient ingredient){
         if (ingredientList.isEmpty() && ingredient.getIngredientType() != IngredientEnum.BOTTOMBUN) {
-            throw (new UnsupportedOperationException("Bottom bun MUST be first hamburger ingredient"));
+            return false;
         }
 
-        if (!ingredientList.isEmpty()) {
-            if (ingredientList.get(ingredientList.size() - 1).getIngredientType().equals(IngredientEnum.TOPBUN)) {
-                throw (new UnsupportedOperationException("Top bun MUST be last hamburger ingredient"));
-            }
+        if (!ingredientList.isEmpty() && ingredientList.get(ingredientList.size() - 1).getIngredientType().equals(IngredientEnum.TOPBUN)) {
+            return false;
         }
 
         ingredientList.add(ingredient);
+        return true;
     }
 
     @Override
@@ -39,14 +38,15 @@ public class HamburgerImpl implements Hamburger {
         return ingredientList;
     }
 
+    @Override
     public String toString() {
-        String sb = "[ ";
-        for (Ingredient ingredient : ingredientList) {
-            sb = sb + ingredient.toString() + ", ";
+        final StringBuilder sb = new StringBuilder();
+        for (final Ingredient ingredient : ingredientList) {
+            sb.append(ingredient.toString()).append(", ");
         }
-        sb = sb + "]";
+        sb.append(']');
 
-        return sb;
+        return sb.toString();
     }
 
 }

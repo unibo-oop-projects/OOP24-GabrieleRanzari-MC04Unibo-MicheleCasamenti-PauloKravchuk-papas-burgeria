@@ -15,10 +15,11 @@ public class MeatImpl extends IngredientImpl {
         return cookLevel;
     }
 
-    public void setCookLevel(double cookLevel) {
+    public void setCookLevel(final double cookLevel) {
         this.cookLevel = cookLevel;
     }
 
+    @Override
     public String toString() {
         return "[ type:" + this.getIngredientType() + ", acc:" + this.getPlacementAccuracy() + ", cook:" + this.getCookLevel() + " ]";
     }

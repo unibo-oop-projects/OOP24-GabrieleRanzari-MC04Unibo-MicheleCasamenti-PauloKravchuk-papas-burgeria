@@ -1,9 +1,9 @@
 package it.unibo.papasburgeria.model.impl;
 
+import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.IngredientUnlocker;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -11,16 +11,10 @@ import java.util.EnumSet;
 import java.util.Collections;
 
 /**
- * Implementation of IngredientUnlocker.
+ * @inheritDoc
  */
 public class IngredientUnlockerImpl implements IngredientUnlocker {
-    private static final int FIRST_DAY = 1;
-    private static final int SECOND_DAY = 2;
-    private static final int THIRD_DAY = 3;
-    private static final int FOURTH_DAY = 4;
-    private static final int FIFTH_DAY = 5;
-
-    private final Map<Integer, Set<IngredientEnum>> unlockSchedule;
+    private final Map<DaysEnum, Set<IngredientEnum>> unlockSchedule;
     private final Set<IngredientEnum> unlockedIngredients;
 
     /**
@@ -28,47 +22,46 @@ public class IngredientUnlockerImpl implements IngredientUnlocker {
      */
     public IngredientUnlockerImpl() {
         this.unlockSchedule = new TreeMap<>();
-        this.unlockedIngredients = new HashSet<>();
+        this.unlockedIngredients = EnumSet.noneOf(IngredientEnum.class);
 
-        // Unlock schedule <day, ingredient>
-        unlockSchedule.put(FIRST_DAY, EnumSet.of(
+        // Ingredient unlocking schedule <day, ingredient>
+        unlockSchedule.put(DaysEnum.FIRST_DAY, EnumSet.of(
                 IngredientEnum.BOTTOMBUN,
                 IngredientEnum.TOPBUN,
                 IngredientEnum.MEAT,
                 IngredientEnum.CHEESE,
                 IngredientEnum.KETCHUP));
-        unlockSchedule.put(SECOND_DAY, EnumSet.of(
+        unlockSchedule.put(DaysEnum.SECOND_DAY, EnumSet.of(
                 IngredientEnum.LETTUCE,
                 IngredientEnum.MAYO));
-        unlockSchedule.put(THIRD_DAY, EnumSet.of(
+        unlockSchedule.put(DaysEnum.THIRD_DAY, EnumSet.of(
                 IngredientEnum.TOMATO,
                 IngredientEnum.MUSTARD));
-        unlockSchedule.put(FOURTH_DAY, EnumSet.of(
+        unlockSchedule.put(DaysEnum.FOURTH_DAY, EnumSet.of(
                 IngredientEnum.PICKLE,
                 IngredientEnum.BBQ));
-        unlockSchedule.put(FIFTH_DAY, EnumSet.of(
+        unlockSchedule.put(DaysEnum.FIFTH_DAY, EnumSet.of(
                 IngredientEnum.ONION));
 
-        // Initial unlocks (day 1)
         resetUnlocks();
+        unlockForDay(DayManagerImpl.START_DAY); // If the starting day is not the first day
     }
 
     /**
-     * Unlocks ingredients appropriate to the current day.
-     *
-     * @param currentDay : current game day
+     * @inheritDoc
      */
     @Override
-    public void unlockForDay(final int currentDay) {
-        for (final Map.Entry<Integer, Set<IngredientEnum>> entry : unlockSchedule.entrySet()) {
-            if (entry.getKey() <= currentDay) {
+    public final void unlockForDay(final int currentDay) {
+        for (final Map.Entry<DaysEnum, Set<IngredientEnum>> entry : unlockSchedule.entrySet()) {
+            final int dayNumber = entry.getKey().ordinal();
+            if (dayNumber <= currentDay) {
                 unlockedIngredients.addAll(entry.getValue());
             }
         }
     }
 
     /**
-     * @return the set of all currently unlocked ingredient types.
+     * @inheritDoc
      */
     @Override
     public Set<IngredientEnum> getUnlockedIngredients() {
@@ -76,13 +69,14 @@ public class IngredientUnlockerImpl implements IngredientUnlocker {
     }
 
     /**
-     * Resets the unlock progress to only the base ingredients.
+     * @inheritDoc
      */
     @Override
-    public void resetUnlocks() {
+    public final void resetUnlocks() {
         unlockedIngredients.clear();
-        if (unlockSchedule.containsKey(FIRST_DAY)) {
-            unlockedIngredients.addAll(unlockSchedule.get(FIRST_DAY));
+        final Set<IngredientEnum> baseIngredients = unlockSchedule.get(DaysEnum.FIRST_DAY);
+        if (baseIngredients != null) {
+            unlockedIngredients.addAll(baseIngredients);
         }
     }
 

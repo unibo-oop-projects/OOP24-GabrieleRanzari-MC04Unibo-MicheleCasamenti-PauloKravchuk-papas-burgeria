@@ -20,7 +20,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     @Override
-    public boolean addIngredient(final Ingredient ingredient){
+    public boolean addIngredient(final Ingredient ingredient) {
         if (ingredientList.isEmpty() && ingredient.getIngredientType() != IngredientEnum.BOTTOMBUN) {
             return false;
         }

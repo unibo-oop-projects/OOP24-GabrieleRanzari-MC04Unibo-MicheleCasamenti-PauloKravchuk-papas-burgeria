@@ -85,6 +85,6 @@ public class IngredientUnlockerImpl implements IngredientUnlocker {
      */
     @Override
     public String toString() {
-        return "IngredientUnlockerImpl [unlockedIngredients=" + unlockedIngredients + "]";
+        return "[IngredientUnlockerImpl: [unlockedIngredients=" + unlockedIngredients + "]";
     }
 }

@@ -52,6 +52,6 @@ public class DayManagerImpl implements DayManager {
      */
     @Override
     public String toString() {
-        return "DayManager [currentDay=" + currentDay + "]";
+        return "[DayManager: [currentDay=" + currentDay + "]";
     }
 }

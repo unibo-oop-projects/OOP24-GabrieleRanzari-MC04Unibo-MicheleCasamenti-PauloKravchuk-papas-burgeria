@@ -2,6 +2,9 @@ package it.unibo.papasburgeria.model.api;
 
 import java.util.List;
 
+/**
+ * Interface used for creating Hamburgers in the game.
+ */
 public interface Hamburger {
     /**
      * @param ingredient to add to the hamburger

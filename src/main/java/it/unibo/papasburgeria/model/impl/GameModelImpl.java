@@ -1,29 +1,27 @@
 package it.unibo.papasburgeria.model.impl;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import it.unibo.papasburgeria.model.api.DayManager;
 import it.unibo.papasburgeria.model.api.GameModel;
+import it.unibo.papasburgeria.model.api.IngredientUnlocker;
 
 /**
  * @inheritDoc
  */
+@Singleton
 public class GameModelImpl implements GameModel {
-    private final DayManagerImpl dayManager;
-    private final IngredientUnlockerImpl ingredientUnlocker;
-
-    /**
-     * Default constructor.
-     */
-    public GameModelImpl() {
-        this.dayManager = new DayManagerImpl();
-        this.ingredientUnlocker = new IngredientUnlockerImpl();
-    }
+    private final DayManager dayManager;
+    private final IngredientUnlocker ingredientUnlocker;
 
     /**
      * Secondary constructor.
      *
-     * @param dayManager the day manager.
+     * @param dayManager         the day manager.
      * @param ingredientUnlocker the ingredient unlocking manager.
      */
-    public GameModelImpl(final DayManagerImpl dayManager, final IngredientUnlockerImpl ingredientUnlocker) {
+    @Inject
+    public GameModelImpl(final DayManager dayManager, final IngredientUnlocker ingredientUnlocker) {
         this.dayManager = dayManager;
         this.ingredientUnlocker = ingredientUnlocker;
     }
@@ -50,7 +48,7 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public DayManagerImpl getDayManager() {
+    public DayManager getDayManager() {
         return dayManager;
     }
 
@@ -58,7 +56,7 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public IngredientUnlockerImpl getIngredientUnlocker() {
+    public IngredientUnlocker getIngredientUnlocker() {
         return ingredientUnlocker;
     }
 

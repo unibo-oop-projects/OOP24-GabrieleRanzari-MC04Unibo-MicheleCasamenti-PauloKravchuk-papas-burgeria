@@ -3,6 +3,7 @@ package it.unibo.papasburgeria;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
+import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.di.MainModule;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
@@ -17,12 +18,16 @@ public class Main {
 
     /**
      * Main method.
+     *
      * @param args arguments
      */
     public static void main(final String[] args) {
-        // Using production stage to construct services before the game logic starts
+        // Using the production stage to construct services before the game logic starts
         final Injector injector = Guice.createInjector(Stage.PRODUCTION, new MainModule());
+        GameController controller = injector.getInstance(GameController.class);
+        controller.startGame();
 
+        /*
         Hamburger burger1 = new HamburgerImpl();
         try {
             burger1.addIngredient(new IngredientImpl(IngredientEnum.BOTTOMBUN));
@@ -33,10 +38,10 @@ public class Main {
             burger1.addIngredient(new IngredientImpl(IngredientEnum.TOMATO));
             burger1.addIngredient(new IngredientImpl(IngredientEnum.LETTUCE));
             burger1.addIngredient(new IngredientImpl(IngredientEnum.TOPBUN));
-            System.out.println(burger1);
+            Logger.debug(burger1);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Logger.trace(e);
         }
+        */
     }
 }

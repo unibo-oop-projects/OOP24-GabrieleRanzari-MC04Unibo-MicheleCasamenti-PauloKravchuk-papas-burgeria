@@ -1,33 +1,23 @@
 package it.unibo.papasburgeria.controller.impl;
 
 import it.unibo.papasburgeria.controller.api.GameController;
-import it.unibo.papasburgeria.model.impl.GameModelImpl;
-import it.unibo.papasburgeria.view.impl.GameViewImpl;
+import it.unibo.papasburgeria.model.api.GameModel;
+import jakarta.inject.Inject;
 
 /**
  * @inheritDoc
  */
 public class GameControllerImpl implements GameController {
-    private final GameModelImpl model;
-    private final GameViewImpl view;
-
-    /**
-     * Default constructor, initializes the game model and view.
-     */
-    public GameControllerImpl() {
-        this.model = new GameModelImpl();
-        this.view = new GameViewImpl();
-    }
+    private final GameModel model;
 
     /**
      * Secondary constructor.
      *
      * @param model the GameModel manager.
-     * @param view the GameView manager.
      */
-    public GameControllerImpl(final GameModelImpl model, final GameViewImpl view) {
+    @Inject
+    public GameControllerImpl(final GameModel model) {
         this.model = model;
-        this.view = view;
     }
 
     /**
@@ -35,8 +25,6 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
-        view.openGUI();
-        endGame();
     }
 
     /**
@@ -44,7 +32,6 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void endGame() {
-        view.closeGUI();
     }
 
     /**
@@ -52,6 +39,6 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public String toString() {
-        return "[GameControllerImpl: " + model.toString() + ", " + view.toString() + "]";
+        return "[GameControllerImpl: " + model.toString() + "]";
     }
 }

@@ -5,11 +5,6 @@ import com.google.inject.Injector;
 import com.google.inject.Stage;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.di.MainModule;
-import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.impl.HamburgerImpl;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
-import it.unibo.papasburgeria.model.impl.MeatImpl;
 
 /**
  * Main class.

@@ -1,9 +1,10 @@
 package it.unibo.papasburgeria.model.impl;
 
-import java.util.Arrays;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
+
+import java.util.Arrays;
 
 /**
  * Class used for managing hamburgers' assembling instructions and max time.

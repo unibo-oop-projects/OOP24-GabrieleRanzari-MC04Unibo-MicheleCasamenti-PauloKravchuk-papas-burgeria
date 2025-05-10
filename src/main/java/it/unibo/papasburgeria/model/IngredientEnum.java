@@ -1,5 +1,8 @@
 package it.unibo.papasburgeria.model;
 
+/**
+ * Enum with all types of ingredients.
+ */
 public enum IngredientEnum {
     BOTTOMBUN,
     TOPBUN,

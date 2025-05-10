@@ -1,8 +1,10 @@
 package it.unibo.papasburgeria.model.api;
 
-
 import it.unibo.papasburgeria.model.IngredientEnum;
 
+/**
+ * Interface used for creating Ingredients in the game.
+ */
 public interface Ingredient {
 
     /**
@@ -16,7 +18,7 @@ public interface Ingredient {
     double getPlacementAccuracy();
 
     /**
-     * @param a double value representing how accurately the ingredient was placed (in %)
+     * @param accuracy double value representing how accurately the ingredient was placed (in %)
      */
     void setPlacementAccuracy(double accuracy);
 }

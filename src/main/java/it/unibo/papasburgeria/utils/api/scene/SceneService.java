@@ -3,6 +3,7 @@ package it.unibo.papasburgeria.utils.api.scene;
 /**
  * Service responsible for the switching of scenes.
  */
+@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface SceneService {
 
     /**

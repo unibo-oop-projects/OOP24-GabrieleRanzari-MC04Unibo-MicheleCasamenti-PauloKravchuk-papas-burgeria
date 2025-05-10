@@ -8,6 +8,10 @@ import it.unibo.papasburgeria.model.impl.GameModelImpl;
  * Guide module responsible for the Model part of MVC.
  */
 public class ModelModule extends AbstractModule {
+
+    /**
+     * @inheritDoc
+     */
     @Override
     protected void configure() {
         // API to implementation bindings

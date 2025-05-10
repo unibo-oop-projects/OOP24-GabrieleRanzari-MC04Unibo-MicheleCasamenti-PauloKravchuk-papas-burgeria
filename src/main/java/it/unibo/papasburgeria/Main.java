@@ -9,7 +9,10 @@ import it.unibo.papasburgeria.di.MainModule;
 /**
  * Main class.
  */
-public class Main {
+public final class Main {
+
+    private Main() {
+    }
 
     /**
      * Main method.
@@ -21,6 +24,7 @@ public class Main {
         final Injector injector = Guice.createInjector(Stage.PRODUCTION, new MainModule());
         GameController controller = injector.getInstance(GameController.class);
         controller.startGame();
+
 
         /*
         Hamburger burger1 = new HamburgerImpl();

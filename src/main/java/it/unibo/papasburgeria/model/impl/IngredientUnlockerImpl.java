@@ -1,5 +1,6 @@
 package it.unibo.papasburgeria.model.impl;
 
+import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.IngredientUnlocker;
@@ -13,6 +14,7 @@ import java.util.TreeMap;
 /**
  * @inheritDoc
  */
+@Singleton
 public class IngredientUnlockerImpl implements IngredientUnlocker {
     private final Map<DaysEnum, Set<IngredientEnum>> unlockSchedule;
     private final Set<IngredientEnum> unlockedIngredients;

@@ -2,6 +2,7 @@ package it.unibo.papasburgeria.controller.impl;
 
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.api.GameModel;
+import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
 import jakarta.inject.Inject;
 
 /**
@@ -9,15 +10,18 @@ import jakarta.inject.Inject;
  */
 public class GameControllerImpl implements GameController {
     private final GameModel model;
+    private final SceneServiceImpl sceneService;
 
     /**
      * Secondary constructor.
      *
-     * @param model the GameModel manager.
+     * @param model        the GameModel manager
+     * @param sceneService service requires to handle scenes
      */
     @Inject
-    public GameControllerImpl(final GameModel model) {
+    public GameControllerImpl(final GameModel model, final SceneServiceImpl sceneService) {
         this.model = model;
+        this.sceneService = sceneService;
     }
 
     /**
@@ -25,6 +29,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
+        sceneService.switchTo("Menu");
     }
 
     /**

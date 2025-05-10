@@ -3,6 +3,7 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
+import org.tinylog.Logger;
 
 import java.util.Arrays;
 
@@ -26,7 +27,8 @@ public class OrderImpl implements Order {
      */
     @Override
     public Hamburger getHamburger() {
-        return this.hamburger;
+        Logger.debug(hamburger);
+        return new HamburgerImpl(); //this.hamburger needs to be cloned, if you need to change it make order methods;
     }
 
     /**

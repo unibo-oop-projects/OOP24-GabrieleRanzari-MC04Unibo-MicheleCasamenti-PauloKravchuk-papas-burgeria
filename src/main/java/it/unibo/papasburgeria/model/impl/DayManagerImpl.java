@@ -1,11 +1,13 @@
 package it.unibo.papasburgeria.model.impl;
 
+import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.api.DayManager;
 
 /**
  * @inheritDoc
  */
+@Singleton
 public class DayManagerImpl implements DayManager {
     public static final int START_DAY = DaysEnum.FIRST_DAY.ordinal();
     private static final int MAX_DAYS = Integer.MAX_VALUE;

@@ -22,9 +22,8 @@ public final class Main {
     public static void main(final String[] args) {
         // Using the production stage to construct services before the game logic starts
         final Injector injector = Guice.createInjector(Stage.PRODUCTION, new MainModule());
-        GameController controller = injector.getInstance(GameController.class);
+        final GameController controller = injector.getInstance(GameController.class);
         controller.startGame();
-
 
         /*
         Hamburger burger1 = new HamburgerImpl();

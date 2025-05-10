@@ -12,7 +12,12 @@ public class MainModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        // follows an instantiation order to an extent, utils first and views last
+        /*
+         Follows an instantiation order to an extent, utils first and views last.
+
+         Bind API to their implementation within these modules, that way they can be
+         inter-exchanged easily without relying on hardcoded implementation in classes.
+        */
         install(new UtilsModule());
         install(new ModelModule());
         install(new ControllerModule());

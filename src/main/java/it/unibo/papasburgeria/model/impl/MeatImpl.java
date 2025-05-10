@@ -3,7 +3,7 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 
 /**
- * Class extending IngredientImpl used for creating meat. 
+ * Class extending IngredientImpl used for creating meat.
  */
 public class MeatImpl extends IngredientImpl {
 
@@ -37,7 +37,7 @@ public class MeatImpl extends IngredientImpl {
     @Override
     public String toString() {
         return "[ type:" + this.getIngredientType()
-        + ", acc:" + this.getPlacementAccuracy()
-        + ", cook:" + this.getCookLevel() + " ]";
+                + ", acc:" + this.getPlacementAccuracy()
+                + ", cook:" + this.getCookLevel() + " ]";
     }
 }

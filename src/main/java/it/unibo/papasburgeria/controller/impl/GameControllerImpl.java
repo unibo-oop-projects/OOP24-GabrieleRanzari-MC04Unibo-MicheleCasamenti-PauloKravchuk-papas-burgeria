@@ -4,6 +4,7 @@ import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
 import jakarta.inject.Inject;
+import org.tinylog.Logger;
 
 /**
  * @inheritDoc
@@ -29,6 +30,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
+        Logger.info("Game started");
         sceneService.switchTo("Menu");
     }
 
@@ -37,6 +39,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void endGame() {
+        Logger.info("Game ended");
     }
 
     /**

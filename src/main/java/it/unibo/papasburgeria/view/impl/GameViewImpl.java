@@ -74,9 +74,7 @@ public class GameViewImpl implements GameView {
             }
         });
 
-        this.update = new Timer(1000 / FRAMERATE, event -> {
-            onFrameUpdated();
-        });
+        this.update = new Timer(1000 / FRAMERATE, event -> onFrameUpdated());
     }
 
     /**

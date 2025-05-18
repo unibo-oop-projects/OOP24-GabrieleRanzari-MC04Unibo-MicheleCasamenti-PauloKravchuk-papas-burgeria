@@ -3,8 +3,8 @@ package it.unibo.papasburgeria;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
-import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.di.MainModule;
+import it.unibo.papasburgeria.view.api.GameView;
 
 /**
  * Main class.
@@ -22,24 +22,7 @@ public final class Main {
     public static void main(final String[] args) {
         // Using the production stage to construct services before the game logic starts
         final Injector injector = Guice.createInjector(Stage.PRODUCTION, new MainModule());
-        final GameController controller = injector.getInstance(GameController.class);
-        controller.startGame();
-
-        /*
-        Hamburger burger1 = new HamburgerImpl();
-        try {
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.BOTTOMBUN));
-            burger1.addIngredient(new MeatImpl());
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.BBQ));
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.KETCHUP));
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.MAYO));
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.TOMATO));
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.LETTUCE));
-            burger1.addIngredient(new IngredientImpl(IngredientEnum.TOPBUN));
-            Logger.debug(burger1);
-        } catch (Exception e) {
-            Logger.trace(e);
-        }
-        */
+        final GameView gameView = injector.getInstance(GameView.class);
+        gameView.show();
     }
 }

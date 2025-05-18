@@ -1,17 +1,22 @@
 package it.unibo.papasburgeria.view.api;
 
+import javax.swing.JLayeredPane;
+
 /**
  * Manages the GUI.
  */
 public interface GameView {
 
     /**
-     * Opens the GUI window.
+     * Adds the provided panel to the main frame.
+     *
+     * @param layeredPane the view's layeredPane to add
      */
-    void openGUI();
+    void addViewPanel(JLayeredPane layeredPane);
 
     /**
-     * Closes the GUI window.
+     * Shows the main frame, this should be called once all views are
+     * constructed and added to the main frame.
      */
-    void closeGUI();
+    void show();
 }

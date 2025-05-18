@@ -1,26 +1,50 @@
 package it.unibo.papasburgeria.view.impl;
 
-import it.unibo.papasburgeria.utils.api.scene.BaseView;
+import com.google.inject.Inject;
 import org.tinylog.Logger;
+
+import java.io.Serial;
 
 /**
  * Menu View.
  */
-public class MenuViewImpl implements BaseView {
+public class MenuViewImpl extends AbstractBaseView {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
-     * @inheritDoc
+     * Constructs the MenuView.
      */
-    @Override
-    public void show() {
-        Logger.info("Menu view shown");
+    @Inject
+    public MenuViewImpl() {
+        Logger.info("MenuView created");
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void hide() {
-        Logger.info("Menu view hidden");
+    void update() {
+        Logger.info("MenuView updated");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void showScene() {
+        super.showScene();
+
+        Logger.info("MenuView shown");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void hideScene() {
+        Logger.info("MenuView hidden");
+
+        super.hideScene();
     }
 }

@@ -2,28 +2,26 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import it.unibo.papasburgeria.model.api.DayManager;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.IngredientUnlocker;
+
+import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 
 /**
  * @inheritDoc
  */
 @Singleton
 public class GameModelImpl implements GameModel {
-    private final DayManager dayManager;
-    private final IngredientUnlocker ingredientUnlocker;
+    public static final int START_DAY = FIRST_DAY.ordinal();
+    private static final int MAX_DAYS = Integer.MAX_VALUE;
+
+    private int currentDay;
 
     /**
-     * Secondary constructor.
-     *
-     * @param dayManager         the day manager.
-     * @param ingredientUnlocker the ingredient unlocking manager.
+     * Default constructor, initializes currentDay with the starting day.
      */
     @Inject
-    public GameModelImpl(final DayManager dayManager, final IngredientUnlocker ingredientUnlocker) {
-        this.dayManager = dayManager;
-        this.ingredientUnlocker = ingredientUnlocker;
+    public GameModelImpl() {
+        this.currentDay = START_DAY;
     }
 
     /**
@@ -31,8 +29,19 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public void nextDay() {
-        dayManager.nextDay();
-        ingredientUnlocker.unlockForDay(dayManager.getCurrentDay());
+        if (currentDay == MAX_DAYS) {
+            throw new IllegalStateException("Cannot advance beyond day " + MAX_DAYS);
+        } else {
+            currentDay++;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCurrentDay() {
+        return currentDay;
     }
 
     /**
@@ -40,31 +49,14 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public void reset() {
-        dayManager.resetDays();
-        ingredientUnlocker.resetUnlocks();
+        this.currentDay = START_DAY;
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public DayManager getDayManager() {
-        return dayManager;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public IngredientUnlocker getIngredientUnlocker() {
-        return ingredientUnlocker;
-    }
-
-    /**
-     * @return a string containing the day manager and ingredient unlocker.
+     * @return a string containing the current day, TODO.
      */
     @Override
     public String toString() {
-        return "[GameModelImpl: " + dayManager.toString() + ", " + ingredientUnlocker.toString() + "]";
+        return "[currentDay=" + currentDay + "]";
     }
 }

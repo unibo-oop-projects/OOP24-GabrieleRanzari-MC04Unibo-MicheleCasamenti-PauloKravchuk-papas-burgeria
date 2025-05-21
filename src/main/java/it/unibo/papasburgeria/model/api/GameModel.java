@@ -1,26 +1,24 @@
 package it.unibo.papasburgeria.model.api;
 
 /**
- * Manages the game logic.
+ * Manages the game state of varius data.
  */
 public interface GameModel {
+
     /**
-     * Advances by one day and unlocks the new ingredients.
+     * Advances the game by one day.
+     *
+     * @throws IllegalStateException if the game has reached the maximum day.
      */
     void nextDay();
+
+    /**
+     * @return the current day number.
+     */
+    int getCurrentDay();
 
     /**
      * Resets the progress to the first day.
      */
     void reset();
-
-    /**
-     * @return the day manager.
-     */
-    DayManager getDayManager();
-
-    /**
-     * @return the ingredient unlocking manager.
-     */
-    IngredientUnlocker getIngredientUnlocker();
 }

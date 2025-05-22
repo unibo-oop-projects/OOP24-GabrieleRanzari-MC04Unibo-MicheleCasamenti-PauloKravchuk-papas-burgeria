@@ -9,8 +9,8 @@ import it.unibo.papasburgeria.view.api.GameView;
 import org.tinylog.Logger;
 
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.Timer;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -24,18 +24,17 @@ public class GameViewImpl implements GameView {
     private static final int DEFAULT_WIDTH = 1280;
     private static final int DEFAULT_HEIGHT = 720;
     private static final int FRAMERATE = 1;
-
     private final GameController gameController;
     private final JFrame mainFrame;
-    private final Timer update;
-
+    private final Timer frameUpdate;
     private final List<AbstractBaseView> views;
+    private long lastFrameTime;
     private AbstractBaseView currentView;
 
     /**
      * Initializes the starting view instance.
      *
-     * @param sceneService scene service
+     * @param sceneService   scene service
      * @param gameController base main controller
      */
     @Inject
@@ -43,6 +42,7 @@ public class GameViewImpl implements GameView {
         this.gameController = gameController;
 
         this.mainFrame = new JFrame("Papa's Burgeria");
+        this.mainFrame.setLayout(new BorderLayout());
         this.mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.mainFrame.addWindowListener(new WindowAdapter() {
             @Override
@@ -60,11 +60,15 @@ public class GameViewImpl implements GameView {
 
         this.views = new ArrayList<>();
 
+        /*
+            In case SceneService has views implemented from different sources (like a secondary window),
+            we only retrieve the ones related to this implementation to handle updating/redrawing.
+        */
         final List<BaseScene> scenes = sceneService.getScenes();
         for (final BaseScene scene : scenes) {
-            if (scene instanceof AbstractBaseView) {
+            if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
-                this.mainFrame.add((AbstractBaseView) scene);
+                this.mainFrame.add((AbstractBaseView) scene, BorderLayout.CENTER);
             }
         }
 
@@ -74,7 +78,13 @@ public class GameViewImpl implements GameView {
             }
         });
 
-        this.update = new Timer(1000 / FRAMERATE, event -> onFrameUpdated());
+        this.frameUpdate = new Timer(1000 / FRAMERATE, e -> {
+            final long currentFrameTime = System.nanoTime();
+            final double delta = (currentFrameTime - lastFrameTime) / 1_000_000_000.0;
+            lastFrameTime = currentFrameTime;
+
+            onFrameUpdated(delta);
+        });
     }
 
     /**
@@ -92,39 +102,16 @@ public class GameViewImpl implements GameView {
     private void onWindowClosing() {
         Logger.info("Game window closing");
 
-        this.update.stop();
+        this.frameUpdate.stop();
         this.gameController.endGame();
         this.mainFrame.dispose();
     }
 
-    private void onFrameUpdated() {
-        this.views.forEach(AbstractBaseView::update);
+    private void onFrameUpdated(final double delta) {
+        this.views.forEach(view -> view.update(delta));
         if (this.currentView != null) {
             this.currentView.repaint();
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void addViewPanel(final JLayeredPane layeredPane) {
-        if (layeredPane == null) {
-            throw new IllegalArgumentException("The provided panel can't be null");
-        }
-
-        if (!(layeredPane instanceof AbstractBaseView)) {
-            throw new IllegalArgumentException("The provided panel must be of type AbstractBaseView");
-        }
-
-        if (this.mainFrame.getContentPane().isAncestorOf(layeredPane)) {
-            Logger.warn("The provided panel is already a child of the main frame");
-            return;
-        }
-
-        this.views.add((AbstractBaseView) layeredPane);
-        this.mainFrame.add(layeredPane);
-        this.mainFrame.revalidate();
     }
 
     /**
@@ -138,6 +125,7 @@ public class GameViewImpl implements GameView {
         }
 
         this.mainFrame.setVisible(true);
-        this.update.start();
+        this.lastFrameTime = System.nanoTime();
+        this.frameUpdate.start();
     }
 }

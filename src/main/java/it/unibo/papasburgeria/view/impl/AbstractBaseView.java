@@ -33,8 +33,10 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
      * Used to interact and update the view instances at framerate.
      * Make sure to keep implementations lightweight and check for visibility if
      * something has to be processed only when this instance is visible.
+     *
+     * @param delta time that has elapsed since the last call in seconds
      */
-    abstract void update();
+    abstract void update(double delta);
 
     /**
      * @inheritDoc

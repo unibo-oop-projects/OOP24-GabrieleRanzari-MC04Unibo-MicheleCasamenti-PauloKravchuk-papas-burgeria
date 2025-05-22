@@ -47,7 +47,7 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     private void updatePanelSizes() {
         final Dimension size = super.getSize();
         this.gamePanel.setBounds(0, 0, size.width, size.height);
-        this.interfacePanel.setBounds(0, 0, size.width / 2, size.height / 2);
+        this.interfacePanel.setBounds(0, 0, size.width, size.height);
     }
 
     /**

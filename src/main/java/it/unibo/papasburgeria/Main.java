@@ -23,6 +23,6 @@ public final class Main {
         // Using the production stage to construct services before the game logic starts
         final Injector injector = Guice.createInjector(Stage.PRODUCTION, new MainModule());
         final GameView gameView = injector.getInstance(GameView.class);
-        gameView.show();
+        gameView.startGame();
     }
 }

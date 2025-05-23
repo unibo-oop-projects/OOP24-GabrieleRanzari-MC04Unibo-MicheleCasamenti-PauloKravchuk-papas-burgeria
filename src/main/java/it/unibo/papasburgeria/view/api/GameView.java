@@ -1,15 +1,18 @@
 package it.unibo.papasburgeria.view.api;
 
 /**
- * Manages the GUI.
+ * Acts as view handler and main game starting point.
  */
 
-@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface GameView {
 
     /**
-     * Shows the main frame, this should be called once all views are
-     * constructed and added to the main frame.
+     * Starts the game's interface and backend.
      */
-    void show();
+    void startGame();
+
+    /**
+     * Disposes of the game's interface and stops backend.
+     */
+    void endGame();
 }

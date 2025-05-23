@@ -7,7 +7,7 @@ import it.unibo.papasburgeria.view.impl.GameViewImpl;
 /**
  * Guide module responsible for the View part of MVC.
  */
-public class ViewModule extends AbstractModule {
+class ViewModule extends AbstractModule {
 
     /**
      * @inheritDoc

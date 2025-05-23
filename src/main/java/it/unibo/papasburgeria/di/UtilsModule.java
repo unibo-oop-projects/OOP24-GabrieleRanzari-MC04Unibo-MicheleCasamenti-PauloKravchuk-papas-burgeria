@@ -10,7 +10,7 @@ import it.unibo.papasburgeria.view.impl.MenuViewImpl;
 /**
  * Guide module responsible for services/utils.
  */
-public class UtilsModule extends AbstractModule {
+class UtilsModule extends AbstractModule {
 
     /**
      * @inheritDoc

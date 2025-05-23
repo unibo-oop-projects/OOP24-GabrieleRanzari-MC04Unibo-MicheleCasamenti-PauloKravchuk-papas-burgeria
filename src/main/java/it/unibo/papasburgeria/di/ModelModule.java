@@ -11,7 +11,7 @@ import it.unibo.papasburgeria.model.impl.IngredientUnlockerImpl;
 /**
  * Guide module responsible for the Model part of MVC.
  */
-public class ModelModule extends AbstractModule {
+class ModelModule extends AbstractModule {
 
     /**
      * @inheritDoc

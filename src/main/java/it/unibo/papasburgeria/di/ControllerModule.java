@@ -1,7 +1,9 @@
 package it.unibo.papasburgeria.di;
 
 import com.google.inject.AbstractModule;
+import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.controller.api.GameController;
+import it.unibo.papasburgeria.controller.impl.BurgerAssemblyControllerImpl;
 import it.unibo.papasburgeria.controller.impl.GameControllerImpl;
 
 /**
@@ -16,5 +18,6 @@ public class ControllerModule extends AbstractModule {
     protected void configure() {
         // API to implementation bindings
         bind(GameController.class).to(GameControllerImpl.class);
+        bind(BurgerAssemblyController.class).to(BurgerAssemblyControllerImpl.class);
     }
 }

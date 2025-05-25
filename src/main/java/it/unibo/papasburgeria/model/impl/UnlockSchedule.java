@@ -21,8 +21,8 @@ public final class UnlockSchedule {
     static {
         final Map<DaysEnum, Set<IngredientEnum>> map = new EnumMap<>(DaysEnum.class);
         map.put(DaysEnum.FIRST_DAY, EnumSet.of(
-                IngredientEnum.BOTTOMBUN,
-                IngredientEnum.TOPBUN,
+                IngredientEnum.BOTTOM_BUN,
+                IngredientEnum.TOP_BUN,
                 IngredientEnum.MEAT,
                 IngredientEnum.CHEESE,
                 IngredientEnum.KETCHUP

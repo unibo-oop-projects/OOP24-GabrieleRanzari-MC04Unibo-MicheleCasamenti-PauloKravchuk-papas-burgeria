@@ -11,8 +11,8 @@ import java.util.List;
  * class used for creating a simple hamburger.
  */
 public class HamburgerImpl implements Hamburger {
-    public static final int MININGREDIENTS = 2;
-    public static final int MAXINGREDIENTS = 10;
+    public static final int MIN_INGREDIENTS = 2;
+    public static final int MAX_INGREDIENTS = 10;
 
     private final List<Ingredient> ingredientList;
 
@@ -24,20 +24,31 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
+     * Creates a burger given the list of ingredients.
+     *
+     * @param ingredientList the list of ingredients.
+     */
+    public HamburgerImpl(final List<Ingredient> ingredientList) {
+        this.ingredientList = new ArrayList<>();
+        for (final Ingredient ingredient : ingredientList) {
+            addIngredient(ingredient);
+        }
+    }
+
+    /**
      * @param availableIngredients list of the ingredients which can be contained in the hamburger
      * @return a randomly generated Hamburger
      */
-
     public static Hamburger generateRandomHamburger(final List<IngredientEnum> availableIngredients) {
         final Hamburger hamburger = new HamburgerImpl();
         final List<IngredientEnum> currentIngredients = new ArrayList<>();
         currentIngredients.addAll(availableIngredients);
-        currentIngredients.remove(IngredientEnum.TOPBUN);
-        currentIngredients.remove(IngredientEnum.BOTTOMBUN);
-        hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOMBUN));
+        currentIngredients.remove(IngredientEnum.TOP_BUN);
+        currentIngredients.remove(IngredientEnum.BOTTOM_BUN);
+        hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOM_BUN));
 
         if (!currentIngredients.isEmpty()) {
-            final int ingredientNumber = (int) ((Math.random() * (MAXINGREDIENTS - MININGREDIENTS)) + MININGREDIENTS);
+            final int ingredientNumber = (int) ((Math.random() * (MAX_INGREDIENTS - MIN_INGREDIENTS)) + MIN_INGREDIENTS);
 
             for (int i = 0; i < ingredientNumber; i++) {
                 Ingredient ingredient;
@@ -53,7 +64,7 @@ public class HamburgerImpl implements Hamburger {
             }
         }
 
-        hamburger.addIngredient(new IngredientImpl(IngredientEnum.TOPBUN));
+        hamburger.addIngredient(new IngredientImpl(IngredientEnum.TOP_BUN));
         return hamburger;
     }
 
@@ -61,13 +72,13 @@ public class HamburgerImpl implements Hamburger {
      * @return true if the ingredient was added successfully. false otherwise.
      */
     @Override
-    public boolean addIngredient(final Ingredient ingredient) {
-        if (ingredientList.isEmpty() && ingredient.getIngredientType() != IngredientEnum.BOTTOMBUN) {
+    public final boolean addIngredient(final Ingredient ingredient) {
+        if (ingredientList.isEmpty() && ingredient.getIngredientType() != IngredientEnum.BOTTOM_BUN) {
             return false;
         }
 
         if (!ingredientList.isEmpty()
-                && ingredientList.get(ingredientList.size() - 1).getIngredientType().equals(IngredientEnum.TOPBUN)) {
+                && ingredientList.get(ingredientList.size() - 1).getIngredientType().equals(IngredientEnum.TOP_BUN)) {
             return false;
         }
 

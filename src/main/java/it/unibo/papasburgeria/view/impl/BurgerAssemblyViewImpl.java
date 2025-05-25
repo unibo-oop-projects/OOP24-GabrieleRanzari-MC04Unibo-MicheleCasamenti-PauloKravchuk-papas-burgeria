@@ -28,8 +28,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      * @inheritDoc
      */
     @Override
-    void update() {
-        Logger.info("BurgerAssemblyView updated");
+    void update(final double delta) {
+
     }
 
     /**

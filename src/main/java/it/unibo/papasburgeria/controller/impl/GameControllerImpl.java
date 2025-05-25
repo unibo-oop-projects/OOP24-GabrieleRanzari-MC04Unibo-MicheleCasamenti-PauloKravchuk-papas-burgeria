@@ -30,7 +30,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
-        Logger.info("Game started");
+        Logger.info("Game started" + model);
         sceneService.switchTo("Menu");
     }
 
@@ -40,13 +40,5 @@ public class GameControllerImpl implements GameController {
     @Override
     public void endGame() {
         Logger.info("Game ended");
-    }
-
-    /**
-     * @return a string containing the model and view state.
-     */
-    @Override
-    public String toString() {
-        return "[GameControllerImpl: " + model.toString() + "]";
     }
 }

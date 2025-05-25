@@ -5,12 +5,12 @@ package it.unibo.papasburgeria.controller.api;
  */
 public interface GameController {
     /**
-     * Starts the game.
+     * Handles the starting of the game backend.
      */
     void startGame();
 
     /**
-     * Exits the game.
+     * Handles the ending of the game backend.
      */
     void endGame();
 }

@@ -11,6 +11,8 @@ import org.tinylog.Logger;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -21,9 +23,10 @@ import java.util.List;
  */
 @Singleton
 public class GameViewImpl implements GameView {
-    private static final int DEFAULT_WIDTH = 1280;
-    private static final int DEFAULT_HEIGHT = 720;
+    private static final double ASPECT_RATIO = 16.0 / 9.0;
+    private static final double SIZE_SCALE = 0.7; // in %
     private static final int FRAMERATE = 1;
+    //
     private final GameController gameController;
     private final JFrame mainFrame;
     private final Timer frameUpdate;
@@ -44,7 +47,14 @@ public class GameViewImpl implements GameView {
 
         this.gameIsRunning = false;
 
+        // this should go well for most screens ig
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final int scaledWidth = (int) (screenSize.width * SIZE_SCALE);
+        final int proportionalHeight = (int) (scaledWidth / ASPECT_RATIO);
+
         this.mainFrame = new JFrame("Papa's Burgeria");
+        this.mainFrame.setSize(scaledWidth, proportionalHeight);
+        this.mainFrame.setLocationRelativeTo(null);
         this.mainFrame.setLayout(new BorderLayout());
         this.mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.mainFrame.addWindowListener(new WindowAdapter() {
@@ -53,8 +63,6 @@ public class GameViewImpl implements GameView {
                 endGame();
             }
         });
-        this.mainFrame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        this.mainFrame.setLocationRelativeTo(null);
 
         /*
             In case SceneService has views implemented from different sources (like a secondary window),
@@ -88,7 +96,7 @@ public class GameViewImpl implements GameView {
     private void onFrameUpdated(final double delta) {
         this.views.forEach(view -> view.update(delta));
         if (this.currentView != null) {
-            this.currentView.repaint();
+            this.currentView.getGamePanel().repaint();
         }
     }
 
@@ -103,6 +111,7 @@ public class GameViewImpl implements GameView {
 
         this.gameIsRunning = true;
         this.mainFrame.setVisible(true);
+        this.mainFrame.toFront();
         this.lastFrameTime = System.nanoTime();
         this.frameUpdate.start();
         this.gameController.startGame();

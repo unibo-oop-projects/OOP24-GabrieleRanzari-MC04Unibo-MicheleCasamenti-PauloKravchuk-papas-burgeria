@@ -45,7 +45,7 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         this.staticBackground = new JLabel();
 
         this.gamePanel.setBackground(new Color(0, 0, 0, 0));
-        this.interfacePanel.setBackground(Color.BLUE);
+        this.interfacePanel.setBackground(new Color(0, 0, 0, 0));
 
         // calling .add of the super-class JLayeredPane, this.add can be overridden
         super.add(this.staticBackground, DEFAULT_LAYER);

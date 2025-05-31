@@ -4,11 +4,11 @@ import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.EnumMap;
-import java.util.Collections;
 
 /**
  * Stores the unlock schedule of ingredients.
@@ -48,5 +48,6 @@ public final class UnlockSchedule {
     /**
      * Default constructor, private to prevent instantiation.
      */
-    private UnlockSchedule() { }
+    private UnlockSchedule() {
+    }
 }

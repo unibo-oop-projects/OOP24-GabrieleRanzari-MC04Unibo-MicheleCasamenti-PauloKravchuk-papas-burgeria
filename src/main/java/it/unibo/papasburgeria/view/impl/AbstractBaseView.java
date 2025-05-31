@@ -6,9 +6,8 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.Serial;
 
@@ -44,13 +43,18 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         this.interfacePanel = new JPanel();
         this.staticBackground = new JLabel();
 
-        this.gamePanel.setBackground(new Color(0, 0, 0, 0));
-        this.interfacePanel.setBackground(new Color(0, 0, 0, 0));
+        final Color backgroundsColor = new Color(0, 0, 0, 0);
+        this.staticBackground.setBackground(backgroundsColor);
+        this.gamePanel.setBackground(backgroundsColor);
+        this.interfacePanel.setBackground(backgroundsColor);
 
-        // calling .add of the super-class JLayeredPane, this.add can be overridden
-        super.add(this.staticBackground, DEFAULT_LAYER);
-        super.add(this.gamePanel, PALETTE_LAYER);
-        super.add(this.interfacePanel, MODAL_LAYER);
+        super.setLayout(new BorderLayout());
+        super.add(this.staticBackground, BorderLayout.CENTER, DEFAULT_LAYER);
+        super.add(this.gamePanel, BorderLayout.CENTER, PALETTE_LAYER);
+        super.add(this.interfacePanel, BorderLayout.CENTER, MODAL_LAYER);
+
+        super.revalidate();
+        super.setVisible(false);
     }
 
     /**
@@ -69,30 +73,6 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
      * @param g the Graphics object to protect
      */
     abstract void paintComponentDelegate(Graphics g);
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void showScene() {
-        this.setVisible(true);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void hideScene() {
-        this.setVisible(false);
-    }
-
-    @Override
-    public void doLayout() {
-        final Dimension size = this.getSize();
-        for (final Component c : getComponents()) {
-            c.setBounds(0, 0, size.width, size.height);
-        }
-    }
 
     /**
      * Retrieves the base game panel for rendering game content.

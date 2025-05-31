@@ -5,7 +5,9 @@ import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import org.tinylog.Logger;
 
 import javax.swing.JButton;
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.io.Serial;
 
 /**
@@ -31,12 +33,14 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      */
     @Inject
     public BurgerAssemblyViewImpl(final BurgerAssemblyController controller) {
+        Logger.info("BurgerAssembly created");
         this.controller = controller;
-        final JButton button = new JButton("Burger Assembly");
-        //button.setBounds(X, Y, W, H);
-        button.setSize(W, H);
 
-        super.getInterfacePanel().setLayout(new BorderLayout());
+        super.getInterfacePanel().setLayout(new FlowLayout());
+        super.getInterfacePanel().setBackground(Color.RED);
+
+        final JButton button = new JButton("Lettuce");
+        button.setSize(W, H);
         super.getInterfacePanel().add(button);
     }
 
@@ -46,6 +50,14 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
     @Override
     void update(final double delta) {
         Logger.info("BurgerAssembly updated, last frame: " + delta);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    final void paintComponentDelegate(final Graphics g) {
+
     }
 
     /**

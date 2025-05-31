@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.Graphics;
 import java.io.Serial;
 
 /**
@@ -28,7 +28,19 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
      * and an overlay interface panel for UI components.
      */
     AbstractBaseView() {
-        this.gamePanel = new JPanel();
+        this.gamePanel = new JPanel() {
+            @Serial
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+
+                // template method ig, not sure if this is the best way to do it
+                AbstractBaseView.this.paintComponentDelegate(g);
+            }
+        };
+
         this.interfacePanel = new JPanel();
         this.staticBackground = new JLabel();
 
@@ -39,25 +51,6 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         super.add(this.staticBackground, DEFAULT_LAYER);
         super.add(this.gamePanel, PALETTE_LAYER);
         super.add(this.interfacePanel, MODAL_LAYER);
-
-        super.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(final ComponentEvent e) {
-                updatePanelSizes();
-            }
-
-            @Override
-            public void componentShown(final ComponentEvent e) {
-                updatePanelSizes();
-            }
-        });
-    }
-
-    private void updatePanelSizes() {
-        final Dimension size = this.getSize();
-        this.staticBackground.setSize(size.width, size.height);
-        this.gamePanel.setSize(size.width, size.height);
-        this.interfacePanel.setSize(size.width, size.height);
     }
 
     /**
@@ -68,6 +61,14 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
      * @param delta time that has elapsed since the last call in seconds
      */
     abstract void update(double delta);
+
+    /**
+     * Called within the game interface's paintComponent override, to
+     * allow subclasses to implement their own painting.
+     *
+     * @param g the Graphics object to protect
+     */
+    abstract void paintComponentDelegate(Graphics g);
 
     /**
      * @inheritDoc
@@ -83,6 +84,14 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     @Override
     public void hideScene() {
         this.setVisible(false);
+    }
+
+    @Override
+    public void doLayout() {
+        final Dimension size = this.getSize();
+        for (final Component c : getComponents()) {
+            c.setBounds(0, 0, size.width, size.height);
+        }
     }
 
     /**

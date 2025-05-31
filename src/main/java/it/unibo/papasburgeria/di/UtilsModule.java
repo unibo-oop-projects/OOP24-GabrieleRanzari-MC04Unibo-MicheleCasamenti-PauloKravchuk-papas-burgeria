@@ -2,9 +2,11 @@ package it.unibo.papasburgeria.di;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
+import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
+import it.unibo.papasburgeria.utils.impl.resource.ResourceServiceImpl;
 import it.unibo.papasburgeria.view.impl.MenuViewImpl;
 
 /**
@@ -23,5 +25,6 @@ class UtilsModule extends AbstractModule {
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);
+        bind(ResourceService.class).to(ResourceServiceImpl.class);
     }
 }

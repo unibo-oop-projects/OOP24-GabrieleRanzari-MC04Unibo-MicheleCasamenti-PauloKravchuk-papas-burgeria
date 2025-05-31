@@ -6,7 +6,7 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import java.awt.Color;
+// import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -32,8 +32,8 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         this.interfacePanel = new JPanel();
         this.staticBackground = new JLabel();
 
-        this.gamePanel.setBackground(new Color(0, 0, 0, 0));
-        this.interfacePanel.setBackground(new Color(0, 0, 0, 0));
+        //this.gamePanel.setBackground(new Color(0, 0, 0, 0));
+        //this.interfacePanel.setBackground(new Color(0, 0, 0, 0));
 
         // calling .add of the super-class JLayeredPane, this.add can be overridden
         super.add(this.staticBackground, DEFAULT_LAYER);

@@ -2,8 +2,11 @@ package it.unibo.papasburgeria.view.impl;
 
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 
+import javax.swing.Icon;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -16,8 +19,9 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final JPanel gamePanel;
-    private final JPanel interfacePanel;
+    private final JLabel staticBackground; // static background layer
+    private final JPanel gamePanel; // layer that gets repainted
+    private final JPanel interfacePanel; // static interface layer
 
     /**
      * Constructs itself as a JLayeredPane, having a base game panel to be redrawn
@@ -26,10 +30,15 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     AbstractBaseView() {
         this.gamePanel = new JPanel();
         this.interfacePanel = new JPanel();
+        this.staticBackground = new JLabel();
+
+        this.gamePanel.setBackground(new Color(0, 0, 0, 0));
+        this.interfacePanel.setBackground(new Color(0, 0, 0, 0));
 
         // calling .add of the super-class JLayeredPane, this.add can be overridden
-        super.add(this.gamePanel, DEFAULT_LAYER);
-        super.add(this.interfacePanel, PALETTE_LAYER);
+        super.add(this.staticBackground, DEFAULT_LAYER);
+        super.add(this.gamePanel, PALETTE_LAYER);
+        super.add(this.interfacePanel, MODAL_LAYER);
 
         super.addComponentListener(new ComponentAdapter() {
             @Override
@@ -45,9 +54,10 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     }
 
     private void updatePanelSizes() {
-        final Dimension size = super.getSize();
-        this.gamePanel.setBounds(0, 0, size.width, size.height);
-        this.interfacePanel.setBounds(0, 0, size.width, size.height);
+        final Dimension size = this.getSize();
+        this.staticBackground.setSize(size.width, size.height);
+        this.gamePanel.setSize(size.width, size.height);
+        this.interfacePanel.setSize(size.width, size.height);
     }
 
     /**
@@ -91,5 +101,19 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
      */
     JPanel getInterfacePanel() {
         return interfacePanel;
+    }
+
+    /**
+     * Sets an image icon as a background to be displayed in this view.
+     *
+     * @param imageIcon image to display
+     */
+    void setStaticBackgroundImage(final Icon imageIcon) {
+        if (imageIcon == null) {
+            throw new IllegalArgumentException("ImageIcon cannot be null");
+        }
+
+        staticBackground.setIcon(imageIcon);
+        this.repaint();
     }
 }

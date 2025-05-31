@@ -10,7 +10,7 @@ import org.tinylog.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -28,12 +28,14 @@ public class GameViewImpl implements GameView {
     private static final int FRAMERATE = 1;
     //
     private final GameController gameController;
-    private final JFrame mainFrame;
-    private final Timer frameUpdate;
     private final List<AbstractBaseView> views;
+    //
+    private final JFrame mainFrame;
+    private final CardLayout cardLayout;
+    private final Timer frameUpdate;
+    private AbstractBaseView currentView;
     private boolean gameIsRunning;
     private long lastFrameTime;
-    private AbstractBaseView currentView;
 
     /**
      * Initializes the starting view instance.
@@ -53,9 +55,10 @@ public class GameViewImpl implements GameView {
         final int proportionalHeight = (int) (scaledWidth / ASPECT_RATIO);
 
         this.mainFrame = new JFrame("Papa's Burgeria");
+        this.cardLayout = new CardLayout();
         this.mainFrame.setSize(scaledWidth, proportionalHeight);
         this.mainFrame.setLocationRelativeTo(null);
-        this.mainFrame.setLayout(new BorderLayout());
+        this.mainFrame.setLayout(cardLayout);
         this.mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.mainFrame.addWindowListener(new WindowAdapter() {
             @Override
@@ -74,13 +77,16 @@ public class GameViewImpl implements GameView {
         for (final BaseScene scene : scenes) {
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
-                this.mainFrame.add((AbstractBaseView) scene, BorderLayout.CENTER);
+                this.mainFrame.add((AbstractBaseView) scene);
             }
         }
 
         sceneService.onSceneChanged(scene -> {
             if (scene instanceof AbstractBaseView) {
-                this.currentView = (AbstractBaseView) scene;
+                currentView = (AbstractBaseView) scene;
+                currentView.revalidate();
+
+                cardLayout.show(mainFrame.getContentPane(), currentView.getClass().getSimpleName());
             }
         });
 

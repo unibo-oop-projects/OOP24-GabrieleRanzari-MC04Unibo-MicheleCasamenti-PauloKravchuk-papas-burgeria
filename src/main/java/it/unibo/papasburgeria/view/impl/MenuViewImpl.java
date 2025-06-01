@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import org.tinylog.Logger;
 
 import javax.swing.JButton;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.io.Serial;
@@ -21,10 +20,7 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Inject
     public MenuViewImpl() {
-        Logger.info("MenuView created");
-
         super.getInterfacePanel().setLayout(new FlowLayout());
-        super.getInterfacePanel().setBackground(Color.BLUE);
 
         final JButton button = new JButton("Start Game");
         button.setSize(100, 100 / 2);
@@ -36,7 +32,7 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     void update(final double delta) {
-        Logger.info("MenuView updated, last frame: " + delta);
+        Logger.debug("MenuView update");
     }
 
     @Override

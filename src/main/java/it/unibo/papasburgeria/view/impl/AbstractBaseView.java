@@ -6,8 +6,9 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.Serial;
 
@@ -45,16 +46,29 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
 
         final Color backgroundsColor = new Color(0, 0, 0, 0);
         this.staticBackground.setBackground(backgroundsColor);
+        this.staticBackground.setOpaque(true);
         this.gamePanel.setBackground(backgroundsColor);
+        this.gamePanel.setOpaque(false);
         this.interfacePanel.setBackground(backgroundsColor);
+        this.interfacePanel.setOpaque(false);
 
-        super.setLayout(new BorderLayout());
-        super.add(this.staticBackground, BorderLayout.CENTER, DEFAULT_LAYER);
-        super.add(this.gamePanel, BorderLayout.CENTER, PALETTE_LAYER);
-        super.add(this.interfacePanel, BorderLayout.CENTER, MODAL_LAYER);
+        super.add(this.staticBackground, DEFAULT_LAYER);
+        super.add(this.gamePanel, PALETTE_LAYER);
+        super.add(this.interfacePanel, MODAL_LAYER);
 
         super.revalidate();
         super.setVisible(false);
+    }
+
+    /**
+     * Override to make sure children panels/label are always scaled to 1.
+     */
+    @Override
+    public void doLayout() {
+        final Dimension size = this.getSize();
+        for (final Component component : this.getComponents()) {
+            component.setSize(size.width, size.height);
+        }
     }
 
     /**
@@ -92,6 +106,10 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         return interfacePanel;
     }
 
+    JLabel getStaticBackground() {
+        return staticBackground;
+    }
+
     /**
      * Sets an image icon as a background to be displayed in this view.
      *
@@ -102,7 +120,8 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
             throw new IllegalArgumentException("ImageIcon cannot be null");
         }
 
-        staticBackground.setIcon(imageIcon);
+        this.staticBackground.setIcon(imageIcon);
+        this.revalidate();
         this.repaint();
     }
 }

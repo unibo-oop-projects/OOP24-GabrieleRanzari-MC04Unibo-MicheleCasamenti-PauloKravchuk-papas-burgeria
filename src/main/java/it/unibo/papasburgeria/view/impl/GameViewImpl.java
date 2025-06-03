@@ -19,13 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @inheritDoc
+ * Implementation of GameView.
+ *
+ * <p>
+ * See {@link GameView} for interface details.
  */
 @Singleton
 public class GameViewImpl implements GameView {
     private static final double ASPECT_RATIO = 16.0 / 9.0;
     private static final double SIZE_SCALE = 0.7; // in %
-    private static final int FRAMERATE = 1;
+    private static final int FRAMERATE = 60;
     //
     private final GameController gameController;
     private final List<AbstractBaseView> views;

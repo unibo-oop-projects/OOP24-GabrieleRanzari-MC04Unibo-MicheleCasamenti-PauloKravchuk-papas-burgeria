@@ -3,12 +3,15 @@ package it.unibo.papasburgeria.model.impl;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.inject.Singleton;
+
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.CustomerManager;
 
 /**
- * Manages the lines of customers in the shop.
+ * @inheritDoc
  */
+@Singleton
 public class CustomerManagerImpl implements CustomerManager {
     private final List<Customer> registerLine = new LinkedList<>();
     private final List<Customer> waitLine = new LinkedList<>();
@@ -62,8 +65,9 @@ public class CustomerManagerImpl implements CustomerManager {
     }
 
     /**
-     * Clears both Register line and Wait line.
+     * @inheritDoc
      */
+    @Override
     public void clearLines() {
         clearRegisterLine();
         clearWaitLine();
@@ -83,5 +87,13 @@ public class CustomerManagerImpl implements CustomerManager {
     @Override
     public void clearWaitLine() {
         waitLine.clear();
-    } 
+    }
+
+    /**
+     * @return a string containing all customer in each line.
+     */
+    @Override
+    public String toString() {
+        return "[CustomerManager: [registerLine=" + registerLine.toString() + "], [waitLine=" + waitLine.toString() + "] ]";
+    }
 }

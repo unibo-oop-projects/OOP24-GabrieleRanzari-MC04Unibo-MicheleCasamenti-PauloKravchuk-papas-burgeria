@@ -44,4 +44,9 @@ public interface CustomerManager {
      * Empties the Wait line.
      */
     void clearWaitLine();
+
+    /**
+     * Empties both lines.
+     */
+    void clearLines();
 }

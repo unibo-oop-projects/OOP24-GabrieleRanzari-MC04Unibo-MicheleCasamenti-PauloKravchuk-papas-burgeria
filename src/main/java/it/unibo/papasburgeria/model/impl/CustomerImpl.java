@@ -20,4 +20,12 @@ public class CustomerImpl implements Customer {
     public Order getOrder() {
         return order;
     }
+
+    /**
+     * @return a customer's order and type.
+     */
+    @Override
+    public String toString() {
+        return "[Customer: [ " + order + "] ]";
+    }
 }

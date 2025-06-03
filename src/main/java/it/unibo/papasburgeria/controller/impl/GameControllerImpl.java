@@ -8,7 +8,10 @@ import jakarta.inject.Inject;
 import org.tinylog.Logger;
 
 /**
- * @inheritDoc
+ * Implementation of GameController.
+ *
+ * <p>
+ * See {@link GameController} for interface details.
  */
 public class GameControllerImpl implements GameController {
     private final GameModel model;

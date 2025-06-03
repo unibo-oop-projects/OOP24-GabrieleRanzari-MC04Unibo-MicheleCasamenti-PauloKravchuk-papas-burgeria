@@ -15,7 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @inheritDoc
+ * Implementation of ResourceService.
+ *
+ * <p>
+ * See {@link ResourceService} for interface details.
  */
 @Singleton
 public class ResourceServiceImpl implements ResourceService {

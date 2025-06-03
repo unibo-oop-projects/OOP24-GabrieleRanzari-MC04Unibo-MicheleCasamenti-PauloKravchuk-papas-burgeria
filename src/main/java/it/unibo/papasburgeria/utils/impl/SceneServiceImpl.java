@@ -12,7 +12,10 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
- * Implementation of the {@link  it.unibo.papasburgeria.utils.api.scene.SceneService  SceneService} interface.
+ * Implementation of SceneService.
+ *
+ * <p>
+ * See {@link SceneService} for interface details.
  */
 @Singleton
 public class SceneServiceImpl implements SceneService {

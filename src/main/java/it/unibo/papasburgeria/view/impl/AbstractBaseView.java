@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.view.impl;
 
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -10,18 +9,28 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.io.Serial;
 
 /**
- * Base class for the views.
+ * Base class for the views. An extension of JLayeredPane,
+ * with an implementation of methods to act as a scene as well.
+ *
+ * <p>
+ * See {@link BaseScene} for interface details.
  */
 abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
+    static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0, 0);
+    static final Color DEFAULT_BUTTON_BACKGROUND_COLOR = new Color(40, 122, 33);
+    static final Color DEFAULT_BUTTON_TEXT_COLOR = Color.WHITE;
+
     @Serial
     private static final long serialVersionUID = 1L;
-
     private final JLabel staticBackground; // static background layer
     private final JPanel gamePanel; // layer that gets repainted
     private final JPanel interfacePanel; // static interface layer
+
+    private Image backgroundImage;
 
     /**
      * Constructs itself as a JLayeredPane, having a base game panel to be redrawn
@@ -42,14 +51,23 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         };
 
         this.interfacePanel = new JPanel();
-        this.staticBackground = new JLabel();
+        this.staticBackground = new JLabel() {
+            // this is called at each frame due to the interfacePanel & gamePanel being opaque
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
 
-        final Color backgroundsColor = new Color(0, 0, 0, 0);
-        this.staticBackground.setBackground(backgroundsColor);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+
+        this.staticBackground.setBackground(DEFAULT_BACKGROUND_COLOR);
         this.staticBackground.setOpaque(true);
-        this.gamePanel.setBackground(backgroundsColor);
+        this.gamePanel.setBackground(DEFAULT_BACKGROUND_COLOR);
         this.gamePanel.setOpaque(false);
-        this.interfacePanel.setBackground(backgroundsColor);
+        this.interfacePanel.setBackground(DEFAULT_BACKGROUND_COLOR);
         this.interfacePanel.setOpaque(false);
 
         super.add(this.staticBackground, DEFAULT_LAYER);
@@ -106,22 +124,16 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         return interfacePanel;
     }
 
-    JLabel getStaticBackground() {
-        return staticBackground;
-    }
-
     /**
      * Sets an image icon as a background to be displayed in this view.
      *
      * @param imageIcon image to display
      */
-    void setStaticBackgroundImage(final Icon imageIcon) {
+    void setStaticBackgroundImage(final Image imageIcon) {
         if (imageIcon == null) {
             throw new IllegalArgumentException("ImageIcon cannot be null");
         }
 
-        this.staticBackground.setIcon(imageIcon);
-        this.revalidate();
-        this.repaint();
+        this.backgroundImage = imageIcon;
     }
 }

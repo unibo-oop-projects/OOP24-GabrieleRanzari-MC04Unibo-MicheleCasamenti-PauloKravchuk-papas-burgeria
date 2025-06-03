@@ -12,7 +12,7 @@ public interface ResourceService {
     /**
      * Used to retrieve an image resource in a cached way.
      *
-     * @param imagePath path to the image
+     * @param imagePath path component of <code>resources/images/[path]</code>
      * @return the BufferedImage instance
      */
     BufferedImage getImage(String imagePath);
@@ -20,7 +20,7 @@ public interface ResourceService {
     /**
      * Used to retrieve sound resources of short length to be used as sfx in a cached way.
      *
-     * @param soundPath path to the sound
+     * @param soundPath path component of <code>resources/sfx/[path]</code>
      * @return the Clip instance
      */
     Clip getSoundEffect(String soundPath);

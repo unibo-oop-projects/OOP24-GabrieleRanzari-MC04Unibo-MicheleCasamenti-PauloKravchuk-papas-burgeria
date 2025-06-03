@@ -8,7 +8,10 @@ import jakarta.inject.Inject;
 import org.tinylog.Logger;
 
 /**
- * @inheritDoc
+ * Implementation of GameController.
+ *
+ * <p>
+ * See {@link GameController} for interface details.
  */
 public class GameControllerImpl implements GameController {
     private final GameModel model;
@@ -18,8 +21,8 @@ public class GameControllerImpl implements GameController {
     /**
      * Constructs the controller with its model and several utility classes like for scene-switching or resource disposing.
      *
-     * @param model        the GameModel manager
-     * @param sceneService service required to handle scenes
+     * @param model           the GameModel manager
+     * @param sceneService    service required to handle scenes
      * @param resourceService service required to handle resources
      */
     @Inject

@@ -15,10 +15,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @inheritDoc
+ * Implementation of ResourceService.
+ *
+ * <p>
+ * See {@link ResourceService} for interface details.
  */
 @Singleton
 public class ResourceServiceImpl implements ResourceService {
+    private static final String IMAGE_PATH = "images/";
+    private static final String SFX_PATH = "sfx/";
+
     private final Map<String, BufferedImage> imageCache;
     private final Map<String, Clip> sfxCache;
 
@@ -38,7 +44,7 @@ public class ResourceServiceImpl implements ResourceService {
         validateProvidedPath(imagePath);
 
         return this.imageCache.computeIfAbsent(imagePath, path -> {
-            try (InputStream inputStream = getFile(path)) {
+            try (InputStream inputStream = getFile(IMAGE_PATH + path)) {
                 return ImageIO.read(inputStream);
             } catch (final IOException exception) {
                 throw new ResourceLoadException("Exception while attempting read: " + path, exception);
@@ -54,7 +60,7 @@ public class ResourceServiceImpl implements ResourceService {
         validateProvidedPath(soundPath);
 
         return this.sfxCache.computeIfAbsent(soundPath, path -> {
-            try (InputStream inputStream = getFile(path)) {
+            try (InputStream inputStream = getFile(SFX_PATH + path)) {
                 final Clip clip = AudioSystem.getClip();
                 clip.open(AudioSystem.getAudioInputStream(inputStream));
                 return clip;

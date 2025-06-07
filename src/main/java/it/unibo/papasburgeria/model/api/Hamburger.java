@@ -16,4 +16,11 @@ public interface Hamburger {
      * @return all the ingredient added to the burger
      */
     List<Ingredient> getIngredients();
+
+    /**
+     * Removes the last ingredient added.
+     *
+     * @return true if the removal was successful.
+     */
+    boolean removeLastIngredient();
 }

@@ -36,7 +36,7 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     void update(final double delta) {
-        Logger.info("MenuView updated, last frame: " + delta);
+        //Logger.info("MenuView updated, last frame: " + delta);
     }
 
     @Override

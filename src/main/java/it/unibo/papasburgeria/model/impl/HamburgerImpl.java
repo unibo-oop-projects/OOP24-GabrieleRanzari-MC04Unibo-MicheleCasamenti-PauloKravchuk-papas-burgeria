@@ -78,12 +78,24 @@ public class HamburgerImpl implements Hamburger {
         }
 
         if (!ingredientList.isEmpty()
-                && ingredientList.get(ingredientList.size() - 1).getIngredientType().equals(IngredientEnum.TOP_BUN)) {
+                && ingredientList.getLast().getIngredientType().equals(IngredientEnum.TOP_BUN)) {
             return false;
         }
 
         ingredientList.add(ingredient);
         return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean removeLastIngredient() {
+        if (!ingredientList.isEmpty()) {
+            ingredientList.removeLast();
+            return true;
+        }
+        return false;
     }
 
     /**

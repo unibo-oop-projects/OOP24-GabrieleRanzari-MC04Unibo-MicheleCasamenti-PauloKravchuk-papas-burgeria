@@ -2,27 +2,34 @@ package it.unibo.papasburgeria.controller.impl;
 
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
+import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import jakarta.inject.Inject;
 import org.tinylog.Logger;
 
 /**
- * @inheritDoc
+ * Implementation of GameController.
+ *
+ * <p>
+ * See {@link GameController} for interface details.
  */
 public class GameControllerImpl implements GameController {
     private final GameModel model;
-    private final SceneServiceImpl sceneService;
+    private final SceneService sceneService;
+    private final ResourceService resourceService;
 
     /**
-     * Secondary constructor.
+     * Constructs the controller with its model and several utility classes like for scene-switching or resource disposing.
      *
-     * @param model        the GameModel manager
-     * @param sceneService service requires to handle scenes
+     * @param model           the GameModel manager
+     * @param sceneService    service required to handle scenes
+     * @param resourceService service required to handle resources
      */
     @Inject
-    public GameControllerImpl(final GameModel model, final SceneServiceImpl sceneService) {
+    public GameControllerImpl(final GameModel model, final SceneService sceneService, final ResourceService resourceService) {
         this.model = model;
         this.sceneService = sceneService;
+        this.resourceService = resourceService;
     }
 
     /**
@@ -39,6 +46,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void endGame() {
+        resourceService.dispose();
         Logger.info("Game ended");
     }
 }

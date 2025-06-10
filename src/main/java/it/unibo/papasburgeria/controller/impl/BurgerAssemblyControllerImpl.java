@@ -20,13 +20,12 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     private final Hamburger hamburger;
 
     /**
-     * Default constructor.
-     *
-     * @param hamburger the current hamburger in assembly.
+     * Default constructor, creates a new empty hamburger.
      */
     @Inject
-    public BurgerAssemblyControllerImpl(final Hamburger hamburger) {
-        this.hamburger = new HamburgerImpl(hamburger.getIngredients());
+    public BurgerAssemblyControllerImpl() {
+        this.hamburger = new HamburgerImpl();
+        this.hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOM_BUN));
     }
 
     /**
@@ -37,7 +36,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
         final Ingredient ingredient = new IngredientImpl(ingredientType);
 
         if (hamburger.addIngredient(ingredient)) {
-            Logger.info("Ingredient added successfully");
+            Logger.info("Ingredient (" + ingredient.getIngredientType() + " added successfully");
         } else {
             Logger.error("Ingredient can't be added");
         }

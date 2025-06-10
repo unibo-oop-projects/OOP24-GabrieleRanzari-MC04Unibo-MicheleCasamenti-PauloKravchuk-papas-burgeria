@@ -5,7 +5,6 @@ import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.controller.impl.BurgerAssemblyControllerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.impl.HamburgerImpl;
 import org.tinylog.Logger;
 
 import javax.swing.JButton;
@@ -47,7 +46,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
     @Inject
     public BurgerAssemblyViewImpl(final BurgerAssemblyController controller) {
         Logger.info("BurgerAssembly created");
-        this.controller = new BurgerAssemblyControllerImpl(new HamburgerImpl(controller.getIngredients()));
+        this.controller = new BurgerAssemblyControllerImpl();
 
         super.getInterfacePanel().setLayout(null);
         super.getInterfacePanel().setBackground(Color.RED);
@@ -61,7 +60,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
             final int y = BUTTON_Y_INITIAL_POSITION + (BUTTON_HEIGHT + BUTTON_Y_SPACING) * row;
             button.setBounds(x, y, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-            button.addActionListener(e -> controller.addIngredient(ingredient));
+            button.addActionListener(e -> this.controller.addIngredient(ingredient));
 
             super.getInterfacePanel().add(button);
 
@@ -90,7 +89,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      */
     @Override
     void update(final double delta) {
-        //Logger.info("BurgerAssembly updated, last frame: " + delta);
+        Logger.info("BurgerAssembly updated, last frame: " + delta);
         hamburgerTextArea.setText(controller.getIngredients().toString());
     }
 

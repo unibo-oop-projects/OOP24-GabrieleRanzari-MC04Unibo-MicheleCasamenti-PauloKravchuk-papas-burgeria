@@ -15,7 +15,7 @@ import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 public class GameModelImpl implements GameModel {
     public static final int START_DAY = FIRST_DAY.ordinal();
     private static final int MAX_DAYS = Integer.MAX_VALUE;
-    private final CustomerManager customerManager;
+    private final CustomerManager customerManager; //TODO Move to relative controller.
 
     private int currentDay;
 
@@ -59,7 +59,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @return a string containing the current day, TODO.
+     * @return a string containing the current day and the customer manager.
      */
     @Override
     public String toString() {

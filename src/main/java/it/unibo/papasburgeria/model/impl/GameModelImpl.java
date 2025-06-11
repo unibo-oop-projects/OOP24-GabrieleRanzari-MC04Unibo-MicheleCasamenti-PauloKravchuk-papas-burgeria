@@ -3,7 +3,6 @@ package it.unibo.papasburgeria.model.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import it.unibo.papasburgeria.model.api.CustomerManager;
 import it.unibo.papasburgeria.model.api.GameModel;
 
 import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
@@ -15,7 +14,6 @@ import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 public class GameModelImpl implements GameModel {
     public static final int START_DAY = FIRST_DAY.ordinal();
     private static final int MAX_DAYS = Integer.MAX_VALUE;
-    private final CustomerManager customerManager; //TODO Move to relative controller.
 
     private int currentDay;
 
@@ -25,7 +23,6 @@ public class GameModelImpl implements GameModel {
     @Inject
     public GameModelImpl() {
         this.currentDay = START_DAY;
-        this.customerManager = new CustomerManagerImpl();
     }
 
     /**
@@ -37,7 +34,6 @@ public class GameModelImpl implements GameModel {
             throw new IllegalStateException("Cannot advance beyond day " + MAX_DAYS);
         } else {
             currentDay++;
-            customerManager.clearLines();
         }
     }
 
@@ -55,14 +51,13 @@ public class GameModelImpl implements GameModel {
     @Override
     public void reset() {
         this.currentDay = START_DAY;
-        customerManager.clearLines();
     }
 
     /**
-     * @return a string containing the current day and the customer manager.
+     * @return a string containing the current day.
      */
     @Override
     public String toString() {
-        return "[currentDay=" + currentDay + " , " + customerManager + "]";
+        return "[currentDay=" + currentDay + "]";
     }
 }

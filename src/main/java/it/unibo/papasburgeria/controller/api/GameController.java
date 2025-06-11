@@ -13,4 +13,9 @@ public interface GameController {
      * Handles the ending of the game backend.
      */
     void endGame();
+
+    /**
+     * Advances the current game state to the next day.
+     */
+    void nextDay();
 }

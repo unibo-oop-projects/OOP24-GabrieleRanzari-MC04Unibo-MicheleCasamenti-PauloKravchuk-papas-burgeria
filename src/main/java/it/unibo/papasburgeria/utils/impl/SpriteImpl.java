@@ -1,7 +1,7 @@
-package it.unibo.papasburgeria.utils.api.scene;
+package it.unibo.papasburgeria.utils.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.utils.api.loading.Sprite;
+import it.unibo.papasburgeria.utils.api.Sprite;
 
 import javax.swing.ImageIcon;
 import java.awt.Graphics;

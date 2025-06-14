@@ -1,4 +1,4 @@
-package it.unibo.papasburgeria.utils.api.loading;
+package it.unibo.papasburgeria.utils.api;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 

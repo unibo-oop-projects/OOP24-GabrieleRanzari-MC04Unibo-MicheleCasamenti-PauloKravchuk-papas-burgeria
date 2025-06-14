@@ -7,8 +7,8 @@ import it.unibo.papasburgeria.controller.impl.BurgerAssemblyControllerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.impl.PantryModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
-import it.unibo.papasburgeria.utils.api.loading.Sprite;
-import it.unibo.papasburgeria.utils.api.scene.SpriteImpl;
+import it.unibo.papasburgeria.utils.api.Sprite;
+import it.unibo.papasburgeria.utils.impl.SpriteImpl;
 import org.tinylog.Logger;
 
 import java.awt.Graphics;

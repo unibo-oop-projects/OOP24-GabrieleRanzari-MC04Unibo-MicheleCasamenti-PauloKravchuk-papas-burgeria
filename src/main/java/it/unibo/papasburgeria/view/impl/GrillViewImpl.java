@@ -1,29 +1,61 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.unibo.papasburgeria.controller.api.GrillController;
+import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.Sprite;
+import it.unibo.papasburgeria.utils.impl.SpriteDragManager;
+import it.unibo.papasburgeria.utils.impl.SpriteImpl;
 import org.tinylog.Logger;
 
 import java.awt.Graphics;
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Manages the GUI for the grill scene in the game.
  */
+@Singleton
+@SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
+        justification = "controller is injected and shared intentionally; views are not serialized at runtime"
+)
 public class GrillViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
+    private final transient Sprite patty;
+    private final transient GrillController controller;
+    private final transient List<Sprite> patties;
+
 
     /**
      * Default constructor, creates and initializes the UI elements.
      *
      * @param resourceService the service that handles resource obtainment.
+     * @param controller the grill controller.
      */
     @Inject
-    public GrillViewImpl(final ResourceService resourceService) {
-        Logger.info("GrillView created");
+    public GrillViewImpl(final ResourceService resourceService, final GrillController controller) {
+        this.controller = controller;
+        patties = new ArrayList<>();
+        Logger.info("Grill created");
+
+        final double pbPositionXScale = 0.2;
+        final double pbPositionYScale = 0.2;
+        final double pbSizeXScale = 0.2;
+        final double pbSizeYScale = 0.2;
 
         super.setStaticBackgroundImage(resourceService.getImage("grill_background.png"));
+
+        patty = new SpriteImpl(resourceService.getImage("patty_raw.png"), IngredientEnum.PATTY,
+                pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
+        patties.add(patty);
+
+        new SpriteDragManager(this, patties);
     }
 
     /**
@@ -39,7 +71,19 @@ public class GrillViewImpl extends AbstractBaseView {
      */
     @Override
     void paintComponentDelegate(final Graphics g) {
+        for (final Sprite pattySprite : patties) {
+            drawPatty(pattySprite, g);
+        }
+    }
 
+    /**
+     * Draws a sprite.
+     *
+     * @param pattySprite the sprite of the patty to draw
+     * @param g the graphics
+     */
+    final void drawPatty(final Sprite pattySprite, final Graphics g) {
+        pattySprite.draw(getSize(), g);
     }
 
     /**
@@ -47,7 +91,7 @@ public class GrillViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        Logger.info("GrillView shown");
+        Logger.info("Grill shown");
     }
 
     /**
@@ -55,6 +99,6 @@ public class GrillViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        Logger.info("GrillView hidden");
+        Logger.info("Grill hidden");
     }
 }

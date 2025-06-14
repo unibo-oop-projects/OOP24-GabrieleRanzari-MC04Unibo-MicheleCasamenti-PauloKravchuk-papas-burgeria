@@ -2,6 +2,7 @@ package it.unibo.papasburgeria.utils.api;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -20,29 +21,46 @@ public interface Sprite {
     IngredientEnum getIngredientType();
 
     /**
+     * @param frameWidth the width of the frame
+     *
      * @return the x position.
      */
-    int getX();
+    int calculateX(int frameWidth);
 
     /**
+     * @param frameHeight the height of the frame
+     *
      * @return the y position.
      */
-    int getY();
+    int calculateY(int frameHeight);
 
     /**
+     * @param frameWidth the width of the frame
+     *
      * @return the width.
      */
-    int getWidth();
+    int calculateWidth(int frameWidth);
 
     /**
+     * @param frameHeight the height of the frame
+     *
      * @return the height.
      */
-    int getHeight();
+    int calculateHeight(int frameHeight);
 
     /**
-     * draws the image. If the ingredient is not unlocked, it will draw a lock.
-     *
-     * @param g the graphic component
+     * @param newPbPositionXScale the new value of PositionXScale to set.
      */
-    void draw(Graphics g);
+    void setPbPositionXScale(double newPbPositionXScale);
+
+    /**
+     * @param newPbPositionYScale the new value of PositionYScale to set.
+     */
+    void setPbPositionYScale(double newPbPositionYScale);
+
+    /**
+     * @param frameSize the sizes of the frame.
+     * @param g the graphics where to draw.
+     */
+    void draw(Dimension frameSize, Graphics g);
 }

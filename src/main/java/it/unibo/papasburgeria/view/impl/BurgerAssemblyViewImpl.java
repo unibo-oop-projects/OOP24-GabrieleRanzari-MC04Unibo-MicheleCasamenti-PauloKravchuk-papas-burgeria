@@ -2,30 +2,34 @@ package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
-import it.unibo.papasburgeria.controller.impl.BurgerAssemblyControllerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.impl.PantryModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.Sprite;
+import it.unibo.papasburgeria.utils.impl.SpriteDragManager;
 import it.unibo.papasburgeria.utils.impl.SpriteImpl;
 import org.tinylog.Logger;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Manages the GUI for the burger assembly scene in the game.
  */
 @Singleton
+@SuppressFBWarnings(
+        value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
+        justification = "controller is injected and shared intentionally; views are not serialized at runtime"
+)
 public class BurgerAssemblyViewImpl extends AbstractBaseView {
-    private static final int X = 200;
-    private static final int Y = 300;
 
     @Serial
     private static final long serialVersionUID = 1L;
-    private final transient Sprite bottomBun;
+    private final transient List<Sprite> draggableSprites;
     private final transient BurgerAssemblyController controller;
     private final transient Image horizontalLock;
     private final transient Image verticalLock;
@@ -34,18 +38,33 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      * Default constructor, creates and initializes the UI elements.
      *
      * @param resourceService the service that handles resource obtainment.
+     * @param controller the burger assembly controller.
      */
     @Inject
-    public BurgerAssemblyViewImpl(final ResourceService resourceService) {
-        this.controller = new BurgerAssemblyControllerImpl(new PantryModelImpl()); //TODO fix this.controller = controller;
-        Logger.info("BurgerAssemblyView created");
+    public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller) {
+        this.controller = controller;
+        draggableSprites = new ArrayList<>();
+        Logger.info("BurgerAssembly created");
 
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
-        bottomBun = new SpriteImpl(resourceService.getImage("BBQ_bottle.png"), IngredientEnum.BBQ, X, Y);
-        //bottomBun = new SpriteImpl(resourceService.getImage("bottom_bun.png"), IngredientEnum.ONION, X, Y);
+
+        final double pbPositionXScale = 0.4;
+        final double pbPositionYScale = 0.65;
+        final double pbSizeXScale = 0.2;
+        final double pbSizeYScale = 0.2;
+
+        final Sprite bottomBun = new SpriteImpl(resourceService.getImage("bottom_bun.png"), IngredientEnum.BOTTOM_BUN,
+                pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
+        draggableSprites.add(bottomBun);
+
+        final Sprite topBun = new SpriteImpl(resourceService.getImage("top_bun.png"), IngredientEnum.TOP_BUN,
+                pbPositionXScale + pbSizeXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
+        draggableSprites.add(topBun);
 
         horizontalLock = resourceService.getImage("horizontal_lock.png");
         verticalLock = resourceService.getImage("vertical_lock.png");
+
+        new SpriteDragManager(this, draggableSprites);
     }
 
     /**
@@ -61,7 +80,9 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      */
     @Override
     final void paintComponentDelegate(final Graphics g) {
-        drawSprite(bottomBun, g);
+        for (final Sprite sprite : draggableSprites) {
+            drawIngredient(sprite, g);
+        }
     }
 
     /**
@@ -70,14 +91,18 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      * @param sprite the sprite to draw
      * @param g the graphics
      */
-    final void drawSprite(final Sprite sprite, final Graphics g) {
-        g.drawImage(sprite.getImage(), sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), null);
+    final void drawIngredient(final Sprite sprite, final Graphics g) {
+        final int frameWidth = getWidth();
+        final int frameHeight = getHeight();
+        sprite.draw(getSize(), g);
+
         if (!controller.isIngredientUnlocked(sprite.getIngredientType())) {
-            if (sprite.getWidth() > sprite.getHeight()) {
-                g.drawImage(horizontalLock, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), null);
-            } else {
-                g.drawImage(verticalLock, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight(), null);
+            Image lock = horizontalLock;
+            if (sprite.calculateWidth(frameWidth) < sprite.calculateHeight(frameHeight)) {
+                lock = verticalLock;
             }
+            g.drawImage(lock, sprite.calculateX(frameWidth), sprite.calculateY(frameHeight),
+                    sprite.calculateWidth(frameWidth), sprite.calculateHeight(frameHeight), null);
         }
     }
 
@@ -86,7 +111,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        Logger.info("BurgerAssemblyView shown");
+        Logger.info("BurgerAssembly shown");
     }
 
     /**
@@ -94,6 +119,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        Logger.info("BurgerAssemblyView hidden");
+        Logger.info("BurgerAssembly hidden");
     }
 }

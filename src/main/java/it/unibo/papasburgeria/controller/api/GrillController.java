@@ -34,5 +34,19 @@ public interface GrillController {
      * @param patty the patty to flip.
      */
     void flipPatty(Patty patty);
+
+    /**
+     * Cooks the face the patty that is on the grill, keeping count of the FPS.
+     *
+     * @param patty the patty to cook.
+     */
+    void cookPatty(Patty patty);
+
+    /**
+     * Cooks all the patties on the grill.
+     *
+     * @param patties the patties on the grill.
+     */
+    void cookPattiesOnGrill(Patty[][] patties);
 }
 

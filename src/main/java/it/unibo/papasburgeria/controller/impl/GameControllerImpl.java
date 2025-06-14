@@ -1,5 +1,6 @@
 package it.unibo.papasburgeria.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.api.CustomerManager;
 import it.unibo.papasburgeria.model.api.GameModel;
@@ -16,6 +17,7 @@ import org.tinylog.Logger;
  * <p>
  * See {@link GameController} for interface details.
  */
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class GameControllerImpl implements GameController {
     private final GameModel model;
     private final SceneService sceneService;
@@ -48,7 +50,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public void startGame() {
         Logger.info("Game started" + model);
-        sceneService.switchTo("Grill");
+        sceneService.switchTo("BurgerAssembly");
     }
 
     /**

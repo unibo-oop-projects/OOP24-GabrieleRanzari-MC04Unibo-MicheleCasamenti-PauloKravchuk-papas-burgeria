@@ -16,6 +16,7 @@ public class GameModelImpl implements GameModel {
     private static final int MAX_DAYS = Integer.MAX_VALUE;
 
     private int currentDay;
+    private int cookLevelPerSecond;
 
     /**
      * Default constructor, initializes currentDay with the starting day.
@@ -23,6 +24,7 @@ public class GameModelImpl implements GameModel {
     @Inject
     public GameModelImpl() {
         this.currentDay = START_DAY;
+        this.cookLevelPerSecond = 2;
     }
 
     /**
@@ -43,6 +45,22 @@ public class GameModelImpl implements GameModel {
     @Override
     public int getCurrentDay() {
         return currentDay;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCookLevelPerSecond() {
+        return cookLevelPerSecond;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public final void setCookLevelPerSecond(final int newCookLevelPerSecond) {
+        cookLevelPerSecond = newCookLevelPerSecond;
     }
 
     /**

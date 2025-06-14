@@ -26,9 +26,9 @@ import java.util.List;
  */
 @Singleton
 public class GameViewImpl implements GameView {
-    private static final double ASPECT_RATIO = 16.0 / 9.0;
+    public static final int FRAMERATE = 60;
+    public static final double ASPECT_RATIO = 16.0 / 9.0;
     private static final double SIZE_SCALE = 0.7; // in %
-    private static final int FRAMERATE = 60;
     //
     private final GameController gameController;
     private final List<AbstractBaseView> views;

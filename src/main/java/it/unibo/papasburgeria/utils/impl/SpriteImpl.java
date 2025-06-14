@@ -4,6 +4,7 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.utils.api.Sprite;
 
 import javax.swing.ImageIcon;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -13,54 +14,30 @@ import java.awt.Image;
 public class SpriteImpl implements Sprite {
     private final Image image;
     private final IngredientEnum ingredientType;
-    private final int x;
-    private final int y;
-    private final int width;
-    private final int height;
+    private final double pbSizeXScale;
+    private final double pbSizeYScale;
+    private double pbPositionXScale;
+    private double pbPositionYScale;
 
     /**
-     * Default constructor, stores an image and it's coordinates using the original size.
+     * Default constructor, stores an image, its coordinates in % and its size in %.
      *
      * @param image the image
      * @param ingredientType the type of the ingredient
-     * @param x the x position
-     * @param y the y position
+     * @param pbPositionXScale the x position
+     * @param pbPositionYScale the y position
+     * @param pbSizeXScale the width of the image
+     * @param pbSizeYScale the height of the image
      */
-    public SpriteImpl(final Image image, final IngredientEnum ingredientType, final int x, final int y) {
+    public SpriteImpl(final Image image, final IngredientEnum ingredientType,
+                      final double pbPositionXScale, final double pbPositionYScale,
+                      final double pbSizeXScale, final double pbSizeYScale) {
         this.image = new ImageIcon(image).getImage();
         this.ingredientType = ingredientType;
-        this.x = x;
-        this.y = y;
-        this.width = image.getWidth(null);
-        this.height = image.getHeight(null);
-    }
-
-    /**
-     * Second constructor, stores an image, its coordinates and the new size.
-     *
-     * @param image the image
-     * @param ingredientType the type of the ingredient
-     * @param x the x position
-     * @param y the y position
-     * @param width the width of the image
-     * @param height the height of the image
-     */
-    public SpriteImpl(final Image image, final IngredientEnum ingredientType, final int x, final int y,
-                      final int width, final int height) {
-        this.image = new ImageIcon(image).getImage();
-        this.ingredientType = ingredientType;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void draw(final Graphics g) {
-
+        this.pbPositionXScale = pbPositionXScale;
+        this.pbPositionYScale = pbPositionYScale;
+        this.pbSizeXScale = pbSizeXScale;
+        this.pbSizeYScale = pbSizeYScale;
     }
 
     /**
@@ -83,31 +60,63 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public int getX() {
-        return x;
+    public int calculateX(final int frameWidth) {
+        return (int) (frameWidth * pbPositionXScale);
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public int getY() {
-        return y;
+    public int calculateY(final int frameHeight) {
+        return (int) (frameHeight * pbPositionYScale);
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public int getWidth() {
-        return width;
+    public int calculateWidth(final int frameWidth) {
+        return (int) (frameWidth * pbSizeXScale);
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public int getHeight() {
-        return height;
+    public int calculateHeight(final int frameHeight) {
+        return (int) (frameHeight * pbSizeYScale);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbPositionXScale(final double newPbPositionXScale) {
+        pbPositionXScale = newPbPositionXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbPositionYScale(final double newPbPositionYScale) {
+        pbPositionYScale = newPbPositionYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void draw(final Dimension frameSize, final Graphics g) {
+        final int frameWidth = frameSize.width;
+        final int frameHeight = frameSize.height;
+
+        final int x = calculateX(frameWidth);
+        final int y = calculateY(frameHeight);
+        final int width = calculateWidth(frameWidth);
+        final int height = calculateHeight(frameHeight);
+
+        g.drawImage(getImage(), x, y, width, height, null);
     }
 }

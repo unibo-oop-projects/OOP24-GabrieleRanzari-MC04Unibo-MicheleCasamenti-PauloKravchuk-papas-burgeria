@@ -48,7 +48,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public void startGame() {
         Logger.info("Game started" + model);
-        sceneService.switchTo("BurgerAssembly");
+        sceneService.switchTo("Grill");
     }
 
     /**

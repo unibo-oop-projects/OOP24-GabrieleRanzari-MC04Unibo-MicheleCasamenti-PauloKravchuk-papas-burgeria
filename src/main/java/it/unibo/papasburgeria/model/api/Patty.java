@@ -7,7 +7,7 @@ public interface Patty {
     /**
      * Flips the patty changing the boolean value.
      */
-    void flipPatty();
+    void flip();
 
     /**
      * @return true if the patty is flipped.

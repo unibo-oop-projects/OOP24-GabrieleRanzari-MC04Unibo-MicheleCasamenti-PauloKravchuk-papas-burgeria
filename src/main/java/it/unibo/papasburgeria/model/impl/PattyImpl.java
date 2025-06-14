@@ -25,7 +25,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
      * @inheritDoc
      */
     @Override
-    public void flipPatty() {
+    public void flip() {
         flipped = !flipped;
     }
 

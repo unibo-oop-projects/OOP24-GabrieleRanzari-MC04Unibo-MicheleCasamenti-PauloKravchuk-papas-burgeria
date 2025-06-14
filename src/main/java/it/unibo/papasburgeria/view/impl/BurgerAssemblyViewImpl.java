@@ -38,7 +38,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService) {
         this.controller = new BurgerAssemblyControllerImpl(new PantryModelImpl()); //TODO fix this.controller = controller;
-        Logger.info("BurgerAssembly created");
+        Logger.info("BurgerAssemblyView created");
 
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
         bottomBun = new SpriteImpl(resourceService.getImage("BBQ_bottle.png"), IngredientEnum.BBQ, X, Y);

@@ -48,7 +48,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * Removes the last ingredient added to the hamburger.
+     * @inheritDoc
      */
     @Override
     public void removeLastIngredient() {
@@ -67,7 +67,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @return the list of ingredients of the current Hamburger.
+     * @inheritDoc
      */
     @Override
     public List<Ingredient> getIngredients() {
@@ -75,7 +75,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @param ingredientType the ingredient
+     * @inheritDoc
      * @return true if the ingredient is unlocked
      */
     @Override

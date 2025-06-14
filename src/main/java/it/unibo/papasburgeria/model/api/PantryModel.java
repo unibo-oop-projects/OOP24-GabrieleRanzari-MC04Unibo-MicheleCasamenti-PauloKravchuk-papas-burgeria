@@ -24,4 +24,10 @@ public interface PantryModel {
      * Resets the unlock progress to only the base ingredients.
      */
     void resetUnlocks();
+
+    /**
+     * @param ingredientType the ingredient
+     * @return true if the ingredient is unlocked
+     */
+    boolean isIngredientUnlocked(IngredientEnum ingredientType);
 }

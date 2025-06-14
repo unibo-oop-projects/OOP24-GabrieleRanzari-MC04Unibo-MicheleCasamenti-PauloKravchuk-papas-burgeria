@@ -30,7 +30,7 @@ public class GameControllerImpl implements GameController {
      * @param model           the GameModel manager
      * @param sceneService    service required to handle scenes
      * @param resourceService service required to handle resources
-     * @param pantryModel     the model that stores witch ingredients are unlocked
+     * @param pantryModel     the model that stores which ingredients are unlocked
      */
     @Inject
     public GameControllerImpl(final GameModel model, final SceneService sceneService, final ResourceService resourceService,

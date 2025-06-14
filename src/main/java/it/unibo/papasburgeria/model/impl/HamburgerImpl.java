@@ -55,8 +55,8 @@ public class HamburgerImpl implements Hamburger {
                 do {
                     final IngredientEnum ingredientType
                             = currentIngredients.get((int) (Math.random() * currentIngredients.size()));
-                    if (IngredientEnum.MEAT.equals(ingredientType)) {
-                        ingredient = new MeatImpl();
+                    if (IngredientEnum.PATTY.equals(ingredientType)) {
+                        ingredient = new PattyImpl();
                     } else {
                         ingredient = new IngredientImpl(ingredientType);
                     }

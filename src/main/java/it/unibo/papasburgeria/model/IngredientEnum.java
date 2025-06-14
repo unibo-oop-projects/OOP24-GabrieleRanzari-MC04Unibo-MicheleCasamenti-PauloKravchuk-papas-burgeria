@@ -6,7 +6,7 @@ package it.unibo.papasburgeria.model;
 public enum IngredientEnum {
     BOTTOM_BUN,
     TOP_BUN,
-    MEAT,
+    PATTY,
     ONION,
     LETTUCE,
     PICKLE,

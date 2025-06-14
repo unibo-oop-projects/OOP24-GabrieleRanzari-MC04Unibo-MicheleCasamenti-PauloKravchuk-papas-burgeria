@@ -7,6 +7,8 @@ import it.unibo.papasburgeria.model.api.Ingredient;
  * Class for creating a simple ingredient.
  */
 public class IngredientImpl implements Ingredient {
+    public static final int NOT_SET = -1;
+
     private final IngredientEnum type;
     private double accuracy;
 
@@ -15,11 +17,20 @@ public class IngredientImpl implements Ingredient {
      */
     public IngredientImpl(final IngredientEnum type) {
         this.type = type;
-        accuracy = 1.0;
+        accuracy = NOT_SET;
     }
 
     /**
-     * @return type of the ingredient.
+     * @param type the type of the ingredient.
+     * @param accuracy the accuracy compared to the bottom bun.
+     */
+    public IngredientImpl(final IngredientEnum type, final double accuracy) {
+        this.type = type;
+        this.accuracy = accuracy;
+    }
+
+    /**
+     * @return the type of the ingredient.
      */
     @Override
     public IngredientEnum getIngredientType() {
@@ -27,7 +38,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @return how accurately the ingredient was positioned in the hamburger.
+     * @return a value between 1.0 and 0.0 indicating how precisely the ingredient was placed.
      */
     @Override
     public double getPlacementAccuracy() {
@@ -35,11 +46,11 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @param setAccuracy how accurately the ingredient was positioned in the hamburger.
+     * @param newAccuracy the new accuracy compared to the bottom bun.
      */
     @Override
-    public void setPlacementAccuracy(final double setAccuracy) {
-        this.accuracy = setAccuracy;
+    public void setPlacementAccuracy(final double newAccuracy) {
+        this.accuracy = newAccuracy;
     }
 
     /**
@@ -47,7 +58,7 @@ public class IngredientImpl implements Ingredient {
      */
     @Override
     public String toString() {
-        return "[ type:" + this.getIngredientType() + ", acc:" + this.getPlacementAccuracy() + " ]";
+        return "[ type:" + this.getIngredientType() + ", accuracy:" + this.getPlacementAccuracy() + " ]";
     }
 
 }

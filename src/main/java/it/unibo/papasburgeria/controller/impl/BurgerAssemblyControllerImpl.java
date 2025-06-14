@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.impl.HamburgerImpl;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import org.tinylog.Logger;
@@ -18,14 +19,17 @@ import java.util.List;
 @Singleton
 public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     private final Hamburger hamburger;
+    private final PantryModel pantryModel;
 
     /**
      * Default constructor, creates a new empty hamburger.
+     *
+     * @param pantryModel the model containing the list of unlocked ingredients.
      */
     @Inject
-    public BurgerAssemblyControllerImpl() {
+    public BurgerAssemblyControllerImpl(final PantryModel pantryModel) {
         this.hamburger = new HamburgerImpl();
-        this.hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOM_BUN));
+        this.pantryModel = pantryModel;
     }
 
     /**
@@ -34,11 +38,12 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     @Override
     public void addIngredient(final IngredientEnum ingredientType) {
         final Ingredient ingredient = new IngredientImpl(ingredientType);
+        final String ingredientDescription = "Ingredient (" + ingredient.getIngredientType() + ") ";
 
         if (hamburger.addIngredient(ingredient)) {
-            Logger.info("Ingredient (" + ingredient.getIngredientType() + " added successfully");
+            Logger.info(ingredientDescription + "added successfully");
         } else {
-            Logger.error("Ingredient can't be added");
+            Logger.error(ingredientDescription + "can't be added");
         }
     }
 
@@ -47,10 +52,17 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public void removeLastIngredient() {
+        String ingredientDescription = "Ingredient (EMPTY)";
+
+        if (!hamburger.getIngredients().isEmpty()) {
+            final Ingredient last = hamburger.getIngredients().getLast();
+            ingredientDescription = "Ingredient (" + last.getIngredientType() + ")";
+        }
+
         if (hamburger.removeLastIngredient()) {
-            Logger.info("Ingredient removed successfully");
+            Logger.info(ingredientDescription + " removed successfully");
         } else {
-            Logger.error("Ingredient can't be removed");
+            Logger.error(ingredientDescription + " could not be removed");
         }
     }
 
@@ -60,6 +72,15 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     @Override
     public List<Ingredient> getIngredients() {
         return List.copyOf(hamburger.getIngredients());
+    }
+
+    /**
+     * @param ingredientType the ingredient
+     * @return true if the ingredient is unlocked
+     */
+    @Override
+    public boolean isIngredientUnlocked(final IngredientEnum ingredientType) {
+        return pantryModel.isIngredientUnlocked(ingredientType);
     }
 
     /**

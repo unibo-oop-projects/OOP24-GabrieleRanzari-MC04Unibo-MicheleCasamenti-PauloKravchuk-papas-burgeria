@@ -26,4 +26,10 @@ public interface BurgerAssemblyController {
      * @return the list of ingredients of the current Hamburger.
      */
     List<Ingredient> getIngredients();
+
+    /**
+     * @param ingredientType the ingredient
+     * @return true if the ingredient is unlocked
+     */
+    boolean isIngredientUnlocked(IngredientEnum ingredientType);
 }

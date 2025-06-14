@@ -61,6 +61,15 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
+     * @param ingredientType the ingredient
+     * @return true if the ingredient is unlocked
+     */
+    @Override
+    public boolean isIngredientUnlocked(final IngredientEnum ingredientType) {
+        return unlockedIngredients.contains(ingredientType);
+    }
+
+    /**
      * @return a string containing all the unlocked ingredients.
      */
     @Override

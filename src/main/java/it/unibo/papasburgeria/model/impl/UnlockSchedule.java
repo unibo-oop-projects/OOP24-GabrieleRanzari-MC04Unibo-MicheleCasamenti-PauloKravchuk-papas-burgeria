@@ -23,7 +23,7 @@ public final class UnlockSchedule {
         map.put(DaysEnum.FIRST_DAY, EnumSet.of(
                 IngredientEnum.BOTTOM_BUN,
                 IngredientEnum.TOP_BUN,
-                IngredientEnum.MEAT,
+                IngredientEnum.PATTY,
                 IngredientEnum.CHEESE,
                 IngredientEnum.KETCHUP
         ));

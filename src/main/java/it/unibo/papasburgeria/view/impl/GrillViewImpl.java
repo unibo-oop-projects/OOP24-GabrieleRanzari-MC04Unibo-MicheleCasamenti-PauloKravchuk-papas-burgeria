@@ -44,10 +44,10 @@ public class GrillViewImpl extends AbstractBaseView {
         patties = new ArrayList<>();
         Logger.info("Grill created");
 
-        final double pbPositionXScale = 0.2;
-        final double pbPositionYScale = 0.2;
-        final double pbSizeXScale = 0.2;
-        final double pbSizeYScale = 0.2;
+        final double pbPositionXScale = 0.028;
+        final double pbPositionYScale = 0.78;
+        final double pbSizeXScale = 0.15;
+        final double pbSizeYScale = 0.15;
 
         super.setStaticBackgroundImage(resourceService.getImage("grill_background.png"));
 

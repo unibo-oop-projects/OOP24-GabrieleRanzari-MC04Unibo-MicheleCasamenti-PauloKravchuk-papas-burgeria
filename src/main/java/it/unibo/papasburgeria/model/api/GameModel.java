@@ -13,6 +13,16 @@ public interface GameModel {
     void nextDay();
 
     /**
+     * @return the hamburger on assembly
+     */
+    Hamburger getHamburgerOnAssembly();
+
+    /**
+     * @return the matrix of patties that are on the grill.
+     */
+    Patty[][] getPattiesOnGrill();
+
+    /**
      * @return the current day number.
      */
     int getCurrentDay();
@@ -21,6 +31,16 @@ public interface GameModel {
      * @return the cook level increased every second for the patties.
      */
     int getCookLevelPerSecond();
+
+    /**
+     * @param hamburger the new hamburger on assembly.
+     */
+    void setHamburgerOnAssembly(Hamburger hamburger);
+
+    /**
+     * @param patties the matrix of patties on the grill.
+     */
+    void setPattiesOnGrill(Patty[][] patties);
 
     /**
      * @param cookLevelPerSecond the cook level increased every second for the patties to set.

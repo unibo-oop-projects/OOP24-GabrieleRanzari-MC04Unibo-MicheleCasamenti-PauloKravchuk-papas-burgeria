@@ -16,9 +16,6 @@ import java.util.Objects;
 @Singleton
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class GrillControllerImpl implements GrillController {
-    private static final int GRILL_ROWS = 4;
-    private static final int GRILL_COLUMNS = 3;
-
     private final GameModel model;
 
     /**

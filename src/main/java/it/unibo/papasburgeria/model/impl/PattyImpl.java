@@ -22,6 +22,18 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
+     * Constructor for coping another patty.
+     *
+     * @param patty the patty to copy.
+     */
+    public PattyImpl(final Patty patty) {
+        super(IngredientEnum.PATTY);
+        topCookLevel = patty.getTopCookLevel();
+        bottomCookLevel = patty.getBottomCookLevel();
+        flipped = patty.isFlipped();
+    }
+
+    /**
      * @inheritDoc
      */
     @Override

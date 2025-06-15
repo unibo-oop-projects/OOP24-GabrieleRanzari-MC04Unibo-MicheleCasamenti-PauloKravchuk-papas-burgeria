@@ -50,8 +50,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView {
 
         final double pbPositionXScale = 0.4;
         final double pbPositionYScale = 0.65;
-        final double pbSizeXScale = 0.2;
-        final double pbSizeYScale = 0.2;
+        final double pbSizeXScale = 0.15;
+        final double pbSizeYScale = 0.15;
 
         final Sprite bottomBun = new SpriteImpl(resourceService.getImage("bottom_bun.png"), IngredientEnum.BOTTOM_BUN,
                 pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);

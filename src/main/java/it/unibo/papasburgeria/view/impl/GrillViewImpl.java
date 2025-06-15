@@ -7,7 +7,7 @@ import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.Sprite;
-import it.unibo.papasburgeria.utils.impl.SpriteDragManager;
+import it.unibo.papasburgeria.utils.impl.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.utils.impl.SpriteImpl;
 import org.tinylog.Logger;
 
@@ -55,7 +55,7 @@ public class GrillViewImpl extends AbstractBaseView {
                 pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
         patties.add(patty);
 
-        new SpriteDragManager(this, patties);
+        new SpriteDragManagerImpl(this, patties);
     }
 
     /**

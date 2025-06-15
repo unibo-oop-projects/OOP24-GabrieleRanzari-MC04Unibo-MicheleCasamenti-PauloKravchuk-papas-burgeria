@@ -13,7 +13,7 @@ import java.util.List;
  * Manages the drag component of the sprites.
  */
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Component is used in read-only fashion")
-public class SpriteDragManager implements MouseListener, MouseMotionListener {
+public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener {
     private final Component component;
     private final List<Sprite> sprites;
     private Sprite draggedSprite;
@@ -24,7 +24,7 @@ public class SpriteDragManager implements MouseListener, MouseMotionListener {
      * @param component the panel where to listen from.
      * @param sprites the list of draggable sprites.
      */
-    public SpriteDragManager(final Component component, final List<Sprite> sprites) {
+    public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites) {
         this.component = component;
         this.sprites = List.copyOf(sprites);
         component.addMouseListener(this);

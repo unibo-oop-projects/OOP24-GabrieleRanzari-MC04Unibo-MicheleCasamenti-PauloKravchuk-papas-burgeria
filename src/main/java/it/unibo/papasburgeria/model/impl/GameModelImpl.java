@@ -15,9 +15,10 @@ import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 @Singleton
 public class GameModelImpl implements GameModel {
     public static final int START_DAY = FIRST_DAY.ordinal();
+    public static final int GRILL_ROWS = 4;
+    public static final int GRILL_COLUMNS = 3;
+
     private static final int MAX_DAYS = Integer.MAX_VALUE;
-    private static final int GRILL_ROWS = 4;
-    private static final int GRILL_COLUMNS = 3;
     private static final int DEFAULT_COOK_SPEED = 2;
 
     private Hamburger hamburgerOnAssembly;

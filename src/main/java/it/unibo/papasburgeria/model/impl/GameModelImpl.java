@@ -3,6 +3,7 @@ package it.unibo.papasburgeria.model.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
@@ -41,6 +42,15 @@ public class GameModelImpl implements GameModel {
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
+
+        cookedPatties.add(new PattyImpl());
+        cookedPatties.add(new PattyImpl());
+        cookedPatties.add(new PattyImpl());
+
+        hamburgerOnAssembly.addIngredient(new IngredientImpl(IngredientEnum.BOTTOM_BUN, IngredientImpl.PERFECT_ACCURACY));
+        hamburgerOnAssembly.addIngredient(new IngredientImpl(IngredientEnum.PATTY, IngredientImpl.PERFECT_ACCURACY));
+        hamburgerOnAssembly.addIngredient(new IngredientImpl(IngredientEnum.CHEESE, IngredientImpl.PERFECT_ACCURACY));
+        hamburgerOnAssembly.addIngredient(new IngredientImpl(IngredientEnum.KETCHUP, IngredientImpl.PERFECT_ACCURACY));
     }
 
     /**

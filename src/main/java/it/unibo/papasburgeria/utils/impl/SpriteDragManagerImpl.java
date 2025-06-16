@@ -2,6 +2,8 @@ package it.unibo.papasburgeria.utils.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.utils.api.Sprite;
+import it.unibo.papasburgeria.utils.api.SpriteDropListener;
+import it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -16,6 +18,7 @@ import java.util.List;
 public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener {
     private final Component component;
     private final List<Sprite> sprites;
+    private final SpriteDropListener dropListener;
     private Sprite draggedSprite;
     private int dragOffsetX;
     private int dragOffsetY;
@@ -23,10 +26,13 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     /**
      * @param component the panel where to listen from.
      * @param sprites the list of draggable sprites.
+     * @param spriteDropListener the listener for if sprites are dropped.
      */
-    public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites) {
+    public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites,
+                                 final SpriteDropListener spriteDropListener) {
         this.component = component;
-        this.sprites = List.copyOf(sprites);
+        this.sprites = sprites;
+        this.dropListener = spriteDropListener;
         component.addMouseListener(this);
         component.addMouseMotionListener(this);
     }
@@ -48,7 +54,16 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
             final int spriteHeight = sprite.calculateHeight(component.getHeight());
             if (mouseX >= spriteX && mouseX <= spriteX + spriteWidth
                     && mouseY >= spriteY && mouseY <= spriteY + spriteHeight) {
-                draggedSprite = sprite;
+                if (!sprite.isDraggable()) {
+                    final SpriteImpl copy = new SpriteImpl(sprite);
+                    if (BurgerAssemblyViewImpl.SAUCES.contains(sprite.getIngredientType())) {
+                        copy.flipImageVertically();
+                    }
+                    sprites.add(copy);
+                    draggedSprite = copy;
+                } else {
+                    draggedSprite = sprite;
+                }
                 dragOffsetX = mouseX - spriteX;
                 dragOffsetY = mouseY - spriteY;
                 break;
@@ -61,7 +76,10 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
      */
     @Override
     public void mouseReleased(final MouseEvent event) {
-        draggedSprite = null;
+        if (draggedSprite != null) {
+            dropListener.spriteDropped(draggedSprite);
+            draggedSprite = null;
+        }
     }
 
     /**

@@ -14,9 +14,11 @@ public interface BurgerAssemblyController {
     /**
      * Adds the ingredient to the current hamburger.
      *
-     * @param ingredientType the type of ingredient to add.
+     * @param ingredient the ingredient to add.
+     *
+     * @return true if the ingredient was added.
      */
-    void addIngredient(IngredientEnum ingredientType);
+    boolean addIngredient(Ingredient ingredient);
 
     /**
      * Removes the last ingredient added to the hamburger.

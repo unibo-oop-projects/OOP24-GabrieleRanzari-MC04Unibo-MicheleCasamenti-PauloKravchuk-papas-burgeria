@@ -7,6 +7,7 @@ import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.Sprite;
+import it.unibo.papasburgeria.utils.api.SpriteDropListener;
 import it.unibo.papasburgeria.utils.impl.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.utils.impl.SpriteImpl;
 import org.tinylog.Logger;
@@ -24,7 +25,7 @@ import java.util.List;
         value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
-public class GrillViewImpl extends AbstractBaseView {
+public class GrillViewImpl extends AbstractBaseView implements SpriteDropListener {
     @Serial
     private static final long serialVersionUID = 1L;
     private final transient Sprite patty;
@@ -55,7 +56,7 @@ public class GrillViewImpl extends AbstractBaseView {
                 pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
         patties.add(patty);
 
-        new SpriteDragManagerImpl(this, patties);
+        new SpriteDragManagerImpl(this, patties, this);
     }
 
     /**
@@ -100,5 +101,13 @@ public class GrillViewImpl extends AbstractBaseView {
     @Override
     public void hideScene() {
         Logger.info("Grill hidden");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void spriteDropped(final Sprite sprite) {
+        Logger.info("Patty dropped");
     }
 }

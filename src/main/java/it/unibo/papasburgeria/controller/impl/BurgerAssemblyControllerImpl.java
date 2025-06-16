@@ -11,7 +11,6 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.GameModelImpl;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import org.tinylog.Logger;
 
 import java.util.List;
@@ -41,16 +40,17 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * @inheritDoc
      */
     @Override
-    public void addIngredient(final IngredientEnum ingredientType) {
-        final Ingredient ingredient = new IngredientImpl(ingredientType);
+    public boolean addIngredient(final Ingredient ingredient) {
         final String ingredientDescription = "Ingredient (" + ingredient.getIngredientType() + ") ";
         final Hamburger hamburger = model.getHamburgerOnAssembly();
 
         if (hamburger.addIngredient(ingredient)) {
             Logger.info(ingredientDescription + "added successfully");
             model.setHamburgerOnAssembly(hamburger);
+            return true;
         } else {
             Logger.error(ingredientDescription + "can't be added");
+            return false;
         }
     }
 

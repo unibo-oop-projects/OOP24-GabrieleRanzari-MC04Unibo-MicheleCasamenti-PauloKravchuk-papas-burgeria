@@ -41,8 +41,7 @@ public class HamburgerImpl implements Hamburger {
      */
     public static Hamburger generateRandomHamburger(final List<IngredientEnum> availableIngredients) {
         final Hamburger hamburger = new HamburgerImpl();
-        final List<IngredientEnum> currentIngredients = new ArrayList<>();
-        currentIngredients.addAll(availableIngredients);
+        final List<IngredientEnum> currentIngredients = new ArrayList<>(availableIngredients);
         currentIngredients.remove(IngredientEnum.TOP_BUN);
         currentIngredients.remove(IngredientEnum.BOTTOM_BUN);
         hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOM_BUN));
@@ -80,6 +79,10 @@ public class HamburgerImpl implements Hamburger {
         if (!ingredientList.isEmpty()
                 && ingredientList.getLast().getIngredientType().equals(IngredientEnum.TOP_BUN)) {
             return false;
+        }
+
+        if (ingredientList.isEmpty()) {
+            ingredient.setPlacementAccuracy(IngredientImpl.PERFECT_ACCURACY);
         }
 
         ingredientList.add(ingredient);

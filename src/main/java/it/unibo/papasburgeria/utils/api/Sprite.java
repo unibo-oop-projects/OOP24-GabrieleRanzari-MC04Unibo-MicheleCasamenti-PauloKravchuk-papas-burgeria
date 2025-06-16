@@ -11,6 +11,16 @@ import java.awt.Image;
  */
 public interface Sprite {
     /**
+     * @param draggable the new draggable value.
+     */
+    void setDraggable(boolean draggable);
+
+    /**
+     * @return true if draggable
+     */
+    boolean isDraggable();
+
+    /**
      * @return the image.
      */
     Image getImage();
@@ -57,6 +67,41 @@ public interface Sprite {
      * @param newPbPositionYScale the new value of PositionYScale to set.
      */
     void setPbPositionYScale(double newPbPositionYScale);
+
+    /**
+     * @param newPbSizeXScale the new value of SizeXScale to set.
+     */
+    void setPbSizeXScale(double newPbSizeXScale);
+
+    /**
+     * @param newPbSizeYScale the new value of SizeYScale to set.
+     */
+    void setPbSizeYScale(double newPbSizeYScale);
+
+    /**
+     * Flips the image vertically.
+     */
+    void flipImageVertically();
+
+    /**
+     * @return the getPbPositionXScale.
+     */
+    double getPbPositionXScale();
+
+    /**
+     * @return the getPbPositionXScale.
+     */
+    double getPbPositionYScale();
+
+    /**
+     * @return the getPbPositionXScale.
+     */
+    double getPbSizeXScale();
+
+    /**
+     * @return the getPbPositionXScale.
+     */
+    double getPbSizeYScale();
 
     /**
      * @param frameSize the sizes of the frame.

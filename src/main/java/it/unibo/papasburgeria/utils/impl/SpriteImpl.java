@@ -6,18 +6,22 @@ import it.unibo.papasburgeria.utils.api.Sprite;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 /**
  * @inheritDoc
  */
 public class SpriteImpl implements Sprite {
-    private final Image image;
+    private Image image;
     private final IngredientEnum ingredientType;
-    private final double pbSizeXScale;
-    private final double pbSizeYScale;
+    private double pbSizeXScale;
+    private double pbSizeYScale;
     private double pbPositionXScale;
     private double pbPositionYScale;
+    private boolean draggable;
 
     /**
      * Default constructor, stores an image, its coordinates in % and its size in %.
@@ -38,6 +42,38 @@ public class SpriteImpl implements Sprite {
         this.pbPositionYScale = pbPositionYScale;
         this.pbSizeXScale = pbSizeXScale;
         this.pbSizeYScale = pbSizeYScale;
+        draggable = false;
+    }
+
+    /**
+     * Constructor for coping another sprite.
+     *
+     * @param sprite the sprite to copy.
+     */
+    public SpriteImpl(final Sprite sprite) {
+        this.image = sprite.getImage();
+        this.ingredientType = sprite.getIngredientType();
+        this.pbPositionXScale = sprite.getPbPositionXScale();
+        this.pbPositionYScale = sprite.getPbPositionYScale();
+        this.pbSizeXScale = sprite.getPbSizeXScale();
+        this.pbSizeYScale = sprite.getPbSizeYScale();
+        draggable = false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setDraggable(final boolean draggable) {
+        this.draggable = draggable;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isDraggable() {
+        return draggable;
     }
 
     /**
@@ -108,6 +144,74 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbSizeXScale(final double newPbSizeXScale) {
+        pbSizeXScale = newPbSizeXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbSizeYScale(final double newPbSizeYScale) {
+        pbSizeYScale = newPbSizeYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void flipImageVertically() {
+        final int width = image.getWidth(null);
+        final int height = image.getHeight(null);
+
+        final BufferedImage flipped = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        final Graphics2D g = flipped.createGraphics();
+
+        final AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
+        transform.translate(0, -height);
+
+        g.drawImage(image, transform, null);
+        g.dispose();
+
+        image = flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPbPositionXScale() {
+        return pbPositionXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPbPositionYScale() {
+        return pbPositionYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPbSizeXScale() {
+        return pbSizeXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPbSizeYScale() {
+        return pbSizeYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void draw(final Dimension frameSize, final Graphics g) {
         final int frameWidth = frameSize.width;
         final int frameHeight = frameSize.height;
@@ -118,5 +222,19 @@ public class SpriteImpl implements Sprite {
         final int height = calculateHeight(frameHeight);
 
         g.drawImage(getImage(), x, y, width, height, null);
+    }
+
+    /**
+     * @return a string containing the most important variables.
+     */
+    @Override
+    public String toString() {
+        return "[SpriteImpl:"
+                + "[ingredientType: " + ingredientType + "] "
+                + "[pbPositionXScale: " + pbPositionXScale + "] "
+                + "[pbPositionYScale: " + pbPositionYScale + "] "
+                + "[pbSizeXScale: " + pbSizeXScale + "] "
+                + "[pbSizeYScale: " + pbSizeYScale + "]"
+                + "]";
     }
 }

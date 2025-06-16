@@ -7,7 +7,10 @@ import it.unibo.papasburgeria.model.api.Ingredient;
  * Class for creating a simple ingredient.
  */
 public class IngredientImpl implements Ingredient {
-    public static final int NOT_SET = -1;
+    public static final double MAX_RIGHT_ACCURACY = 1.0;
+    public static final double MAX_LEFT_ACCURACY = -MAX_RIGHT_ACCURACY;
+    public static final double PERFECT_ACCURACY = MAX_RIGHT_ACCURACY + MAX_LEFT_ACCURACY;
+    public static final double ACCURACY_NOT_SET = Double.MAX_VALUE;
 
     private final IngredientEnum type;
     private double accuracy;
@@ -17,12 +20,12 @@ public class IngredientImpl implements Ingredient {
      */
     public IngredientImpl(final IngredientEnum type) {
         this.type = type;
-        accuracy = NOT_SET;
+        accuracy = ACCURACY_NOT_SET;
     }
 
     /**
      * @param type the type of the ingredient.
-     * @param accuracy the accuracy compared to the bottom bun.
+     * @param accuracy range from -1.0 to 1.0 indicating how far it is from the centre.
      */
     public IngredientImpl(final IngredientEnum type, final double accuracy) {
         this.type = type;

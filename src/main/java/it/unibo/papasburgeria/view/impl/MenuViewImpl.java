@@ -49,8 +49,6 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        super.showScene();
-
         Logger.info("MenuView shown");
     }
 
@@ -60,7 +58,5 @@ public class MenuViewImpl extends AbstractBaseView {
     @Override
     public void hideScene() {
         Logger.info("MenuView hidden");
-
-        super.hideScene();
     }
 }

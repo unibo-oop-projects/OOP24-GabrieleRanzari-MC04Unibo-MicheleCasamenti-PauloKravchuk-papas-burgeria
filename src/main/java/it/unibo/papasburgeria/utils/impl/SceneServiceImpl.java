@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
-import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

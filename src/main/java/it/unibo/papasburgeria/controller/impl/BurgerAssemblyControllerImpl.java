@@ -9,6 +9,8 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.PantryModel;
+import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.impl.GameModelImpl;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import org.tinylog.Logger;
 
@@ -83,11 +85,42 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
 
     /**
      * @inheritDoc
-     * @return true if the ingredient is unlocked
      */
     @Override
     public boolean isIngredientUnlocked(final IngredientEnum ingredientType) {
         return pantryModel.isIngredientUnlocked(ingredientType);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public List<Patty> getCookedPatties() {
+        return List.copyOf(model.getCookedPatties());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean addCookedPatty(final Patty patty) {
+        final List<Patty> patties = model.getCookedPatties();
+        if (patties.size() == GameModelImpl.MAX_COOKED_PATTIES) {
+            return false;
+        }
+        patties.add(patty);
+        model.setCookedPatties(patties);
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void removeCookedPatty(final Patty patty) {
+        final List<Patty> patties = model.getCookedPatties();
+        patties.remove(patty);
+        model.setCookedPatties(patties);
     }
 
     /**

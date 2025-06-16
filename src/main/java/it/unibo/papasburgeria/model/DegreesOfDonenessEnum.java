@@ -1,5 +1,7 @@
 package it.unibo.papasburgeria.model;
 
+import it.unibo.papasburgeria.model.impl.PattyImpl;
+
 /**
  * Enumeration containing the degrees of doneness for the patties
  * and a string containing its name.
@@ -25,5 +27,25 @@ public enum DegreesOfDonenessEnum {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @param cookLevel the cook level of the face of the patty
+     *
+     * @return the degree of doneness.
+     */
+    public static DegreesOfDonenessEnum calculateDegree(final double cookLevel) {
+        final double value = Math.max(PattyImpl.MIN_COOK_LEVEL, Math.min(PattyImpl.MAX_COOK_LEVEL, cookLevel));
+
+        final DegreesOfDonenessEnum[] values = values();
+        final int num = values.length;
+        final double segment = PattyImpl.MAX_COOK_LEVEL / num;
+
+        int idx = (int) Math.floor(value / segment);
+        if (idx >= num) {
+            idx = num - 1;
+        }
+
+        return values[idx];
     }
 }

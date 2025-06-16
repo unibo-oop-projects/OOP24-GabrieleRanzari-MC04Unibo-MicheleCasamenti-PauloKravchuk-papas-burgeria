@@ -7,6 +7,9 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 
 /**
@@ -17,12 +20,14 @@ public class GameModelImpl implements GameModel {
     public static final int START_DAY = FIRST_DAY.ordinal();
     public static final int GRILL_ROWS = 4;
     public static final int GRILL_COLUMNS = 3;
+    public static final int MAX_COOKED_PATTIES = 5;
 
     private static final int MAX_DAYS = Integer.MAX_VALUE;
     private static final int DEFAULT_COOK_SPEED = 2;
 
     private Hamburger hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
+    private List<Patty> cookedPatties;
     private int currentDay;
     private int cookLevelPerSecond;
 
@@ -35,6 +40,7 @@ public class GameModelImpl implements GameModel {
         this.cookLevelPerSecond = DEFAULT_COOK_SPEED;
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        cookedPatties = new ArrayList<>();
     }
 
     /**
@@ -77,6 +83,14 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
+    public List<Patty> getCookedPatties() {
+        return List.copyOf(cookedPatties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public int getCurrentDay() {
         return currentDay;
     }
@@ -106,6 +120,14 @@ public class GameModelImpl implements GameModel {
         for (int index = 0; index < patties.length; index++) {
             pattiesOnGrill[index] = patties[index].clone();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setCookedPatties(final List<Patty> patties) {
+        cookedPatties = List.copyOf(patties);
     }
 
     /**

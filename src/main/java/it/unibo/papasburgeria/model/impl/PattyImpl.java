@@ -7,6 +7,9 @@ import it.unibo.papasburgeria.model.api.Patty;
  * @inheritDoc
  */
 public class PattyImpl extends IngredientImpl implements Patty {
+    public static final double MAX_COOK_LEVEL = 1.0;
+    public static final double MIN_COOK_LEVEL = 0.0;
+
     private double topCookLevel;
     private double bottomCookLevel;
     private boolean flipped;
@@ -16,8 +19,8 @@ public class PattyImpl extends IngredientImpl implements Patty {
      */
     public PattyImpl() {
         super(IngredientEnum.PATTY);
-        topCookLevel = 0;
-        bottomCookLevel = 0;
+        topCookLevel = MIN_COOK_LEVEL;
+        bottomCookLevel = MIN_COOK_LEVEL;
         flipped = false;
     }
 

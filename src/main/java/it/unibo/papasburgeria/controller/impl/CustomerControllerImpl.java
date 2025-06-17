@@ -1,18 +1,18 @@
-package it.unibo.papasburgeria.model.impl;
+package it.unibo.papasburgeria.controller.impl;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.google.inject.Singleton;
 
+import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.api.Customer;
-import it.unibo.papasburgeria.model.api.CustomerManager;
 
 /**
  * @inheritDoc
  */
 @Singleton
-public class CustomerManagerImpl implements CustomerManager {
+public class CustomerControllerImpl implements CustomerController {
     private final List<Customer> registerLine = new LinkedList<>();
     private final List<Customer> waitLine = new LinkedList<>();
 

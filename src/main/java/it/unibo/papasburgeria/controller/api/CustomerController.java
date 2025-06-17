@@ -1,9 +1,11 @@
-package it.unibo.papasburgeria.model.api;
+package it.unibo.papasburgeria.controller.api;
+
+import it.unibo.papasburgeria.model.api.Customer;
 
 /**
  * Manages the appearance and disappearance of customers.
  */
-public interface CustomerManager {
+public interface CustomerController {
 
     /**
      * @return first customer of register line.

@@ -3,7 +3,6 @@ package it.unibo.papasburgeria.model.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import it.unibo.papasburgeria.model.api.CustomerManager;
 import it.unibo.papasburgeria.model.api.DayManager;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.IngredientUnlocker;
@@ -14,7 +13,6 @@ import it.unibo.papasburgeria.model.api.IngredientUnlocker;
 @Singleton
 public class GameModelImpl implements GameModel {
     private final DayManager dayManager;
-    private final CustomerManager customerManager;
     private final IngredientUnlocker ingredientUnlocker;
 
     /**
@@ -27,7 +25,6 @@ public class GameModelImpl implements GameModel {
     public GameModelImpl(final DayManager dayManager, final IngredientUnlocker ingredientUnlocker) {
         this.dayManager = dayManager;
         this.ingredientUnlocker = ingredientUnlocker;
-        this.customerManager = new CustomerManagerImpl();
     }
 
     /**
@@ -37,7 +34,6 @@ public class GameModelImpl implements GameModel {
     public void nextDay() {
         dayManager.nextDay();
         ingredientUnlocker.unlockForDay(dayManager.getCurrentDay());
-        customerManager.clearLines();
     }
 
     /**
@@ -47,7 +43,6 @@ public class GameModelImpl implements GameModel {
     public void reset() {
         dayManager.resetDays();
         ingredientUnlocker.resetUnlocks();
-        customerManager.clearLines();
     }
 
     /**
@@ -71,6 +66,6 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public String toString() {
-        return "[GameModelImpl: " + dayManager.toString() + ", " + ingredientUnlocker.toString() + " , " + customerManager + "]";
+        return "[GameModelImpl: " + dayManager.toString() + ", " + ingredientUnlocker.toString() + "]";
     }
 }

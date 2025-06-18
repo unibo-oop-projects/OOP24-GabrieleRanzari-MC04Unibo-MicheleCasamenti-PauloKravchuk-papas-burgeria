@@ -1,12 +1,11 @@
 package it.unibo.papasburgeria.model.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.google.inject.Singleton;
-
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.CustomerManager;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @inheritDoc

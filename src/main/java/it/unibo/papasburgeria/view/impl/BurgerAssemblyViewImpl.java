@@ -31,7 +31,7 @@ import java.util.Set;
  */
 @Singleton
 @SuppressFBWarnings(
-        value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
+        value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
@@ -83,7 +83,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Default constructor, creates and initializes the UI elements.
      *
      * @param resourceService the service that handles resource obtainment.
-     * @param controller the burger assembly controller.
+     * @param controller      the burger assembly controller.
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller) {
@@ -195,7 +195,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Draws the hamburger.
      *
      * @param hamburgerIngredients the list of ingredients of the hamburger.
-     * @param g the graphics.
+     * @param g                    the graphics.
      */
     final void drawHamburger(final List<Ingredient> hamburgerIngredients, final Graphics g) {
         final List<Sprite> hamburgerSprites = new ArrayList<>();
@@ -238,7 +238,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Draws a sprite.
      *
      * @param sprite the sprite to draw.
-     * @param g the graphics.
+     * @param g      the graphics.
      */
     final void drawIngredient(final Sprite sprite, final Graphics g) {
         final int frameWidth = getWidth();
@@ -259,7 +259,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Draws the sprites of the patties.
      *
      * @param patties the patties to draw
-     * @param g the graphics
+     * @param g       the graphics
      */
     final void drawPatties(final List<Patty> patties, final Graphics g) {
         double pbPositionYScale = PATTIES_Y_POS_SCALE;
@@ -272,10 +272,10 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     /**
      * Draws the sprite of a patty.
      *
-     * @param patty the patty to draw
+     * @param patty            the patty to draw
      * @param pbPositionYScale the y position in scale
      * @param pbPositionXScale the x position in scale
-     * @param g the graphics
+     * @param g                the graphics
      */
     final void drawPatty(final Patty patty, final double pbPositionYScale, final double pbPositionXScale, final Graphics g) {
         final int frameWidth = getWidth();
@@ -316,7 +316,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * calculates the accuracy given the pbPositionXScale.
      *
      * @param pbPositionXScale the pbPositionXScale of the ingredient.
-     *
      * @return the placement accuracy.
      */
     public double calculateAccuracy(final double pbPositionXScale) {
@@ -330,7 +329,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * calculates the pbPositionXScale given the accuracy.
      *
      * @param accuracy the placement accuracy of the ingredient.
-     *
      * @return the pbPositionXScale.
      */
     public double getPositionXScaleFromAccuracy(final double accuracy) {

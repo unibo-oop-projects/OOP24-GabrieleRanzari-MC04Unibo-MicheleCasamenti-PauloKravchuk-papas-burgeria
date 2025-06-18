@@ -6,8 +6,8 @@ import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
-import it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl;
 import it.unibo.papasburgeria.utils.impl.resource.ResourceServiceImpl;
+import it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl;
 import it.unibo.papasburgeria.view.impl.GrillViewImpl;
 import it.unibo.papasburgeria.view.impl.MenuViewImpl;
 

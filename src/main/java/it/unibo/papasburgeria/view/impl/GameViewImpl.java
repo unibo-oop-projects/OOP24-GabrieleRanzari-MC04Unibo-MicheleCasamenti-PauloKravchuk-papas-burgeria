@@ -80,7 +80,7 @@ public class GameViewImpl implements GameView {
         for (final BaseScene scene : scenes) {
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
-                this.mainFrame.add((AbstractBaseView) scene);
+                this.mainFrame.add((AbstractBaseView) scene, scene.getClass().getSimpleName());
             }
         }
 

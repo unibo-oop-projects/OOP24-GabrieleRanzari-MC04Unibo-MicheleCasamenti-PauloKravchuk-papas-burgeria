@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
@@ -77,6 +76,14 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
+    public void setHamburgerOnAssembly(final Hamburger hamburger) {
+        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Patty[][] getPattiesOnGrill() {
         final Patty[][] copy = new Patty[pattiesOnGrill.length][];
         for (int i = 0; i < pattiesOnGrill.length; i++) {
@@ -87,38 +94,6 @@ public class GameModelImpl implements GameModel {
             }
         }
         return copy;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public List<Patty> getCookedPatties() {
-        return List.copyOf(cookedPatties);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public int getCurrentDay() {
-        return currentDay;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public int getCookLevelPerSecond() {
-        return cookLevelPerSecond;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setHamburgerOnAssembly(final Hamburger hamburger) {
-        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
     }
 
     /**
@@ -136,8 +111,32 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
+    public List<Patty> getCookedPatties() {
+        return List.copyOf(cookedPatties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void setCookedPatties(final List<Patty> patties) {
         cookedPatties = List.copyOf(patties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCookLevelPerSecond() {
+        return cookLevelPerSecond;
     }
 
     /**

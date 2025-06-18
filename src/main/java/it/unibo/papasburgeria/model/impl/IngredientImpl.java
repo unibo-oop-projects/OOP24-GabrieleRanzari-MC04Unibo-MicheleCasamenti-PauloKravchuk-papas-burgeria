@@ -24,7 +24,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @param type the type of the ingredient.
+     * @param type     the type of the ingredient.
      * @param accuracy range from -1.0 to 1.0 indicating how far it is from the centre.
      */
     public IngredientImpl(final IngredientEnum type, final double accuracy) {

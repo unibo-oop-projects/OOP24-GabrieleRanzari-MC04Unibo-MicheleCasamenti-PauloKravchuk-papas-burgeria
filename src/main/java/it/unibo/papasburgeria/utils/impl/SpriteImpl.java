@@ -15,8 +15,8 @@ import java.awt.image.BufferedImage;
  * @inheritDoc
  */
 public class SpriteImpl implements Sprite {
-    private Image image;
     private final IngredientEnum ingredientType;
+    private Image image;
     private double pbSizeXScale;
     private double pbSizeYScale;
     private double pbPositionXScale;
@@ -26,12 +26,12 @@ public class SpriteImpl implements Sprite {
     /**
      * Default constructor, stores an image, its coordinates in % and its size in %.
      *
-     * @param image the image
-     * @param ingredientType the type of the ingredient
+     * @param image            the image
+     * @param ingredientType   the type of the ingredient
      * @param pbPositionXScale the x position
      * @param pbPositionYScale the y position
-     * @param pbSizeXScale the width of the image
-     * @param pbSizeYScale the height of the image
+     * @param pbSizeXScale     the width of the image
+     * @param pbSizeYScale     the height of the image
      */
     public SpriteImpl(final Image image, final IngredientEnum ingredientType,
                       final double pbPositionXScale, final double pbPositionYScale,
@@ -64,16 +64,16 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setDraggable(final boolean draggable) {
-        this.draggable = draggable;
+    public boolean isDraggable() {
+        return draggable;
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public boolean isDraggable() {
-        return draggable;
+    public void setDraggable(final boolean draggable) {
+        this.draggable = draggable;
     }
 
     /**
@@ -128,38 +128,6 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setPbPositionXScale(final double newPbPositionXScale) {
-        pbPositionXScale = newPbPositionXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbPositionYScale(final double newPbPositionYScale) {
-        pbPositionYScale = newPbPositionYScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbSizeXScale(final double newPbSizeXScale) {
-        pbSizeXScale = newPbSizeXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbSizeYScale(final double newPbSizeYScale) {
-        pbSizeYScale = newPbSizeYScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void flipImageVertically() {
         final int width = image.getWidth(null);
         final int height = image.getHeight(null);
@@ -188,8 +156,24 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbPositionXScale(final double newPbPositionXScale) {
+        pbPositionXScale = newPbPositionXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public double getPbPositionYScale() {
         return pbPositionYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbPositionYScale(final double newPbPositionYScale) {
+        pbPositionYScale = newPbPositionYScale;
     }
 
     /**
@@ -204,8 +188,24 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbSizeXScale(final double newPbSizeXScale) {
+        pbSizeXScale = newPbSizeXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public double getPbSizeYScale() {
         return pbSizeYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbSizeYScale(final double newPbSizeYScale) {
+        pbSizeYScale = newPbSizeYScale;
     }
 
     /**

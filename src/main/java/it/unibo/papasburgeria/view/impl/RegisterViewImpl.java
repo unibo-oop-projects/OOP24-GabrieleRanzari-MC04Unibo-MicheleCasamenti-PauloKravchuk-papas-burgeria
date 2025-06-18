@@ -1,15 +1,16 @@
 package it.unibo.papasburgeria.view.impl;
 
+import com.google.inject.Inject;
+import org.tinylog.Logger;
+
 import java.awt.Graphics;
 import java.io.Serial;
-import org.tinylog.Logger;
-import com.google.inject.Inject;
 
 /**
  * Register view.
  */
 public class RegisterViewImpl extends AbstractBaseView {
-   @Serial
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -35,7 +36,7 @@ public class RegisterViewImpl extends AbstractBaseView {
     public void hideScene() {
         Logger.info("RegisterView hidden");
     }
- 
+
     /**
      * @inheritDoc
      */

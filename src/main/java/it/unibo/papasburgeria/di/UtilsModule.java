@@ -8,6 +8,7 @@ import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
 import it.unibo.papasburgeria.utils.impl.resource.ResourceServiceImpl;
 import it.unibo.papasburgeria.view.impl.MenuViewImpl;
+import it.unibo.papasburgeria.view.impl.RegisterViewImpl;
 
 /**
  * Guide module responsible for services/utils.
@@ -22,6 +23,7 @@ class UtilsModule extends AbstractModule {
         // sceneName to sceneView bindings
         final MapBinder<String, BaseScene> boundScenes = MapBinder.newMapBinder(binder(), String.class, BaseScene.class);
         boundScenes.addBinding("Menu").to(MenuViewImpl.class);
+        boundScenes.addBinding("Register").to(RegisterViewImpl.class);
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);

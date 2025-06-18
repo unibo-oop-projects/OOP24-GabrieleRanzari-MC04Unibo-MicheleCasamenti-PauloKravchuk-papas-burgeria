@@ -39,6 +39,7 @@ public class GameControllerImpl implements GameController {
     public void startGame() {
         Logger.info("Game started" + model);
         sceneService.switchTo("Menu");
+        sceneService.switchTo("Register");
     }
 
     /**

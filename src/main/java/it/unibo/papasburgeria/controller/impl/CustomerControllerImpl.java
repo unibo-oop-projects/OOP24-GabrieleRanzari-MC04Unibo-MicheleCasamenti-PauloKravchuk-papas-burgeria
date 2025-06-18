@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.controller.impl;
 
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 
 import com.google.inject.Singleton;
 
@@ -13,15 +13,15 @@ import it.unibo.papasburgeria.model.api.Customer;
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
-    private final List<Customer> registerLine = new LinkedList<>();
-    private final List<Customer> waitLine = new LinkedList<>();
+    private final Deque<Customer> registerLine = new LinkedList<>();
+    private final Deque<Customer> waitLine = new LinkedList<>();
 
     /**
      * @inheritDoc
      */
     @Override
     public Customer popCustomerRegisterLine() {
-        return ((LinkedList<Customer>) registerLine).pop();
+        return registerLine.pop();
     }
 
     /**
@@ -29,7 +29,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void pushCustomerRegisterLine(final Customer customer) {
-        ((LinkedList<Customer>) registerLine).push(customer);
+        registerLine.push(customer);
     }
 
     /**
@@ -45,7 +45,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public Customer popCustomerWaitLine() {
-        return ((LinkedList<Customer>) waitLine).pop();
+        return waitLine.pop();
     }
 
     /**
@@ -53,7 +53,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void pushCustomerWaitLine(final Customer customer) {
-        ((LinkedList<Customer>) waitLine).push(customer);
+        waitLine.push(customer);
     }
 
     /**

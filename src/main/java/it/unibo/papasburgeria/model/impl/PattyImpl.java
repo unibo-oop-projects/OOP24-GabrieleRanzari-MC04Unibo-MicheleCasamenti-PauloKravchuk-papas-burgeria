@@ -78,16 +78,16 @@ public class PattyImpl extends IngredientImpl implements Patty {
      * @inheritDoc
      */
     @Override
-    public double getBottomCookLevel() {
-        return bottomCookLevel;
+    public void setTopCookLevel(final double cookLevel) {
+        topCookLevel = cookLevel;
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void setTopCookLevel(final double cookLevel) {
-        topCookLevel = cookLevel;
+    public double getBottomCookLevel() {
+        return bottomCookLevel;
     }
 
     /**

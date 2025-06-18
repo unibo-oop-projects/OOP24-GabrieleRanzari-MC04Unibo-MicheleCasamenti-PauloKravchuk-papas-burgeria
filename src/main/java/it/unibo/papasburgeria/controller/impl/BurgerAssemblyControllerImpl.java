@@ -27,7 +27,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     /**
      * Default constructor, creates a new empty hamburger.
      *
-     * @param model the game model.
+     * @param model       the game model.
      * @param pantryModel the model containing the list of unlocked ingredients.
      */
     @Inject

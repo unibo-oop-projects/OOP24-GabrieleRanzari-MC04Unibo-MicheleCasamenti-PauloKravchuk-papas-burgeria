@@ -15,7 +15,6 @@ public interface BurgerAssemblyController {
      * Adds the ingredient to the current hamburger.
      *
      * @param ingredient the ingredient to add.
-     *
      * @return true if the ingredient was added.
      */
     boolean addIngredient(Ingredient ingredient);
@@ -45,7 +44,6 @@ public interface BurgerAssemblyController {
      * Adds the patty to the list of cooked patties.
      *
      * @param patty the patty to add.
-     *
      * @return true if the patty was added.
      */
     boolean addCookedPatty(Patty patty);

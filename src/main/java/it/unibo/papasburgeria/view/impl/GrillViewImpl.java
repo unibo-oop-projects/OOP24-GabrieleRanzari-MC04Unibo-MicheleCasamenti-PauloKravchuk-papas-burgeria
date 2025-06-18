@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Singleton
 @SuppressFBWarnings(
-        value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
+        value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class GrillViewImpl extends AbstractBaseView implements SpriteDropListener {
@@ -37,7 +37,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      * Default constructor, creates and initializes the UI elements.
      *
      * @param resourceService the service that handles resource obtainment.
-     * @param controller the grill controller.
+     * @param controller      the grill controller.
      */
     @Inject
     public GrillViewImpl(final ResourceService resourceService, final GrillController controller) {
@@ -81,7 +81,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      * Draws a sprite.
      *
      * @param pattySprite the sprite of the patty to draw
-     * @param g the graphics
+     * @param g           the graphics
      */
     final void drawPatty(final Sprite pattySprite, final Graphics g) {
         pattySprite.draw(getSize(), g);

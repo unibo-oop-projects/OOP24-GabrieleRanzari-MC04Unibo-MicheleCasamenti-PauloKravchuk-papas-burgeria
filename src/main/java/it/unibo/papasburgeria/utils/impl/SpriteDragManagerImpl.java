@@ -25,8 +25,8 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     private int dragOffsetY;
 
     /**
-     * @param component the panel where to listen from.
-     * @param sprites the list of draggable sprites.
+     * @param component          the panel where to listen from.
+     * @param sprites            the list of draggable sprites.
      * @param spriteDropListener the listener for if sprites are dropped.
      */
     public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites,
@@ -121,28 +121,32 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     /**
      * @inheritDoc
      */
-    @Override public void mouseMoved(final MouseEvent event) {
+    @Override
+    public void mouseMoved(final MouseEvent event) {
 
     }
 
     /**
      * @inheritDoc
      */
-    @Override public void mouseClicked(final MouseEvent event) {
+    @Override
+    public void mouseClicked(final MouseEvent event) {
 
     }
 
     /**
      * @inheritDoc
      */
-    @Override public void mouseEntered(final MouseEvent event) {
+    @Override
+    public void mouseEntered(final MouseEvent event) {
 
     }
 
     /**
      * @inheritDoc
      */
-    @Override public void mouseExited(final MouseEvent event) {
+    @Override
+    public void mouseExited(final MouseEvent event) {
 
     }
 }

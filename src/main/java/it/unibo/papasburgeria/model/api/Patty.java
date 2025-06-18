@@ -20,14 +20,14 @@ public interface Patty {
     double getTopCookLevel();
 
     /**
-     * @return the bottom cook level.
-     */
-    double getBottomCookLevel();
-
-    /**
      * @param cookLevel the top cook level.
      */
     void setTopCookLevel(double cookLevel);
+
+    /**
+     * @return the bottom cook level.
+     */
+    double getBottomCookLevel();
 
     /**
      * @param cookLevel the bottom cook level.

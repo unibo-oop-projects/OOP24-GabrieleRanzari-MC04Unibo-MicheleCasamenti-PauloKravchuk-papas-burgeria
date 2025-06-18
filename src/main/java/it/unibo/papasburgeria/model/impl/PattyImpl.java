@@ -3,6 +3,8 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Patty;
 
+import java.util.Objects;
+
 /**
  * @inheritDoc
  */
@@ -19,6 +21,18 @@ public class PattyImpl extends IngredientImpl implements Patty {
      */
     public PattyImpl() {
         super(IngredientEnum.PATTY);
+        topCookLevel = MIN_COOK_LEVEL;
+        bottomCookLevel = MIN_COOK_LEVEL;
+        flipped = false;
+    }
+
+    /**
+     * Constructor for the patty, creates a raw patty not flipped with placement accuracy.
+     *
+     * @param accuracy the placement accuracy value.
+     */
+    public PattyImpl(final double accuracy) {
+        super(IngredientEnum.PATTY, accuracy);
         topCookLevel = MIN_COOK_LEVEL;
         bottomCookLevel = MIN_COOK_LEVEL;
         flipped = false;
@@ -82,6 +96,37 @@ public class PattyImpl extends IngredientImpl implements Patty {
     @Override
     public void setBottomCookLevel(final double cookLevel) {
         bottomCookLevel = cookLevel;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        final PattyImpl other = (PattyImpl) object;
+        return getIngredientType() == other.getIngredientType()
+                && Objects.equals(this.topCookLevel, other.getTopCookLevel())
+                && Objects.equals(this.bottomCookLevel, other.getBottomCookLevel())
+                && this.flipped == other.flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                getIngredientType(),
+                topCookLevel,
+                bottomCookLevel,
+                flipped
+        );
     }
 
     /**

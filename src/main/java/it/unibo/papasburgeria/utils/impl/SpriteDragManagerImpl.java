@@ -20,6 +20,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     private final List<Sprite> sprites;
     private final SpriteDropListener dropListener;
     private Sprite draggedSprite;
+    private Sprite originalSprite;
     private int dragOffsetX;
     private int dragOffsetY;
 
@@ -55,11 +56,23 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
             if (mouseX >= spriteX && mouseX <= spriteX + spriteWidth
                     && mouseY >= spriteY && mouseY <= spriteY + spriteHeight) {
                 if (!sprite.isDraggable()) {
-                    final SpriteImpl copy = new SpriteImpl(sprite);
-                    if (BurgerAssemblyViewImpl.SAUCES.contains(sprite.getIngredientType())) {
+                    final SpriteImpl copy;
+                    if (sprite instanceof CompositeSpriteImpl compositeSprite) {
+                        copy = new CompositeSpriteImpl(compositeSprite);
+                    } else {
+                        copy = new SpriteImpl(sprite);
+                    }
+                    if (BurgerAssemblyViewImpl.SAUCES.contains(sprite.getIngredientType())
+                            && !sprite.isRemovable()) {
+                        sprite.setVisible(false);
+                        originalSprite = sprite;
                         copy.flipImageVertically();
                     }
                     sprites.add(copy);
+                    if (!sprite.isCloneable()) {
+                        sprite.setVisible(false);
+                        originalSprite = sprite;
+                    }
                     draggedSprite = copy;
                 } else {
                     draggedSprite = sprite;
@@ -79,6 +92,10 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
         if (draggedSprite != null) {
             dropListener.spriteDropped(draggedSprite);
             draggedSprite = null;
+            if (originalSprite != null) {
+                originalSprite.setVisible(true);
+                originalSprite = null;
+            }
         }
     }
 

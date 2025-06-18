@@ -3,6 +3,8 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 
+import java.util.Objects;
+
 /**
  * Class for creating a simple ingredient.
  */
@@ -25,7 +27,7 @@ public class IngredientImpl implements Ingredient {
 
     /**
      * @param type the type of the ingredient.
-     * @param accuracy range from -1.0 to 1.0 indicating how far it is from the centre.
+     * @param accuracy range from MAX_LEFT_ACCURACY to MAX_RIGHT_ACCURACY indicating how far it is from PERFECT_ACCURACY.
      */
     public IngredientImpl(final IngredientEnum type, final double accuracy) {
         this.type = type;
@@ -33,7 +35,17 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @return the type of the ingredient.
+     * Constructor for coping another ingredient.
+     *
+     * @param ingredient the ingredient to copy.
+     */
+    public IngredientImpl(final Ingredient ingredient) {
+        type = ingredient.getIngredientType();
+        accuracy = ingredient.getPlacementAccuracy();
+    }
+
+    /**
+     * @inheritDoc
      */
     @Override
     public IngredientEnum getIngredientType() {
@@ -41,7 +53,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @return a value between 1.0 and 0.0 indicating how precisely the ingredient was placed.
+     * @inheritDoc
      */
     @Override
     public double getPlacementAccuracy() {
@@ -49,12 +61,39 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @param newAccuracy the new accuracy compared to the bottom bun.
+     * @inheritDoc
      */
     @Override
     public void setPlacementAccuracy(final double newAccuracy) {
         this.accuracy = newAccuracy;
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        final Ingredient other = (Ingredient) object;
+        return type == other.getIngredientType();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                type,
+                accuracy
+        );
+    }
+
 
     /**
      * @return a string containing the ingredient's type and placement accuracy.
@@ -63,5 +102,4 @@ public class IngredientImpl implements Ingredient {
     public String toString() {
         return "[ type:" + this.getIngredientType() + ", accuracy:" + this.getPlacementAccuracy() + " ]";
     }
-
 }

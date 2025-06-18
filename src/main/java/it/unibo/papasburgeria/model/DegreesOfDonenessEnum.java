@@ -48,4 +48,15 @@ public enum DegreesOfDonenessEnum {
 
         return values[idx];
     }
+
+    /**
+     * @return the minimum cook level for the degree of doneness.
+     */
+    public double getMinCookLevel() {
+        final int index = this.ordinal();
+        final int total = values().length;
+        final double segment = PattyImpl.MAX_COOK_LEVEL / total;
+
+        return segment * index;
+    }
 }

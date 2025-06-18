@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GrillController;
-import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.impl.PattyImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.Sprite;
 import it.unibo.papasburgeria.utils.api.SpriteDropListener;
@@ -52,7 +52,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
 
         super.setStaticBackgroundImage(resourceService.getImage("grill_background.png"));
 
-        patty = new SpriteImpl(resourceService.getImage("patty_raw.png"), IngredientEnum.PATTY,
+        patty = new SpriteImpl(resourceService.getImage("patty_raw.png"), new PattyImpl(),
                 pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
         patties.add(patty);
 

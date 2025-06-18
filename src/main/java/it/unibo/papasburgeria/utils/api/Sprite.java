@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.utils.api;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.api.Ingredient;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -21,14 +22,54 @@ public interface Sprite {
     boolean isDraggable();
 
     /**
+     * @param visible the new visible value.
+     */
+    void setVisible(boolean visible);
+
+    /**
+     * @return true if visible
+     */
+    boolean isVisible();
+
+    /**
+     * @param cloneable the new cloneable value.
+     */
+    void setCloneable(boolean cloneable);
+
+    /**
+     * @return true if cloneable.
+     */
+    boolean isCloneable();
+
+    /**
+     * @param removable the new removable value.
+     */
+    void setRemovable(boolean removable);
+
+    /**
+     * @return true if removable.
+     */
+    boolean isRemovable();
+
+    /**
      * @return the image.
      */
     Image getImage();
 
     /**
+     * @return the ingredient.
+     */
+    Ingredient getIngredient();
+
+    /**
      * @return the ingredient type.
      */
     IngredientEnum getIngredientType();
+
+    /**
+     * @param ingredient the ingredient.
+     */
+    void setIngredient(Ingredient ingredient);
 
     /**
      * @param frameWidth the width of the frame

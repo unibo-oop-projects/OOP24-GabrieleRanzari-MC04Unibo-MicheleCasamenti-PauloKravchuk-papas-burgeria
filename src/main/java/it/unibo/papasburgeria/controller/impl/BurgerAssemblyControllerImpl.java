@@ -61,11 +61,13 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     public void removeLastIngredient() {
         String ingredientDescription = "Ingredient (EMPTY)";
         final Hamburger hamburger = model.getHamburgerOnAssembly();
-
-        if (!hamburger.getIngredients().isEmpty()) {
-            final Ingredient last = hamburger.getIngredients().getLast();
-            ingredientDescription = "Ingredient (" + last.getIngredientType() + ")";
+        if (hamburger.getIngredients().isEmpty()) {
+            Logger.error(ingredientDescription + " could not be removed");
+            return;
         }
+
+        final Ingredient last = hamburger.getIngredients().getLast();
+        ingredientDescription = "Ingredient (" + last.getIngredientType() + ")";
 
         if (hamburger.removeLastIngredient()) {
             Logger.info(ingredientDescription + " removed successfully");

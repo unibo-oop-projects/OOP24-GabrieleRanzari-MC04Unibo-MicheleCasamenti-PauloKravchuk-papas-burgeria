@@ -7,13 +7,14 @@ import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.model.impl.PattyImpl;
 import it.unibo.papasburgeria.utils.api.Sprite;
 
-import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Objects;
  */
 public class SpriteImpl implements Sprite {
     private Ingredient ingredient;
-    private Image image;
+    private List<Image> images;
     private double pbSizeXScale;
     private double pbSizeYScale;
     private double pbPositionXScale;
@@ -32,7 +33,7 @@ public class SpriteImpl implements Sprite {
     private boolean removable;
 
     /**
-     * Default constructor, stores an image, its coordinates in % and its size in %.
+     * Constructor for single image, stores the image, the ingredient, its coordinates in % and its size in %.
      *
      * @param image the image
      * @param ingredient the ingredient
@@ -44,7 +45,36 @@ public class SpriteImpl implements Sprite {
     public SpriteImpl(final Image image, final Ingredient ingredient,
                       final double pbPositionXScale, final double pbPositionYScale,
                       final double pbSizeXScale, final double pbSizeYScale) {
-        this.image = new ImageIcon(image).getImage();
+        this.images = new ArrayList<>(List.of(image));
+        if (ingredient instanceof Patty patty) {
+            this.ingredient = new PattyImpl(patty);
+        } else {
+            this.ingredient = new IngredientImpl(ingredient);
+        }
+        this.pbPositionXScale = pbPositionXScale;
+        this.pbPositionYScale = pbPositionYScale;
+        this.pbSizeXScale = pbSizeXScale;
+        this.pbSizeYScale = pbSizeYScale;
+        draggable = false;
+        visible = true;
+        cloneable = true;
+        removable = false;
+    }
+
+    /**
+     * Constructor for multiple images, stores the images, the ingredient, its coordinates in % and its size in %.
+     *
+     * @param images the list of images
+     * @param ingredient the ingredient
+     * @param pbPositionXScale the x position
+     * @param pbPositionYScale the y position
+     * @param pbSizeXScale the width of the image
+     * @param pbSizeYScale the height of the image
+     */
+    public SpriteImpl(final List<Image> images, final Ingredient ingredient,
+                      final double pbPositionXScale, final double pbPositionYScale,
+                      final double pbSizeXScale, final double pbSizeYScale) {
+        this.images = List.copyOf(images);
         if (ingredient instanceof Patty patty) {
             this.ingredient = new PattyImpl(patty);
         } else {
@@ -66,7 +96,7 @@ public class SpriteImpl implements Sprite {
      * @param sprite the sprite to copy.
      */
     public SpriteImpl(final Sprite sprite) {
-        this.image = sprite.getImage();
+        this.images = sprite.getImages();
         final Ingredient newIngredient = sprite.getIngredient();
         if (newIngredient instanceof Patty patty) {
             this.ingredient = new PattyImpl(patty);
@@ -151,12 +181,20 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public Image getImage() {
-        return new ImageIcon(image).getImage();
+    public List<Image> getImages() {
+        return new ArrayList<>(images);
     }
 
     /**
-     * @return the ingredient.
+     * @inheritDoc
+     */
+    @Override
+    public void addImage(final Image image) {
+        images.add(image);
+    }
+
+    /**
+     * @inheritDoc
      */
     @Override
     public Ingredient getIngredient() {
@@ -168,7 +206,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @return the ingredient type.
+     * @inheritDoc
      */
     @Override
     public IngredientEnum getIngredientType() {
@@ -176,7 +214,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @param newIngredient the ingredient.
+     * @inheritDoc
      */
     @Override
     public void setIngredient(final Ingredient newIngredient) {
@@ -256,19 +294,27 @@ public class SpriteImpl implements Sprite {
      */
     @Override
     public void flipImageVertically() {
-        final int width = image.getWidth(null);
-        final int height = image.getHeight(null);
+        final List<Image> newImages = new ArrayList<>();
+        for (final Image image : images) {
+            final int width = image.getWidth(null);
+            final int height = image.getHeight(null);
 
-        final BufferedImage flipped = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        final Graphics2D g = flipped.createGraphics();
+            if (width < 0 || height < 0) {
+                throw new IllegalStateException("Could not flip: Image not loaded correctly");
+            }
 
-        final AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
-        transform.translate(0, -height);
+            final BufferedImage flipped = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            final Graphics2D g = flipped.createGraphics();
 
-        g.drawImage(image, transform, null);
-        g.dispose();
+            final AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
+            transform.translate(0, -height);
 
-        image = flipped;
+            g.drawImage(image, transform, null);
+            g.dispose();
+
+            newImages.add(flipped);
+        }
+        images = newImages;
     }
 
     /**
@@ -317,7 +363,9 @@ public class SpriteImpl implements Sprite {
             final int width = calculateWidth(frameWidth);
             final int height = calculateHeight(frameHeight);
 
-            g.drawImage(getImage(), x, y, width, height, null);
+            for (final Image image : images) {
+                g.drawImage(image, x, y, width, height, null);
+            }
         }
     }
 
@@ -332,7 +380,7 @@ public class SpriteImpl implements Sprite {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        final Sprite other = (Sprite) object;
+        final SpriteImpl other = (SpriteImpl) object;
         return Objects.equals(this.ingredient, other.getIngredient())
                 && Objects.equals(this.pbPositionXScale, other.getPbPositionXScale())
                 && Objects.equals(this.pbPositionYScale, other.getPbPositionYScale());

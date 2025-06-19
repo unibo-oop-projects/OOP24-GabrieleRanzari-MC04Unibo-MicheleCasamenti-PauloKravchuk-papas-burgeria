@@ -56,12 +56,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
             if (mouseX >= spriteX && mouseX <= spriteX + spriteWidth
                     && mouseY >= spriteY && mouseY <= spriteY + spriteHeight) {
                 if (!sprite.isDraggable()) {
-                    final SpriteImpl copy;
-                    if (sprite instanceof CompositeSpriteImpl compositeSprite) {
-                        copy = new CompositeSpriteImpl(compositeSprite);
-                    } else {
-                        copy = new SpriteImpl(sprite);
-                    }
+                    final Sprite copy = new SpriteImpl(sprite);
                     if (BurgerAssemblyViewImpl.SAUCES.contains(sprite.getIngredientType())
                             && !sprite.isRemovable()) {
                         sprite.setVisible(false);

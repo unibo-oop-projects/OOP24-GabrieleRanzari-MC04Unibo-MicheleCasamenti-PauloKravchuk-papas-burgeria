@@ -13,7 +13,6 @@ import it.unibo.papasburgeria.model.impl.PattyImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.Sprite;
 import it.unibo.papasburgeria.utils.api.SpriteDropListener;
-import it.unibo.papasburgeria.utils.impl.CompositeSpriteImpl;
 import it.unibo.papasburgeria.utils.impl.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.utils.impl.SpriteImpl;
 import org.tinylog.Logger;
@@ -23,6 +22,7 @@ import java.awt.Image;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -70,14 +70,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
 
     @Serial
     private static final long serialVersionUID = 1L;
+    private final transient BurgerAssemblyController controller;
     private final transient List<Sprite> sprites;
     private final transient List<Sprite> draggableSprites;
     private final transient List<Sprite> draggablePattySprites;
     private final transient List<Sprite> draggableHamburgerSprites;
-    private final transient List<Sprite> pattySprites;
-    private final transient List<Sprite> pattyBottomSprites;
+    private final transient Map<String, Image> pattyImages;
     private final transient Map<IngredientEnum, Image> ingredientImages;
-    private final transient BurgerAssemblyController controller;
     private final transient Image horizontalLock;
     private final transient Image verticalLock;
     private final transient Image grillMark;
@@ -95,8 +94,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         draggableSprites = new ArrayList<>();
         draggablePattySprites = new ArrayList<>();
         draggableHamburgerSprites = new ArrayList<>();
-        pattySprites = new ArrayList<>();
-        pattyBottomSprites = new ArrayList<>();
+        pattyImages = new HashMap<>();
         ingredientImages = new EnumMap<>(IngredientEnum.class);
         Logger.info("BurgerAssembly created");
 
@@ -152,17 +150,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
 
         final IngredientEnum ingredientType = IngredientEnum.PATTY;
         for (final DegreesOfDonenessEnum degree : DegreesOfDonenessEnum.values()) {
-            final Image image = resourceService.getImage(ingredientType.getName() + SEPARATOR + degree.getName() + EXTENSION);
-            final Image imageBottom = resourceService.getImage(
-                    ingredientType.getName() + BOTTOM_EXTENSION + SEPARATOR + degree.getName() + EXTENSION);
+            final String pattyName = ingredientType.getName() + SEPARATOR + degree.getName() + EXTENSION;
+            final String pattyBottomName = ingredientType.getName() + BOTTOM_EXTENSION + SEPARATOR + degree.getName() + EXTENSION;
 
-            final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
-                    PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
-            pattySprites.add(sprite);
-
-            final Sprite spriteBottom = new SpriteImpl(imageBottom, new IngredientImpl(ingredientType),
-                    PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
-            pattyBottomSprites.add(spriteBottom);
+            final Image image = resourceService.getImage(pattyName);
+            pattyImages.put(pattyName, image);
+            final Image imageBottom = resourceService.getImage(pattyBottomName);
+            pattyImages.put(pattyBottomName, imageBottom);
         }
 
         new SpriteDragManagerImpl(this, draggableHamburgerSprites, this);
@@ -274,17 +268,15 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * Creates a CompositeSprite for the Patty.
+     * Creates a Sprite for the Patty.
      *
      * @param patty the patty.
      * @param pbPositionXScale the pbPositionXScale.
      * @param pbPositionYScale the pbPositionYScale.
      *
-     * @return the CompositeSprite.
+     * @return the Sprite.
      */
     final Sprite generatePattySprite(final Patty patty, final double pbPositionXScale, final double pbPositionYScale) {
-        final List<Sprite> spriteComponents = new ArrayList<>();
-
         double topCookLevel = patty.getTopCookLevel();
         DegreesOfDonenessEnum topDegree = DegreesOfDonenessEnum.calculateDegree(topCookLevel);
 
@@ -299,28 +291,22 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             topCookLevel = bottomCookLevel;
         }
 
-        final Sprite pattySprite = pattySprites.get(topDegree.ordinal());
-        pattySprite.setPbPositionXScale(pbPositionXScale);
-        pattySprite.setPbPositionYScale(pbPositionYScale);
-        pattySprite.setIngredient((Ingredient) patty);
-        spriteComponents.add(pattySprite);
+        final String pattyName = ((Ingredient) patty).getIngredientType().getName()
+                + SEPARATOR + topDegree.getName() + EXTENSION;
+        final Sprite pattySprite = new SpriteImpl(pattyImages.get(pattyName), (Ingredient) patty,
+                pbPositionXScale, pbPositionYScale, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
 
         if (topDegree != bottomDegree) {
-            final Sprite bottomSprite = pattyBottomSprites.get(bottomDegree.ordinal());
-            bottomSprite.setPbPositionXScale(pbPositionXScale);
-            bottomSprite.setPbPositionYScale(pbPositionYScale);
-            bottomSprite.setIngredient((Ingredient) patty);
-            spriteComponents.add(bottomSprite);
+            final String pattyBottomName = ((Ingredient) patty).getIngredientType().getName()
+                    + BOTTOM_EXTENSION + SEPARATOR + bottomDegree.getName() + EXTENSION;
+            pattySprite.addImage(pattyImages.get(pattyBottomName));
         }
 
         if (topCookLevel > PattyImpl.MIN_COOK_LEVEL) {
-            final Sprite grillMarkSprite = new SpriteImpl(grillMark, (Ingredient) patty,
-                    pbPositionXScale, pbPositionYScale,
-                    INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
-            spriteComponents.add(grillMarkSprite);
+            pattySprite.addImage(grillMark);
         }
 
-        return new CompositeSpriteImpl(spriteComponents);
+        return pattySprite;
     }
 
     /**

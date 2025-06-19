@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
 
 /**
  * Saves an image and its coordinates.
@@ -52,9 +53,14 @@ public interface Sprite {
     boolean isRemovable();
 
     /**
-     * @return the image.
+     * @return the list images.
      */
-    Image getImage();
+    List<Image> getImages();
+
+    /**
+     * @param image the new image to add.
+     */
+    void addImage(Image image);
 
     /**
      * @return the ingredient.

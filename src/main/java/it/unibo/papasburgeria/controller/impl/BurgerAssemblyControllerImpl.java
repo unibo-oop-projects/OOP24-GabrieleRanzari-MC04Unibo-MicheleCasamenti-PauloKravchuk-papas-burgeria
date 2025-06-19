@@ -177,19 +177,9 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public void changeIngredientAccuracy(final Ingredient ingredient, final double accuracy) {
-        final List<Ingredient> ingredients = model.getHamburgerOnAssembly().getIngredients();
-        for (final Ingredient hamburgerIngredient : ingredients) {
-            if (hamburgerIngredient.equals(ingredient)) {
-                hamburgerIngredient.setPlacementAccuracy(accuracy);
-                if (DEBUG_MODE) {
-                    Logger.info("Ingredient (" + ingredient.getIngredientType().getName() + ") accuracy changed successfully");
-                }
-                return;
-            }
-        }
-        if (DEBUG_MODE) {
-            Logger.error("Accuracy couldn't be changed");
-        }
+        ingredient.setPlacementAccuracy(accuracy);
+        removeLastIngredient();
+        addIngredient(ingredient);
     }
 
     /**

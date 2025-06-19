@@ -6,9 +6,18 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.impl.GameModelImpl;
 import it.unibo.papasburgeria.view.impl.GameViewImpl;
 
+import java.util.List;
 import java.util.Objects;
+
+import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_COLUMNS;
+import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_ROWS;
+import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_GRILL;
+import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MAX_Y_POS_SCALE_TO_DROP_ON_GRILL;
+import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_GRILL;
+import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MIN_Y_POS_SCALE_TO_DROP_ON_GRILL;
 
 /**
  * @inheritDoc
@@ -32,7 +41,28 @@ public class GrillControllerImpl implements GrillController {
      * @inheritDoc
      */
     @Override
-    public boolean addPatty(final Patty patty, final int row, final int column) {
+    public Patty[][] getPattiesOnGrill() {
+        return model.getPattiesOnGrill();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean addPattyOnGrill(final Patty patty, final double pbPositionXScale, final double pbPositionYScale) {
+        final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
+
+        final int row = calculatePosition(pbPositionYScale, MIN_Y_POS_SCALE_TO_DROP_ON_GRILL,
+                MAX_Y_POS_SCALE_TO_DROP_ON_GRILL, GRILL_ROWS);
+        final int column = calculatePosition(pbPositionXScale, MIN_X_POS_SCALE_TO_DROP_ON_GRILL,
+                MAX_X_POS_SCALE_TO_DROP_ON_GRILL, GRILL_COLUMNS);
+
+        if (pattiesOnGrill[row][column] == null) {
+            pattiesOnGrill[row][column] = patty;
+            model.setPattiesOnGrill(pattiesOnGrill);
+            return true;
+        }
+
         return false;
     }
 
@@ -40,8 +70,50 @@ public class GrillControllerImpl implements GrillController {
      * @inheritDoc
      */
     @Override
-    public Patty removePatty(final int row, final int column) {
-        return null;
+    public void removePattyFromGrill(final double pbPositionXScale, final double pbPositionYScale) {
+        final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
+
+        final int row = calculatePosition(pbPositionYScale, MIN_Y_POS_SCALE_TO_DROP_ON_GRILL,
+                MAX_Y_POS_SCALE_TO_DROP_ON_GRILL, GRILL_ROWS);
+        final int column = calculatePosition(pbPositionXScale, MIN_X_POS_SCALE_TO_DROP_ON_GRILL,
+                MAX_X_POS_SCALE_TO_DROP_ON_GRILL, GRILL_COLUMNS);
+
+        if (pattiesOnGrill[row][column] != null) {
+            pattiesOnGrill[row][column] = null;
+            model.setPattiesOnGrill(pattiesOnGrill);
+        }
+    }
+
+    /**
+     * @return the list of cooked patties.
+     */
+    @Override
+    public List<Patty> getCookedPatties() {
+        return List.copyOf(model.getCookedPatties());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean addCookedPatty(final Patty patty) {
+        final List<Patty> patties = model.getCookedPatties();
+        if (patties.size() == GameModelImpl.MAX_COOKED_PATTIES) {
+            return false;
+        }
+        patties.add(patty);
+        model.setCookedPatties(patties);
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void removeCookedPatty(final Patty patty) {
+        final List<Patty> patties = model.getCookedPatties();
+        patties.remove(patty);
+        model.setCookedPatties(patties);
     }
 
     /**
@@ -69,7 +141,8 @@ public class GrillControllerImpl implements GrillController {
      * @inheritDoc
      */
     @Override
-    public void cookPattiesOnGrill(final Patty[][] patties) {
+    public void cookPattiesOnGrill() {
+        final Patty[][] patties = model.getPattiesOnGrill();
         for (final Patty[] pattyRow : patties) {
             for (final Patty patty : pattyRow) {
                 if (Objects.nonNull(patty)) {
@@ -77,5 +150,16 @@ public class GrillControllerImpl implements GrillController {
                 }
             }
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int calculatePosition(final double position, final double minPos, final double maxPos, final int segments) {
+        double norm = (position - minPos) / (maxPos - minPos);
+        norm = Math.max(0.0, Math.min(1.0, norm));
+        final int index = (int) (norm * segments);
+        return (index == segments) ? segments - 1 : index;
     }
 }

@@ -1,5 +1,7 @@
 package it.unibo.papasburgeria.model;
 
+import java.util.List;
+
 /**
  * Enum with all types of ingredients and a string with its name.
  */
@@ -16,6 +18,13 @@ public enum IngredientEnum {
     MUSTARD("mustard"),
     BBQ("BBQ"),
     MAYO("mayo");
+
+    public static final List<IngredientEnum> SAUCES = List.of(
+            KETCHUP,
+            MUSTARD,
+            BBQ,
+            MAYO
+    );
 
     private final String name;
 

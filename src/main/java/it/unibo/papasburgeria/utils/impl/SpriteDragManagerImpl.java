@@ -1,9 +1,9 @@
 package it.unibo.papasburgeria.utils.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.utils.api.Sprite;
 import it.unibo.papasburgeria.utils.api.SpriteDropListener;
-import it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -57,7 +57,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
                     && mouseY >= spriteY && mouseY <= spriteY + spriteHeight) {
                 if (!sprite.isDraggable()) {
                     final Sprite copy = new SpriteImpl(sprite);
-                    if (BurgerAssemblyViewImpl.SAUCES.contains(sprite.getIngredientType())
+                    if (IngredientEnum.SAUCES.contains(sprite.getIngredientType())
                             && !sprite.isRemovable()) {
                         sprite.setVisible(false);
                         originalSprite = sprite;

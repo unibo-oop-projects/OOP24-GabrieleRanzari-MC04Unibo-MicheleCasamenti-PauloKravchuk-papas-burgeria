@@ -18,8 +18,8 @@ import java.util.List;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
-import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP;
-import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
 
 /**
  * @inheritDoc
@@ -155,7 +155,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public double calculateAccuracy(final double pbPositionXScale) {
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP - MIN_X_POS_SCALE_TO_DROP) / 2.0;
+        final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
         final double difference = pbPositionXScale - HAMBURGER_X_POS_SCALE;
         final double accuracy = difference / halfRange;
         return Math.max(IngredientImpl.MAX_LEFT_ACCURACY, Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
@@ -168,7 +168,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     public double getPositionXScaleFromAccuracy(final double accuracy) {
         final double boundedAccuracy = Math.max(IngredientImpl.MAX_LEFT_ACCURACY,
                 Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP - MIN_X_POS_SCALE_TO_DROP) / 2.0;
+        final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
         return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
     }
 

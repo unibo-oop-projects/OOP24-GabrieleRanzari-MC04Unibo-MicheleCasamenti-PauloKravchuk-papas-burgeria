@@ -54,7 +54,7 @@ public class GameControllerImpl implements GameController {
         if (DEBUG_MODE) {
             Logger.info("Game started" + model);
         }
-        sceneService.switchTo("BurgerAssembly");
+        sceneService.switchTo("Grill");
     }
 
     /**

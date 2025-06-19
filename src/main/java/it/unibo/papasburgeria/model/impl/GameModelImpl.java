@@ -9,6 +9,7 @@ import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
@@ -81,15 +82,19 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public Patty[][] getPattiesOnGrill() {
-        final Patty[][] copy = new Patty[pattiesOnGrill.length][];
-        for (int i = 0; i < pattiesOnGrill.length; i++) {
-            final Patty[] row = pattiesOnGrill[i];
-            copy[i] = new Patty[row.length];
-            for (int j = 0; j < row.length; j++) {
-                copy[i][j] = new PattyImpl(row[j]);
+        if (pattiesOnGrill == null) {
+            return new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        }
+
+        final Patty[][] newPattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        for (int rowIndex = 0; rowIndex < GRILL_ROWS; rowIndex++) {
+            newPattiesOnGrill[rowIndex] = Arrays.copyOf(pattiesOnGrill[rowIndex], pattiesOnGrill[rowIndex].length);
+            for (int columnIndex = 0; columnIndex < GRILL_COLUMNS
+                    && pattiesOnGrill[rowIndex][columnIndex] != null; columnIndex++) {
+                newPattiesOnGrill[rowIndex][columnIndex] = new PattyImpl(pattiesOnGrill[rowIndex][columnIndex]);
             }
         }
-        return copy;
+        return newPattiesOnGrill;
     }
 
     /**

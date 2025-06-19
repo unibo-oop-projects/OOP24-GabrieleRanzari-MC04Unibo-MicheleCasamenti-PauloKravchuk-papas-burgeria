@@ -11,9 +11,15 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.GameModelImpl;
+import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import org.tinylog.Logger;
 
 import java.util.List;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP;
 
 /**
  * @inheritDoc
@@ -41,15 +47,22 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public boolean addIngredient(final Ingredient ingredient) {
-        final String ingredientDescription = "Ingredient (" + ingredient.getIngredientType() + ") ";
+        final String ingredientDescription;
         final Hamburger hamburger = model.getHamburgerOnAssembly();
+        if (DEBUG_MODE) {
+            ingredientDescription = "Ingredient (" + ingredient.getIngredientType().getName() + ") ";
+        }
 
         if (hamburger.addIngredient(ingredient)) {
-            Logger.info(ingredientDescription + "added successfully");
+            if (DEBUG_MODE) {
+                Logger.info(ingredientDescription + "added successfully");
+            }
             model.setHamburgerOnAssembly(hamburger);
             return true;
         } else {
-            Logger.error(ingredientDescription + "can't be added");
+            if (DEBUG_MODE) {
+                Logger.error(ingredientDescription + "can't be added");
+            }
             return false;
         }
     }
@@ -59,21 +72,33 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public void removeLastIngredient() {
-        String ingredientDescription = "Ingredient (EMPTY)";
+        String ingredientDescription;
+        if (DEBUG_MODE) {
+            ingredientDescription = "Ingredient (empty)";
+        }
+
         final Hamburger hamburger = model.getHamburgerOnAssembly();
         if (hamburger.getIngredients().isEmpty()) {
-            Logger.error(ingredientDescription + " could not be removed");
+            if (DEBUG_MODE) {
+                Logger.error(ingredientDescription + " could not be removed");
+            }
             return;
         }
 
-        final Ingredient last = hamburger.getIngredients().getLast();
-        ingredientDescription = "Ingredient (" + last.getIngredientType() + ")";
+        if (DEBUG_MODE) {
+            final Ingredient last = hamburger.getIngredients().getLast();
+            ingredientDescription = "Ingredient" + " (" + last.getIngredientType().getName() + ")";
+        }
 
         if (hamburger.removeLastIngredient()) {
-            Logger.info(ingredientDescription + " removed successfully");
+            if (DEBUG_MODE) {
+                Logger.info(ingredientDescription + " removed successfully");
+            }
             model.setHamburgerOnAssembly(hamburger);
         } else {
-            Logger.error(ingredientDescription + " could not be removed");
+            if (DEBUG_MODE) {
+                Logger.error(ingredientDescription + " could not be removed");
+            }
         }
     }
 
@@ -123,6 +148,48 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
         final List<Patty> patties = model.getCookedPatties();
         patties.remove(patty);
         model.setCookedPatties(patties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double calculateAccuracy(final double pbPositionXScale) {
+        final double halfRange = (MAX_X_POS_SCALE_TO_DROP - MIN_X_POS_SCALE_TO_DROP) / 2.0;
+        final double difference = pbPositionXScale - HAMBURGER_X_POS_SCALE;
+        final double accuracy = difference / halfRange;
+        return Math.max(IngredientImpl.MAX_LEFT_ACCURACY, Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPositionXScaleFromAccuracy(final double accuracy) {
+        final double boundedAccuracy = Math.max(IngredientImpl.MAX_LEFT_ACCURACY,
+                Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
+        final double halfRange = (MAX_X_POS_SCALE_TO_DROP - MIN_X_POS_SCALE_TO_DROP) / 2.0;
+        return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void changeIngredientAccuracy(final Ingredient ingredient, final double accuracy) {
+        final List<Ingredient> ingredients = model.getHamburgerOnAssembly().getIngredients();
+        for (final Ingredient hamburgerIngredient : ingredients) {
+            if (hamburgerIngredient.equals(ingredient)) {
+                hamburgerIngredient.setPlacementAccuracy(accuracy);
+                if (DEBUG_MODE) {
+                    Logger.info("Ingredient (" + ingredient.getIngredientType().getName() + ") accuracy changed successfully");
+                }
+                return;
+            }
+        }
+        if (DEBUG_MODE) {
+            Logger.error("Accuracy couldn't be changed");
+        }
     }
 
     /**

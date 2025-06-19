@@ -53,6 +53,16 @@ public interface Sprite {
     boolean isRemovable();
 
     /**
+     * @param flipped the new flipped value.
+     */
+    void setFlipped(boolean flipped);
+
+    /**
+     * @return true if flipped.
+     */
+    boolean isFlipped();
+
+    /**
      * @return the list images.
      */
     List<Image> getImages();

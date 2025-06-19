@@ -17,6 +17,8 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 /**
  * Manages the GUI for the grill scene in the game.
  */
@@ -43,7 +45,9 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     public GrillViewImpl(final ResourceService resourceService, final GrillController controller) {
         this.controller = controller;
         patties = new ArrayList<>();
-        Logger.info("Grill created");
+        if (DEBUG_MODE) {
+            Logger.info("Grill created");
+        }
 
         final double pbPositionXScale = 0.028;
         final double pbPositionYScale = 0.78;
@@ -92,7 +96,9 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void showScene() {
-        Logger.info("Grill shown");
+        if (DEBUG_MODE) {
+            Logger.info("Grill shown");
+        }
     }
 
     /**
@@ -100,7 +106,9 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void hideScene() {
-        Logger.info("Grill hidden");
+        if (DEBUG_MODE) {
+            Logger.info("Grill hidden");
+        }
     }
 
     /**
@@ -108,6 +116,8 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
-        Logger.info("Patty dropped");
+        if (DEBUG_MODE) {
+            Logger.info("Patty dropped");
+        }
     }
 }

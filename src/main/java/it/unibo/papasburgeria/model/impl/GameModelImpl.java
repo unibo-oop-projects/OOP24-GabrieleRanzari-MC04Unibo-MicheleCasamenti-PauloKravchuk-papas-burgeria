@@ -44,6 +44,7 @@ public class GameModelImpl implements GameModel {
         cookedPatties = new ArrayList<>();
 
         final PattyImpl patty = new PattyImpl();
+
         patty.setTopCookLevel(DegreesOfDonenessEnum.MEDIUM.getMinCookLevel());
         patty.setBottomCookLevel(DegreesOfDonenessEnum.BURNT.getMinCookLevel());
         cookedPatties.add(new PattyImpl(patty));
@@ -163,6 +164,6 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public String toString() {
-        return "[currentDay=" + currentDay + "]";
+        return "[currentDay=" + currentDay + "]"; // TODO update
     }
 }

@@ -25,7 +25,8 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Manages the GUI for the burger assembly scene in the game.
@@ -36,30 +37,30 @@ import java.util.Set;
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
-    public static final Set<IngredientEnum> SAUCES = Set.of(
+    public static final List<IngredientEnum> SAUCES = List.of(
             IngredientEnum.KETCHUP,
             IngredientEnum.MUSTARD,
             IngredientEnum.BBQ,
             IngredientEnum.MAYO
     );
 
+    public static final double MIN_X_POS_SCALE_TO_DROP = 0.31;
+    public static final double MAX_X_POS_SCALE_TO_DROP = 0.55;
+    public static final double HAMBURGER_X_POS_SCALE =
+            (MIN_X_POS_SCALE_TO_DROP + MAX_X_POS_SCALE_TO_DROP) / 2.0;
     private static final double INGREDIENTS_X_POS_SCALE = 0.005;
     private static final double INGREDIENTS_Y_POS_SCALE = 0.005;
     private static final double INGREDIENTS_MAX_Y_POS_SCALE = 0.6;
-    private static final double SAUCES_X_POS_SCALE = 0.685;
-    private static final double SAUCES_Y_POS_SCALE = 0.68;
+    private static final double SAUCE_BOTTLES_X_POS_SCALE = 0.685;
+    private static final double SAUCE_BOTTLES_Y_POS_SCALE = 0.68;
     private static final double PATTIES_X_POS_SCALE = 0.128;
     private static final double PATTIES_Y_POS_SCALE = 0.77;
     private static final double INGREDIENTS_X_SIZE_SCALE = 0.15;
     private static final double INGREDIENTS_Y_SIZE_SCALE = 0.15;
-    private static final double SAUCES_X_SIZE_SCALE = INGREDIENTS_X_SIZE_SCALE / 2;
-    private static final double SAUCES_Y_SIZE_SCALE = INGREDIENTS_Y_SIZE_SCALE * 2;
+    private static final double SAUCE_BOTTLES_X_SIZE_SCALE = INGREDIENTS_X_SIZE_SCALE / 2;
+    private static final double SAUCE_BOTTLES_Y_SIZE_SCALE = INGREDIENTS_Y_SIZE_SCALE * 2;
     private static final double SPACING = 0.005;
     private static final double PATTY_SPACING = 0.04;
-    private static final double MIN_X_POS_SCALE_TO_DROP = 0.31;
-    private static final double MAX_X_POS_SCALE_TO_DROP = 0.55;
-    private static final double HAMBURGER_X_POS_SCALE =
-            (MIN_X_POS_SCALE_TO_DROP + MAX_X_POS_SCALE_TO_DROP) / 2.0;
     private static final double HAMBURGER_Y_POS_SCALE = 0.71;
     private static final double HAMBURGER_SPACING = 0.04;
     private static final String EXTENSION = ".png";
@@ -96,7 +97,9 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         draggableHamburgerSprites = new ArrayList<>();
         pattyImages = new HashMap<>();
         ingredientImages = new EnumMap<>(IngredientEnum.class);
-        Logger.info("BurgerAssembly created");
+        if (DEBUG_MODE) {
+            Logger.info("BurgerAssembly created");
+        }
 
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
 
@@ -131,13 +134,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             }
         }
 
-        pbPositionXScale = SAUCES_X_POS_SCALE;
-        pbPositionYScale = SAUCES_Y_POS_SCALE;
+        pbPositionXScale = SAUCE_BOTTLES_X_POS_SCALE;
+        pbPositionYScale = SAUCE_BOTTLES_Y_POS_SCALE;
         for (final IngredientEnum ingredientType : SAUCES) {
             final Image image = resourceService.getImage(ingredientType.getName() + BOTTLE_EXTENSION + EXTENSION);
 
             final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
-                    pbPositionXScale, pbPositionYScale, SAUCES_X_SIZE_SCALE, SAUCES_Y_SIZE_SCALE);
+                    pbPositionXScale, pbPositionYScale, SAUCE_BOTTLES_X_SIZE_SCALE, SAUCE_BOTTLES_Y_SIZE_SCALE);
 
             if (controller.isIngredientUnlocked(ingredientType)) {
                 draggableSprites.add(sprite);
@@ -145,7 +148,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                 sprites.add(sprite);
             }
 
-            pbPositionXScale = pbPositionXScale + SAUCES_X_SIZE_SCALE + SPACING;
+            pbPositionXScale = pbPositionXScale + SAUCE_BOTTLES_X_SIZE_SCALE + SPACING;
         }
 
         final IngredientEnum ingredientType = IngredientEnum.PATTY;
@@ -219,7 +222,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         double pbPositionYScale = HAMBURGER_Y_POS_SCALE;
         Sprite sprite = null;
         for (final Ingredient ingredient : hamburgerIngredients) {
-            final double pbPositionXScale = getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy());
+            final double pbPositionXScale = controller.getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy());
             if (ingredient instanceof Patty) {
                 sprite = generatePattySprite((Patty) ingredient, pbPositionXScale, pbPositionYScale);
             } else {
@@ -310,39 +313,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * calculates the accuracy given the pbPositionXScale.
-     *
-     * @param pbPositionXScale the pbPositionXScale of the ingredient.
-     *
-     * @return the placement accuracy.
-     */
-    public double calculateAccuracy(final double pbPositionXScale) {
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP - MIN_X_POS_SCALE_TO_DROP) / 2.0;
-        final double difference = pbPositionXScale - HAMBURGER_X_POS_SCALE;
-        final double accuracy = difference / halfRange;
-        return Math.max(IngredientImpl.MAX_LEFT_ACCURACY, Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
-    }
-
-    /**
-     * calculates the pbPositionXScale given the accuracy.
-     *
-     * @param accuracy the placement accuracy of the ingredient.
-     *
-     * @return the pbPositionXScale.
-     */
-    public double getPositionXScaleFromAccuracy(final double accuracy) {
-        final double boundedAccuracy = Math.max(IngredientImpl.MAX_LEFT_ACCURACY,
-                Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP - MIN_X_POS_SCALE_TO_DROP) / 2.0;
-        return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
-    }
-
-    /**
      * @inheritDoc
      */
     @Override
     public void showScene() {
-        Logger.info("BurgerAssembly shown");
+        if (DEBUG_MODE) {
+            Logger.info("BurgerAssembly shown");
+        }
     }
 
     /**
@@ -350,7 +327,9 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void hideScene() {
-        Logger.info("BurgerAssembly hidden");
+        if (DEBUG_MODE) {
+            Logger.info("BurgerAssembly hidden");
+        }
     }
 
     /**
@@ -360,7 +339,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     public void spriteDropped(final Sprite sprite) {
         double pbPositionXScale = sprite.getPbPositionXScale();
         if (SAUCES.contains(sprite.getIngredientType())) {
-            pbPositionXScale = pbPositionXScale - SAUCES_X_SIZE_SCALE / 2;
+            pbPositionXScale = pbPositionXScale - SAUCE_BOTTLES_X_SIZE_SCALE / 2;
         }
         if (sprite.isRemovable()) {
             final Ingredient ingredient = sprite.getIngredient();
@@ -370,17 +349,15 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                 }
                 controller.removeLastIngredient();
             } else {
-                ingredient.setPlacementAccuracy(calculateAccuracy(pbPositionXScale));
-                controller.removeLastIngredient();
+                controller.changeIngredientAccuracy(ingredient, controller.calculateAccuracy(pbPositionXScale));
                 if (ingredient instanceof Patty) {
                     draggablePattySprites.clear();
                 }
-                controller.addIngredient(ingredient);
             }
         }
         if (pbPositionXScale > MIN_X_POS_SCALE_TO_DROP && pbPositionXScale < MAX_X_POS_SCALE_TO_DROP && !sprite.isRemovable()) {
             final Ingredient ingredient = sprite.getIngredient();
-            ingredient.setPlacementAccuracy(calculateAccuracy(pbPositionXScale));
+            ingredient.setPlacementAccuracy(controller.calculateAccuracy(pbPositionXScale));
 
             if (controller.addIngredient(ingredient)) {
                 sprite.setDraggable(false);

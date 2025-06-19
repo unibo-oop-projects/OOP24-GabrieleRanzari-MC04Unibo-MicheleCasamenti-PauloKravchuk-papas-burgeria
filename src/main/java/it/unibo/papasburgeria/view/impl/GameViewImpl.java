@@ -18,6 +18,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 /**
  * Implementation of GameView.
  *
@@ -114,7 +116,7 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void startGame() {
-        if (this.gameIsRunning) {
+        if (DEBUG_MODE && this.gameIsRunning) {
             Logger.warn("The game has already started!");
         }
 
@@ -132,7 +134,9 @@ public class GameViewImpl implements GameView {
     @Override
     public void endGame() {
         if (!this.gameIsRunning) {
-            Logger.warn("The game has already ended!");
+            if (DEBUG_MODE) {
+                Logger.warn("The game has already ended!");
+            }
             return;
         }
 

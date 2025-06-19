@@ -31,6 +31,7 @@ public class SpriteImpl implements Sprite {
     private boolean visible;
     private boolean cloneable;
     private boolean removable;
+    private boolean flipped;
 
     /**
      * Constructor for single image, stores the image, the ingredient, its coordinates in % and its size in %.
@@ -59,6 +60,7 @@ public class SpriteImpl implements Sprite {
         visible = true;
         cloneable = true;
         removable = false;
+        flipped = false;
     }
 
     /**
@@ -88,6 +90,7 @@ public class SpriteImpl implements Sprite {
         visible = true;
         cloneable = true;
         removable = false;
+        flipped = false;
     }
 
     /**
@@ -111,6 +114,7 @@ public class SpriteImpl implements Sprite {
         visible = sprite.isVisible();
         cloneable = sprite.isCloneable();
         removable = sprite.isRemovable();
+        flipped = sprite.isFlipped();
     }
 
     /**
@@ -175,6 +179,22 @@ public class SpriteImpl implements Sprite {
     @Override
     public boolean isRemovable() {
         return removable;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setFlipped(final boolean flipped) {
+        this.flipped = flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isFlipped() {
+        return flipped;
     }
 
     /**
@@ -303,16 +323,17 @@ public class SpriteImpl implements Sprite {
                 throw new IllegalStateException("Could not flip: Image not loaded correctly");
             }
 
-            final BufferedImage flipped = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            final Graphics2D g = flipped.createGraphics();
+            final BufferedImage flippedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            final Graphics2D graphics = flippedImage.createGraphics();
 
             final AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
             transform.translate(0, -height);
 
-            g.drawImage(image, transform, null);
-            g.dispose();
+            graphics.drawImage(image, transform, null);
+            graphics.dispose();
 
-            newImages.add(flipped);
+            flipped = !flipped;
+            newImages.add(flippedImage);
         }
         images = newImages;
     }

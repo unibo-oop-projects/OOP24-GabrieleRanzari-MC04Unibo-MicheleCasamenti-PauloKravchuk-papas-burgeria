@@ -6,6 +6,8 @@ import org.tinylog.Logger;
 import java.awt.Graphics;
 import java.io.Serial;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 /**
  * Register view.
  */
@@ -18,7 +20,9 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Inject
     public RegisterViewImpl() {
-        Logger.info("RegisterView created");
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView created");
+        }
     }
 
     /**
@@ -26,7 +30,9 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        Logger.info("RegisterView shown");
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView shown");
+        }
     }
 
     /**
@@ -34,7 +40,9 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        Logger.info("RegisterView hidden");
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView hidden");
+        }
     }
 
     /**
@@ -42,7 +50,7 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     void update(final double delta) {
-        Logger.info("RegisterView updated, last frame: " + delta);
+
     }
 
     /**

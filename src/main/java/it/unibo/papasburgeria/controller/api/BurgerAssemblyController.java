@@ -54,4 +54,30 @@ public interface BurgerAssemblyController {
      * @param patty the patty to remove.
      */
     void removeCookedPatty(Patty patty);
+
+    /**
+     * calculates the accuracy given the pbPositionXScale.
+     *
+     * @param pbPositionXScale the pbPositionXScale of the ingredient.
+     *
+     * @return the placement accuracy.
+     */
+    double calculateAccuracy(double pbPositionXScale);
+
+    /**
+     * calculates the pbPositionXScale given the accuracy.
+     *
+     * @param accuracy the placement accuracy of the ingredient.
+     *
+     * @return the pbPositionXScale.
+     */
+    double getPositionXScaleFromAccuracy(double accuracy);
+
+    /**
+     * Changes the accuracy of and ingredient in the hamburgerOnAssembly.
+     *
+     * @param ingredient the ingredient to change accuracy.
+     * @param accuracy the new accuracy value.
+     */
+    void changeIngredientAccuracy(Ingredient ingredient, double accuracy);
 }

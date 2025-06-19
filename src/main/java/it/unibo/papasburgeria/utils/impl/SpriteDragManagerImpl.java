@@ -86,7 +86,11 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     public void mouseReleased(final MouseEvent event) {
         if (draggedSprite != null) {
             dropListener.spriteDropped(draggedSprite);
+            if (draggedSprite.isFlipped()) {
+                draggedSprite.flipImageVertically();
+            }
             draggedSprite = null;
+
             if (originalSprite != null) {
                 originalSprite.setVisible(true);
                 originalSprite = null;

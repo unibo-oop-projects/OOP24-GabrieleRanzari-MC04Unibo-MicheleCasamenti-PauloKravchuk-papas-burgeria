@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.io.Serial;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 /**
  * Menu View.
  */
@@ -41,7 +43,9 @@ public class MenuViewImpl extends AbstractBaseView {
         playButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
         playButton.setFocusPainted(false);
         playButton.addActionListener(e -> {
-            Logger.debug("Clicked button");
+            if (DEBUG_MODE) {
+                Logger.debug("Clicked button");
+            }
         });
 
         interfacePanel.add(
@@ -72,7 +76,10 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        Logger.info("MenuView shown");
+        if (DEBUG_MODE) {
+            Logger.info("MenuView shown");
+        }
+
     }
 
     /**
@@ -80,6 +87,8 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        Logger.info("MenuView hidden");
+        if (DEBUG_MODE) {
+            Logger.info("MenuView hidden");
+        }
     }
 }

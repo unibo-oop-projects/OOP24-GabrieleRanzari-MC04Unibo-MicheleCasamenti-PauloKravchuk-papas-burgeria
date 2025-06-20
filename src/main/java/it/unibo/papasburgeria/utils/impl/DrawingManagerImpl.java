@@ -170,8 +170,8 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
-    public final void drawCookedPatties(final List<Patty> cookedPatties, final double pbPositionXScale,
-                                        final double initialPbPositionYScale, final List<Sprite> draggablePattySprites) {
+    public final void generateCookedPatties(final List<Patty> cookedPatties, final double pbPositionXScale,
+                                            final double initialPbPositionYScale, final List<Sprite> draggablePattySprites) {
         double pbPositionYScale = initialPbPositionYScale;
         for (final Patty patty : cookedPatties) {
             final Sprite sprite = generatePattySprite(patty, pbPositionXScale, pbPositionYScale);
@@ -188,22 +188,23 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
-    public final void drawPattiesOnGrill(final Patty[][] pattiesOnGrill, final List<Sprite> draggablePattiesOnGrill) {
+    public final void generatePattiesOnGrill(final Patty[][] pattiesOnGrill, final List<Sprite> draggablePattiesOnGrill) {
         double pbPositionXScale = PATTY_ON_GRILL_X_POS;
-        double pbPositionYScale = PATTY_ON_GRILL_Y_POS;
+        double pbPositionYScale = PATTY_ON_GRILL_Y_POS + GRILL_Y_SPACING;
         for (final Patty[] pattyRow : pattiesOnGrill) {
             for (final Patty patty : pattyRow) {
                 if (patty != null) {
                     final Sprite sprite = generatePattySprite(patty, pbPositionXScale, pbPositionYScale);
                     sprite.setCloneable(false);
-                    sprite.setRemovable(false);
+                    sprite.setRemovable(true);
+                    sprite.setDraggable(false);
                     if (!draggablePattiesOnGrill.contains(sprite)) {
                         draggablePattiesOnGrill.add(sprite);
                     }
-                    pbPositionXScale = pbPositionXScale + GRILL_X_SPACING;
                 }
+                pbPositionXScale = pbPositionXScale + INGREDIENTS_X_SIZE_SCALE + GRILL_X_SPACING;
             }
-            pbPositionYScale = pbPositionYScale + GRILL_Y_SPACING;
+            pbPositionYScale = pbPositionYScale + INGREDIENTS_Y_SIZE_SCALE + GRILL_Y_SPACING;
             pbPositionXScale = PATTY_ON_GRILL_X_POS;
         }
     }

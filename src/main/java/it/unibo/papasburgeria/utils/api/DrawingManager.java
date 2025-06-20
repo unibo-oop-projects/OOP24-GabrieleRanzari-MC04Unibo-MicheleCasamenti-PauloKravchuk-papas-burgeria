@@ -46,21 +46,21 @@ public interface DrawingManager {
     void drawIngredient(Sprite sprite, Dimension frameSize, BurgerAssemblyController controller, Graphics graphics);
 
     /**
-     * Draws the cooked patties.
+     * Generates the sprites for the cooked patties.
      *
      * @param cookedPatties the list of cooked patties.
      * @param pbPositionXScale the pbPositionXScale where to draw.
      * @param initialPbPositionYScale the pbPositionYScale where to draw.
      * @param draggablePattySprites the list of draggable sprites.
      */
-    void drawCookedPatties(List<Patty> cookedPatties, double pbPositionXScale,
-                           double initialPbPositionYScale, List<Sprite> draggablePattySprites);
+    void generateCookedPatties(List<Patty> cookedPatties, double pbPositionXScale,
+                               double initialPbPositionYScale, List<Sprite> draggablePattySprites);
 
     /**
-     * Draws the patties on the grill.
+     * Generates the sprites for the patties on the grill.
      *
      * @param pattiesOnGrill the matrix of patties on the grill.
      * @param draggablePattiesOnGrill the list of draggable patties on the grill.
      */
-    void drawPattiesOnGrill(Patty[][] pattiesOnGrill, List<Sprite> draggablePattiesOnGrill);
+    void generatePattiesOnGrill(Patty[][] pattiesOnGrill, List<Sprite> draggablePattiesOnGrill);
 }

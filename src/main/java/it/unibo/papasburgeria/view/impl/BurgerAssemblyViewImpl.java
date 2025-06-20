@@ -150,7 +150,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         drawingManager.drawHamburger(hamburgerIngredients, getSize(), controller, draggableHamburgerSprites, graphics);
 
         final List<Patty> cookedPatties = controller.getCookedPatties();
-        drawingManager.drawCookedPatties(cookedPatties, PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, draggablePattySprites);
+        drawingManager.generateCookedPatties(cookedPatties, PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, draggablePattySprites);
 
         for (final Sprite sprite : sprites) {
             drawingManager.drawIngredient(sprite, getSize(), controller, graphics);
@@ -230,5 +230,23 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         draggableHamburgerSprites.clear();
         draggablePattySprites.remove(sprite);
         draggableSprites.remove(sprite);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void spriteClicked(final Sprite sprite) {
+        draggableHamburgerSprites.clear();
+        draggablePattySprites.remove(sprite);
+        draggableSprites.remove(sprite);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void spritePressed(final Sprite sprite) {
+
     }
 }

@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
 import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.utils.api.Sprite;
 
 import java.util.List;
 
@@ -28,10 +29,17 @@ public interface GrillController {
     /**
      * Removes the patty in a specific place from the grill.
      *
-     * @param pbPositionXScale the pbPositionXScale of the patty.
-     * @param pbPositionYScale the pbPositionYScale of the patty.
+     * @param row the row of the matrix.
+     * @param column the column of the matrix.
      */
-    void removePattyFromGrill(double pbPositionXScale, double pbPositionYScale);
+    void removePattyFromGrill(int row, int column);
+
+    /**
+     * Removes the patty from the grill.
+     *
+     * @param patty the patty to remove.
+     */
+    void removePattyFromGrill(Patty patty);
 
     /**
      * @return the list of cooked patties.
@@ -84,5 +92,15 @@ public interface GrillController {
      * @return the index.
      */
     int calculatePosition(double position, double minPos, double maxPos, int segments);
+
+    /**
+     * Starts cooking the patties.
+     */
+    void startCooking();
+
+    /**
+     * Stops cooking the patties.
+     */
+    void stopCooking();
 }
 

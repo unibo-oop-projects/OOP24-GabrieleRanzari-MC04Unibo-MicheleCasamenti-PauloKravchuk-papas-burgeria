@@ -375,18 +375,19 @@ public class SpriteImpl implements Sprite {
      */
     @Override
     public void draw(final Dimension frameSize, final Graphics g) {
-        if (isVisible()) {
-            final int frameWidth = frameSize.width;
-            final int frameHeight = frameSize.height;
+        if (!isVisible()) {
+            return;
+        }
+        final int frameWidth = frameSize.width;
+        final int frameHeight = frameSize.height;
 
-            final int x = calculateX(frameWidth);
-            final int y = calculateY(frameHeight);
-            final int width = calculateWidth(frameWidth);
-            final int height = calculateHeight(frameHeight);
+        final int x = calculateX(frameWidth);
+        final int y = calculateY(frameHeight);
+        final int width = calculateWidth(frameWidth);
+        final int height = calculateHeight(frameHeight);
 
-            for (final Image image : images) {
-                g.drawImage(image, x, y, width, height, null);
-            }
+        for (final Image image : images) {
+            g.drawImage(image, x, y, width, height, null);
         }
     }
 

@@ -15,6 +15,18 @@ public interface Patty {
     boolean isFlipped();
 
     /**
+     * Stops cooking the patty.
+     *
+     * @param stopCooking the new stopCooking value.
+     */
+    void setStopCooking(boolean stopCooking);
+
+    /**
+     * @return true if the patty is stopped from cooking.
+     */
+    boolean isStoppedFromCooking();
+
+    /**
      * @return the top cook level.
      */
     double getTopCookLevel();

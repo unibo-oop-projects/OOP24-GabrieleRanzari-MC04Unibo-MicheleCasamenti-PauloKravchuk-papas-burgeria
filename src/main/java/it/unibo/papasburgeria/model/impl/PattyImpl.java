@@ -15,6 +15,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     private double topCookLevel;
     private double bottomCookLevel;
     private boolean flipped;
+    private boolean stopCooking;
 
     /**
      * Default constructor for the patty, creates a raw patty not flipped.
@@ -24,6 +25,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
         topCookLevel = MIN_COOK_LEVEL;
         bottomCookLevel = MIN_COOK_LEVEL;
         flipped = false;
+        stopCooking = false;
     }
 
     /**
@@ -36,6 +38,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
         topCookLevel = MIN_COOK_LEVEL;
         bottomCookLevel = MIN_COOK_LEVEL;
         flipped = false;
+        stopCooking = false;
     }
 
     /**
@@ -48,6 +51,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
         topCookLevel = patty.getTopCookLevel();
         bottomCookLevel = patty.getBottomCookLevel();
         flipped = patty.isFlipped();
+        stopCooking = patty.isStoppedFromCooking();
     }
 
     /**
@@ -64,6 +68,22 @@ public class PattyImpl extends IngredientImpl implements Patty {
     @Override
     public boolean isFlipped() {
         return flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setStopCooking(final boolean stopCooking) {
+        this.stopCooking = stopCooking;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isStoppedFromCooking() {
+        return stopCooking;
     }
 
     /**
@@ -111,8 +131,8 @@ public class PattyImpl extends IngredientImpl implements Patty {
         }
         final PattyImpl other = (PattyImpl) object;
         return getIngredientType() == other.getIngredientType()
-                && Objects.equals(this.topCookLevel, other.getTopCookLevel())
-                && Objects.equals(this.bottomCookLevel, other.getBottomCookLevel())
+                && Objects.equals(this.topCookLevel, other.topCookLevel)
+                && Objects.equals(this.bottomCookLevel, other.bottomCookLevel)
                 && this.flipped == other.flipped;
     }
 

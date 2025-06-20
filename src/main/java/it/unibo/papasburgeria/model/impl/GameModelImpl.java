@@ -50,11 +50,15 @@ public class GameModelImpl implements GameModel {
         patty.setBottomCookLevel(DegreesOfDonenessEnum.BURNT.getMinCookLevel());
         cookedPatties.add(new PattyImpl(patty));
         patty.setTopCookLevel(DegreesOfDonenessEnum.RAW.getMinCookLevel());
-        patty.setBottomCookLevel(DegreesOfDonenessEnum.RAW.getMinCookLevel());
+        patty.setBottomCookLevel(DegreesOfDonenessEnum.MEDIUM.getMinCookLevel());
         cookedPatties.add(new PattyImpl(patty));
         patty.setTopCookLevel(DegreesOfDonenessEnum.WELL_DONE.getMinCookLevel());
         patty.setBottomCookLevel(DegreesOfDonenessEnum.RARE.getMinCookLevel());
         cookedPatties.add(new PattyImpl(patty));
+
+        patty.setTopCookLevel(DegreesOfDonenessEnum.MEDIUM.getMinCookLevel());
+        patty.setBottomCookLevel(DegreesOfDonenessEnum.RARE.getMinCookLevel());
+        pattiesOnGrill[1][2] = new PattyImpl(patty);
     }
 
     /**
@@ -87,11 +91,11 @@ public class GameModelImpl implements GameModel {
         }
 
         final Patty[][] newPattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
-        for (int rowIndex = 0; rowIndex < GRILL_ROWS; rowIndex++) {
-            newPattiesOnGrill[rowIndex] = Arrays.copyOf(pattiesOnGrill[rowIndex], pattiesOnGrill[rowIndex].length);
-            for (int columnIndex = 0; columnIndex < GRILL_COLUMNS
-                    && pattiesOnGrill[rowIndex][columnIndex] != null; columnIndex++) {
-                newPattiesOnGrill[rowIndex][columnIndex] = new PattyImpl(pattiesOnGrill[rowIndex][columnIndex]);
+        for (int row = 0; row < GRILL_ROWS; row++) {
+            newPattiesOnGrill[row] = Arrays.copyOf(pattiesOnGrill[row], pattiesOnGrill[row].length);
+            for (int column = 0; column < GRILL_COLUMNS
+                    && pattiesOnGrill[row][column] != null; column++) {
+                newPattiesOnGrill[row][column] = new PattyImpl(pattiesOnGrill[row][column]);
             }
         }
         return newPattiesOnGrill;

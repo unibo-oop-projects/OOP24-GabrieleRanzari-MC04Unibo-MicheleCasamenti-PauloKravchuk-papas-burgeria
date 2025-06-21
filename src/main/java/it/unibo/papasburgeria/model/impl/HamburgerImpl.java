@@ -7,6 +7,8 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.tinylog.Logger;
+
 /**
  * class used for creating a simple hamburger.
  */
@@ -24,20 +26,29 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
+     * @param ingredientList list of ingredients used for the hamburger
+     */
+    private HamburgerImpl(final List<Ingredient> ingredientList) {
+        this.ingredientList = ingredientList;
+    }
+
+    /**
      * @param availableIngredients list of the ingredients which can be contained in the hamburger
      * @return a randomly generated Hamburger
      */
-
     public static Hamburger generateRandomHamburger(final List<IngredientEnum> availableIngredients) {
         final Hamburger hamburger = new HamburgerImpl();
         final List<IngredientEnum> currentIngredients = new ArrayList<>();
         currentIngredients.addAll(availableIngredients);
         currentIngredients.remove(IngredientEnum.TOPBUN);
         currentIngredients.remove(IngredientEnum.BOTTOMBUN);
+
         hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOMBUN));
 
         if (!currentIngredients.isEmpty()) {
             final int ingredientNumber = (int) ((Math.random() * (MAXINGREDIENTS - MININGREDIENTS)) + MININGREDIENTS);
+
+            Logger.debug("ingredient generated: " + ingredientNumber);
 
             for (int i = 0; i < ingredientNumber; i++) {
                 Ingredient ingredient;
@@ -49,7 +60,7 @@ public class HamburgerImpl implements Hamburger {
                     } else {
                         ingredient = new IngredientImpl(ingredientType);
                     }
-                } while (hamburger.addIngredient(ingredient));
+                } while (!hamburger.addIngredient(ingredient));
             }
         }
 
@@ -58,16 +69,18 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @return true if the ingredient was added successfully. false otherwise.
+     * @inheritDoc
      */
     @Override
     public boolean addIngredient(final Ingredient ingredient) {
         if (ingredientList.isEmpty() && ingredient.getIngredientType() != IngredientEnum.BOTTOMBUN) {
+            Logger.debug("first ingredient is NOT a bun");
             return false;
         }
 
         if (!ingredientList.isEmpty()
                 && ingredientList.get(ingredientList.size() - 1).getIngredientType().equals(IngredientEnum.TOPBUN)) {
+            Logger.debug("last ingredient has already been placed");
             return false;
         }
 
@@ -76,7 +89,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @return hamburger's list of ingredients.
+     * @inheritDoc
      */
     @Override
     public List<Ingredient> getIngredients() {
@@ -84,7 +97,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @return a string detailing all of hamburger's ingredient and their status.
+     * @inheritDoc
      */
     @Override
     public String toString() {
@@ -95,6 +108,14 @@ public class HamburgerImpl implements Hamburger {
         sb.append(']');
 
         return sb.toString();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Hamburger copyOf() {
+        return new HamburgerImpl(ingredientList);
     }
 
 }

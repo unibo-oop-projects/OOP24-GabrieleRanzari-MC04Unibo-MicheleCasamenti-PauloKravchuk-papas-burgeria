@@ -16,4 +16,9 @@ public interface Hamburger {
      * @return all the ingredient added to the burger
      */
     List<Ingredient> getIngredients();
+
+    /**
+     * @return a copy of this hamburger
+     */
+    Hamburger copyOf();
 }

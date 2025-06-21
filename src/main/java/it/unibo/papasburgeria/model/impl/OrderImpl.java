@@ -5,7 +5,7 @@ import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
 import org.tinylog.Logger;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class used for managing hamburgers' assembling instructions and max time.
@@ -15,10 +15,10 @@ public class OrderImpl implements Order {
     private final float maxTime;
 
     /**
-     * Simple constructor. Ramdomly generates an order.
+     * @param availableIngredients possible ingredients used to generate a random hamburger
      */
-    public OrderImpl() {
-        hamburger = HamburgerImpl.generateRandomHamburger(Arrays.asList(IngredientEnum.values()));
+    public OrderImpl(final List<IngredientEnum> availableIngredients) {
+        hamburger = HamburgerImpl.generateRandomHamburger(availableIngredients);
         maxTime = (float) 10.0;
     }
 
@@ -28,7 +28,7 @@ public class OrderImpl implements Order {
     @Override
     public Hamburger getHamburger() {
         Logger.debug(hamburger);
-        return new HamburgerImpl(); //this.hamburger needs to be cloned, if you need to change it make order methods;
+        return hamburger.copyOf();
     }
 
     /**
@@ -39,4 +39,11 @@ public class OrderImpl implements Order {
         return maxTime;
     }
 
+    /**
+     * @return order and type.
+     */
+    @Override
+    public String toString() {
+        return "[Order: [ " + hamburger.toString() + "] ]";
+    }
 }

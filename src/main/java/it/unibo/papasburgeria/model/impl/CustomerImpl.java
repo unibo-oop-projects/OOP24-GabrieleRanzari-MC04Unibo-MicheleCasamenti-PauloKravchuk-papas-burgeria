@@ -1,5 +1,8 @@
 package it.unibo.papasburgeria.model.impl;
 
+import java.util.List;
+
+import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.Order;
 
@@ -9,8 +12,11 @@ import it.unibo.papasburgeria.model.api.Order;
 public class CustomerImpl implements Customer {
     private final Order order;
 
-    CustomerImpl() {
-        order = new OrderImpl();
+    /**
+     * @param availableIngredients list containing all available ingredients
+     */
+    public CustomerImpl(final List<IngredientEnum> availableIngredients) {
+        order = new OrderImpl(availableIngredients);
     }
 
     /**
@@ -26,6 +32,6 @@ public class CustomerImpl implements Customer {
      */
     @Override
     public String toString() {
-        return "[Customer: [ " + order + "] ]";
+        return "[Customer: [ " + order.toString() + "] ]";
     }
 }

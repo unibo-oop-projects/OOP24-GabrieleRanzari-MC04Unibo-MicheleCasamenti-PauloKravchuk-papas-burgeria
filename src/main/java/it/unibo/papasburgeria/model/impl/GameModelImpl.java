@@ -43,22 +43,6 @@ public class GameModelImpl implements GameModel {
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
-
-        final PattyImpl patty = new PattyImpl();
-
-        patty.setTopCookLevel(DegreesOfDonenessEnum.MEDIUM.getMinCookLevel());
-        patty.setBottomCookLevel(DegreesOfDonenessEnum.BURNT.getMinCookLevel());
-        cookedPatties.add(new PattyImpl(patty));
-        patty.setTopCookLevel(DegreesOfDonenessEnum.RAW.getMinCookLevel());
-        patty.setBottomCookLevel(DegreesOfDonenessEnum.MEDIUM.getMinCookLevel());
-        cookedPatties.add(new PattyImpl(patty));
-        patty.setTopCookLevel(DegreesOfDonenessEnum.WELL_DONE.getMinCookLevel());
-        patty.setBottomCookLevel(DegreesOfDonenessEnum.RARE.getMinCookLevel());
-        cookedPatties.add(new PattyImpl(patty));
-
-        patty.setTopCookLevel(DegreesOfDonenessEnum.MEDIUM.getMinCookLevel());
-        patty.setBottomCookLevel(DegreesOfDonenessEnum.RARE.getMinCookLevel());
-        pattiesOnGrill[1][2] = new PattyImpl(patty);
     }
 
     /**

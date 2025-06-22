@@ -50,16 +50,6 @@ public interface GameModel {
     int getCurrentDay();
 
     /**
-     * @return the cook level increased every second for the patties.
-     */
-    int getCookLevelPerSecond();
-
-    /**
-     * @param cookLevelPerSecond the cook level increased every second for the patties to set.
-     */
-    void setCookLevelPerSecond(int cookLevelPerSecond);
-
-    /**
      * Resets the progress to the first day.
      */
     void reset();

@@ -3,7 +3,6 @@ package it.unibo.papasburgeria.model.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import it.unibo.papasburgeria.model.DegreesOfDonenessEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
@@ -25,13 +24,11 @@ public class GameModelImpl implements GameModel {
     public static final int MAX_COOKED_PATTIES = 5;
 
     private static final int MAX_DAYS = Integer.MAX_VALUE;
-    private static final int DEFAULT_COOK_SPEED = 2;
 
     private Hamburger hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
     private List<Patty> cookedPatties;
     private int currentDay;
-    private int cookLevelPerSecond;
 
     /**
      * Default constructor, initializes currentDay with the starting day.
@@ -39,7 +36,6 @@ public class GameModelImpl implements GameModel {
     @Inject
     public GameModelImpl() {
         this.currentDay = START_DAY;
-        this.cookLevelPerSecond = DEFAULT_COOK_SPEED;
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
@@ -105,14 +101,6 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public int getCookLevelPerSecond() {
-        return cookLevelPerSecond;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void setHamburgerOnAssembly(final Hamburger hamburger) {
         this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
     }
@@ -134,14 +122,6 @@ public class GameModelImpl implements GameModel {
     @Override
     public void setCookedPatties(final List<Patty> patties) {
         cookedPatties = List.copyOf(patties);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public final void setCookLevelPerSecond(final int newCookLevelPerSecond) {
-        cookLevelPerSecond = newCookLevelPerSecond;
     }
 
     /**

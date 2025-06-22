@@ -1,7 +1,6 @@
 package it.unibo.papasburgeria.controller.api;
 
 import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.utils.api.Sprite;
 
 import java.util.List;
 

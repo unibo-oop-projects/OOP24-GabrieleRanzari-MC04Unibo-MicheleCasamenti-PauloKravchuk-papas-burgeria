@@ -2,10 +2,12 @@ package it.unibo.papasburgeria.controller.impl;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.google.inject.Singleton;
 
 import it.unibo.papasburgeria.controller.api.CustomerController;
+import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 
 /**
@@ -15,6 +17,29 @@ import it.unibo.papasburgeria.model.api.Customer;
 public class CustomerControllerImpl implements CustomerController {
     private final Deque<Customer> registerLine = new LinkedList<>();
     private final Deque<Customer> waitLine = new LinkedList<>();
+    private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void startCustomerThread(final int delay, final int customerAmount,
+        final List<IngredientEnum> availableingredients) {
+        if (!customerThread.isAlive()) {
+            customerThread = new CustomerThread(delay, customerAmount, availableingredients, this);
+            customerThread.start();
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void killCustomerThread() {
+        if (customerThread.isAlive()) {
+            customerThread.interrupt();
+        }
+    }
 
     /**
      * @inheritDoc
@@ -87,6 +112,20 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public void clearWaitLine() {
         waitLine.clear();
+    }
+
+    /**
+     * @return the register line
+     */
+    public List<Customer> getRegisterLine() {
+        return List.copyOf(registerLine);
+    }
+
+    /**
+     * @return the wait line
+     */
+    public List<Customer> getWaitLine() {
+        return List.copyOf(waitLine);
     }
 
     /**

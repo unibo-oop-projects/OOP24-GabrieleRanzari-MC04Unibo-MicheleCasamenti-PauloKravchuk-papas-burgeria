@@ -25,7 +25,8 @@ public class HamburgerImpl implements Hamburger {
         ingredientList = new ArrayList<>();
     }
 
-    /** Creates a burger given the list of ingredients.
+    /** 
+     * Creates a burger given the list of ingredients.
      *
      * @param ingredientList the list of ingredients.
      */
@@ -74,7 +75,7 @@ public class HamburgerImpl implements Hamburger {
      * @inheritDoc
      */
     @Override
-    public boolean addIngredient(final Ingredient ingredient) {
+    public final boolean addIngredient(final Ingredient ingredient) {
         if (ingredientList.isEmpty() && ingredient.getIngredientType() != IngredientEnum.BOTTOM_BUN) {
             Logger.debug("first ingredient is NOT a bun");
             return false;
@@ -107,7 +108,6 @@ public class HamburgerImpl implements Hamburger {
 
     /**
      * @return hamburger's list of ingredients.
->>>>>>> ce9a508635ce14542cff5103e2737273c1fa1356
      */
     @Override
     public List<Ingredient> getIngredients() {

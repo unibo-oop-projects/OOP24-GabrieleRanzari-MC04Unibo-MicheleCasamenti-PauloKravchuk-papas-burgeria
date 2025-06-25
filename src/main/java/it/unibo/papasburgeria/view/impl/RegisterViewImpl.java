@@ -67,11 +67,10 @@ public class RegisterViewImpl extends AbstractBaseView {
     private final JTextArea waitLine = new JTextArea();
 
     /**
-     * Register view constructor.
+     * @param pantryModel used to get the available ingredients
      */
     @Inject
-    public RegisterViewImpl(PantryModel pantryModel) {
-        Logger.info("RegisterView created");
+    public RegisterViewImpl(final PantryModel pantryModel) {
         super.getInterfacePanel().setLayout(null);
         super.getInterfacePanel().setBackground(Color.GREEN);
 
@@ -183,8 +182,6 @@ public class RegisterViewImpl extends AbstractBaseView {
         for (final Customer currentCustomer : controller.getWaitLine()) {
             waitLine.append(currentCustomer.getOrder().getHamburger().toString());
         }
-
-        Logger.info("RegisterView updated, last frame: " + delta);
     }
 
     /**

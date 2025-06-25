@@ -10,6 +10,7 @@ import it.unibo.papasburgeria.view.api.GameView;
  * Main class.
  */
 public final class Main {
+    public static final boolean DEBUG_MODE = true;
 
     private Main() {
     }

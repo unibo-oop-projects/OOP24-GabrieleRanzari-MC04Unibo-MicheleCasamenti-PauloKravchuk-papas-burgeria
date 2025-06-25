@@ -7,11 +7,11 @@ import java.util.Set;
 /**
  * Manages the progressive unlocking of ingredients based on days.
  */
-public interface IngredientUnlocker {
+public interface PantryModel {
     /**
      * Unlocks ingredients appropriate to the current day.
      *
-     * @param currentDay : current game day
+     * @param currentDay : current game day number
      */
     void unlockForDay(int currentDay);
 
@@ -24,4 +24,10 @@ public interface IngredientUnlocker {
      * Resets the unlock progress to only the base ingredients.
      */
     void resetUnlocks();
+
+    /**
+     * @param ingredientType the ingredient
+     * @return true if the ingredient is unlocked
+     */
+    boolean isIngredientUnlocked(IngredientEnum ingredientType);
 }

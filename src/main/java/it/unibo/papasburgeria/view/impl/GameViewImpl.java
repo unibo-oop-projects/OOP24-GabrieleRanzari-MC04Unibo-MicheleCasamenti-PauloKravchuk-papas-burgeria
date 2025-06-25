@@ -18,6 +18,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 /**
  * Implementation of GameView.
  *
@@ -26,9 +28,9 @@ import java.util.List;
  */
 @Singleton
 public class GameViewImpl implements GameView {
-    private static final double ASPECT_RATIO = 16.0 / 9.0;
+    public static final int FRAMERATE = 60;
+    public static final double ASPECT_RATIO = 16.0 / 9.0;
     private static final double SIZE_SCALE = 0.7; // in %
-    private static final int FRAMERATE = 60;
     //
     private final GameController gameController;
     private final List<AbstractBaseView> views;
@@ -80,7 +82,7 @@ public class GameViewImpl implements GameView {
         for (final BaseScene scene : scenes) {
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
-                this.mainFrame.add((AbstractBaseView) scene);
+                this.mainFrame.add((AbstractBaseView) scene, scene.getClass().getSimpleName());
             }
         }
 
@@ -114,7 +116,7 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void startGame() {
-        if (this.gameIsRunning) {
+        if (DEBUG_MODE && this.gameIsRunning) {
             Logger.warn("The game has already started!");
         }
 
@@ -132,7 +134,9 @@ public class GameViewImpl implements GameView {
     @Override
     public void endGame() {
         if (!this.gameIsRunning) {
-            Logger.warn("The game has already ended!");
+            if (DEBUG_MODE) {
+                Logger.warn("The game has already ended!");
+            }
             return;
         }
 

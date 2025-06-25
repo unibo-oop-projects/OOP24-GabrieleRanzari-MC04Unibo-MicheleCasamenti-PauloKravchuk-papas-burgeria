@@ -21,4 +21,10 @@ public interface Hamburger {
      * @return a copy of this hamburger
      */
     Hamburger copyOf();
+    /**
+     * Removes the last ingredient added.
+     *
+     * @return true if the removal was successful.
+     */
+    boolean removeLastIngredient();
 }

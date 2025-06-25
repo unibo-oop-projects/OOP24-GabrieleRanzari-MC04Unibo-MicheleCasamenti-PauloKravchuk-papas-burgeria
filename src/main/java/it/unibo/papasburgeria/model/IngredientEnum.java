@@ -1,19 +1,44 @@
 package it.unibo.papasburgeria.model;
 
+import java.util.List;
+
 /**
- * Enum with all types of ingredients.
+ * Enum with all types of ingredients and a string with its name.
  */
 public enum IngredientEnum {
-    BOTTOMBUN,
-    TOPBUN,
-    MEAT,
-    ONION,
-    LETTUCE,
-    PICKLE,
-    TOMATO,
-    CHEESE,
-    KETCHUP,
-    MUSTARD,
-    BBQ,
-    MAYO
+    BOTTOM_BUN("bottom_bun"),
+    TOP_BUN("top_bun"),
+    PATTY("patty"),
+    ONION("onion"),
+    LETTUCE("lettuce"),
+    PICKLE("pickle"),
+    TOMATO("tomato"),
+    CHEESE("cheese"),
+    KETCHUP("ketchup"),
+    MUSTARD("mustard"),
+    BBQ("BBQ"),
+    MAYO("mayo");
+
+    public static final List<IngredientEnum> SAUCES = List.of(
+            KETCHUP,
+            MUSTARD,
+            BBQ,
+            MAYO
+    );
+
+    private final String name;
+
+    /**
+     * @param name the name of the ingredient.
+     */
+    IngredientEnum(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the name of the ingredient.
+     */
+    public String getName() {
+        return name;
+    }
 }

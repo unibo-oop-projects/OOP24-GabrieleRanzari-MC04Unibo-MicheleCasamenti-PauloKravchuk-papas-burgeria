@@ -1,11 +1,15 @@
 package it.unibo.papasburgeria.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.api.GameModel;
+import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import jakarta.inject.Inject;
 import org.tinylog.Logger;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Implementation of GameController.
@@ -13,10 +17,12 @@ import org.tinylog.Logger;
  * <p>
  * See {@link GameController} for interface details.
  */
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class GameControllerImpl implements GameController {
     private final GameModel model;
     private final SceneService sceneService;
     private final ResourceService resourceService;
+    private final PantryModel pantryModel;
 
     /**
      * Constructs the controller with its model and several utility classes like for scene-switching or resource disposing.
@@ -24,12 +30,15 @@ public class GameControllerImpl implements GameController {
      * @param model           the GameModel manager
      * @param sceneService    service required to handle scenes
      * @param resourceService service required to handle resources
+     * @param pantryModel     the model that stores which ingredients are unlocked
      */
     @Inject
-    public GameControllerImpl(final GameModel model, final SceneService sceneService, final ResourceService resourceService) {
+    public GameControllerImpl(final GameModel model, final SceneService sceneService, final ResourceService resourceService,
+                              final PantryModel pantryModel) {
         this.model = model;
         this.sceneService = sceneService;
         this.resourceService = resourceService;
+        this.pantryModel = pantryModel;
     }
 
     /**
@@ -37,7 +46,9 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
-        Logger.info("Game started" + model);
+        if (DEBUG_MODE) {
+            Logger.info("Game started" + model);
+        }
         sceneService.switchTo("Menu");
         sceneService.switchTo("Register");
     }
@@ -48,6 +59,17 @@ public class GameControllerImpl implements GameController {
     @Override
     public void endGame() {
         resourceService.dispose();
-        Logger.info("Game ended");
+        if (DEBUG_MODE) {
+            Logger.info("Game ended");
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void nextDay() {
+        model.nextDay();
+        pantryModel.unlockForDay(model.getCurrentDay());
     }
 }

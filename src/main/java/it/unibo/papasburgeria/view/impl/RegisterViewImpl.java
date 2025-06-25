@@ -1,6 +1,9 @@
 package it.unibo.papasburgeria.view.impl;
 
 import java.awt.Color;
+import com.google.inject.Inject;
+import org.tinylog.Logger;
+
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,23 +13,21 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
-import org.tinylog.Logger;
-import com.google.inject.Inject;
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.impl.CustomerControllerImpl;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
-import it.unibo.papasburgeria.model.api.IngredientUnlocker;
+import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.impl.CustomerImpl;
-import it.unibo.papasburgeria.model.impl.IngredientUnlockerImpl;
 
 /**
  * Register view.
  */
 public class RegisterViewImpl extends AbstractBaseView {
-   @Serial
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final int X_ADD_CUSTOMER = 100;
@@ -53,7 +54,6 @@ public class RegisterViewImpl extends AbstractBaseView {
     private static final int TEXTAREA_HEIGHT = 500;
 
     private final transient CustomerController controller;
-    private final transient IngredientUnlocker ingredientUnlocker;
     private final CustomerDifficultyEnum customerDifficulty;
 
     private final JButton addCustomer = new JButton("Add Customer");
@@ -70,13 +70,12 @@ public class RegisterViewImpl extends AbstractBaseView {
      * Register view constructor.
      */
     @Inject
-    public RegisterViewImpl() {
+    public RegisterViewImpl(PantryModel pantryModel) {
         Logger.info("RegisterView created");
         super.getInterfacePanel().setLayout(null);
         super.getInterfacePanel().setBackground(Color.GREEN);
 
         this.controller = new CustomerControllerImpl();
-        this.ingredientUnlocker = new IngredientUnlockerImpl();
         this.customerDifficulty = CustomerDifficultyEnum.FIRST;
 
         addCustomer.setBounds(X_ADD_CUSTOMER, Y_ADD_CUSTOMER, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -118,7 +117,7 @@ public class RegisterViewImpl extends AbstractBaseView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 controller.startCustomerThread(customerDifficulty.getSpawnIntervalSeconds(), 
-        customerDifficulty.getCustomerCount(), ingredientUnlocker.getUnlockedIngredients().stream().toList());
+        customerDifficulty.getCustomerCount(), pantryModel.getUnlockedIngredients().stream().toList());
             }
 
         });
@@ -144,6 +143,10 @@ public class RegisterViewImpl extends AbstractBaseView {
 
         super.getInterfacePanel().add(registerLine);
         super.getInterfacePanel().add(waitLine);
+
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView created");
+        }
     }
 
     /**
@@ -151,7 +154,9 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        Logger.info("RegisterView shown");
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView shown");
+        }
     }
 
     /**
@@ -159,9 +164,11 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        Logger.info("RegisterView hidden");
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView hidden");
+        }
     }
- 
+
     /**
      * @inheritDoc
      */

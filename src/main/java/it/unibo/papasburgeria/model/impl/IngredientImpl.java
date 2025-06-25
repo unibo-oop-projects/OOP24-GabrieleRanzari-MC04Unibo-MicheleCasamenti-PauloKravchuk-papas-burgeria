@@ -3,10 +3,17 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 
+import java.util.Objects;
+
 /**
  * Class for creating a simple ingredient.
  */
 public class IngredientImpl implements Ingredient {
+    public static final double MAX_RIGHT_ACCURACY = 1.0;
+    public static final double MAX_LEFT_ACCURACY = -MAX_RIGHT_ACCURACY;
+    public static final double PERFECT_ACCURACY = MAX_RIGHT_ACCURACY + MAX_LEFT_ACCURACY;
+    public static final double ACCURACY_NOT_SET = Double.MAX_VALUE;
+
     private final IngredientEnum type;
     private double accuracy;
 
@@ -15,11 +22,30 @@ public class IngredientImpl implements Ingredient {
      */
     public IngredientImpl(final IngredientEnum type) {
         this.type = type;
-        accuracy = 1.0;
+        accuracy = ACCURACY_NOT_SET;
     }
 
     /**
-     * @return type of the ingredient.
+     * @param type the type of the ingredient.
+     * @param accuracy range from MAX_LEFT_ACCURACY to MAX_RIGHT_ACCURACY indicating how far it is from PERFECT_ACCURACY.
+     */
+    public IngredientImpl(final IngredientEnum type, final double accuracy) {
+        this.type = type;
+        this.accuracy = accuracy;
+    }
+
+    /**
+     * Constructor for coping another ingredient.
+     *
+     * @param ingredient the ingredient to copy.
+     */
+    public IngredientImpl(final Ingredient ingredient) {
+        type = ingredient.getIngredientType();
+        accuracy = ingredient.getPlacementAccuracy();
+    }
+
+    /**
+     * @inheritDoc
      */
     @Override
     public IngredientEnum getIngredientType() {
@@ -27,7 +53,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @return how accurately the ingredient was positioned in the hamburger.
+     * @inheritDoc
      */
     @Override
     public double getPlacementAccuracy() {
@@ -35,19 +61,45 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @param setAccuracy how accurately the ingredient was positioned in the hamburger.
+     * @inheritDoc
      */
     @Override
-    public void setPlacementAccuracy(final double setAccuracy) {
-        this.accuracy = setAccuracy;
+    public void setPlacementAccuracy(final double newAccuracy) {
+        this.accuracy = newAccuracy;
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        final Ingredient other = (Ingredient) object;
+        return type == other.getIngredientType();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                type,
+                accuracy
+        );
+    }
+
 
     /**
      * @return a string containing the ingredient's type and placement accuracy.
      */
     @Override
     public String toString() {
-        return "[ type:" + this.getIngredientType() + ", acc:" + this.getPlacementAccuracy() + " ]";
+        return "[ type:" + this.getIngredientType() + ", accuracy:" + this.getPlacementAccuracy() + " ]";
     }
-
 }

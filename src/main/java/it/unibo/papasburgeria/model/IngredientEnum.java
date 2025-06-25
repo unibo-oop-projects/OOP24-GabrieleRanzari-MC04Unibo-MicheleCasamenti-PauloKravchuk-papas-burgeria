@@ -29,14 +29,18 @@ public enum IngredientEnum {
     private final String name;
 
     /**
-     * @param name the name of the ingredient.
+     * Default constructor, sets the name of the ingredient type.
+     *
+     * @param name the ingredient type name
      */
     IngredientEnum(final String name) {
         this.name = name;
     }
 
     /**
-     * @return the name of the ingredient.
+     * Return the name of the ingredient type.
+     *
+     * @return the ingredient type name
      */
     public String getName() {
         return name;

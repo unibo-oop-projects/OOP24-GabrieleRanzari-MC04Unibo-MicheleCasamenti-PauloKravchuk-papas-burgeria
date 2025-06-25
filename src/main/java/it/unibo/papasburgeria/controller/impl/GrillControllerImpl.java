@@ -6,14 +6,16 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.GameModelImpl;
-import it.unibo.papasburgeria.view.impl.GameViewImpl;
 
 import java.util.List;
 import java.util.Objects;
 
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_COLUMNS;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_ROWS;
+import static it.unibo.papasburgeria.model.impl.GameModelImpl.MAX_COOKED_PATTIES;
+import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
+import static it.unibo.papasburgeria.view.impl.GameViewImpl.FRAMERATE;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.COOK_LEVEL_INCREMENT_PER_SECOND;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_GRILL;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MAX_Y_POS_SCALE_TO_DROP_ON_GRILL;
@@ -27,17 +29,15 @@ import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MIN_Y_POS_SCALE_TO_
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class GrillControllerImpl implements GrillController {
     private final GameModel model;
-    private boolean isCookingEnabled;
 
     /**
-     * Default constructor.
+     * Default constructor that saves the game model given via injection.
      *
-     * @param model the game model.
+     * @param model the game model
      */
     @Inject
     public GrillControllerImpl(final GameModel model) {
         this.model = model;
-        isCookingEnabled = true;
     }
 
     /**
@@ -73,19 +73,6 @@ public class GrillControllerImpl implements GrillController {
      * @inheritDoc
      */
     @Override
-    public void removePattyFromGrill(final int row, final int column) {
-        final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
-
-        if (Objects.nonNull(pattiesOnGrill[row][column])) {
-            pattiesOnGrill[row][column] = null;
-            model.setPattiesOnGrill(pattiesOnGrill);
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void removePattyFromGrill(final Patty patty) {
         final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
 
@@ -100,7 +87,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @return the list of cooked patties.
+     * @inheritDoc
      */
     @Override
     public List<Patty> getCookedPatties() {
@@ -113,7 +100,7 @@ public class GrillControllerImpl implements GrillController {
     @Override
     public boolean addCookedPatty(final Patty patty) {
         final List<Patty> patties = model.getCookedPatties();
-        if (patties.size() == GameModelImpl.MAX_COOKED_PATTIES) {
+        if (patties.size() == MAX_COOKED_PATTIES) {
             return false;
         }
         patties.add(patty);
@@ -152,10 +139,7 @@ public class GrillControllerImpl implements GrillController {
      */
     @Override
     public void cookPatty(final Patty patty) {
-        if (patty.isStoppedFromCooking()) {
-            return;
-        }
-        final double cookLevelIncrement = COOK_LEVEL_INCREMENT_PER_SECOND / GameViewImpl.FRAMERATE;
+        final double cookLevelIncrement = COOK_LEVEL_INCREMENT_PER_SECOND / FRAMERATE;
         if (patty.isFlipped()) {
             patty.setTopCookLevel(patty.getTopCookLevel() + cookLevelIncrement);
         } else {
@@ -168,9 +152,6 @@ public class GrillControllerImpl implements GrillController {
      */
     @Override
     public void cookPattiesOnGrill() {
-        if (!isCookingEnabled) {
-            return;
-        }
         final Patty[][] patties = model.getPattiesOnGrill();
         for (final Patty[] pattyRow : patties) {
             for (final Patty patty : pattyRow) {
@@ -188,24 +169,8 @@ public class GrillControllerImpl implements GrillController {
     @Override
     public int calculatePosition(final double position, final double minPos, final double maxPos, final int segments) {
         double norm = (position - minPos) / (maxPos - minPos);
-        norm = Math.max(0.0, Math.min(1.0, norm));
+        norm = Math.max(MIN_COOK_LEVEL, Math.min(MAX_COOK_LEVEL, norm));
         final int index = (int) (norm * segments);
         return (index == segments) ? segments - 1 : index;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void startCooking() {
-        isCookingEnabled = true;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void stopCooking() {
-        isCookingEnabled = false;
     }
 }

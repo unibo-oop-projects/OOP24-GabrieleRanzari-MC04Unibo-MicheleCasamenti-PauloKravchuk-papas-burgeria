@@ -10,47 +10,56 @@ public interface GameModel {
     /**
      * Advances the game by one day.
      *
-     * @throws IllegalStateException if the game has reached the maximum day.
+     * @throws IllegalStateException if the game has reached the maximum day
      */
     void nextDay();
 
     /**
-     * @return the hamburger on assembly
+     * Returns the hamburger on assembly.
+     *
+     * @return the hamburger
      */
     Hamburger getHamburgerOnAssembly();
 
     /**
-     * @param hamburger the new hamburger on assembly.
+     * Sets the hamburger on assembly to the new hamburger.
+     *
+     * @param hamburger the new hamburger
      */
     void setHamburgerOnAssembly(Hamburger hamburger);
 
     /**
-     * @return the matrix of patties that are on the grill.
+     * Returns the matrix of patties that are on the grill.
+     *
+     * @return the matrix of patties
      */
     Patty[][] getPattiesOnGrill();
 
     /**
-     * @param patties the matrix of patties on the grill.
+     * Sets the matrix of patties that are on the grill to the new matrix of patties.
+     *
+     * @param patties the new matrix of patties
      */
     void setPattiesOnGrill(Patty[][] patties);
 
     /**
-     * @return the list of cooked patties.
+     * Returns the list of cooked patties.
+     *
+     * @return the list of patties
      */
     List<Patty> getCookedPatties();
 
     /**
-     * @param patties the new list of cooked patties.
+     * Sets the list of cooked patties to the new list of patties.
+     *
+     * @param patties the new list of patties
      */
     void setCookedPatties(List<Patty> patties);
 
     /**
-     * @return the current day number.
+     * Returns the current day number.
+     *
+     * @return the current day
      */
     int getCurrentDay();
-
-    /**
-     * Resets the progress to the first day.
-     */
-    void reset();
 }

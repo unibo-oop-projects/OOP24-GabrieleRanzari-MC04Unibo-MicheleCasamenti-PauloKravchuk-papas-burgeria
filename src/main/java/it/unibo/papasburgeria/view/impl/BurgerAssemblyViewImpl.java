@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
+import static it.unibo.papasburgeria.model.IngredientEnum.SAUCES;
 import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.BOTTLE_EXTENSION;
 import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.EXTENSION;
 import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
@@ -33,7 +35,7 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y
  */
 @Singleton
 @SuppressFBWarnings(
-        value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
+        value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
@@ -43,6 +45,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             (MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER + MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
     public static final double HAMBURGER_Y_POS_SCALE = 0.71;
     public static final double HAMBURGER_SPACING = 0.04;
+
     private static final double INGREDIENTS_X_POS_SCALE = 0.005;
     private static final double INGREDIENTS_Y_POS_SCALE = 0.005;
     private static final double INGREDIENTS_MAX_Y_POS_SCALE = 0.6;
@@ -64,15 +67,15 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private final transient List<Sprite> draggableHamburgerSprites;
 
     /**
-     * Default constructor, creates and initializes the UI elements.
+     * Default constructor, creates and initializes the GUI elements.
      *
      * @param resourceService the service that handles resource obtainment.
-     * @param controller the burger assembly controller.
-     * @param drawingManager the manager for drawing various things.
+     * @param controller      the burger assembly controller.
+     * @param drawingManager  the manager for drawing various things.
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller,
-            final DrawingManagerImpl drawingManager) {
+                                  final DrawingManagerImpl drawingManager) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         sprites = new ArrayList<>();
@@ -91,7 +94,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         for (final IngredientEnum ingredientType : IngredientEnum.values()) {
             final Image image = resourceService.getImage(ingredientType.getName() + EXTENSION);
 
-            if (ingredientType == IngredientEnum.PATTY || IngredientEnum.SAUCES.contains(ingredientType)) {
+            if (ingredientType == PATTY || SAUCES.contains(ingredientType)) {
                 continue;
             }
 
@@ -113,7 +116,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
 
         pbPositionXScale = SAUCE_BOTTLES_X_POS_SCALE;
         pbPositionYScale = SAUCE_BOTTLES_Y_POS_SCALE;
-        for (final IngredientEnum ingredientType : IngredientEnum.SAUCES) {
+        for (final IngredientEnum ingredientType : SAUCES) {
             final Image image = resourceService.getImage(ingredientType.getName() + BOTTLE_EXTENSION + EXTENSION);
 
             final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
@@ -137,9 +140,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @inheritDoc
      */
     @Override
-    void update(final double delta) {
-
-    }
+    void update(final double delta) { }
 
     /**
      * @inheritDoc
@@ -147,25 +148,25 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
         final List<Ingredient> hamburgerIngredients = controller.getIngredients();
-        drawingManager.drawHamburger(hamburgerIngredients, getSize(), controller, draggableHamburgerSprites, graphics);
+        drawingManager.drawHamburger(hamburgerIngredients, getSize(), draggableHamburgerSprites, graphics);
 
         final List<Patty> cookedPatties = controller.getCookedPatties();
         drawingManager.generateCookedPatties(cookedPatties, PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, draggablePattySprites);
 
         for (final Sprite sprite : sprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller, graphics);
+            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
         }
 
         for (final Sprite sprite : draggableHamburgerSprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller, graphics);
+            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
         }
 
         for (final Sprite sprite : draggableSprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller, graphics);
+            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
         }
 
         for (final Sprite sprite : draggablePattySprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller, graphics);
+            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
         }
     }
 
@@ -195,7 +196,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     @Override
     public void spriteDropped(final Sprite sprite) {
         double pbPositionXScale = sprite.getPbPositionXScale();
-        if (IngredientEnum.SAUCES.contains(sprite.getIngredientType())) {
+        if (SAUCES.contains(sprite.getIngredientType())) {
             pbPositionXScale = pbPositionXScale - SAUCE_BOTTLES_X_SIZE_SCALE / 2;
         }
         if (sprite.isRemovable()) {
@@ -246,7 +247,5 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @inheritDoc
      */
     @Override
-    public void spritePressed(final Sprite sprite) {
-
-    }
+    public void spritePressed(final Sprite sprite) { }
 }

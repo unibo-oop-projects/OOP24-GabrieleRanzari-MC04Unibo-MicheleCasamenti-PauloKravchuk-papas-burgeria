@@ -8,17 +8,23 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 public interface Ingredient {
 
     /**
-     * @return The type of ingredient
+     * Returns the type of this ingredient.
+     *
+     * @return the type of ingredient
      */
     IngredientEnum getIngredientType();
 
     /**
-     * @return a double value representing how accurately the ingredient was placed (in %)
+     * Return the placement accuracy of this ingredient in a scale value.
+     *
+     * @return the placement accuracy
      */
     double getPlacementAccuracy();
 
     /**
-     * @param accuracy double value representing how accurately the ingredient was placed (in %)
+     * Sets a new placement accuracy for this ingredient.
+     *
+     * @param accuracy the new placement accuracy
      */
     void setPlacementAccuracy(double accuracy);
 }

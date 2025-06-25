@@ -49,7 +49,7 @@ public class GameControllerImpl implements GameController {
         if (DEBUG_MODE) {
             Logger.info("Game started" + model);
         }
-        sceneService.switchTo("Register");
+        sceneService.switchTo("Menu");
     }
 
     /**

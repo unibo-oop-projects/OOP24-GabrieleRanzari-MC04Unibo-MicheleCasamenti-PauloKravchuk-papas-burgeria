@@ -18,20 +18,13 @@ public class IngredientImpl implements Ingredient {
     private double accuracy;
 
     /**
-     * @param type type of ingredient created.
+     * Default constructor, creates a new ingredient given its type.
+     *
+     * @param type type of ingredient
      */
     public IngredientImpl(final IngredientEnum type) {
         this.type = type;
         accuracy = ACCURACY_NOT_SET;
-    }
-
-    /**
-     * @param type the type of the ingredient.
-     * @param accuracy range from MAX_LEFT_ACCURACY to MAX_RIGHT_ACCURACY indicating how far it is from PERFECT_ACCURACY.
-     */
-    public IngredientImpl(final IngredientEnum type, final double accuracy) {
-        this.type = type;
-        this.accuracy = accuracy;
     }
 
     /**
@@ -93,7 +86,6 @@ public class IngredientImpl implements Ingredient {
                 accuracy
         );
     }
-
 
     /**
      * @return a string containing the ingredient's type and placement accuracy.

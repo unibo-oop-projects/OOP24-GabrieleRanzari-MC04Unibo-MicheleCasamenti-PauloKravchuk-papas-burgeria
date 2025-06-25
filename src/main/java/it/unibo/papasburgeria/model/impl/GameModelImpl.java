@@ -125,14 +125,6 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public void reset() {
-        this.currentDay = START_DAY;
-    }
-
-    /**
      * @return a string containing the current day.
      */
     @Override

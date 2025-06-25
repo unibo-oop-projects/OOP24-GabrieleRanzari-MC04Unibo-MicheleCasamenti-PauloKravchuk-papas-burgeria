@@ -117,6 +117,7 @@ public class CustomerControllerImpl implements CustomerController {
     /**
      * @return the register line
      */
+    @Override
     public List<Customer> getRegisterLine() {
         return List.copyOf(registerLine);
     }
@@ -124,12 +125,13 @@ public class CustomerControllerImpl implements CustomerController {
     /**
      * @return the wait line
      */
+    @Override
     public List<Customer> getWaitLine() {
         return List.copyOf(waitLine);
     }
 
     /**
-     * @return a string containing all customer in each line.
+     * @inheritDoc
      */
     @Override
     public String toString() {

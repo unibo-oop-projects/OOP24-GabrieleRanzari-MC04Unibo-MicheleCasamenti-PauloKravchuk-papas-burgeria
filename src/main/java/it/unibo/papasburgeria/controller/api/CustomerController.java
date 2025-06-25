@@ -66,4 +66,14 @@ public interface CustomerController {
      * Empties both lines.
      */
     void clearLines();
+
+    /**
+     * @return the register line
+     */
+    List<Customer> getRegisterLine();
+
+    /**
+     * @return the wait line
+     */
+    List<Customer> getWaitLine();
 }

@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
+import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
@@ -27,9 +28,10 @@ public class MenuViewImpl extends AbstractBaseView {
      * Constructs the MenuView.
      *
      * @param resourceService the service that handles resource obtainment
+     * @param gameController game controller instance
      */
     @Inject
-    public MenuViewImpl(final ResourceService resourceService) {
+    public MenuViewImpl(GameController gameController, final ResourceService resourceService) {
         super.setStaticBackgroundImage(resourceService.getImage("menu-background.jpg"));
 
         final JPanel interfacePanel = super.getInterfacePanel();
@@ -53,6 +55,7 @@ public class MenuViewImpl extends AbstractBaseView {
 
         playButton.addActionListener(e -> {
             playButton.setVisible(false);
+            gameController.switchToScene("Register");
         });
 
         interfacePanel.add(

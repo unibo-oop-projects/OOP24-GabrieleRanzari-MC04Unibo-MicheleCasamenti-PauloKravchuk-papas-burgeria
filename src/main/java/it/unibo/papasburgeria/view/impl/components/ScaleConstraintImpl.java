@@ -10,30 +10,39 @@ import it.unibo.papasburgeria.view.api.components.ScaleConstraint;
  * See {@link ScaleConstraint} for interface details.
  */
 public class ScaleConstraintImpl implements ScaleConstraint {
-    /* For now there's no need for an enum, it adds overhead by having to re-implement Scale interface */
-    public static final Scale SIZE_FULL = new ScaleImpl(1.0, 1.0);
-    public static final Scale SIZE_HALF_PARENT = new ScaleImpl(0.5, 0.5);
-    public static final Scale SIZE_QUARTER_PARENT = new ScaleImpl(0.25, 0.25);
+    /*
+    * There probably was a better way but enum is redundant and having to re-declare each time these
+    * final values is a pain.
+    */
+    public static final double FULL = 1.0;
+    public static final double HALF = 0.5;
+    public static final double QUARTER = 0.25;
+    public static final double EIGHTH = 0.125;
+    public static final double ZERO = 0.0;
 
-    public static final Scale POSITION_TOP_LEFT = new ScaleImpl(0.0, 0.0);
-    public static final Scale POSITION_TOP_CENTER = new ScaleImpl(0.5, 0.0);
-    public static final Scale POSITION_TOP_RIGHT = new ScaleImpl(1.0, 0.0);
-    public static final Scale POSITION_CENTER_LEFT = new ScaleImpl(0.0, 0.5);
-    public static final Scale POSITION_CENTER = new ScaleImpl(0.5, 0.5);
-    public static final Scale POSITION_CENTER_RIGHT = new ScaleImpl(1.0, 0.5);
-    public static final Scale POSITION_BOTTOM_LEFT = new ScaleImpl(0.0, 1.0);
-    public static final Scale POSITION_BOTTOM_CENTER = new ScaleImpl(0.5, 1.0);
-    public static final Scale POSITION_BOTTOM_RIGHT = new ScaleImpl(1.0, 1.0);
+    public static final Scale SIZE_FULL = new ScaleImpl(FULL, FULL);
+    public static final Scale SIZE_HALF_PARENT = new ScaleImpl(HALF, HALF);
+    public static final Scale SIZE_QUARTER_PARENT = new ScaleImpl(QUARTER, QUARTER);
 
-    public static final Scale ORIGIN_TOP_LEFT = new ScaleImpl(0.0, 1.0);
-    public static final Scale ORIGIN_TOP_CENTER = new ScaleImpl(0.5, 0.0);
-    public static final Scale ORIGIN_TOP_RIGHT = new ScaleImpl(1.0, 0.0);
-    public static final Scale ORIGIN_CENTER_LEFT = new ScaleImpl(0.0, 0.5);
-    public static final Scale ORIGIN_CENTER = new ScaleImpl(0.5, 0.5);
-    public static final Scale ORIGIN_CENTER_RIGHT = new ScaleImpl(1.0, 0.5);
-    public static final Scale ORIGIN_BOTTOM_LEFT = new ScaleImpl(0.0, 1.0);
-    public static final Scale ORIGIN_BOTTOM_CENTER = new ScaleImpl(0.5, 1.0);
-    public static final Scale ORIGIN_BOTTOM_RIGHT = new ScaleImpl(1.0, 1.0);
+    public static final Scale POSITION_TOP_LEFT = new ScaleImpl(ZERO, ZERO);
+    public static final Scale POSITION_TOP_CENTER = new ScaleImpl(HALF, ZERO);
+    public static final Scale POSITION_TOP_RIGHT = new ScaleImpl(FULL, ZERO);
+    public static final Scale POSITION_CENTER_LEFT = new ScaleImpl(ZERO, HALF);
+    public static final Scale POSITION_CENTER = new ScaleImpl(HALF, HALF);
+    public static final Scale POSITION_CENTER_RIGHT = new ScaleImpl(FULL, HALF);
+    public static final Scale POSITION_BOTTOM_LEFT = new ScaleImpl(ZERO, FULL);
+    public static final Scale POSITION_BOTTOM_CENTER = new ScaleImpl(HALF, FULL);
+    public static final Scale POSITION_BOTTOM_RIGHT = new ScaleImpl(FULL, FULL);
+
+    public static final Scale ORIGIN_TOP_LEFT = new ScaleImpl(ZERO, FULL);
+    public static final Scale ORIGIN_TOP_CENTER = new ScaleImpl(HALF, ZERO);
+    public static final Scale ORIGIN_TOP_RIGHT = new ScaleImpl(FULL, ZERO);
+    public static final Scale ORIGIN_CENTER_LEFT = new ScaleImpl(ZERO, HALF);
+    public static final Scale ORIGIN_CENTER = new ScaleImpl(HALF, HALF);
+    public static final Scale ORIGIN_CENTER_RIGHT = new ScaleImpl(FULL, HALF);
+    public static final Scale ORIGIN_BOTTOM_LEFT = new ScaleImpl(ZERO, FULL);
+    public static final Scale ORIGIN_BOTTOM_CENTER = new ScaleImpl(HALF, FULL);
+    public static final Scale ORIGIN_BOTTOM_RIGHT = new ScaleImpl(FULL, FULL);
 
     private Scale sizeScale;
     private Scale positionScale;

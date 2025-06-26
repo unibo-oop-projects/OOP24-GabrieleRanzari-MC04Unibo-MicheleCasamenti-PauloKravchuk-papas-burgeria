@@ -10,9 +10,30 @@ import it.unibo.papasburgeria.view.api.components.ScaleConstraint;
  * See {@link ScaleConstraint} for interface details.
  */
 public class ScaleConstraintImpl implements ScaleConstraint {
-    private static final Scale DEFAULT_SIZE_SCALE = new ScaleImpl(0.5, 0.5);
-    private static final Scale DEFAULT_POSITION_SCALE = new ScaleImpl(0.5, 0.5);
-    private static final Scale DEFAULT_ORIGIN_SCALE = new ScaleImpl(0, 0);
+    /* For now there's no need for an enum, it adds overhead by having to re-implement Scale interface */
+    public static final Scale SIZE_FULL = new ScaleImpl(1.0, 1.0);
+    public static final Scale SIZE_HALF_PARENT = new ScaleImpl(0.5, 0.5);
+    public static final Scale SIZE_QUARTER_PARENT = new ScaleImpl(0.25, 0.25);
+
+    public static final Scale POSITION_TOP_LEFT = new ScaleImpl(0.0, 0.0);
+    public static final Scale POSITION_TOP_CENTER = new ScaleImpl(0.5, 0.0);
+    public static final Scale POSITION_TOP_RIGHT = new ScaleImpl(1.0, 0.0);
+    public static final Scale POSITION_CENTER_LEFT = new ScaleImpl(0.0, 0.5);
+    public static final Scale POSITION_CENTER = new ScaleImpl(0.5, 0.5);
+    public static final Scale POSITION_CENTER_RIGHT = new ScaleImpl(1.0, 0.5);
+    public static final Scale POSITION_BOTTOM_LEFT = new ScaleImpl(0.0, 1.0);
+    public static final Scale POSITION_BOTTOM_CENTER = new ScaleImpl(0.5, 1.0);
+    public static final Scale POSITION_BOTTOM_RIGHT = new ScaleImpl(1.0, 1.0);
+
+    public static final Scale ORIGIN_TOP_LEFT = new ScaleImpl(0.0, 1.0);
+    public static final Scale ORIGIN_TOP_CENTER = new ScaleImpl(0.5, 0.0);
+    public static final Scale ORIGIN_TOP_RIGHT = new ScaleImpl(1.0, 0.0);
+    public static final Scale ORIGIN_CENTER_LEFT = new ScaleImpl(0.0, 0.5);
+    public static final Scale ORIGIN_CENTER = new ScaleImpl(0.5, 0.5);
+    public static final Scale ORIGIN_CENTER_RIGHT = new ScaleImpl(1.0, 0.5);
+    public static final Scale ORIGIN_BOTTOM_LEFT = new ScaleImpl(0.0, 1.0);
+    public static final Scale ORIGIN_BOTTOM_CENTER = new ScaleImpl(0.5, 1.0);
+    public static final Scale ORIGIN_BOTTOM_RIGHT = new ScaleImpl(1.0, 1.0);
 
     private Scale sizeScale;
     private Scale positionScale;
@@ -22,7 +43,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
      * Constructs a ScaleConstraint with default values.
      */
     public ScaleConstraintImpl() {
-        this(DEFAULT_SIZE_SCALE, DEFAULT_POSITION_SCALE, DEFAULT_ORIGIN_SCALE);
+        this(SIZE_HALF_PARENT, POSITION_CENTER, ORIGIN_CENTER);
     }
 
     /**

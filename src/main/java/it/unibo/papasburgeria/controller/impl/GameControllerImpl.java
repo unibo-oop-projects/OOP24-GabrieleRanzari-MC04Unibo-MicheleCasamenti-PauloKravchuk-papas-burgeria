@@ -72,6 +72,14 @@ public class GameControllerImpl implements GameController {
      * @inheritDoc
      */
     @Override
+    public void switchToScene(final String sceneName) {
+        sceneService.switchTo(sceneName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void nextDay() {
         model.nextDay();
         pantryModel.unlockForDay(model.getCurrentDay());

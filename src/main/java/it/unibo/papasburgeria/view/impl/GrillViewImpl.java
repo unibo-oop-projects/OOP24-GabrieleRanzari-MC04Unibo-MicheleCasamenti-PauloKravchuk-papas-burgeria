@@ -76,7 +76,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      *
      * @param resourceService the service that handles resource obtainment.
      * @param controller      the grill controller.
-     *  @param drawingManager the manager for drawing various things.
+     * @param drawingManager  the manager for drawing various things.
      */
     @Inject
     public GrillViewImpl(final ResourceService resourceService, final GrillController controller,

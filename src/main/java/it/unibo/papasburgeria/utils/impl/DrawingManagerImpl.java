@@ -114,8 +114,13 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
-    public final void drawHamburger(final List<Ingredient> hamburgerIngredients, final Dimension frameSize,
-            final BurgerAssemblyController controller, final List<Sprite> draggableHamburgerSprites, final Graphics graphics) {
+    public final void drawHamburger(
+            final List<Ingredient> hamburgerIngredients,
+            final Dimension frameSize,
+            final BurgerAssemblyController controller,
+            final List<Sprite> draggableHamburgerSprites,
+            final Graphics graphics
+    ) {
         double pbPositionYScale = HAMBURGER_Y_POS_SCALE;
         Sprite sprite = null;
         for (final Ingredient ingredient : hamburgerIngredients) {

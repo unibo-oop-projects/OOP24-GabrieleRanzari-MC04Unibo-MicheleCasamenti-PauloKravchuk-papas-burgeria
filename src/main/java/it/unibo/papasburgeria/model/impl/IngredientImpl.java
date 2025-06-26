@@ -26,7 +26,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @param type the type of the ingredient.
+     * @param type     the type of the ingredient.
      * @param accuracy range from MAX_LEFT_ACCURACY to MAX_RIGHT_ACCURACY indicating how far it is from PERFECT_ACCURACY.
      */
     public IngredientImpl(final IngredientEnum type, final double accuracy) {

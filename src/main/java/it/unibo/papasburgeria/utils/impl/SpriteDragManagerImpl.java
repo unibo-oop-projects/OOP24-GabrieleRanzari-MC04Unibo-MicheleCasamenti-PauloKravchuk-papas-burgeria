@@ -167,7 +167,6 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
      *
      * @param mouseX the x value of the mouse.
      * @param mouseY the y value of the mouse.
-     *
      * @return the sprite that you interacted with.
      */
     private Sprite getSprite(final int mouseX, final int mouseY) {

@@ -33,7 +33,7 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y
  */
 @Singleton
 @SuppressFBWarnings(
-        value = { "EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED" },
+        value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
@@ -67,12 +67,12 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Default constructor, creates and initializes the UI elements.
      *
      * @param resourceService the service that handles resource obtainment.
-     * @param controller the burger assembly controller.
-     * @param drawingManager the manager for drawing various things.
+     * @param controller      the burger assembly controller.
+     * @param drawingManager  the manager for drawing various things.
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller,
-            final DrawingManagerImpl drawingManager) {
+                                  final DrawingManagerImpl drawingManager) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         sprites = new ArrayList<>();

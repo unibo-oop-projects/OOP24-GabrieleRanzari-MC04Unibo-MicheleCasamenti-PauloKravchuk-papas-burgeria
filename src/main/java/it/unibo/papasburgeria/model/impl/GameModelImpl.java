@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
@@ -65,6 +64,14 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
+    public void setHamburgerOnAssembly(final Hamburger hamburger) {
+        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public Patty[][] getPattiesOnGrill() {
         if (pattiesOnGrill == null) {
             return new Patty[GRILL_ROWS][GRILL_COLUMNS];
@@ -85,30 +92,6 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public List<Patty> getCookedPatties() {
-        return new ArrayList<>(cookedPatties);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public int getCurrentDay() {
-        return currentDay;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setHamburgerOnAssembly(final Hamburger hamburger) {
-        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void setPattiesOnGrill(final Patty[][] patties) {
         pattiesOnGrill = new Patty[patties.length][];
         for (int index = 0; index < patties.length; index++) {
@@ -120,8 +103,24 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
+    public List<Patty> getCookedPatties() {
+        return new ArrayList<>(cookedPatties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void setCookedPatties(final List<Patty> patties) {
         cookedPatties = List.copyOf(patties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCurrentDay() {
+        return currentDay;
     }
 
     /**

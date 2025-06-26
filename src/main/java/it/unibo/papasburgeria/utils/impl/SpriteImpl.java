@@ -36,12 +36,12 @@ public class SpriteImpl implements Sprite {
     /**
      * Constructor for single image, stores the image, the ingredient, its coordinates in % and its size in %.
      *
-     * @param image the image
-     * @param ingredient the ingredient
+     * @param image            the image
+     * @param ingredient       the ingredient
      * @param pbPositionXScale the x position
      * @param pbPositionYScale the y position
-     * @param pbSizeXScale the width of the image
-     * @param pbSizeYScale the height of the image
+     * @param pbSizeXScale     the width of the image
+     * @param pbSizeYScale     the height of the image
      */
     public SpriteImpl(final Image image, final Ingredient ingredient,
                       final double pbPositionXScale, final double pbPositionYScale,
@@ -66,12 +66,12 @@ public class SpriteImpl implements Sprite {
     /**
      * Constructor for multiple images, stores the images, the ingredient, its coordinates in % and its size in %.
      *
-     * @param images the list of images
-     * @param ingredient the ingredient
+     * @param images           the list of images
+     * @param ingredient       the ingredient
      * @param pbPositionXScale the x position
      * @param pbPositionYScale the y position
-     * @param pbSizeXScale the width of the image
-     * @param pbSizeYScale the height of the image
+     * @param pbSizeXScale     the width of the image
+     * @param pbSizeYScale     the height of the image
      */
     public SpriteImpl(final List<Image> images, final Ingredient ingredient,
                       final double pbPositionXScale, final double pbPositionYScale,
@@ -121,14 +121,6 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setDraggable(final boolean draggable) {
-        this.draggable = draggable;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public boolean isDraggable() {
         return draggable;
     }
@@ -137,8 +129,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setVisible(final boolean visible) {
-        this.visible = visible;
+    public void setDraggable(final boolean draggable) {
+        this.draggable = draggable;
     }
 
     /**
@@ -153,8 +145,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setCloneable(final boolean cloneable) {
-        this.cloneable = cloneable;
+    public void setVisible(final boolean visible) {
+        this.visible = visible;
     }
 
     /**
@@ -169,8 +161,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setRemovable(final boolean removable) {
-        this.removable = removable;
+    public void setCloneable(final boolean cloneable) {
+        this.cloneable = cloneable;
     }
 
     /**
@@ -185,8 +177,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setFlipped(final boolean flipped) {
-        this.flipped = flipped;
+    public void setRemovable(final boolean removable) {
+        this.removable = removable;
     }
 
     /**
@@ -195,6 +187,14 @@ public class SpriteImpl implements Sprite {
     @Override
     public boolean isFlipped() {
         return flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setFlipped(final boolean flipped) {
+        this.flipped = flipped;
     }
 
     /**
@@ -229,20 +229,20 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public IngredientEnum getIngredientType() {
-        return ingredient.getIngredientType();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void setIngredient(final Ingredient newIngredient) {
         if (newIngredient instanceof Patty patty) {
             ingredient = new PattyImpl(patty);
         } else {
             ingredient = new IngredientImpl(newIngredient);
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public IngredientEnum getIngredientType() {
+        return ingredient.getIngredientType();
     }
 
     /**
@@ -275,38 +275,6 @@ public class SpriteImpl implements Sprite {
     @Override
     public int calculateHeight(final int frameHeight) {
         return (int) (frameHeight * pbSizeYScale);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbPositionXScale(final double newPbPositionXScale) {
-        pbPositionXScale = newPbPositionXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbPositionYScale(final double newPbPositionYScale) {
-        pbPositionYScale = newPbPositionYScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbSizeXScale(final double newPbSizeXScale) {
-        pbSizeXScale = newPbSizeXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbSizeYScale(final double newPbSizeYScale) {
-        pbSizeYScale = newPbSizeYScale;
     }
 
     /**
@@ -350,8 +318,24 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbPositionXScale(final double newPbPositionXScale) {
+        pbPositionXScale = newPbPositionXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public double getPbPositionYScale() {
         return pbPositionYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbPositionYScale(final double newPbPositionYScale) {
+        pbPositionYScale = newPbPositionYScale;
     }
 
     /**
@@ -366,8 +350,24 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbSizeXScale(final double newPbSizeXScale) {
+        pbSizeXScale = newPbSizeXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public double getPbSizeYScale() {
         return pbSizeYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbSizeYScale(final double newPbSizeYScale) {
+        pbSizeYScale = newPbSizeYScale;
     }
 
     /**

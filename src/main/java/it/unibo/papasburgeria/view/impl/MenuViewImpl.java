@@ -39,7 +39,6 @@ public class MenuViewImpl extends AbstractBaseView {
 
         final double pbSizeXScale = 0.15;
         final double pbSizeYScale = 0.1;
-        final double pbPositionXScale = 0.5;
         final double pbPositionYScale = 0.55;
         final JButton playButton = new JButton(new ImageIcon(resourceService.getImage("play_btn.png")));
         playButton.setBackground(DEFAULT_BACKGROUND_COLOR);
@@ -47,11 +46,6 @@ public class MenuViewImpl extends AbstractBaseView {
         playButton.setContentAreaFilled(false);
         playButton.setOpaque(false);
         playButton.setFocusPainted(false);
-
-        //final double saveCardSizeXScale = 0;
-        //final double saveCardSizeYScale = 0;
-        //final double saveCardPositionXScale = 0;
-        //final double saveCardPositionXScale = 0;
 
         playButton.addActionListener(e -> {
             playButton.setVisible(false);
@@ -62,7 +56,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 playButton,
                 new ScaleConstraintImpl(
                         new ScaleImpl(pbSizeXScale, pbSizeYScale),
-                        new ScaleImpl(pbPositionXScale, pbPositionYScale),
+                        new ScaleImpl(ScaleConstraintImpl.HALF, pbPositionYScale),
                         ScaleConstraintImpl.ORIGIN_CENTER
                 )
         );

@@ -13,13 +13,6 @@ import java.util.List;
  */
 public interface Sprite {
     /**
-     * Sets whether the sprite is draggable.
-     *
-     * @param draggable the new draggable value
-     */
-    void setDraggable(boolean draggable);
-
-    /**
      * Returns whether the sprite is draggable.
      *
      * @return true if draggable, false otherwise
@@ -27,11 +20,11 @@ public interface Sprite {
     boolean isDraggable();
 
     /**
-     * Sets whether the sprite is visible.
+     * Sets whether the sprite is draggable.
      *
-     * @param visible the new visible value
+     * @param draggable the new draggable value
      */
-    void setVisible(boolean visible);
+    void setDraggable(boolean draggable);
 
     /**
      * Returns whether the sprite is visible.
@@ -41,11 +34,11 @@ public interface Sprite {
     boolean isVisible();
 
     /**
-     * Sets whether the sprite is cloneable.
+     * Sets whether the sprite is visible.
      *
-     * @param cloneable the new cloneable value
+     * @param visible the new visible value
      */
-    void setCloneable(boolean cloneable);
+    void setVisible(boolean visible);
 
     /**
      * Returns whether the sprite is cloneable.
@@ -55,11 +48,11 @@ public interface Sprite {
     boolean isCloneable();
 
     /**
-     * Sets whether the sprite is removable.
+     * Sets whether the sprite is cloneable.
      *
-     * @param removable the new removable value
+     * @param cloneable the new cloneable value
      */
-    void setRemovable(boolean removable);
+    void setCloneable(boolean cloneable);
 
     /**
      * Returns whether the sprite is removable.
@@ -69,11 +62,11 @@ public interface Sprite {
     boolean isRemovable();
 
     /**
-     * Sets whether the sprite is flipped.
+     * Sets whether the sprite is removable.
      *
-     * @param flipped the new flipped value
+     * @param removable the new removable value
      */
-    void setFlipped(boolean flipped);
+    void setRemovable(boolean removable);
 
     /**
      * Returns whether the sprite is flipped.
@@ -81,6 +74,13 @@ public interface Sprite {
      * @return true if flipped, false otherwise
      */
     boolean isFlipped();
+
+    /**
+     * Sets whether the sprite is flipped.
+     *
+     * @param flipped the new flipped value
+     */
+    void setFlipped(boolean flipped);
 
     /**
      * Returns the list of images that form the sprite.
@@ -104,18 +104,18 @@ public interface Sprite {
     Ingredient getIngredient();
 
     /**
-     * Returns the type of the ingredient.
-     *
-     * @return the ingredient type
-     */
-    IngredientEnum getIngredientType();
-
-    /**
      * Sets the sprite ingredient to a new ingredient.
      *
      * @param ingredient the new ingredient
      */
     void setIngredient(Ingredient ingredient);
+
+    /**
+     * Returns the type of the ingredient.
+     *
+     * @return the ingredient type
+     */
+    IngredientEnum getIngredientType();
 
     /**
      * Calculates the x position in pixels of the sprite given the width of the frame.
@@ -150,20 +150,6 @@ public interface Sprite {
     int calculateHeight(int frameHeight);
 
     /**
-     * Sets the x position on the sprite to a new value in scale.
-     *
-     * @param newPbPositionXScale the new x position in scale
-     */
-    void setPbPositionXScale(double newPbPositionXScale);
-
-    /**
-     * Sets the y position on the sprite to a new value in scale.
-     *
-     * @param newPbPositionYScale the new y position in scale
-     */
-    void setPbPositionYScale(double newPbPositionYScale);
-
-    /**
      * Flips the image vertically.
      */
     void flipImageVertically();
@@ -176,11 +162,25 @@ public interface Sprite {
     double getPbPositionXScale();
 
     /**
+     * Sets the x position on the sprite to a new value in scale.
+     *
+     * @param newPbPositionXScale the new x position in scale
+     */
+    void setPbPositionXScale(double newPbPositionXScale);
+
+    /**
      * Return the y position of the sprite in scale.
      *
      * @return the y position in scale
      */
     double getPbPositionYScale();
+
+    /**
+     * Sets the y position on the sprite to a new value in scale.
+     *
+     * @param newPbPositionYScale the new y position in scale
+     */
+    void setPbPositionYScale(double newPbPositionYScale);
 
     /**
      * Returns the width of the sprite in scale.

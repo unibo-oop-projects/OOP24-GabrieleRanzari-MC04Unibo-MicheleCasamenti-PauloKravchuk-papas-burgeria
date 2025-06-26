@@ -16,17 +16,17 @@ import static it.unibo.papasburgeria.model.DaysEnum.FOURTH_DAY;
 import static it.unibo.papasburgeria.model.DaysEnum.SECOND_DAY;
 import static it.unibo.papasburgeria.model.DaysEnum.THIRD_DAY;
 import static it.unibo.papasburgeria.model.IngredientEnum.BBQ;
+import static it.unibo.papasburgeria.model.IngredientEnum.BOTTOM_BUN;
+import static it.unibo.papasburgeria.model.IngredientEnum.CHEESE;
 import static it.unibo.papasburgeria.model.IngredientEnum.KETCHUP;
 import static it.unibo.papasburgeria.model.IngredientEnum.LETTUCE;
 import static it.unibo.papasburgeria.model.IngredientEnum.MAYO;
 import static it.unibo.papasburgeria.model.IngredientEnum.MUSTARD;
 import static it.unibo.papasburgeria.model.IngredientEnum.ONION;
+import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.IngredientEnum.PICKLE;
 import static it.unibo.papasburgeria.model.IngredientEnum.TOMATO;
-import static it.unibo.papasburgeria.model.IngredientEnum.BOTTOM_BUN;
 import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
-import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
-import static it.unibo.papasburgeria.model.IngredientEnum.CHEESE;
 
 /**
  * Stores the unlock schedule of ingredients.
@@ -65,5 +65,6 @@ public final class UnlockSchedule {
     /**
      * Default constructor, private to prevent instantiation.
      */
-    private UnlockSchedule() { }
+    private UnlockSchedule() {
+    }
 }

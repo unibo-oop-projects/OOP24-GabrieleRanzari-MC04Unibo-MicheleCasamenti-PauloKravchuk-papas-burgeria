@@ -1,20 +1,6 @@
 package it.unibo.papasburgeria.view.impl;
 
-import java.awt.Color;
 import com.google.inject.Inject;
-import org.tinylog.Logger;
-
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.Serial;
-import java.util.Arrays;
-
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.impl.CustomerControllerImpl;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
@@ -22,6 +8,18 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.impl.CustomerImpl;
+import org.tinylog.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.Serial;
+import java.util.Arrays;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Register view.
@@ -115,8 +113,8 @@ public class RegisterViewImpl extends AbstractBaseView {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                controller.startCustomerThread(customerDifficulty.getSpawnIntervalSeconds(), 
-        customerDifficulty.getCustomerCount(), pantryModel.getUnlockedIngredients().stream().toList());
+                controller.startCustomerThread(customerDifficulty.getSpawnIntervalSeconds(),
+                        customerDifficulty.getCustomerCount(), pantryModel.getUnlockedIngredients().stream().toList());
             }
 
         });

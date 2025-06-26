@@ -5,23 +5,23 @@ package it.unibo.papasburgeria.model;
  */
 public enum UpgradeEnum {
     SLOW_CUSTOMERS("slow_customers",
-        "Makes customers arrival slower by 10%!",
-        10, 0.10),
+            "Makes customers arrival slower by 10%!",
+            10, 0.10),
     LESS_CUSTOMERS("less_customers",
-        "Makes less customers arrive per day!",
-        10, 0.20),
+            "Makes less customers arrive per day!",
+            10, 0.20),
     INGREDIENT_TOLLERANCE("ingredient_tollerance",
-        "Customers are more tollerant if you place the wrong ingredients!",
-        25, 0.15),
+            "Customers are more tollerant if you place the wrong ingredients!",
+            25, 0.15),
     PLACEMENT_TOLLERANCE("placement_tollerance",
-        "Customers are more tollerant if you place the ingredients incorrectly!",
-        25, 0.15),
+            "Customers are more tollerant if you place the ingredients incorrectly!",
+            25, 0.15),
     CUSTOMER_TIP("customer_tip",
-        "Customers tips increase by 5%!",
-        50, 0.05),
+            "Customers tips increase by 5%!",
+            50, 0.05),
     CUSTOMER_MORE_TIP("customer_more_tip",
-        "Customers' tips are 10% more likely!",
-        100, 0.10);
+            "Customers' tips are 10% more likely!",
+            100, 0.10);
 
     private final String name;
     private final String description;

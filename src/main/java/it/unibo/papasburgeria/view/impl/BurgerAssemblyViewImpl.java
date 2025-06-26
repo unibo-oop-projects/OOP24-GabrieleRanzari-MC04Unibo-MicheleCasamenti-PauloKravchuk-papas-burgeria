@@ -140,7 +140,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @inheritDoc
      */
     @Override
-    void update(final double delta) { }
+    void update(final double delta) {
+    }
 
     /**
      * @inheritDoc
@@ -247,5 +248,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @inheritDoc
      */
     @Override
-    public void spritePressed(final Sprite sprite) { }
+    public void spritePressed(final Sprite sprite) {
+    }
 }

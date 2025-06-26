@@ -11,8 +11,8 @@ public interface Customer {
     Order getOrder();
 
     /**
-     * @param madeHamburger the baked hamburger.
-     * @param placementTollerance bonus for placement.
+     * @param madeHamburger        the baked hamburger.
+     * @param placementTollerance  bonus for placement.
      * @param ingredientTollerance bonus for ingredients.
      * @return the coins.
      */

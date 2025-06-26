@@ -70,4 +70,12 @@ public class ShopImpl implements Shop {
             return 0;
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isUpgradeUnlocked(final UpgradeEnum upgrade) {
+        return upgrades.get(upgrade);
+    }
 }

@@ -2,6 +2,7 @@ package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.ShopController;
+import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
@@ -80,7 +81,6 @@ public class ShopViewImpl extends AbstractBaseView {
     private static final double UPGRADE_DESCRIPTION_X_SIZE = 1.0 - UPGRADE_DESCRIPTION_X_POS - 0.1;
     private static final double UPGRADE_DESCRIPTION_Y_SIZE = 1.0 - UPGRADE_DESCRIPTION_Y_POS - 0.1;
 
-    private static final int MAX_NUMBER_OF_UPGRADE_PANELS = 6;
     private static final double ORIGIN = 0.0;
     private static final String DEFAULT_FONT_NAME = "Comic Sans MS";
     private static final int DEFAULT_FONT_SIZE = 20;
@@ -124,7 +124,7 @@ public class ShopViewImpl extends AbstractBaseView {
                 )
         );
 
-        final JLabel moneyLabel = new JLabel("Money:" + " $");
+        final JLabel moneyLabel = new JLabel("Money: $????");
         moneyLabel.setFont(new Font(DEFAULT_FONT_NAME, Font.BOLD, MONEY_LABEL_FONT_SIZE));
         moneyLabel.setForeground(MONEY_LABEL_TEXT_COLOR);
         interfacePanel.add(
@@ -138,14 +138,14 @@ public class ShopViewImpl extends AbstractBaseView {
 
         double pbSizeXScale = UPGRADE_PANEL_X_POS;
         double pbSizeYScale = UPGRADE_PANEL_Y_POS;
-        for (int index = 0; index < MAX_NUMBER_OF_UPGRADE_PANELS; index++) {
+        for (final UpgradeEnum upgrade : UpgradeEnum.values()) {
             final JPanel upgradePanel = new JPanel();
             upgradePanel.setLayout(new ScalableLayoutImpl());
             upgradePanel.setBackground(UPGRADE_PANEL_BACKGROUND_COLOR);
             upgradePanel.setBorder(BorderFactory.createLineBorder(
                     UPGRADE_PANEL_BORDER_COLOR, UPGRADE_PANEL_BORDER_THICKNESS));
 
-            final JLabel nameLabel = new JLabel("Upgrade Name");
+            final JLabel nameLabel = new JLabel(upgrade.getName());
             nameLabel.setFont(DEFAULT_FONT);
             upgradePanel.add(
                     nameLabel,
@@ -161,13 +161,13 @@ public class ShopViewImpl extends AbstractBaseView {
             purchaseButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
             purchaseButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
             purchaseButton.setFocusPainted(false);
-            if (controller.isUpgradeUnlocked()) {
+            if (controller.isUpgradeUnlocked(upgrade)) {
                 purchaseButton.setText("Already purchased");
                 purchaseButton.setEnabled(false);
-            } else if (controller.isUpgradePurchasable()) {
+            } else if (controller.isUpgradePurchasable(upgrade)) {
                 purchaseButton.setText("Purchase");
                 purchaseButton.addActionListener(e -> {
-                    if (controller.buyUpgrade()) {
+                    if (controller.buyUpgrade(upgrade)) {
                         if (DEBUG_MODE) {
                             Logger.debug("Upgrade purchased");
                         }
@@ -212,7 +212,7 @@ public class ShopViewImpl extends AbstractBaseView {
                     )
             );
 
-            final JLabel costLabel = new JLabel("Upgrade Cost:" + " $");
+            final JLabel costLabel = new JLabel("Cost: $" + upgrade.getCost());
             costLabel.setFont(DEFAULT_FONT);
             upgradePanel.add(
                     costLabel,
@@ -223,7 +223,7 @@ public class ShopViewImpl extends AbstractBaseView {
                     )
             );
 
-            final JTextArea descriptionTextArea = new JTextArea("Upgrade description");
+            final JTextArea descriptionTextArea = new JTextArea(upgrade.getDescription());
             descriptionTextArea.setFont(new Font(DESCRIPTION_FONT_NAME, Font.PLAIN, DESCRIPTION_FONT_SIZE));
             descriptionTextArea.setEditable(false);
             descriptionTextArea.setFocusable(false);

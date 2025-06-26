@@ -4,22 +4,22 @@ package it.unibo.papasburgeria.model;
  * defines the upgrades and their modifiers.
  */
 public enum UpgradeEnum {
-    SLOW_CUSTOMERS("slow_customers",
+    SLOW_CUSTOMERS("Slow Customers",
         "Makes customers arrival slower by 10%!",
         10, 0.10),
-    LESS_CUSTOMERS("less_customers",
+    LESS_CUSTOMERS("Less Customers",
         "Makes less customers arrive per day!",
         10, 0.20),
-    INGREDIENT_TOLLERANCE("ingredient_tollerance",
-        "Customers are more tollerant if you place the wrong ingredients!",
+    INGREDIENT_TOLERANCE("Ingredient Tolerance",
+        "Customers are more tolerant if you place the wrong ingredients!",
         25, 0.15),
-    PLACEMENT_TOLLERANCE("placement_tollerance",
-        "Customers are more tollerant if you place the ingredients incorrectly!",
+    PLACEMENT_TOLERANCE("Placement Tolerance",
+        "Customers are more tolerant if you place the ingredients incorrectly!",
         25, 0.15),
-    CUSTOMER_TIP("customer_tip",
+    CUSTOMER_TIP("Customer Tip",
         "Customers tips increase by 5%!",
         50, 0.05),
-    CUSTOMER_MORE_TIP("customer_more_tip",
+    CUSTOMER_MORE_TIP("Customer More Tips",
         "Customers' tips are 10% more likely!",
         100, 0.10);
 

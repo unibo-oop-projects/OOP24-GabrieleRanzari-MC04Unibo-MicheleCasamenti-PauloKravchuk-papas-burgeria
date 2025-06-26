@@ -43,9 +43,9 @@ public class ShopViewImpl extends AbstractBaseView {
     private static final double UPGRADE_NAME_X_SIZE = 0.5;
     private static final double UPGRADE_NAME_Y_SIZE = 0.15;
 
-    private static final double UPGRADE_PURCHASE_BUTTON_X_POS = 0.7;
+    private static final double UPGRADE_PURCHASE_BUTTON_X_POS = 0.6;
     private static final double UPGRADE_PURCHASE_BUTTON_Y_POS = UPGRADE_NAME_Y_POS;
-    private static final double UPGRADE_PURCHASE_BUTTON_X_SIZE = 0.25;
+    private static final double UPGRADE_PURCHASE_BUTTON_X_SIZE = 0.35;
     private static final double UPGRADE_PURCHASE_BUTTON_Y_SIZE = UPGRADE_NAME_Y_SIZE;
 
     private static final double UPGRADE_SEPARATOR_X_POS = 0.05;
@@ -113,6 +113,8 @@ public class ShopViewImpl extends AbstractBaseView {
 
             final JButton purchaseButton = new JButton("Purchase");
             purchaseButton.setFont(defaultFont);
+            purchaseButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
+            purchaseButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
             purchaseButton.setFocusPainted(false);
             upgradePanel.add(
                     purchaseButton,

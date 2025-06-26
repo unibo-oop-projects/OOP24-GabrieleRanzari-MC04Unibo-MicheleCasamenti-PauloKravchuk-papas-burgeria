@@ -6,6 +6,13 @@ package it.unibo.papasburgeria.controller.api;
 public interface ShopController {
 
     /**
+     * Returns whether the upgrade is purchasable.
+     *
+     * @return true if the upgrade is purchasable, false otherwise
+     */
+    boolean isUpgradePurchasable();
+
+    /**
      * Buys the upgrade if possible.
      *
      * @return true if the upgrade was bought, false otherwise
@@ -15,7 +22,7 @@ public interface ShopController {
     /**
      * Returns whether the upgrade is unlocked.
      *
-     * @return true whether the upgrade is unlocked, false otherwise
+     * @return true if the upgrade is unlocked, false otherwise
      */
     boolean isUpgradeUnlocked();
 }

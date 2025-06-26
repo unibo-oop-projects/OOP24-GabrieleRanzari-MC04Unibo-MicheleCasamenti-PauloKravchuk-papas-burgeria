@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
+import it.unibo.papasburgeria.controller.api.ShopController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
@@ -22,12 +23,24 @@ import java.io.Serial;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static java.awt.Color.GRAY;
+import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
 
 /**
  * Manages the GUI for the shop scene in the game.
  */
 public class ShopViewImpl extends AbstractBaseView {
+    private static final double NEXT_DAY_BUTTON_X_POS = 0.5;
+    private static final double NEXT_DAY_BUTTON_Y_POS = 0.93;
+    private static final double NEXT_DAY_BUTTON_X_SIZE = 0.10;
+    private static final double NEXT_DAY_BUTTON_Y_SIZE = 0.05;
+    private static final double NEXT_DAY_BUTTON_ORIGIN = 0.5;
+
+    private static final double MONEY_LABEL_X_POS = 0.65;
+    private static final double MONEY_LABEL_Y_POS = 0.85;
+    private static final double MONEY_LABEL_X_SIZE = 0.3;
+    private static final double MONEY_LABEL_Y_SIZE = 0.1;
+
     private static final double UPGRADE_PANEL_X_POS = 0.05;
     private static final double UPGRADE_PANEL_Y_POS = 0.05;
     private static final double UPGRADE_PANEL_X_SIZE = 0.4;
@@ -61,7 +74,7 @@ public class ShopViewImpl extends AbstractBaseView {
     private static final double UPGRADE_COST_X_POS = UPGRADE_PURCHASE_BUTTON_X_POS;
     private static final double UPGRADE_COST_Y_POS = 0.05 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
     private static final double UPGRADE_COST_X_SIZE = UPGRADE_PURCHASE_BUTTON_X_SIZE;
-    private static final double UPGRADE_COST_Y_SIZE = 0.1;
+    private static final double UPGRADE_COST_Y_SIZE = 0.15;
 
     private static final double UPGRADE_DESCRIPTION_X_POS = 0.05 + UPGRADE_IMAGE_X_POS + UPGRADE_IMAGE_X_SIZE;
     private static final double UPGRADE_DESCRIPTION_Y_POS = 0.05 + UPGRADE_COST_Y_POS + UPGRADE_COST_Y_SIZE;
@@ -70,7 +83,13 @@ public class ShopViewImpl extends AbstractBaseView {
 
     private static final int MAX_NUMBER_OF_UPGRADE_PANELS = 6;
     private static final double ORIGIN = 0.0;
-    private static final Font DEFAULT_FONT = new Font("Comic Sans MS", Font.PLAIN, 18);
+    private static final String DEFAULT_FONT_NAME = "Comic Sans MS";
+    private static final int DEFAULT_FONT_SIZE = 20;
+    private static final Font DEFAULT_FONT = new Font(DEFAULT_FONT_NAME, Font.BOLD, DEFAULT_FONT_SIZE);
+    private static final int DESCRIPTION_FONT_SIZE = 18;
+    private static final String DESCRIPTION_FONT_NAME = "Comic Sans";
+    private static final int MONEY_LABEL_FONT_SIZE = 45;
+    private static final Color MONEY_LABEL_TEXT_COLOR = new Color(60, 180, 53);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -79,9 +98,10 @@ public class ShopViewImpl extends AbstractBaseView {
      * Default constructor, creates and initializes the GUI elements.
      *
      * @param resourceService the service that handles resource obtainment
+     * @param controller      the controller for the shop view
      */
     @Inject
-    public ShopViewImpl(final ResourceService resourceService) {
+    public ShopViewImpl(final ResourceService resourceService, final ShopController controller) {
         if (DEBUG_MODE) {
             Logger.info("Shop created");
         }
@@ -90,6 +110,32 @@ public class ShopViewImpl extends AbstractBaseView {
 
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.setLayout(new ScalableLayoutImpl());
+
+        final JButton nextDayButton = new JButton("End Day");
+        nextDayButton.setFont(DEFAULT_FONT);
+        nextDayButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
+        nextDayButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
+        nextDayButton.setFocusPainted(false);
+        interfacePanel.add(
+                nextDayButton,
+                new ScaleConstraintImpl(
+                        new ScaleImpl(NEXT_DAY_BUTTON_X_SIZE, NEXT_DAY_BUTTON_Y_SIZE),
+                        new ScaleImpl(NEXT_DAY_BUTTON_X_POS, NEXT_DAY_BUTTON_Y_POS),
+                        new ScaleImpl(NEXT_DAY_BUTTON_ORIGIN)
+                )
+        );
+
+        final JLabel moneyLabel = new JLabel("Money:" + " $");
+        moneyLabel.setFont(new Font(DEFAULT_FONT_NAME, Font.BOLD, MONEY_LABEL_FONT_SIZE));
+        moneyLabel.setForeground(MONEY_LABEL_TEXT_COLOR);
+        interfacePanel.add(
+                moneyLabel,
+                new ScaleConstraintImpl(
+                        new ScaleImpl(MONEY_LABEL_X_SIZE, MONEY_LABEL_Y_SIZE),
+                        new ScaleImpl(MONEY_LABEL_X_POS, MONEY_LABEL_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
 
         double pbSizeXScale = UPGRADE_PANEL_X_POS;
         double pbSizeYScale = UPGRADE_PANEL_Y_POS;
@@ -111,11 +157,31 @@ public class ShopViewImpl extends AbstractBaseView {
                     )
             );
 
-            final JButton purchaseButton = new JButton("Purchase");
+            final JButton purchaseButton = new JButton();
             purchaseButton.setFont(DEFAULT_FONT);
             purchaseButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
             purchaseButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
             purchaseButton.setFocusPainted(false);
+            if (controller.isUpgradeUnlocked()) {
+                purchaseButton.setText("Already purchased");
+                purchaseButton.setEnabled(false);
+            } else if (controller.isUpgradePurchasable()) {
+                purchaseButton.setText("Purchase");
+                purchaseButton.addActionListener(e -> {
+                    if (controller.buyUpgrade()) {
+                        if (DEBUG_MODE) {
+                            Logger.debug("Upgrade purchased");
+                        }
+                    } else {
+                        if (DEBUG_MODE) {
+                            Logger.debug("Upgrade could not be purchased");
+                        }
+                    }
+                });
+            } else {
+                purchaseButton.setText("Need more money");
+                purchaseButton.setEnabled(false);
+            }
             upgradePanel.add(
                     purchaseButton,
                     new ScaleConstraintImpl(
@@ -147,7 +213,7 @@ public class ShopViewImpl extends AbstractBaseView {
                     )
             );
 
-            final JLabel costLabel = new JLabel("Upgrade Cost");
+            final JLabel costLabel = new JLabel("Upgrade Cost:" + " $");
             costLabel.setFont(DEFAULT_FONT);
             upgradePanel.add(
                     costLabel,
@@ -159,9 +225,11 @@ public class ShopViewImpl extends AbstractBaseView {
             );
 
             final JTextArea descriptionTextArea = new JTextArea("Upgrade description");
-            descriptionTextArea.setFont(DEFAULT_FONT);
+            descriptionTextArea.setFont(new Font(DESCRIPTION_FONT_NAME, Font.PLAIN, DESCRIPTION_FONT_SIZE));
             descriptionTextArea.setEditable(false);
             descriptionTextArea.setFocusable(false);
+            descriptionTextArea.setLineWrap(true);
+            descriptionTextArea.setWrapStyleWord(true);
             upgradePanel.add(
                     descriptionTextArea,
                     new ScaleConstraintImpl(

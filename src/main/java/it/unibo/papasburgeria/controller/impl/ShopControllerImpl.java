@@ -28,6 +28,14 @@ public class ShopControllerImpl implements ShopController {
      * @inheritDoc
      */
     @Override
+    public boolean isUpgradePurchasable() {
+        return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public boolean buyUpgrade() {
 
         return false;

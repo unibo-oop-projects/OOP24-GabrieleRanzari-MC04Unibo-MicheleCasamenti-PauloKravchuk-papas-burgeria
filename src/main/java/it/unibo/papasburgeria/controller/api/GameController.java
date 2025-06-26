@@ -15,6 +15,14 @@ public interface GameController {
     void endGame();
 
     /**
+     * Called by views to switch to a certain scene, without having to go directly through SceneService,
+     * maintaining the MVC aspect of the game.
+     *
+     * @param sceneName name of the scene
+     */
+    void switchToScene(String sceneName);
+
+    /**
      * Advances the current game state to the next day.
      */
     void nextDay();

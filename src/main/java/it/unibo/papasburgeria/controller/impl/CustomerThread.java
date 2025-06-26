@@ -1,12 +1,11 @@
 package it.unibo.papasburgeria.controller.impl;
 
-import java.util.List;
-
-import org.tinylog.Logger;
-
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.impl.CustomerImpl;
+import org.tinylog.Logger;
+
+import java.util.List;
 
 class CustomerThread extends Thread {
     private final Long intervalMilliSeconds;
@@ -15,13 +14,13 @@ class CustomerThread extends Thread {
     private final List<IngredientEnum> unlockedIngredients;
 
     /**
-     * @param delay rate at which customers come to the shop
-     * @param customerAmount amount of customer spawned by the thread
+     * @param delay               rate at which customers come to the shop
+     * @param customerAmount      amount of customer spawned by the thread
      * @param unlockedIngredients available ingredients used for orders
-     * @param controller manages the lines whith customers
+     * @param controller          manages the lines whith customers
      */
     CustomerThread(final int delay, final int customerAmount,
-    final List<IngredientEnum> unlockedIngredients, final CustomerControllerImpl controller) {
+                   final List<IngredientEnum> unlockedIngredients, final CustomerControllerImpl controller) {
         this.intervalMilliSeconds = 1000L * delay;
         this.customerAmount = customerAmount;
         this.unlockedIngredients = unlockedIngredients;

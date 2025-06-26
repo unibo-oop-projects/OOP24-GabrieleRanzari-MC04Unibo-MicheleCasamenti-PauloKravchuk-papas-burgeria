@@ -57,6 +57,7 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
             protected void paintComponent(final Graphics g) {
                 super.paintComponent(g);
 
+                // ScalableLayout supports image scaling, but JLayeredPanel doesn't support ScalableLayout
                 if (backgroundImage != null) {
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 }
@@ -80,6 +81,10 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
 
     /**
      * Override to make sure children panels/label are always scaled to 1.
+     *
+     * <p>
+     * Unfortunately the use of {@link it.unibo.papasburgeria.view.api.components.ScaleConstraint}, when adding components,
+     * is not possible due to how Swing handles JLayeredPanes.
      */
     @Override
     public void doLayout() {

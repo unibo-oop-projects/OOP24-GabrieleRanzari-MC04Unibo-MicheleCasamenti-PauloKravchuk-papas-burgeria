@@ -19,6 +19,7 @@ public interface ResourceService {
 
     /**
      * Used to retrieve sound resources of short length to be used as sfx in a cached way.
+     * Remember that there is a dedicated service to play sfx with.
      *
      * @param soundPath path component of <code>resources/sfx/[path]</code>
      * @return the Clip instance

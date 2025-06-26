@@ -26,19 +26,9 @@ public enum DegreesOfDonenessEnum {
     }
 
     /**
-     * Return the name of the degree of doneness.
-     *
-     * @return the name of the degree of doneness
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
      * Calculate the degree of doneness give the cook level.
      *
      * @param cookLevel the cook level
-     *
      * @return the degree of doneness
      */
     public static DegreesOfDonenessEnum calculateDegree(final double cookLevel) {
@@ -54,5 +44,14 @@ public enum DegreesOfDonenessEnum {
         }
 
         return values[levelIndex];
+    }
+
+    /**
+     * Return the name of the degree of doneness.
+     *
+     * @return the name of the degree of doneness
+     */
+    public String getName() {
+        return name;
     }
 }

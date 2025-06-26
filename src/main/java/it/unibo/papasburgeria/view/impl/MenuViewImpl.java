@@ -7,6 +7,8 @@ import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import org.tinylog.Logger;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Graphics;
@@ -33,19 +35,24 @@ public class MenuViewImpl extends AbstractBaseView {
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.setLayout(new ScalableLayoutImpl());
 
-        final double pbSizeXScale = 0.25;
+        final double pbSizeXScale = 0.15;
         final double pbSizeYScale = 0.1;
         final double pbPositionXScale = 0.5;
         final double pbPositionYScale = 0.55;
-        final double pbOriginScale = 0.5;
-        final JButton playButton = new JButton("PLAY");
-        playButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
-        playButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
+        final JButton playButton = new JButton(new ImageIcon(resourceService.getImage("play_btn.png")));
+        playButton.setBackground(DEFAULT_BACKGROUND_COLOR);
+        playButton.setBorder(BorderFactory.createEmptyBorder());
+        playButton.setContentAreaFilled(false);
+        playButton.setOpaque(false);
         playButton.setFocusPainted(false);
+
+        //final double saveCardSizeXScale = 0;
+        //final double saveCardSizeYScale = 0;
+        //final double saveCardPositionXScale = 0;
+        //final double saveCardPositionXScale = 0;
+
         playButton.addActionListener(e -> {
-            if (DEBUG_MODE) {
-                Logger.debug("Clicked button");
-            }
+            playButton.setVisible(false);
         });
 
         interfacePanel.add(
@@ -53,7 +60,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 new ScaleConstraintImpl(
                         new ScaleImpl(pbSizeXScale, pbSizeYScale),
                         new ScaleImpl(pbPositionXScale, pbPositionYScale),
-                        new ScaleImpl(pbOriginScale)
+                        ScaleConstraintImpl.ORIGIN_CENTER
                 )
         );
     }

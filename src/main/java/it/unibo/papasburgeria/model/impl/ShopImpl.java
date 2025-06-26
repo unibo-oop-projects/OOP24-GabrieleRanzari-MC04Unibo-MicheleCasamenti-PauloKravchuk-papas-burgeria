@@ -1,10 +1,10 @@
 package it.unibo.papasburgeria.model.impl;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Shop;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * models the shop and keeps track of the unlocked upgrades.

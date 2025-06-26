@@ -3,11 +3,10 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.tinylog.Logger;
 
 import static it.unibo.papasburgeria.model.IngredientEnum.BOTTOM_BUN;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;

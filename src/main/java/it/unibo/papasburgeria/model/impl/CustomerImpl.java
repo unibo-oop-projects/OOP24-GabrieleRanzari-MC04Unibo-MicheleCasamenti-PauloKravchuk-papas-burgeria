@@ -1,12 +1,12 @@
 package it.unibo.papasburgeria.model.impl;
 
-import java.util.List;
-
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Order;
+
+import java.util.List;
 
 /**
  * Customers in the game. They generate orders and evaluate Burgers.
@@ -34,8 +34,8 @@ public class CustomerImpl implements Customer {
      * @inheritDoc
      */
     @Override
-    public int evaluateBurger(final Hamburger madeHamburger, final float placementTollerance, 
-    final float ingredientTollerance) {
+    public int evaluateBurger(final Hamburger madeHamburger, final float placementTollerance,
+                              final float ingredientTollerance) {
         final List<Ingredient> list1 = this.order.getHamburger().getIngredients();
         final List<Ingredient> list2 = madeHamburger.getIngredients();
 
@@ -80,10 +80,10 @@ public class CustomerImpl implements Customer {
         /* calculates the difficulty percentage (size/maxsize) */
         final double difficultyPercentage = (double) list1.size() / HamburgerImpl.MAX_INGREDIENTS;
 
-        /* 
-         * calculates the amount of money to award the player 
+        /*
+         * calculates the amount of money to award the player
          * MAX * difficulty% * similarity% * placement%
-        */
+         */
         return (int) (MAX_PAYMENT * difficultyPercentage * similarityPercentage * placementPercentage);
     }
 

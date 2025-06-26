@@ -92,14 +92,6 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setDraggable(final boolean draggable) {
-        this.draggable = draggable;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public boolean isDraggable() {
         return draggable;
     }
@@ -108,8 +100,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setVisible(final boolean visible) {
-        this.visible = visible;
+    public void setDraggable(final boolean draggable) {
+        this.draggable = draggable;
     }
 
     /**
@@ -124,8 +116,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setCloneable(final boolean cloneable) {
-        this.cloneable = cloneable;
+    public void setVisible(final boolean visible) {
+        this.visible = visible;
     }
 
     /**
@@ -140,8 +132,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setRemovable(final boolean removable) {
-        this.removable = removable;
+    public void setCloneable(final boolean cloneable) {
+        this.cloneable = cloneable;
     }
 
     /**
@@ -156,8 +148,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setFlipped(final boolean flipped) {
-        this.flipped = flipped;
+    public void setRemovable(final boolean removable) {
+        this.removable = removable;
     }
 
     /**
@@ -166,6 +158,14 @@ public class SpriteImpl implements Sprite {
     @Override
     public boolean isFlipped() {
         return flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setFlipped(final boolean flipped) {
+        this.flipped = flipped;
     }
 
     /**
@@ -200,20 +200,20 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public IngredientEnum getIngredientType() {
-        return ingredient.getIngredientType();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void setIngredient(final Ingredient newIngredient) {
         if (newIngredient instanceof Patty patty) {
             ingredient = new PattyImpl(patty);
         } else {
             ingredient = new IngredientImpl(newIngredient);
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public IngredientEnum getIngredientType() {
+        return ingredient.getIngredientType();
     }
 
     /**
@@ -246,22 +246,6 @@ public class SpriteImpl implements Sprite {
     @Override
     public int calculateHeight(final int frameHeight) {
         return (int) (frameHeight * pbSizeYScale);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbPositionXScale(final double newPbPositionXScale) {
-        pbPositionXScale = newPbPositionXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbPositionYScale(final double newPbPositionYScale) {
-        pbPositionYScale = newPbPositionYScale;
     }
 
     /**
@@ -305,8 +289,24 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbPositionXScale(final double newPbPositionXScale) {
+        pbPositionXScale = newPbPositionXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public double getPbPositionYScale() {
         return pbPositionYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbPositionYScale(final double newPbPositionYScale) {
+        pbPositionYScale = newPbPositionYScale;
     }
 
     /**

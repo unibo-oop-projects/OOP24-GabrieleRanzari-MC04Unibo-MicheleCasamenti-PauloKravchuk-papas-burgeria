@@ -1,14 +1,13 @@
 package it.unibo.papasburgeria.controller.impl;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.google.inject.Singleton;
-
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
+
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @inheritDoc
@@ -24,7 +23,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void startCustomerThread(final int delay, final int customerAmount,
-        final List<IngredientEnum> availableingredients) {
+                                    final List<IngredientEnum> availableingredients) {
         if (!customerThread.isAlive()) {
             customerThread = new CustomerThread(delay, customerAmount, availableingredients, this);
             customerThread.start();

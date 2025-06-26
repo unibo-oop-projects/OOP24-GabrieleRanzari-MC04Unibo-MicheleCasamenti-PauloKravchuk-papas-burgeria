@@ -3,9 +3,14 @@ package it.unibo.papasburgeria.view.impl.components;
 import it.unibo.papasburgeria.view.api.components.Scale;
 import it.unibo.papasburgeria.view.api.components.ScaleConstraint;
 
+import javax.swing.AbstractButton;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.LayoutManager2;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,6 +121,15 @@ public class ScalableLayoutImpl implements LayoutManager2 {
                     width,
                     height
             );
+
+            final Icon icon = getComponentIcon(component);
+            if (icon instanceof ImageIcon) {
+                setComponentIcon(
+                        component,
+                        new ImageIcon(((ImageIcon) icon)
+                                .getImage()
+                                .getScaledInstance(width, height, Image.SCALE_SMOOTH)));
+            }
         });
     }
 
@@ -140,5 +154,36 @@ public class ScalableLayoutImpl implements LayoutManager2 {
      */
     @Override
     public void invalidateLayout(final Container target) {
+    }
+
+    /**
+     * Method to obtain the Icon reference from a JComponent, implementation is
+     * on a per-need basis as Swing does not have one main class to handle getIcon methods
+     * across components.
+     *
+     * @param component component having the icon
+     * @return the Icon instance
+     */
+    private Icon getComponentIcon(final Component component) {
+        return switch (component) {
+            case AbstractButton btn -> btn.getIcon();
+            case JLabel lbl -> lbl.getIcon();
+            default -> null;
+        };
+    }
+
+    /**
+     * Sets component's icon if possible, otherwise throws an error.
+     *
+     * @param component component to set the icon to
+     * @param icon      the icon instance
+     */
+    private void setComponentIcon(final Component component, final Icon icon) {
+        switch (component) {
+            case AbstractButton btn -> btn.setIcon(icon);
+            case JLabel lbl -> lbl.setIcon(icon);
+            default ->
+                    throw new IllegalStateException("Obtained component's icon but have no way to set it for: " + component);
+        }
     }
 }

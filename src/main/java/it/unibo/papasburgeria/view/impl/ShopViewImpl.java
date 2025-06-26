@@ -23,7 +23,6 @@ import java.io.Serial;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static java.awt.Color.GRAY;
-import static java.awt.Color.GREEN;
 import static java.awt.Color.WHITE;
 
 /**

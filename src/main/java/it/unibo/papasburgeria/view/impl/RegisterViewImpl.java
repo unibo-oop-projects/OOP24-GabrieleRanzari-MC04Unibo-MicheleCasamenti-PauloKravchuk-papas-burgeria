@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.CustomerController;
-import it.unibo.papasburgeria.controller.impl.CustomerControllerImpl;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
@@ -66,13 +65,14 @@ public class RegisterViewImpl extends AbstractBaseView {
 
     /**
      * @param pantryModel used to get the available ingredients
+     * @param customerController used to manage the customers' line
      */
     @Inject
-    public RegisterViewImpl(final PantryModel pantryModel) {
+    public RegisterViewImpl(final PantryModel pantryModel, final CustomerController customerController) {
         super.getInterfacePanel().setLayout(null);
         super.getInterfacePanel().setBackground(Color.GREEN);
 
-        this.controller = new CustomerControllerImpl();
+        this.controller = customerController;
         this.customerDifficulty = CustomerDifficultyEnum.FIRST;
 
         addCustomer.setBounds(X_ADD_CUSTOMER, Y_ADD_CUSTOMER, BUTTON_WIDTH, BUTTON_HEIGHT);

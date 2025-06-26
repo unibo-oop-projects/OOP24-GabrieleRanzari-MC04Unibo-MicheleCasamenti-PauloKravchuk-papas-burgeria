@@ -24,6 +24,8 @@ public class GameModelImpl implements GameModel {
 
     private static final int MAX_DAYS = Integer.MAX_VALUE;
 
+    private int balance;
+
     private Hamburger hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
     private List<Patty> cookedPatties;
@@ -129,5 +131,21 @@ public class GameModelImpl implements GameModel {
     @Override
     public String toString() {
         return "[currentDay=" + currentDay + "]"; // TODO update
+    }
+
+    /**
+     * @innheritDoc
+     */
+    @Override
+    public void setBalance(final int amount) {
+        this.balance = amount;
+    }
+
+    /**
+     * @innheritDoc
+     */
+    @Override
+    public int getBalance() {
+        return balance;
     }
 }

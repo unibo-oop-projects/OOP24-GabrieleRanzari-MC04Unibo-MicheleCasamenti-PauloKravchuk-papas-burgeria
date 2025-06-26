@@ -6,9 +6,12 @@ import it.unibo.papasburgeria.model.api.Shop;
 import java.util.EnumMap;
 import java.util.Map;
 
+import com.google.inject.Singleton;
+
 /**
  * models the shop and keeps track of the unlocked upgrades.
  */
+@Singleton
 public class ShopImpl implements Shop {
     private final Map<UpgradeEnum, Boolean> upgrades;
 

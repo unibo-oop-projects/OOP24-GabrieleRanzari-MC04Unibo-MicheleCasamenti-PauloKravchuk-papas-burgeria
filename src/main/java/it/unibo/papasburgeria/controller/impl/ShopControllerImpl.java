@@ -34,7 +34,7 @@ public class ShopControllerImpl implements ShopController {
      */
     @Override
     public boolean isUpgradePurchasable(final UpgradeEnum upgrade) {
-        return upgrade.getCost() >= 0;
+        return upgrade.getCost() >= model.getBalance();
     }
 
     /**
@@ -42,7 +42,13 @@ public class ShopControllerImpl implements ShopController {
      */
     @Override
     public boolean buyUpgrade(final UpgradeEnum upgrade) {
-        return false;
+        if (isUpgradeUnlocked(upgrade) || !isUpgradePurchasable(upgrade)) {
+            return false;
+        } else {
+            shop.unlockUpgrade(upgrade);
+            model.setBalance(model.getBalance() - upgrade.getCost());
+            return true;
+        }
     }
 
     /**

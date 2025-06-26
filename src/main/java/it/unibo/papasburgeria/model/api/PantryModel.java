@@ -11,12 +11,14 @@ public interface PantryModel {
     /**
      * Unlocks ingredients appropriate to the current day.
      *
-     * @param currentDay : current game day number
+     * @param currentDay current game day number
      */
     void unlockForDay(int currentDay);
 
     /**
-     * @return the set of all currently unlocked ingredient types.
+     * Returns the set of ingredient types that are currently unlocked.
+     *
+     * @return the set unlocked ingredient types
      */
     Set<IngredientEnum> getUnlockedIngredients();
 

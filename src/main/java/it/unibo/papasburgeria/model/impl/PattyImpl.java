@@ -15,7 +15,6 @@ public class PattyImpl extends IngredientImpl implements Patty {
     private double topCookLevel;
     private double bottomCookLevel;
     private boolean flipped;
-    private boolean stopCooking;
 
     /**
      * Default constructor for the patty, creates a raw patty not flipped.
@@ -25,20 +24,6 @@ public class PattyImpl extends IngredientImpl implements Patty {
         topCookLevel = MIN_COOK_LEVEL;
         bottomCookLevel = MIN_COOK_LEVEL;
         flipped = false;
-        stopCooking = false;
-    }
-
-    /**
-     * Constructor for the patty, creates a raw patty not flipped with placement accuracy.
-     *
-     * @param accuracy the placement accuracy value.
-     */
-    public PattyImpl(final double accuracy) {
-        super(IngredientEnum.PATTY, accuracy);
-        topCookLevel = MIN_COOK_LEVEL;
-        bottomCookLevel = MIN_COOK_LEVEL;
-        flipped = false;
-        stopCooking = false;
     }
 
     /**
@@ -51,7 +36,6 @@ public class PattyImpl extends IngredientImpl implements Patty {
         topCookLevel = patty.getTopCookLevel();
         bottomCookLevel = patty.getBottomCookLevel();
         flipped = patty.isFlipped();
-        stopCooking = patty.isStoppedFromCooking();
     }
 
     /**
@@ -68,22 +52,6 @@ public class PattyImpl extends IngredientImpl implements Patty {
     @Override
     public boolean isFlipped() {
         return flipped;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setStopCooking(final boolean stopCooking) {
-        this.stopCooking = stopCooking;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public boolean isStoppedFromCooking() {
-        return stopCooking;
     }
 
     /**
@@ -154,10 +122,10 @@ public class PattyImpl extends IngredientImpl implements Patty {
      */
     @Override
     public String toString() {
-        return "[ type:" + this.getIngredientType()
+        return "Patty[type:" + this.getIngredientType()
                 + ", accuracy:" + this.getPlacementAccuracy()
                 + ", top cook level:" + this.getTopCookLevel()
                 + ", bottom cook level:" + this.getBottomCookLevel()
-                + ", flipped:" + this.isFlipped() + " ]";
+                + ", flipped:" + this.isFlipped() + "]";
     }
 }

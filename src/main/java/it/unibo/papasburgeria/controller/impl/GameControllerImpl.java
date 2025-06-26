@@ -2,10 +2,8 @@ package it.unibo.papasburgeria.controller.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GameController;
-import it.unibo.papasburgeria.model.api.CustomerManager;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.impl.CustomerManagerImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import jakarta.inject.Inject;
@@ -25,8 +23,6 @@ public class GameControllerImpl implements GameController {
     private final SceneService sceneService;
     private final ResourceService resourceService;
     private final PantryModel pantryModel;
-    private final CustomerManager customerManager;
-
 
     /**
      * Constructs the controller with its model and several utility classes like for scene-switching or resource disposing.
@@ -43,7 +39,6 @@ public class GameControllerImpl implements GameController {
         this.sceneService = sceneService;
         this.resourceService = resourceService;
         this.pantryModel = pantryModel;
-        this.customerManager = new CustomerManagerImpl();
     }
 
     /**
@@ -83,6 +78,5 @@ public class GameControllerImpl implements GameController {
     public void nextDay() {
         model.nextDay();
         pantryModel.unlockForDay(model.getCurrentDay());
-        customerManager.clearLines();
     }
 }

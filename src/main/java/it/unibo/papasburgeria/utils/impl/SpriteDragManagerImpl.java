@@ -1,9 +1,6 @@
 package it.unibo.papasburgeria.utils.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
-import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.utils.api.Sprite;
 import it.unibo.papasburgeria.utils.api.SpriteDropListener;
 
@@ -13,8 +10,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.List;
 
+import static it.unibo.papasburgeria.model.IngredientEnum.SAUCES;
+
 /**
- * Manages the drag component of the sprites.
+ * Manages the drag and click component of the sprites.
  */
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Component is used in read-only fashion")
 public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener {
@@ -28,9 +27,11 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     private boolean dragged;
 
     /**
-     * @param component          the panel where to listen from.
-     * @param sprites            the list of draggable sprites.
-     * @param spriteDropListener the listener for if sprites are dropped.
+     * Default constructor, adds a mouse listener and a mouse motion listener to the component.
+     *
+     * @param component          the component where to listen from
+     * @param sprites            the list of draggable sprites
+     * @param spriteDropListener the listener for the sprites
      */
     public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites,
                                  final SpriteDropListener spriteDropListener) {
@@ -56,14 +57,9 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
 
             final int spriteX = sprite.calculateX(component.getWidth());
             final int spriteY = sprite.calculateY(component.getHeight());
-            final Ingredient ingredient = sprite.getIngredient();
-            if (ingredient instanceof Patty patty) {
-                patty.setStopCooking(true);
-                sprite.setIngredient(ingredient);
-            }
             if (!sprite.isDraggable()) {
                 final Sprite copy = new SpriteImpl(sprite);
-                if (IngredientEnum.SAUCES.contains(sprite.getIngredientType())
+                if (SAUCES.contains(sprite.getIngredientType())
                         && !sprite.isRemovable()) {
                     sprite.setVisible(false);
                     originalSprite = sprite;
@@ -89,14 +85,9 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     @Override
     public void mouseReleased(final MouseEvent event) {
         if (draggedSprite != null) {
-            final Ingredient ingredient = draggedSprite.getIngredient();
             if (!dragged) {
                 dropListener.spriteClicked(originalSprite);
             } else {
-                if (ingredient instanceof Patty patty) {
-                    patty.setStopCooking(false);
-                    draggedSprite.setIngredient(ingredient);
-                }
                 dropListener.spriteDropped(draggedSprite);
                 if (draggedSprite.isFlipped()) {
                     draggedSprite.flipImageVertically();
@@ -165,9 +156,9 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     /**
      * Finds and return the sprite that you interacted with.
      *
-     * @param mouseX the x value of the mouse.
-     * @param mouseY the y value of the mouse.
-     * @return the sprite that you interacted with.
+     * @param mouseX the x position of the mouse
+     * @param mouseY the y position of the mouse
+     * @return the interacted sprite
      */
     private Sprite getSprite(final int mouseX, final int mouseY) {
         for (int index = sprites.size() - 1; index >= 0; index--) {

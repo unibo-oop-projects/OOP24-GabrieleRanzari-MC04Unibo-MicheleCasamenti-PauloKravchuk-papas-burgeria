@@ -10,13 +10,14 @@ import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.GameModelImpl;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import org.tinylog.Logger;
 
 import java.util.List;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+import static it.unibo.papasburgeria.model.impl.GameModelImpl.MAX_COOKED_PATTIES;
+import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
@@ -31,10 +32,10 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     private final PantryModel pantryModel;
 
     /**
-     * Default constructor, creates a new empty hamburger.
+     * Default constructor that saves the game model and the pantryModel given via injection.
      *
-     * @param model       the game model.
-     * @param pantryModel the model containing the list of unlocked ingredients.
+     * @param model       the game model
+     * @param pantryModel the model containing the list of unlocked ingredients
      */
     @Inject
     public BurgerAssemblyControllerImpl(final GameModel model, final PantryModel pantryModel) {
@@ -132,7 +133,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     @Override
     public boolean addCookedPatty(final Patty patty) {
         final List<Patty> patties = model.getCookedPatties();
-        if (patties.size() == GameModelImpl.MAX_COOKED_PATTIES) {
+        if (patties.size() == MAX_COOKED_PATTIES) {
             return false;
         }
         patties.add(patty);
@@ -158,18 +159,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
         final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
         final double difference = pbPositionXScale - HAMBURGER_X_POS_SCALE;
         final double accuracy = difference / halfRange;
-        return Math.max(IngredientImpl.MAX_LEFT_ACCURACY, Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public double getPositionXScaleFromAccuracy(final double accuracy) {
-        final double boundedAccuracy = Math.max(IngredientImpl.MAX_LEFT_ACCURACY,
-                Math.min(IngredientImpl.MAX_RIGHT_ACCURACY, accuracy));
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
-        return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
+        return Math.max(MAX_LEFT_ACCURACY, Math.min(MAX_RIGHT_ACCURACY, accuracy));
     }
 
     /**
@@ -183,7 +173,15 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @return a string containing the name of the class.
+     * @inheritDoc
+     */
+    @Override
+    public List<IngredientEnum> getUnlockedIngredients() {
+        return List.copyOf(pantryModel.getUnlockedIngredients());
+    }
+
+    /**
+     * @inheritDoc
      */
     @Override
     public String toString() {

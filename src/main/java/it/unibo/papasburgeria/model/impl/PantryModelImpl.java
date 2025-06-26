@@ -10,6 +10,8 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
+import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
+import static it.unibo.papasburgeria.model.impl.GameModelImpl.START_DAY;
 import static it.unibo.papasburgeria.model.impl.UnlockSchedule.UNLOCK_SCHEDULE;
 
 /**
@@ -24,7 +26,7 @@ public class PantryModelImpl implements PantryModel {
      */
     public PantryModelImpl() {
         resetUnlocks();
-        unlockForDay(GameModelImpl.START_DAY); // If the starting day is not the first day
+        unlockForDay(START_DAY);
     }
 
     /**
@@ -33,7 +35,7 @@ public class PantryModelImpl implements PantryModel {
     @Override
     public final void unlockForDay(final int currentDay) {
         for (final Map.Entry<DaysEnum, Set<IngredientEnum>> entry : UNLOCK_SCHEDULE.entrySet()) {
-            final int dayNumber = entry.getKey().ordinal();
+            final int dayNumber = entry.getKey().getNumber();
             if (dayNumber <= currentDay) {
                 unlockedIngredients.addAll(entry.getValue());
             }
@@ -54,15 +56,14 @@ public class PantryModelImpl implements PantryModel {
     @Override
     public final void resetUnlocks() {
         unlockedIngredients.clear();
-        final Set<IngredientEnum> baseIngredients = UNLOCK_SCHEDULE.get(DaysEnum.FIRST_DAY);
+        final Set<IngredientEnum> baseIngredients = UNLOCK_SCHEDULE.get(FIRST_DAY);
         if (baseIngredients != null) {
             unlockedIngredients.addAll(baseIngredients);
         }
     }
 
     /**
-     * @param ingredientType the ingredient
-     * @return true if the ingredient is unlocked
+     * @inheritDoc
      */
     @Override
     public boolean isIngredientUnlocked(final IngredientEnum ingredientType) {
@@ -70,10 +71,10 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @return a string containing all the unlocked ingredients.
+     * @return a string containing all the unlocked ingredients
      */
     @Override
     public String toString() {
-        return "[PantryModelImpl: [unlockedIngredients=" + unlockedIngredients + "]";
+        return "PantryModelImpl[unlockedIngredients=" + unlockedIngredients + "]";
     }
 }

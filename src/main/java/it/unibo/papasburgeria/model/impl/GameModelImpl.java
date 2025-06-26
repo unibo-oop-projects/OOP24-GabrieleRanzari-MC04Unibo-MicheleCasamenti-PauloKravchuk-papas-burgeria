@@ -2,6 +2,7 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
@@ -64,14 +65,6 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public void setHamburgerOnAssembly(final Hamburger hamburger) {
-        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public Patty[][] getPattiesOnGrill() {
         if (pattiesOnGrill == null) {
             return new Patty[GRILL_ROWS][GRILL_COLUMNS];
@@ -92,27 +85,8 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public void setPattiesOnGrill(final Patty[][] patties) {
-        pattiesOnGrill = new Patty[patties.length][];
-        for (int index = 0; index < patties.length; index++) {
-            pattiesOnGrill[index] = patties[index].clone();
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public List<Patty> getCookedPatties() {
         return new ArrayList<>(cookedPatties);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setCookedPatties(final List<Patty> patties) {
-        cookedPatties = List.copyOf(patties);
     }
 
     /**
@@ -127,8 +101,27 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public void reset() {
-        this.currentDay = START_DAY;
+    public void setHamburgerOnAssembly(final Hamburger hamburger) {
+        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPattiesOnGrill(final Patty[][] patties) {
+        pattiesOnGrill = new Patty[patties.length][];
+        for (int index = 0; index < patties.length; index++) {
+            pattiesOnGrill[index] = patties[index].clone();
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setCookedPatties(final List<Patty> patties) {
+        cookedPatties = List.copyOf(patties);
     }
 
     /**

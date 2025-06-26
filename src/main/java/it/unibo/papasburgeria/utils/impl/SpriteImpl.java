@@ -21,10 +21,11 @@ import java.util.Objects;
  * @inheritDoc
  */
 public class SpriteImpl implements Sprite {
+    private final double pbSizeXScale;
+    private final double pbSizeYScale;
+
     private Ingredient ingredient;
     private List<Image> images;
-    private double pbSizeXScale;
-    private double pbSizeYScale;
     private double pbPositionXScale;
     private double pbPositionYScale;
     private boolean draggable;
@@ -34,49 +35,19 @@ public class SpriteImpl implements Sprite {
     private boolean flipped;
 
     /**
-     * Constructor for single image, stores the image, the ingredient, its coordinates in % and its size in %.
+     * Constructor for single image, stores the image, the ingredient, its coordinates in scale and its size in scale.
      *
      * @param image            the image
      * @param ingredient       the ingredient
-     * @param pbPositionXScale the x position
-     * @param pbPositionYScale the y position
-     * @param pbSizeXScale     the width of the image
-     * @param pbSizeYScale     the height of the image
+     * @param pbPositionXScale the x position in scale
+     * @param pbPositionYScale the y position in scale
+     * @param pbSizeXScale     the width in scale
+     * @param pbSizeYScale     the height in scale
      */
     public SpriteImpl(final Image image, final Ingredient ingredient,
                       final double pbPositionXScale, final double pbPositionYScale,
                       final double pbSizeXScale, final double pbSizeYScale) {
         this.images = new ArrayList<>(List.of(image));
-        if (ingredient instanceof Patty patty) {
-            this.ingredient = new PattyImpl(patty);
-        } else {
-            this.ingredient = new IngredientImpl(ingredient);
-        }
-        this.pbPositionXScale = pbPositionXScale;
-        this.pbPositionYScale = pbPositionYScale;
-        this.pbSizeXScale = pbSizeXScale;
-        this.pbSizeYScale = pbSizeYScale;
-        draggable = false;
-        visible = true;
-        cloneable = true;
-        removable = false;
-        flipped = false;
-    }
-
-    /**
-     * Constructor for multiple images, stores the images, the ingredient, its coordinates in % and its size in %.
-     *
-     * @param images           the list of images
-     * @param ingredient       the ingredient
-     * @param pbPositionXScale the x position
-     * @param pbPositionYScale the y position
-     * @param pbSizeXScale     the width of the image
-     * @param pbSizeYScale     the height of the image
-     */
-    public SpriteImpl(final List<Image> images, final Ingredient ingredient,
-                      final double pbPositionXScale, final double pbPositionYScale,
-                      final double pbSizeXScale, final double pbSizeYScale) {
-        this.images = List.copyOf(images);
         if (ingredient instanceof Patty patty) {
             this.ingredient = new PattyImpl(patty);
         } else {
@@ -121,14 +92,6 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public boolean isDraggable() {
-        return draggable;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void setDraggable(final boolean draggable) {
         this.draggable = draggable;
     }
@@ -137,8 +100,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public boolean isVisible() {
-        return visible;
+    public boolean isDraggable() {
+        return draggable;
     }
 
     /**
@@ -153,8 +116,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public boolean isCloneable() {
-        return cloneable;
+    public boolean isVisible() {
+        return visible;
     }
 
     /**
@@ -169,8 +132,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public boolean isRemovable() {
-        return removable;
+    public boolean isCloneable() {
+        return cloneable;
     }
 
     /**
@@ -185,8 +148,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public boolean isFlipped() {
-        return flipped;
+    public boolean isRemovable() {
+        return removable;
     }
 
     /**
@@ -195,6 +158,14 @@ public class SpriteImpl implements Sprite {
     @Override
     public void setFlipped(final boolean flipped) {
         this.flipped = flipped;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isFlipped() {
+        return flipped;
     }
 
     /**
@@ -229,20 +200,20 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setIngredient(final Ingredient newIngredient) {
-        if (newIngredient instanceof Patty patty) {
-            ingredient = new PattyImpl(patty);
-        } else {
-            ingredient = new IngredientImpl(newIngredient);
-        }
+    public IngredientEnum getIngredientType() {
+        return ingredient.getIngredientType();
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public IngredientEnum getIngredientType() {
-        return ingredient.getIngredientType();
+    public void setIngredient(final Ingredient newIngredient) {
+        if (newIngredient instanceof Patty patty) {
+            ingredient = new PattyImpl(patty);
+        } else {
+            ingredient = new IngredientImpl(newIngredient);
+        }
     }
 
     /**
@@ -281,6 +252,22 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
+    public void setPbPositionXScale(final double newPbPositionXScale) {
+        pbPositionXScale = newPbPositionXScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setPbPositionYScale(final double newPbPositionYScale) {
+        pbPositionYScale = newPbPositionYScale;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void flipImageVertically() {
         final List<Image> newImages = new ArrayList<>();
         for (final Image image : images) {
@@ -300,7 +287,7 @@ public class SpriteImpl implements Sprite {
             graphics.drawImage(image, transform, null);
             graphics.dispose();
 
-            flipped = !flipped;
+            setFlipped(!flipped);
             newImages.add(flippedImage);
         }
         images = newImages;
@@ -318,24 +305,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setPbPositionXScale(final double newPbPositionXScale) {
-        pbPositionXScale = newPbPositionXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public double getPbPositionYScale() {
         return pbPositionYScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbPositionYScale(final double newPbPositionYScale) {
-        pbPositionYScale = newPbPositionYScale;
     }
 
     /**
@@ -350,24 +321,8 @@ public class SpriteImpl implements Sprite {
      * @inheritDoc
      */
     @Override
-    public void setPbSizeXScale(final double newPbSizeXScale) {
-        pbSizeXScale = newPbSizeXScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public double getPbSizeYScale() {
         return pbSizeYScale;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void setPbSizeYScale(final double newPbSizeYScale) {
-        pbSizeYScale = newPbSizeYScale;
     }
 
     /**
@@ -426,12 +381,12 @@ public class SpriteImpl implements Sprite {
      */
     @Override
     public String toString() {
-        return "[SpriteImpl:"
-                + "[ingredient: " + ingredient + "] "
-                + "[pbPositionXScale: " + pbPositionXScale + "] "
-                + "[pbPositionYScale: " + pbPositionYScale + "] "
-                + "[pbSizeXScale: " + pbSizeXScale + "] "
-                + "[pbSizeYScale: " + pbSizeYScale + "]"
+        return "SpriteImpl["
+                + "ingredient=[" + ingredient + "] "
+                + "bPositionXScale=[" + pbPositionXScale + "] "
+                + "pbPositionYScale=[" + pbPositionYScale + "] "
+                + "pbSizeXScale=[" + pbSizeXScale + "] "
+                + "pbSizeYScale=[" + pbSizeYScale + "]"
                 + "]";
     }
 }

@@ -1,12 +1,10 @@
 package it.unibo.papasburgeria.utils.impl;
 
 import com.google.inject.Inject;
-import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.model.DegreesOfDonenessEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
 import it.unibo.papasburgeria.utils.api.DrawingManager;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.Sprite;
@@ -19,8 +17,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
+import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_SPACING;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
+import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.GRILL_X_SPACING;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.GRILL_Y_SPACING;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.PATTY_ON_GRILL_X_POS;
@@ -33,7 +38,6 @@ public class DrawingManagerImpl implements DrawingManager {
     public static final String EXTENSION = ".png";
     public static final String SEPARATOR = "_";
     public static final String BOTTLE_EXTENSION = "_bottle";
-    public static final String DROP_EXTENSION = "_drop";
     public static final String BOTTOM_EXTENSION = "_bottom";
     public static final double INGREDIENTS_X_SIZE_SCALE = 0.15;
     public static final double INGREDIENTS_Y_SIZE_SCALE = 0.15;
@@ -46,7 +50,9 @@ public class DrawingManagerImpl implements DrawingManager {
     private final transient Image grillMark;
 
     /**
-     * @param resourceService the resource service.
+     * Default constructor, reeds and stores the images needed to draw.
+     *
+     * @param resourceService the resource service
      */
     @Inject
     DrawingManagerImpl(final ResourceService resourceService) {
@@ -61,7 +67,7 @@ public class DrawingManagerImpl implements DrawingManager {
             ingredientImages.put(ingredientType, image);
         }
 
-        final IngredientEnum ingredientType = IngredientEnum.PATTY;
+        final IngredientEnum ingredientType = PATTY;
         for (final DegreesOfDonenessEnum degree : DegreesOfDonenessEnum.values()) {
             final String pattyName = ingredientType.getName() + SEPARATOR + degree.getName() + EXTENSION;
             final String pattyBottomName = ingredientType.getName() + BOTTOM_EXTENSION + SEPARATOR + degree.getName() + EXTENSION;
@@ -103,7 +109,7 @@ public class DrawingManagerImpl implements DrawingManager {
             pattySprite.addImage(pattyImages.get(pattyBottomName));
         }
 
-        if (topCookLevel > PattyImpl.MIN_COOK_LEVEL) {
+        if (topCookLevel > MIN_COOK_LEVEL) {
             pattySprite.addImage(grillMark);
         }
 
@@ -114,17 +120,12 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
-    public final void drawHamburger(
-            final List<Ingredient> hamburgerIngredients,
-            final Dimension frameSize,
-            final BurgerAssemblyController controller,
-            final List<Sprite> draggableHamburgerSprites,
-            final Graphics graphics
-    ) {
+    public final void drawHamburger(final List<Ingredient> hamburgerIngredients, final Dimension frameSize,
+                                    final List<Sprite> draggableHamburgerSprites, final Graphics graphics) {
         double pbPositionYScale = HAMBURGER_Y_POS_SCALE;
         Sprite sprite = null;
         for (final Ingredient ingredient : hamburgerIngredients) {
-            final double pbPositionXScale = controller.getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy());
+            final double pbPositionXScale = getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy());
             if (ingredient instanceof Patty) {
                 sprite = generatePattySprite((Patty) ingredient, pbPositionXScale, pbPositionYScale);
             } else {
@@ -156,12 +157,12 @@ public class DrawingManagerImpl implements DrawingManager {
      */
     @Override
     public final void drawIngredient(final Sprite sprite, final Dimension frameSize,
-                                     final BurgerAssemblyController controller, final Graphics graphics) {
+                                     final List<IngredientEnum> unlockedIngredients, final Graphics graphics) {
         final int frameWidth = frameSize.width;
         final int frameHeight = frameSize.height;
         sprite.draw(frameSize, graphics);
 
-        if (!controller.isIngredientUnlocked(sprite.getIngredientType())) {
+        if (!unlockedIngredients.contains(sprite.getIngredientType())) {
             Image lock = horizontalLock;
             if (sprite.calculateWidth(frameWidth) < sprite.calculateHeight(frameHeight)) {
                 lock = verticalLock;
@@ -212,5 +213,16 @@ public class DrawingManagerImpl implements DrawingManager {
             pbPositionYScale = pbPositionYScale + INGREDIENTS_Y_SIZE_SCALE + GRILL_Y_SPACING;
             pbPositionXScale = PATTY_ON_GRILL_X_POS;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPositionXScaleFromAccuracy(final double accuracy) {
+        final double boundedAccuracy = Math.max(MAX_LEFT_ACCURACY,
+                Math.min(MAX_RIGHT_ACCURACY, accuracy));
+        final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
+        return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
     }
 }

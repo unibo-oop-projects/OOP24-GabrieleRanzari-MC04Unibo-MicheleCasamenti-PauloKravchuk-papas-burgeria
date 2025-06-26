@@ -14,8 +14,8 @@ public interface BurgerAssemblyController {
     /**
      * Adds the ingredient to the current hamburger.
      *
-     * @param ingredient the ingredient to add.
-     * @return true if the ingredient was added.
+     * @param ingredient the ingredient to add
+     * @return true if the ingredient was added, false otherwise
      */
     boolean addIngredient(Ingredient ingredient);
 
@@ -25,57 +25,62 @@ public interface BurgerAssemblyController {
     void removeLastIngredient();
 
     /**
-     * @return the list of ingredients of the current Hamburger.
+     * Returns the list of ingredients of the current hamburger.
+     *
+     * @return the list of ingredients
      */
     List<Ingredient> getIngredients();
 
     /**
-     * @param ingredientType the ingredient
-     * @return true if the ingredient is unlocked
+     * Checks if the ingredient type is unlocked.
+     *
+     * @param ingredientType the type of ingredient to check
+     * @return true if the ingredient is unlocked, false otherwise
      */
     boolean isIngredientUnlocked(IngredientEnum ingredientType);
 
     /**
-     * @return the list of cooked patties.
+     * Returns the list of cooked patties.
+     *
+     * @return the list of patties
      */
     List<Patty> getCookedPatties();
 
     /**
      * Adds the patty to the list of cooked patties.
      *
-     * @param patty the patty to add.
-     * @return true if the patty was added.
+     * @param patty the patty to add
+     * @return true if the patty was added, false otherwise
      */
     boolean addCookedPatty(Patty patty);
 
     /**
      * Removes the patty form the list of cooked patties.
      *
-     * @param patty the patty to remove.
+     * @param patty the patty to remove
      */
     void removeCookedPatty(Patty patty);
 
     /**
-     * calculates the accuracy given the pbPositionXScale.
+     * Calculates the accuracy given the x position in a scale.
      *
-     * @param pbPositionXScale the pbPositionXScale of the ingredient.
-     * @return the placement accuracy.
+     * @param pbPositionXScale the x position in a scale of the ingredient
+     * @return the placement accuracy
      */
     double calculateAccuracy(double pbPositionXScale);
 
     /**
-     * calculates the pbPositionXScale given the accuracy.
+     * Changes the accuracy of an ingredient in the hamburger on assembly.
      *
-     * @param accuracy the placement accuracy of the ingredient.
-     * @return the pbPositionXScale.
-     */
-    double getPositionXScaleFromAccuracy(double accuracy);
-
-    /**
-     * Changes the accuracy of and ingredient in the hamburgerOnAssembly.
-     *
-     * @param ingredient the ingredient to change accuracy.
-     * @param accuracy   the new accuracy value.
+     * @param ingredient the ingredient whose accuracy will be updated
+     * @param accuracy   the new accuracy value
      */
     void changeIngredientAccuracy(Ingredient ingredient, double accuracy);
+
+    /**
+     * Returns the list of unlocked ingredient types.
+     *
+     * @return the list of unlocked types
+     */
+    List<IngredientEnum> getUnlockedIngredients();
 }

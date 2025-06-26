@@ -1,30 +1,20 @@
 package it.unibo.papasburgeria.model.api;
 
 /**
- * Represents a patty with its top and bottom cook level and if it is flipped.
+ * Models a patty that can be flipped and cooked on both sides.
  */
 public interface Patty {
     /**
-     * Flips the patty changing the boolean value.
+     * Flips the patty.
      */
     void flip();
 
     /**
-     * @return true if the patty is flipped.
+     * Returns whether the patty is flipped or not.
+     *
+     * @return true if the patty is flipped, false otherwise
      */
     boolean isFlipped();
-
-    /**
-     * Stops cooking the patty.
-     *
-     * @param stopCooking the new stopCooking value.
-     */
-    void setStopCooking(boolean stopCooking);
-
-    /**
-     * @return true if the patty is stopped from cooking.
-     */
-    boolean isStoppedFromCooking();
 
     /**
      * @return the top cook level.

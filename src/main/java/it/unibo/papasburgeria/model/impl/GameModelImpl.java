@@ -119,7 +119,7 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public int getCurrentDay() {
+    public int getCurrentDayNumber() {
         return currentDay;
     }
 

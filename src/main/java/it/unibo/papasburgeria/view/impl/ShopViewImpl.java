@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
+import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.controller.api.ShopController;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.utils.api.ResourceService;
@@ -98,9 +99,11 @@ public class ShopViewImpl extends AbstractBaseView {
      *
      * @param resourceService the service that handles resource obtainment
      * @param controller      the controller for the shop view
+     * @param gameController  the controller for the game
      */
     @Inject
-    public ShopViewImpl(final ResourceService resourceService, final ShopController controller) {
+    public ShopViewImpl(final ResourceService resourceService, final ShopController controller,
+                        final GameController gameController) {
         if (DEBUG_MODE) {
             Logger.info("Shop created");
         }
@@ -115,6 +118,9 @@ public class ShopViewImpl extends AbstractBaseView {
         nextDayButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
         nextDayButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
         nextDayButton.setFocusPainted(false);
+        nextDayButton.addActionListener(e -> {
+            gameController.nextDay();
+        });
         interfacePanel.add(
                 nextDayButton,
                 new ScaleConstraintImpl(

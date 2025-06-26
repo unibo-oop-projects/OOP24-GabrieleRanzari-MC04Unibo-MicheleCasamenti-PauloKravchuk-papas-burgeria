@@ -59,7 +59,7 @@ public interface GameModel {
     /**
      * Returns the current day number.
      *
-     * @return the current day
+     * @return the current day number
      */
-    int getCurrentDay();
+    int getCurrentDayNumber();
 }

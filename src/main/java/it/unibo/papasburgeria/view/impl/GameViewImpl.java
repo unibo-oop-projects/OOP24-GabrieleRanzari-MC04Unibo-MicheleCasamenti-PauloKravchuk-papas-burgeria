@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -120,9 +121,25 @@ public class GameViewImpl implements GameView {
             }
         });
 
+        final JPanel bottomPanel = new JPanel(new ScalableLayoutImpl());
+        bottomPanel.setBackground(DEFAULT_BACKGROUND_COLOR);
+        bottomPanel.setOpaque(false);
+        this.interfacePanel.add(bottomPanel, new ScaleConstraintImpl(
+                new ScaleImpl(ScaleConstraintImpl.FULL, ScaleConstraintImpl.EIGHTH),
+                ScaleConstraintImpl.POSITION_BOTTOM_CENTER,
+                ScaleConstraintImpl.ORIGIN_BOTTOM_CENTER
+        ));
+
+        final JLabel imageLabel = new JLabel(new ImageIcon(resourceService.getImage("bottom_border.png")));
+        bottomPanel.add(imageLabel, new ScaleConstraintImpl(
+                ScaleConstraintImpl.SIZE_FULL,
+                ScaleConstraintImpl.POSITION_CENTER,
+                ScaleConstraintImpl.ORIGIN_CENTER
+        ));
+
         // somewhat hard-coded, but it's alright, it's just a view construction
-        final List<String> btnSceneNames = List.of("BurgerAssembly", "Grill");
-        int i = 0;
+        final List<String> btnSceneNames = List.of("Register", "Grill", "BurgerAssembly");
+        int i = -1;
         for (final String sceneName : btnSceneNames) {
             final JButton btn = new JButton(new ImageIcon(resourceService.getImage(sceneName + "_btn.png")));
             btn.setBorder(BorderFactory.createEmptyBorder());
@@ -132,13 +149,16 @@ public class GameViewImpl implements GameView {
             btn.addActionListener(e -> {
                 gameController.switchToScene(sceneName);
             });
-            i++;
-            this.interfacePanel.add(btn, new ScaleConstraintImpl(
-                    ScaleConstraintImpl.SIZE_QUARTER_PARENT,
-                    new ScaleImpl(0.25 * i, 1.0),
-                    ScaleConstraintImpl.ORIGIN_BOTTOM_CENTER
+            Logger.debug(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i));
+            bottomPanel.add(btn, new ScaleConstraintImpl(
+                    new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.FULL - ScaleConstraintImpl.QUARTER),
+                    new ScaleImpl(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i), ScaleConstraintImpl.HALF),
+                    ScaleConstraintImpl.ORIGIN_CENTER
             ));
+            i++;
         }
+        bottomPanel.setComponentZOrder(imageLabel, bottomPanel.getComponentCount() - 1);
+        bottomPanel.setVisible(false);
 
         /*
             In the case of when SceneService has views implemented from different sources,
@@ -160,7 +180,10 @@ public class GameViewImpl implements GameView {
                 currentView = (AbstractBaseView) scene;
                 currentView.revalidate();
 
-                cardLayout.show(mainPanel, currentView.getClass().getSimpleName());
+                final String name = currentView.getClass().getSimpleName();
+                bottomPanel.setVisible(btnSceneNames.contains(name.replace("ViewImpl", "")));
+
+                cardLayout.show(mainPanel, name);
             }
         });
 

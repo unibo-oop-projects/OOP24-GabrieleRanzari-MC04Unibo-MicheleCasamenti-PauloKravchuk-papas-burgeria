@@ -160,7 +160,6 @@ public class GameViewImpl implements GameView {
         bottomPanel.setComponentZOrder(imageLabel, bottomPanel.getComponentCount() - 1);
         bottomPanel.setVisible(false);
 
-
         /*
             In the case of when SceneService has views implemented from different sources,
             we only retrieve the ones related to this implementation to handle updating/redrawing.

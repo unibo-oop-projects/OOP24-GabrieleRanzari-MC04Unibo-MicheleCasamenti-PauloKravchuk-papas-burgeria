@@ -28,10 +28,10 @@ public class MenuViewImpl extends AbstractBaseView {
      * Constructs the MenuView.
      *
      * @param resourceService the service that handles resource obtainment
-     * @param gameController game controller instance
+     * @param gameController  game controller instance
      */
     @Inject
-    public MenuViewImpl(GameController gameController, final ResourceService resourceService) {
+    public MenuViewImpl(final GameController gameController, final ResourceService resourceService) {
         super.setStaticBackgroundImage(resourceService.getImage("menu-background.jpg"));
 
         final JPanel interfacePanel = super.getInterfacePanel();

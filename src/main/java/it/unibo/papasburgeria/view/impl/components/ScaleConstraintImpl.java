@@ -11,9 +11,9 @@ import it.unibo.papasburgeria.view.api.components.ScaleConstraint;
  */
 public class ScaleConstraintImpl implements ScaleConstraint {
     /*
-    * There probably was a better way but enum is redundant and having to re-declare each time these
-    * final values is a pain.
-    */
+     * There probably was a better way but enum is redundant and having to re-declare each time these
+     * final values is a pain.
+     */
     public static final double FULL = 1.0;
     public static final double HALF = 0.5;
     public static final double QUARTER = 0.25;

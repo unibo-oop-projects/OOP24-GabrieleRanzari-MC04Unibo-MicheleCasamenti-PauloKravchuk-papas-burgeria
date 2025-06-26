@@ -67,9 +67,9 @@ public class ShopViewImpl extends AbstractBaseView {
     private static final double UPGRADE_SEPARATOR_Y_SIZE = 0.01;
 
     private static final double UPGRADE_IMAGE_X_POS = 0.05;
-    private static final double UPGRADE_IMAGE_Y_POS = 0.05 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
+    private static final double UPGRADE_IMAGE_Y_POS = 0.1 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
     private static final double UPGRADE_IMAGE_X_SIZE = 0.3;
-    private static final double UPGRADE_IMAGE_Y_SIZE = 0.7;
+    private static final double UPGRADE_IMAGE_Y_SIZE = 0.6;
 
     private static final double UPGRADE_COST_X_POS = UPGRADE_PURCHASE_BUTTON_X_POS;
     private static final double UPGRADE_COST_Y_POS = 0.05 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
@@ -202,7 +202,7 @@ public class ShopViewImpl extends AbstractBaseView {
                     )
             );
 
-            final ImageIcon imageIcon = new ImageIcon(resourceService.getImage("patty.png"));
+            final ImageIcon imageIcon = new ImageIcon(resourceService.getImage("upgrade.png"));
             final JLabel imageLabel = new JLabel(imageIcon);
             upgradePanel.add(
                     imageLabel,

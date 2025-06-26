@@ -68,9 +68,9 @@ public class ShopViewImpl extends AbstractBaseView {
     private static final double UPGRADE_DESCRIPTION_X_SIZE = 1.0 - UPGRADE_DESCRIPTION_X_POS - 0.1;
     private static final double UPGRADE_DESCRIPTION_Y_SIZE = 1.0 - UPGRADE_DESCRIPTION_Y_POS - 0.1;
 
-    private static final int NUMBER_OF_UPGRADE_PANELS = 6;
+    private static final int MAX_NUMBER_OF_UPGRADE_PANELS = 6;
     private static final double ORIGIN = 0.0;
-    private static final Font defaultFont = new Font("Comic Sans MS", Font.PLAIN, 18);
+    private static final Font DEFAULT_FONT = new Font("Comic Sans MS", Font.PLAIN, 18);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class ShopViewImpl extends AbstractBaseView {
 
         double pbSizeXScale = UPGRADE_PANEL_X_POS;
         double pbSizeYScale = UPGRADE_PANEL_Y_POS;
-        for (int index = 0; index < NUMBER_OF_UPGRADE_PANELS; index++) {
+        for (int index = 0; index < MAX_NUMBER_OF_UPGRADE_PANELS; index++) {
             final JPanel upgradePanel = new JPanel();
             upgradePanel.setLayout(new ScalableLayoutImpl());
             upgradePanel.setBackground(UPGRADE_PANEL_BACKGROUND_COLOR);
@@ -101,7 +101,7 @@ public class ShopViewImpl extends AbstractBaseView {
                     UPGRADE_PANEL_BORDER_COLOR, UPGRADE_PANEL_BORDER_THICKNESS));
 
             final JLabel nameLabel = new JLabel("Upgrade Name");
-            nameLabel.setFont(defaultFont);
+            nameLabel.setFont(DEFAULT_FONT);
             upgradePanel.add(
                     nameLabel,
                     new ScaleConstraintImpl(
@@ -112,7 +112,7 @@ public class ShopViewImpl extends AbstractBaseView {
             );
 
             final JButton purchaseButton = new JButton("Purchase");
-            purchaseButton.setFont(defaultFont);
+            purchaseButton.setFont(DEFAULT_FONT);
             purchaseButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
             purchaseButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
             purchaseButton.setFocusPainted(false);
@@ -125,7 +125,7 @@ public class ShopViewImpl extends AbstractBaseView {
                     )
             );
 
-            JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+            final JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
             separator.setBackground(UPGRADE_PANEL_BORDER_COLOR);
             upgradePanel.add(
                     separator,
@@ -148,7 +148,7 @@ public class ShopViewImpl extends AbstractBaseView {
             );
 
             final JLabel costLabel = new JLabel("Upgrade Cost");
-            costLabel.setFont(defaultFont);
+            costLabel.setFont(DEFAULT_FONT);
             upgradePanel.add(
                     costLabel,
                     new ScaleConstraintImpl(
@@ -159,7 +159,7 @@ public class ShopViewImpl extends AbstractBaseView {
             );
 
             final JTextArea descriptionTextArea = new JTextArea("Upgrade description");
-            descriptionTextArea.setFont(defaultFont);
+            descriptionTextArea.setFont(DEFAULT_FONT);
             descriptionTextArea.setEditable(false);
             descriptionTextArea.setFocusable(false);
             upgradePanel.add(

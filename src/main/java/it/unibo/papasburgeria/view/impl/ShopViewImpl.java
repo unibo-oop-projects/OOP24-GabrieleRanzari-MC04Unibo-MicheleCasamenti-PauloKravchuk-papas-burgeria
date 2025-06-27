@@ -31,6 +31,8 @@ import static java.awt.Color.WHITE;
  * Manages the GUI for the shop scene in the game.
  */
 public class ShopViewImpl extends AbstractBaseView {
+    public static final String VIEW_NAME = getViewName(ShopViewImpl.class);
+
     private static final double NEXT_DAY_BUTTON_X_POS = 0.5;
     private static final double NEXT_DAY_BUTTON_Y_POS = 0.93;
     private static final double NEXT_DAY_BUTTON_X_SIZE = 0.10;
@@ -64,24 +66,20 @@ public class ShopViewImpl extends AbstractBaseView {
 
     private static final double UPGRADE_SEPARATOR_X_POS = 0.05;
     private static final double UPGRADE_SEPARATOR_Y_POS = 0.03 + UPGRADE_NAME_Y_POS + UPGRADE_NAME_Y_SIZE;
+    private static final double UPGRADE_IMAGE_Y_POS = 0.1 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
+    private static final double UPGRADE_COST_Y_POS = 0.05 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
+    private static final double UPGRADE_DESCRIPTION_Y_POS = 0.05 + UPGRADE_COST_Y_POS + UPGRADE_COST_Y_SIZE;
+    private static final double UPGRADE_DESCRIPTION_Y_SIZE = 1.0 - UPGRADE_DESCRIPTION_Y_POS - 0.1;
     private static final double UPGRADE_SEPARATOR_X_SIZE = 0.9;
     private static final double UPGRADE_SEPARATOR_Y_SIZE = 0.01;
-
     private static final double UPGRADE_IMAGE_X_POS = 0.05;
-    private static final double UPGRADE_IMAGE_Y_POS = 0.1 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
     private static final double UPGRADE_IMAGE_X_SIZE = 0.3;
     private static final double UPGRADE_IMAGE_Y_SIZE = 0.6;
-
     private static final double UPGRADE_COST_X_POS = UPGRADE_PURCHASE_BUTTON_X_POS;
-    private static final double UPGRADE_COST_Y_POS = 0.05 + UPGRADE_SEPARATOR_Y_POS + UPGRADE_SEPARATOR_Y_SIZE;
     private static final double UPGRADE_COST_X_SIZE = UPGRADE_PURCHASE_BUTTON_X_SIZE;
     private static final double UPGRADE_COST_Y_SIZE = 0.15;
-
     private static final double UPGRADE_DESCRIPTION_X_POS = 0.05 + UPGRADE_IMAGE_X_POS + UPGRADE_IMAGE_X_SIZE;
-    private static final double UPGRADE_DESCRIPTION_Y_POS = 0.05 + UPGRADE_COST_Y_POS + UPGRADE_COST_Y_SIZE;
     private static final double UPGRADE_DESCRIPTION_X_SIZE = 1.0 - UPGRADE_DESCRIPTION_X_POS - 0.1;
-    private static final double UPGRADE_DESCRIPTION_Y_SIZE = 1.0 - UPGRADE_DESCRIPTION_Y_POS - 0.1;
-
     private static final double ORIGIN = 0.0;
     private static final String DEFAULT_FONT_NAME = "Comic Sans MS";
     private static final int DEFAULT_FONT_SIZE = 20;

@@ -25,6 +25,8 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
  * Register view.
  */
 public class RegisterViewImpl extends AbstractBaseView {
+    public static final String VIEW_NAME = getViewName(RegisterViewImpl.class);
+
     @Serial
     private static final long serialVersionUID = 1L;
 

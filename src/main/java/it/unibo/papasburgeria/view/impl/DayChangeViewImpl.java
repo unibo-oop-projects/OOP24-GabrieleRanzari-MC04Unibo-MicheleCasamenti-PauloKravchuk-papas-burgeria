@@ -28,7 +28,7 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y
  * Manages the GUI for the day changing scene in the game.
  */
 public class DayChangeViewImpl extends AbstractBaseView {
-    public static final String VIEW_NAME = "Day Change";
+    public static final String VIEW_NAME = getViewName(DayChangeViewImpl.class);
 
     private static final double DAY_LABEL_X_POS = 0.5;
     private static final double DAY_LABEL_Y_POS = 0.15;

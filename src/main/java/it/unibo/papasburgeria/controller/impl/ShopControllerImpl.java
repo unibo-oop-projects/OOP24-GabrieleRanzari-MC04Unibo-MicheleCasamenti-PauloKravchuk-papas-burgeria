@@ -21,7 +21,7 @@ public class ShopControllerImpl implements ShopController {
      * Default constructor that saves the game model given via injection.
      *
      * @param model the game model
-     * @param shop the shop model
+     * @param shop  the shop model
      */
     @Inject
     public ShopControllerImpl(final GameModel model, final Shop shop) {

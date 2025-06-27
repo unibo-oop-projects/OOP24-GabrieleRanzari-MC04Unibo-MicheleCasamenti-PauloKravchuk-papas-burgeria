@@ -39,6 +39,8 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
+    public static final String VIEW_NAME = getViewName(BurgerAssemblyViewImpl.class);
+
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.31;
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.55;
     public static final double HAMBURGER_X_POS_SCALE =

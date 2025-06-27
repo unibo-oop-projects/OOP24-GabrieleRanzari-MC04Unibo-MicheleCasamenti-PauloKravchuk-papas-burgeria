@@ -20,9 +20,12 @@ import java.io.Serial;
  * See {@link BaseScene} for interface details.
  */
 abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
+    public static final String VIEW_NAME = "NOT DEFINED";
+
     static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0, 0);
     static final Color DEFAULT_BUTTON_BACKGROUND_COLOR = new Color(40, 122, 33);
     static final Color DEFAULT_BUTTON_TEXT_COLOR = Color.WHITE;
+    private static final String VIEW_NAME_SUFFIX = "ViewImpl";
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -79,6 +82,10 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
 
         super.revalidate();
         super.setVisible(false);
+    }
+
+    static String getViewName(Class<? extends AbstractBaseView> viewClass) {
+        return viewClass.getSimpleName().replaceFirst(VIEW_NAME_SUFFIX + "$", "");
     }
 
     /**

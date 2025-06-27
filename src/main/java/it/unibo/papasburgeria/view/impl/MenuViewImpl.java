@@ -22,17 +22,19 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
  * Menu View.
  */
 public class MenuViewImpl extends AbstractBaseView {
+    public static final String VIEW_NAME = getViewName(MenuViewImpl.class);
+
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final SfxService sfxService;
+    private final transient SfxService sfxService;
 
     /**
      * Constructs the MenuView.
      *
      * @param resourceService the service that handles resource obtainment
      * @param gameController  game controller instance
-     * @param sfxService  sfx player service
+     * @param sfxService      sfx player service
      */
     @Inject
     public MenuViewImpl(final GameController gameController, final ResourceService resourceService, final SfxService sfxService) {

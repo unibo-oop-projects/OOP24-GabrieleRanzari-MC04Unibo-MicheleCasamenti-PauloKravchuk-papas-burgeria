@@ -22,15 +22,6 @@ public enum DaysEnum {
     }
 
     /**
-     * Returns the number of the day.
-     *
-     * @return the day number
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
      * Returns the DaysEnum corresponding to the day number or null.
      *
      * @param dayNumber the day number
@@ -43,5 +34,14 @@ public enum DaysEnum {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the number of the day.
+     *
+     * @return the day number
+     */
+    public int getNumber() {
+        return number;
     }
 }

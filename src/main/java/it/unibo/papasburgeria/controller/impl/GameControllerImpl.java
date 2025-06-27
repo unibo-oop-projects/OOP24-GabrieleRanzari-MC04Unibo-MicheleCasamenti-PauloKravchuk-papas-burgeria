@@ -72,4 +72,14 @@ public class GameControllerImpl implements GameController {
         pantryModel.unlockForDay(model.getCurrentDay());
         switchToScene(SceneType.DAY_CHANGE);
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setDay(final int dayNumber) {
+        model.setCurrentDay(dayNumber);
+        pantryModel.resetUnlocks();
+        pantryModel.unlockForDay(model.getCurrentDay());
+    }
 }

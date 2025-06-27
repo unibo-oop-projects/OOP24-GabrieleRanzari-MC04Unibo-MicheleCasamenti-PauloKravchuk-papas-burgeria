@@ -64,6 +64,13 @@ public interface GameModel {
     int getCurrentDay();
 
     /**
+     * Sets the current day to a new number.
+     *
+     * @param dayNumber the new day number
+     */
+    void setCurrentDay(int dayNumber);
+
+    /**
      * @return the player's balance
      */
     int getBalance();

@@ -135,6 +135,14 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
+    public void setCurrentDay(final int dayNumber) {
+        currentDay = dayNumber;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public int getBalance() {
         return balance;
     }

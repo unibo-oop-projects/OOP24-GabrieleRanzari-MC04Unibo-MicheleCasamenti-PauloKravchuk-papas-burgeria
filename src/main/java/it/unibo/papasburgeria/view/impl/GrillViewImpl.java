@@ -1,7 +1,6 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.Patty;
@@ -33,7 +32,6 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.PAT
 /**
  * Manages the GUI for the grill scene in the game.
  */
-@Singleton
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"

@@ -1,21 +1,27 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
+import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
+import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
+import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
 import org.tinylog.Logger;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.Serial;
@@ -33,7 +39,6 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ING
 /**
  * Manages the GUI for the burger assembly scene in the game.
  */
-@Singleton
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
@@ -72,10 +77,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @param resourceService the service that handles resource obtainment
      * @param controller      the burger assembly controller
      * @param drawingManager  the manager for drawing various things
+     * @param gameController  the game controller
      */
     @Inject
-    public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller,
-                                  final DrawingManagerImpl drawingManager) {
+    public BurgerAssemblyViewImpl(final ResourceService resourceService,
+                                  final BurgerAssemblyController controller,
+                                  final DrawingManagerImpl drawingManager,
+                                  final GameController gameController) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         sprites = new ArrayList<>();
@@ -84,6 +92,21 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         draggableHamburgerSprites = new ArrayList<>();
 
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
+
+        final JPanel interfacePanel = super.getInterfacePanel();
+        interfacePanel.setLayout(new ScalableLayoutImpl());
+
+        final JButton shopButton = new JButton("Shop");
+        shopButton.setBackground(DEFAULT_BACKGROUND_COLOR);
+        shopButton.addActionListener(e -> gameController.switchToScene(SceneType.SHOP));
+        interfacePanel.add(
+                shopButton,
+                new ScaleConstraintImpl(
+                        new ScaleImpl(ScaleConstraintImpl.QUARTER, ScaleConstraintImpl.EIGHTH),
+                        new ScaleImpl(ScaleConstraintImpl.HALF + ScaleConstraintImpl.QUARTER, ScaleConstraintImpl.EIGHTH),
+                        ScaleConstraintImpl.ORIGIN_CENTER
+                )
+        );
 
         double pbPositionXScale = INGREDIENTS_X_POS_SCALE;
         double pbPositionYScale = INGREDIENTS_Y_POS_SCALE;
@@ -173,6 +196,18 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     @Override
     public void showScene() {
         draggablePattySprites.clear();
+        draggableHamburgerSprites.clear();
+        final List<IngredientEnum> unlockedIngredients = controller.getUnlockedIngredients();
+        final List<Sprite> spritesToUnlock = new ArrayList<>();
+        for (final Sprite sprite : sprites) {
+            if (unlockedIngredients.contains(sprite.getIngredientType())) {
+                spritesToUnlock.add(sprite);
+            }
+        }
+        for (final Sprite sprite : spritesToUnlock) {
+            sprites.remove(sprite);
+            draggableSprites.add(sprite);
+        }
         if (DEBUG_MODE) {
             Logger.info("BurgerAssembly shown");
         }

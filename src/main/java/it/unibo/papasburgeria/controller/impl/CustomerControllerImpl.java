@@ -20,10 +20,9 @@ import java.util.List;
 public class CustomerControllerImpl implements CustomerController {
     private final Deque<Customer> registerLine = new LinkedList<>();
     private final Deque<Customer> waitLine = new LinkedList<>();
-    private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
-
     private final GameModel model;
     private final Shop shop;
+    private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
 
     @Inject
     CustomerControllerImpl(final GameModel model, final Shop shop) {
@@ -37,8 +36,8 @@ public class CustomerControllerImpl implements CustomerController {
     void serveCustomer(final Customer customer) {
         removeCustomerWaitLine(customer);
         model.setBalance(model.getBalance() + customer.evaluateBurger(model.getHamburgerOnAssembly(),
-        shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE),
-        shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE)));
+                shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE),
+                shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE)));
     }
 
     /**

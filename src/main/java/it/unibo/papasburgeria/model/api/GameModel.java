@@ -64,12 +64,12 @@ public interface GameModel {
     int getCurrentDay();
 
     /**
-     * @param amount the amount of money given
-     */
-    void setBalance(int amount);
-
-    /**
      * @return the player's balance
      */
     int getBalance();
+
+    /**
+     * @param amount the amount of money given
+     */
+    void setBalance(int amount);
 }

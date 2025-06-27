@@ -138,7 +138,11 @@ public class GameViewImpl implements GameView {
         ));
 
         // somewhat hard-coded, but it's alright, it's just a view construction
-        final List<String> btnSceneNames = List.of(RegisterViewImpl.VIEW_NAME, GrillViewImpl.VIEW_NAME, BurgerAssemblyViewImpl.VIEW_NAME);
+        final List<String> btnSceneNames = List.of(
+                RegisterViewImpl.VIEW_NAME,
+                GrillViewImpl.VIEW_NAME,
+                BurgerAssemblyViewImpl.VIEW_NAME
+        );
         int i = -1;
         for (final String sceneName : btnSceneNames) {
             final JButton btn = new JButton(new ImageIcon(resourceService.getImage(sceneName + "_btn.png")));

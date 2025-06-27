@@ -1,12 +1,11 @@
 package it.unibo.papasburgeria.model.impl;
 
+import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Shop;
 
 import java.util.EnumMap;
 import java.util.Map;
-
-import com.google.inject.Singleton;
 
 /**
  * models the shop and keeps track of the unlocked upgrades.

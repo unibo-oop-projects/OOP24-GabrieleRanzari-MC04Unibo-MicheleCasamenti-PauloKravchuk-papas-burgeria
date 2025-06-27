@@ -84,7 +84,7 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         super.setVisible(false);
     }
 
-    static String getViewName(Class<? extends AbstractBaseView> viewClass) {
+    static String getViewName(final Class<? extends AbstractBaseView> viewClass) {
         return viewClass.getSimpleName().replaceFirst(VIEW_NAME_SUFFIX + "$", "");
     }
 

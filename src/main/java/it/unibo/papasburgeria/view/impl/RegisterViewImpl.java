@@ -68,7 +68,7 @@ public class RegisterViewImpl extends AbstractBaseView {
     private final JTextArea waitLine = new JTextArea();
 
     /**
-     * @param pantryModel used to get the available ingredients
+     * @param pantryModel        used to get the available ingredients
      * @param customerController used to manage the customers' line
      */
     @Inject

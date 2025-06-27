@@ -69,7 +69,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public void nextDay() {
         model.nextDay();
-        pantryModel.unlockForDay(model.getCurrentDayNumber());
+        pantryModel.unlockForDay(model.getCurrentDay());
         switchToScene(DayChangeViewImpl.VIEW_NAME);
     }
 
@@ -78,6 +78,6 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public int getCurrentDayNumber() {
-        return model.getCurrentDayNumber();
+        return model.getCurrentDay();
     }
 }

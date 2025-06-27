@@ -85,9 +85,6 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     protected void reset() {
-        if (DEBUG_MODE) {
-            Logger.info("MenuView rebuilt");
-        }
     }
 
     /**

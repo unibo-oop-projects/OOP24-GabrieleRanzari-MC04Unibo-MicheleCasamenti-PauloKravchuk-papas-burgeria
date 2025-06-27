@@ -47,9 +47,6 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
-        if (DEBUG_MODE) {
-            Logger.info("Game started" + model);
-        }
         sceneService.switchTo("Shop");
     }
 

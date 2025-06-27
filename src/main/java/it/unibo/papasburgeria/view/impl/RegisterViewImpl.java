@@ -140,10 +140,6 @@ public class RegisterViewImpl extends AbstractBaseView {
 
         super.getInterfacePanel().add(registerLine);
         super.getInterfacePanel().add(waitLine);
-
-        if (DEBUG_MODE) {
-            Logger.info("RegisterView created");
-        }
     }
 
     /**

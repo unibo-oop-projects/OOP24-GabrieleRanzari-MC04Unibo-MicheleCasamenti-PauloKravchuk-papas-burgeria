@@ -3,10 +3,10 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,8 +15,6 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.io.Serial;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-
 /**
  * Menu View.
  */
@@ -24,22 +22,26 @@ public class MenuViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private final SfxService sfxService;
+
     /**
      * Constructs the MenuView.
      *
      * @param resourceService the service that handles resource obtainment
      * @param gameController  game controller instance
+     * @param sfxService  sfx player service
      */
     @Inject
-    public MenuViewImpl(final GameController gameController, final ResourceService resourceService) {
+    public MenuViewImpl(final GameController gameController, final ResourceService resourceService, final SfxService sfxService) {
         super.setStaticBackgroundImage(resourceService.getImage("menu-background.jpg"));
+
+        this.sfxService = sfxService;
 
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.setLayout(new ScalableLayoutImpl());
 
         final double pbSizeXScale = 0.15;
         final double pbSizeYScale = 0.1;
-        final double pbPositionXScale = 0.5;
         final double pbPositionYScale = 0.55;
         final JButton playButton = new JButton(new ImageIcon(resourceService.getImage("play_btn.png")));
         playButton.setBackground(DEFAULT_BACKGROUND_COLOR);
@@ -47,11 +49,6 @@ public class MenuViewImpl extends AbstractBaseView {
         playButton.setContentAreaFilled(false);
         playButton.setOpaque(false);
         playButton.setFocusPainted(false);
-
-        //final double saveCardSizeXScale = 0;
-        //final double saveCardSizeYScale = 0;
-        //final double saveCardPositionXScale = 0;
-        //final double saveCardPositionXScale = 0;
 
         playButton.addActionListener(e -> {
             playButton.setVisible(false);
@@ -62,7 +59,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 playButton,
                 new ScaleConstraintImpl(
                         new ScaleImpl(pbSizeXScale, pbSizeYScale),
-                        new ScaleImpl(pbPositionXScale, pbPositionYScale),
+                        new ScaleImpl(ScaleConstraintImpl.HALF, pbPositionYScale),
                         ScaleConstraintImpl.ORIGIN_CENTER
                 )
         );
@@ -96,10 +93,7 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        if (DEBUG_MODE) {
-            Logger.info("MenuView shown");
-        }
-
+        this.sfxService.playSoundLooped("MenuIntro.wav");
     }
 
     /**
@@ -107,8 +101,5 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("MenuView hidden");
-        }
     }
 }

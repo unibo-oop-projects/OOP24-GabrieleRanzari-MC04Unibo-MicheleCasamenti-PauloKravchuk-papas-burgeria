@@ -149,7 +149,6 @@ public class GameViewImpl implements GameView {
             btn.addActionListener(e -> {
                 gameController.switchToScene(sceneName);
             });
-            Logger.debug(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i));
             bottomPanel.add(btn, new ScaleConstraintImpl(
                     new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.FULL - ScaleConstraintImpl.QUARTER),
                     new ScaleImpl(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i), ScaleConstraintImpl.HALF),

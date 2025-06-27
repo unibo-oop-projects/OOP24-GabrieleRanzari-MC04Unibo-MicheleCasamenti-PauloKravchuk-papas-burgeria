@@ -83,10 +83,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         draggablePattySprites = new ArrayList<>();
         draggableHamburgerSprites = new ArrayList<>();
 
-        if (DEBUG_MODE) {
-            Logger.info("BurgerAssembly created");
-        }
-
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
 
         double pbPositionXScale = INGREDIENTS_X_POS_SCALE;

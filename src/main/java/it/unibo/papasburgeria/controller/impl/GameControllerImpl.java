@@ -8,9 +8,6 @@ import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import it.unibo.papasburgeria.view.impl.DayChangeViewImpl;
 import jakarta.inject.Inject;
-import org.tinylog.Logger;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Implementation of GameController.
@@ -56,9 +53,6 @@ public class GameControllerImpl implements GameController {
     @Override
     public void endGame() {
         resourceService.dispose();
-        if (DEBUG_MODE) {
-            Logger.info("Game ended");
-        }
     }
 
     /**

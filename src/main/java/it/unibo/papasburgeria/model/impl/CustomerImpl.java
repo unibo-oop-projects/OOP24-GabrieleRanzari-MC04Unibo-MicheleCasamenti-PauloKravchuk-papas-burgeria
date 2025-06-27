@@ -34,8 +34,8 @@ public class CustomerImpl implements Customer {
      * @inheritDoc
      */
     @Override
-    public int evaluateBurger(final Hamburger madeHamburger, final float placementTollerance,
-                              final float ingredientTollerance) {
+    public int evaluateBurger(final Hamburger madeHamburger, final double placementTollerance,
+                              final double ingredientTollerance) {
         final List<Ingredient> list1 = this.order.getHamburger().getIngredients();
         final List<Ingredient> list2 = madeHamburger.getIngredients();
 

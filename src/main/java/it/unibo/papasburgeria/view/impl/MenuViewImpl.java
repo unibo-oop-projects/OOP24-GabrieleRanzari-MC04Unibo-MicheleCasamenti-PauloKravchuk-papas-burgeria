@@ -22,7 +22,7 @@ public class MenuViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final SfxService sfxService;
+    private final transient SfxService sfxService;
 
     /**
      * Constructs the MenuView.

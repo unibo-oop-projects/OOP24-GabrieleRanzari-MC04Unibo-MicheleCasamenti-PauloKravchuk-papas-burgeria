@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
@@ -23,6 +24,7 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 /**
  * Register view.
  */
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class RegisterViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;

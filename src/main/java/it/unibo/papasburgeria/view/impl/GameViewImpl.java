@@ -201,7 +201,7 @@ public class GameViewImpl implements GameView {
                 currentView = (AbstractBaseView) scene;
                 currentView.revalidate();
 
-                bottomPanel.setVisible(btnSceneTypes.contains(sceneType));
+                bottomPanel.setVisible(btnSceneTypes.contains(sceneType) && !sceneType.equals(SceneType.MENU));
                 cardLayout.show(mainPanel, sceneType.getValue());
             }
         });
@@ -238,8 +238,11 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void startGame() {
-        if (DEBUG_MODE && this.gameIsRunning) {
-            Logger.warn("The game has already started!");
+        if (this.gameIsRunning) {
+            if (DEBUG_MODE) {
+                Logger.warn("The game has already started!");
+            }
+            return;
         }
 
         this.gameIsRunning = true;

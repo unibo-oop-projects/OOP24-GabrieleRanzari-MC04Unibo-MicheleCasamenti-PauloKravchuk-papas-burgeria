@@ -24,10 +24,17 @@ public interface ShopController {
     boolean buyUpgrade(UpgradeEnum upgrade);
 
     /**
-     * Return whether the upgrade is unlocked or not.
+     * Returns whether the upgrade is unlocked or not.
      *
      * @param upgrade the upgrade to check
      * @return true if the upgrade is unlocked, false otherwise
      */
     boolean isUpgradeUnlocked(UpgradeEnum upgrade);
+
+    /**
+     * Returns the balance of the player.
+     *
+     * @return the balance
+     */
+    int getBalance();
 }

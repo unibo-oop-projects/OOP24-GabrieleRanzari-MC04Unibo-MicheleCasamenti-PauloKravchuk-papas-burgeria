@@ -23,6 +23,7 @@ public class GameModelImpl implements GameModel {
     public static final int MAX_COOKED_PATTIES = 5;
 
     private static final int MAX_DAYS = Integer.MAX_VALUE;
+    private static final int STARTING_BALANCE = 50;
 
     private int balance;
 
@@ -40,6 +41,7 @@ public class GameModelImpl implements GameModel {
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
+        balance = STARTING_BALANCE;
     }
 
     /**
@@ -126,15 +128,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @return a string containing the current day.
-     */
-    @Override
-    public String toString() {
-        return "[currentDay=" + currentDay + "]"; // TODO update
-    }
-
-    /**
-     * @innheritDoc
+     * @inheritDoc
      */
     @Override
     public void setBalance(final int amount) {
@@ -142,10 +136,18 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @innheritDoc
+     * @inheritDoc
      */
     @Override
     public int getBalance() {
         return balance;
+    }
+
+    /**
+     * @return a string containing the current day.
+     */
+    @Override
+    public String toString() {
+        return "[currentDay=" + currentDay + "]"; // TODO update
     }
 }

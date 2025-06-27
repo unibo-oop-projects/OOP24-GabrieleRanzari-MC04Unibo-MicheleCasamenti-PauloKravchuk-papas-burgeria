@@ -74,6 +74,16 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
+     * Returns the current day number.
+     *
+     * @return the day number
+     */
+    @Override
+    public int getCurrentDayNumber() {
+        return model.getCurrentDay();
+    }
+
+    /**
      * @inheritDoc
      */
     @Override

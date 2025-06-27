@@ -30,6 +30,13 @@ public interface GameController {
     void nextDay();
 
     /**
+     * Returns the current day number.
+     *
+     * @return the day number
+     */
+    int getCurrentDayNumber();
+
+    /**
      * Sets the current day to a new day and updates the PantryModel.
      *
      * @param dayNumber the day number

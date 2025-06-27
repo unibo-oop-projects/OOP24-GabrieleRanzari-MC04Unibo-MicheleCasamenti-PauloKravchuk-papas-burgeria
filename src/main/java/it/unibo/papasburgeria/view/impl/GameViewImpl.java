@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
-import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import it.unibo.papasburgeria.view.api.GameView;
@@ -48,7 +47,6 @@ public class GameViewImpl implements GameView {
     private static final double SIZE_SCALE = 0.7; // in %
     //
     private final GameController gameController;
-    private final SfxService sfxService;
     private final List<AbstractBaseView> views;
     //
     private final JFrame mainFrame;
@@ -67,17 +65,14 @@ public class GameViewImpl implements GameView {
      * @param sceneService    scene service
      * @param gameController  base main controller
      * @param resourceService resource provider
-     * @param sfxService      sfx player
      */
     @Inject
     public GameViewImpl(
             final GameController gameController,
             final SceneService sceneService,
-            final ResourceService resourceService,
-            final SfxService sfxService
+            final ResourceService resourceService
     ) {
         this.gameController = gameController;
-        this.sfxService = sfxService;
 
         this.gameIsRunning = false;
 
@@ -232,7 +227,6 @@ public class GameViewImpl implements GameView {
         this.lastFrameTime = System.nanoTime();
         this.frameUpdate.start();
         this.gameController.startGame();
-        this.sfxService.playSound("MenuIntro.wav");
     }
 
     /**

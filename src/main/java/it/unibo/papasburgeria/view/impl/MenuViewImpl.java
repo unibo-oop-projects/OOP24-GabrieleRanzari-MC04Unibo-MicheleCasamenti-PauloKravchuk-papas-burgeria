@@ -3,6 +3,7 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
@@ -21,15 +22,20 @@ public class MenuViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private final SfxService sfxService;
+
     /**
      * Constructs the MenuView.
      *
      * @param resourceService the service that handles resource obtainment
      * @param gameController  game controller instance
+     * @param sfxService  sfx player service
      */
     @Inject
-    public MenuViewImpl(final GameController gameController, final ResourceService resourceService) {
+    public MenuViewImpl(final GameController gameController, final ResourceService resourceService, final SfxService sfxService) {
         super.setStaticBackgroundImage(resourceService.getImage("menu-background.jpg"));
+
+        this.sfxService = sfxService;
 
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.setLayout(new ScalableLayoutImpl());
@@ -77,7 +83,7 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-
+        this.sfxService.playSoundLooped("MenuIntro.wav");
     }
 
     /**

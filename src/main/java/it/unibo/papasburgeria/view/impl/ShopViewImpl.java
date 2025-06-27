@@ -33,8 +33,6 @@ import static java.awt.Color.WHITE;
  * Manages the GUI for the shop scene in the game.
  */
 public class ShopViewImpl extends AbstractBaseView {
-    public static final String VIEW_NAME = getViewName(ShopViewImpl.class);
-
     private static final double NEXT_DAY_BUTTON_X_POS = 0.5;
     private static final double NEXT_DAY_BUTTON_Y_POS = 0.93;
     private static final double NEXT_DAY_BUTTON_X_SIZE = 0.10;

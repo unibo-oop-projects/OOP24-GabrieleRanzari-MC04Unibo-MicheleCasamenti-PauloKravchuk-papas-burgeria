@@ -39,8 +39,6 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.PATTY_SPACING
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class GrillViewImpl extends AbstractBaseView implements SpriteDropListener {
-    public static final String VIEW_NAME = getViewName(GrillViewImpl.class);
-
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_GRILL = 0.232;
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_GRILL = 0.742;
     public static final double MIN_Y_POS_SCALE_TO_DROP_ON_GRILL = 0.203;

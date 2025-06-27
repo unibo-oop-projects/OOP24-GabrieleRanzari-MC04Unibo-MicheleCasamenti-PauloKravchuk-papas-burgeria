@@ -19,8 +19,6 @@ import java.io.Serial;
  * Menu View.
  */
 public class MenuViewImpl extends AbstractBaseView {
-    public static final String VIEW_NAME = getViewName(MenuViewImpl.class);
-
     @Serial
     private static final long serialVersionUID = 1L;
 

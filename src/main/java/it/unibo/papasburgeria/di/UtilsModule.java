@@ -30,12 +30,12 @@ class UtilsModule extends AbstractModule {
     protected void configure() {
         // sceneName to sceneView bindings
         final MapBinder<String, BaseScene> boundScenes = MapBinder.newMapBinder(binder(), String.class, BaseScene.class);
-        boundScenes.addBinding(RegisterViewImpl.VIEW_NAME).to(RegisterViewImpl.class);
-        boundScenes.addBinding(BurgerAssemblyViewImpl.VIEW_NAME).to(BurgerAssemblyViewImpl.class);
-        boundScenes.addBinding(GrillViewImpl.VIEW_NAME).to(GrillViewImpl.class);
-        boundScenes.addBinding(MenuViewImpl.VIEW_NAME).to(MenuViewImpl.class);
-        boundScenes.addBinding(ShopViewImpl.VIEW_NAME).to(ShopViewImpl.class);
-        boundScenes.addBinding(DayChangeViewImpl.VIEW_NAME).to(DayChangeViewImpl.class);
+        boundScenes.addBinding("Register").to(RegisterViewImpl.class);
+        boundScenes.addBinding("BurgerAssembly").to(BurgerAssemblyViewImpl.class);
+        boundScenes.addBinding("Grill").to(GrillViewImpl.class);
+        boundScenes.addBinding("Menu").to(MenuViewImpl.class);
+        boundScenes.addBinding("Shop").to(ShopViewImpl.class);
+        boundScenes.addBinding("DayChange").to(DayChangeViewImpl.class);
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);

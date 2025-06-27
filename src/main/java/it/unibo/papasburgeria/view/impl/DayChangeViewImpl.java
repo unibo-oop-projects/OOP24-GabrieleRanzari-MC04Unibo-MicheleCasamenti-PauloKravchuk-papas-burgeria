@@ -8,7 +8,6 @@ import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-import org.tinylog.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +18,6 @@ import java.awt.Graphics;
 import java.io.Serial;
 import java.util.List;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.EXTENSION;
 import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
 import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
@@ -28,8 +26,6 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y
  * Manages the GUI for the day changing scene in the game.
  */
 public class DayChangeViewImpl extends AbstractBaseView {
-    public static final String VIEW_NAME = getViewName(DayChangeViewImpl.class);
-
     private static final double DAY_LABEL_X_POS = 0.5;
     private static final double DAY_LABEL_Y_POS = 0.15;
     private static final double DAY_LABEL_X_SIZE = 0.2;
@@ -79,9 +75,6 @@ public class DayChangeViewImpl extends AbstractBaseView {
         this.resourceService = resourceService;
         this.gameController = gameController;
         this.controller = controller;
-        if (DEBUG_MODE) {
-            Logger.info(VIEW_NAME + " created");
-        }
 
         super.setStaticBackgroundImage(resourceService.getImage("day_change_background.png"));
 
@@ -110,9 +103,6 @@ public class DayChangeViewImpl extends AbstractBaseView {
     @Override
     public void showScene() {
         this.resetIfNeeded(gameController.getCurrentDayNumber());
-        if (DEBUG_MODE) {
-            Logger.info(VIEW_NAME + " shown");
-        }
     }
 
     /**
@@ -120,9 +110,6 @@ public class DayChangeViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info(VIEW_NAME + " hidden");
-        }
     }
 
     /**
@@ -130,10 +117,6 @@ public class DayChangeViewImpl extends AbstractBaseView {
      */
     @Override
     protected void reset() {
-        if (DEBUG_MODE) {
-            Logger.info(VIEW_NAME + " rebuilt");
-        }
-
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.removeAll();
         interfacePanel.setLayout(new ScalableLayoutImpl());
@@ -166,7 +149,7 @@ public class DayChangeViewImpl extends AbstractBaseView {
         double pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
         double pbPositionYScale = UNLOCKED_INGREDIENTS_IMAGE_Y_POS;
         for (final IngredientEnum ingredient : unlockedIngredients) {
-            final ImageIcon iconImage = new ImageIcon(resourceService.getImage(ingredient.name() + EXTENSION));
+            final ImageIcon iconImage = new ImageIcon(resourceService.getImage(ingredient.getName() + EXTENSION));
             final JLabel imageLabel = new JLabel(iconImage);
             interfacePanel.add(
                     imageLabel,

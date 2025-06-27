@@ -2,12 +2,12 @@ package it.unibo.papasburgeria.di;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.MapBinder;
-import it.unibo.papasburgeria.utils.api.DrawingManager;
+import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
-import it.unibo.papasburgeria.utils.impl.DrawingManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
 import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
 import it.unibo.papasburgeria.utils.impl.SfxServiceImpl;
 import it.unibo.papasburgeria.utils.impl.resource.ResourceServiceImpl;

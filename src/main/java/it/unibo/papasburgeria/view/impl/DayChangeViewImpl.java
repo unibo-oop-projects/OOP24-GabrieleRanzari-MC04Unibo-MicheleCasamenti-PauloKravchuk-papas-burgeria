@@ -18,9 +18,9 @@ import java.awt.Graphics;
 import java.io.Serial;
 import java.util.List;
 
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.EXTENSION;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.EXTENSION;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
 
 /**
  * Manages the GUI for the day changing scene in the game.

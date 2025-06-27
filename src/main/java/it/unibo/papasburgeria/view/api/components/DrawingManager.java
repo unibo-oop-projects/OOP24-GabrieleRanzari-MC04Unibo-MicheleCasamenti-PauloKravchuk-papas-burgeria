@@ -1,4 +1,4 @@
-package it.unibo.papasburgeria.utils.api;
+package it.unibo.papasburgeria.view.api.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;

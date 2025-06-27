@@ -9,11 +9,11 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
-import it.unibo.papasburgeria.utils.api.Sprite;
-import it.unibo.papasburgeria.utils.api.SpriteDropListener;
-import it.unibo.papasburgeria.utils.impl.DrawingManagerImpl;
-import it.unibo.papasburgeria.utils.impl.SpriteDragManagerImpl;
-import it.unibo.papasburgeria.utils.impl.SpriteImpl;
+import it.unibo.papasburgeria.view.api.components.Sprite;
+import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
+import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
 import org.tinylog.Logger;
 
 import java.awt.Graphics;
@@ -25,10 +25,10 @@ import java.util.List;
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.IngredientEnum.SAUCES;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.BOTTLE_EXTENSION;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.EXTENSION;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.BOTTLE_EXTENSION;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.EXTENSION;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
 
 /**
  * Manages the GUI for the burger assembly scene in the game.
@@ -172,6 +172,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void showScene() {
+        draggablePattySprites.clear();
         if (DEBUG_MODE) {
             Logger.info("BurgerAssembly shown");
         }

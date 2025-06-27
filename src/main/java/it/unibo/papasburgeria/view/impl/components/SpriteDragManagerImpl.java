@@ -1,8 +1,8 @@
-package it.unibo.papasburgeria.utils.impl;
+package it.unibo.papasburgeria.view.impl.components;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.papasburgeria.utils.api.Sprite;
-import it.unibo.papasburgeria.utils.api.SpriteDropListener;
+import it.unibo.papasburgeria.view.api.components.Sprite;
+import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;

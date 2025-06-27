@@ -1,11 +1,11 @@
-package it.unibo.papasburgeria.utils.impl;
+package it.unibo.papasburgeria.view.impl.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.model.impl.PattyImpl;
-import it.unibo.papasburgeria.utils.api.Sprite;
+import it.unibo.papasburgeria.view.api.components.Sprite;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

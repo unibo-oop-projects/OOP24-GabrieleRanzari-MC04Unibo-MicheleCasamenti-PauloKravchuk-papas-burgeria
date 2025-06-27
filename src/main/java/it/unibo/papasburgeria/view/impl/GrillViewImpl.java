@@ -7,11 +7,11 @@ import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.PattyImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
-import it.unibo.papasburgeria.utils.api.Sprite;
-import it.unibo.papasburgeria.utils.api.SpriteDropListener;
-import it.unibo.papasburgeria.utils.impl.DrawingManagerImpl;
-import it.unibo.papasburgeria.utils.impl.SpriteDragManagerImpl;
-import it.unibo.papasburgeria.utils.impl.SpriteImpl;
+import it.unibo.papasburgeria.view.api.components.Sprite;
+import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
+import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
 import org.tinylog.Logger;
 
 import java.awt.Graphics;
@@ -25,10 +25,10 @@ import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_COLUMNS;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_ROWS;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.EXTENSION;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
-import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.PATTY_SPACING;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.EXTENSION;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.PATTY_SPACING;
 
 /**
  * Manages the GUI for the grill scene in the game.
@@ -148,7 +148,6 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void showScene() {
-        draggablePattiesOnGrill.clear();
         draggableCookedPatties.clear();
         if (DEBUG_MODE) {
             Logger.info("Grill shown");

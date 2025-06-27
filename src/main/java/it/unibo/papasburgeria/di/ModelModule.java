@@ -4,10 +4,12 @@ import com.google.inject.AbstractModule;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.PantryModel;
+import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.Shop;
 import it.unibo.papasburgeria.model.impl.GameModelImpl;
 import it.unibo.papasburgeria.model.impl.HamburgerImpl;
 import it.unibo.papasburgeria.model.impl.PantryModelImpl;
+import it.unibo.papasburgeria.model.impl.RegisterModelImpl;
 import it.unibo.papasburgeria.model.impl.ShopImpl;
 
 /**
@@ -25,5 +27,6 @@ class ModelModule extends AbstractModule {
         bind(PantryModel.class).to(PantryModelImpl.class);
         bind(Hamburger.class).to(HamburgerImpl.class);
         bind(Shop.class).to(ShopImpl.class);
+        bind(RegisterModel.class).to(RegisterModelImpl.class);
     }
 }

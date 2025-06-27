@@ -3,7 +3,6 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.PattyImpl;
@@ -83,8 +82,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     public GrillViewImpl(
             final ResourceService resourceService,
             final GrillController controller,
-            final DrawingManagerImpl drawingManager,
-            final GameController gameController
+            final DrawingManagerImpl drawingManager
     ) {
         this.controller = controller;
         this.drawingManager = drawingManager;

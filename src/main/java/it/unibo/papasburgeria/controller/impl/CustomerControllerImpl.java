@@ -1,40 +1,46 @@
 package it.unibo.papasburgeria.controller.impl;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.CustomerController;
-import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.GameModel;
+import it.unibo.papasburgeria.model.api.RegisterModel;
+import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Shop;
-
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @inheritDoc
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
-    private final Deque<Customer> registerLine = new LinkedList<>();
-    private final Deque<Customer> waitLine = new LinkedList<>();
     private final GameModel model;
     private final Shop shop;
-    private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
+    private final RegisterModel registerModel;
+    private final PantryModel pantryModel;
 
     @Inject
-    CustomerControllerImpl(final GameModel model, final Shop shop) {
+    CustomerControllerImpl(
+        final GameModel model,
+        final Shop shop,
+        final RegisterModel registerModel,
+        final PantryModel pantryModel) {
         this.model = model;
         this.shop = shop;
+        this.registerModel = registerModel;
+        this.pantryModel = pantryModel;
     }
 
     /**
-     * @param customer the customer to serve
+     * @inheritDoc
      */
-    void serveCustomer(final Customer customer) {
-        removeCustomerWaitLine(customer);
+    @Inject
+    public void serveCustomer(final Customer customer) {
+        registerModel.removeCustomerWaitLine(customer);
         model.setBalance(model.getBalance() + customer.evaluateBurger(model.getHamburgerOnAssembly(),
                 shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE),
                 shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE)));
@@ -44,118 +50,41 @@ public class CustomerControllerImpl implements CustomerController {
      * @inheritDoc
      */
     @Override
-    public void startCustomerThread(final int delay, final int customerAmount,
-                                    final List<IngredientEnum> availableingredients) {
-        if (!customerThread.isAlive()) {
-            customerThread = new CustomerThread(delay, customerAmount, availableingredients, this);
-            customerThread.start();
-        }
+    public void clearAllCustomers() {
+        registerModel.clearLines();
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void killCustomerThread() {
-        if (customerThread.isAlive()) {
-            customerThread.interrupt();
-        }
+    public void startClientThread(final CustomerDifficultyEnum difficulty) {
+        registerModel.startCustomerThread((int) (difficulty.getSpawnIntervalSeconds() +
+        (difficulty.getSpawnIntervalSeconds() * shop.getUpgradeModifier(UpgradeEnum.SLOW_CUSTOMERS))),
+        (int)(difficulty.getCustomerCount() -
+        (difficulty.getCustomerCount() * shop.getUpgradeModifier(UpgradeEnum.LESS_CUSTOMERS))),
+        pantryModel.getUnlockedIngredients().stream().toList());
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public Customer popCustomerRegisterLine() {
-        return registerLine.pop();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void pushCustomerRegisterLine(final Customer customer) {
-        registerLine.push(customer);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void removeCustomerRegisterLine(final Customer customer) {
-        registerLine.remove(customer);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public Customer popCustomerWaitLine() {
-        return waitLine.pop();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void pushCustomerWaitLine(final Customer customer) {
-        waitLine.push(customer);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void removeCustomerWaitLine(final Customer customer) {
-        waitLine.remove(customer);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void clearLines() {
-        clearRegisterLine();
-        clearWaitLine();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void clearRegisterLine() {
-        registerLine.clear();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void clearWaitLine() {
-        waitLine.clear();
+    public void stopClientThread() {
+        registerModel.killCustomerThread();
     }
 
     /**
      * @return the register line
      */
-    @Override
     public List<Customer> getRegisterLine() {
-        return List.copyOf(registerLine);
+        return registerModel.getRegisterLine();
     }
 
     /**
      * @return the wait line
      */
-    @Override
     public List<Customer> getWaitLine() {
-        return List.copyOf(waitLine);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public String toString() {
-        return "[CustomerManager: [registerLine=" + registerLine.toString() + "], [waitLine=" + waitLine.toString() + "] ]";
+        return registerModel.getWaitLine();
     }
 }

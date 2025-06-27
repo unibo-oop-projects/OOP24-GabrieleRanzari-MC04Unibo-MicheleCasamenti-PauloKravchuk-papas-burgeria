@@ -12,9 +12,11 @@ import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
 import it.unibo.papasburgeria.utils.impl.SfxServiceImpl;
 import it.unibo.papasburgeria.utils.impl.resource.ResourceServiceImpl;
 import it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl;
+import it.unibo.papasburgeria.view.impl.DayChangeViewImpl;
 import it.unibo.papasburgeria.view.impl.GrillViewImpl;
 import it.unibo.papasburgeria.view.impl.MenuViewImpl;
 import it.unibo.papasburgeria.view.impl.RegisterViewImpl;
+import it.unibo.papasburgeria.view.impl.ShopViewImpl;
 
 /**
  * Guide module responsible for services/utils.
@@ -32,6 +34,8 @@ class UtilsModule extends AbstractModule {
         boundScenes.addBinding("BurgerAssembly").to(BurgerAssemblyViewImpl.class);
         boundScenes.addBinding("Grill").to(GrillViewImpl.class);
         boundScenes.addBinding("Menu").to(MenuViewImpl.class);
+        boundScenes.addBinding("Shop").to(ShopViewImpl.class);
+        boundScenes.addBinding("DayChange").to(DayChangeViewImpl.class);
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);

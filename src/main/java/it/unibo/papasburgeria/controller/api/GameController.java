@@ -26,4 +26,11 @@ public interface GameController {
      * Advances the current game state to the next day.
      */
     void nextDay();
+
+    /**
+     * Returns the current day number.
+     *
+     * @return the day number
+     */
+    int getCurrentDayNumber();
 }

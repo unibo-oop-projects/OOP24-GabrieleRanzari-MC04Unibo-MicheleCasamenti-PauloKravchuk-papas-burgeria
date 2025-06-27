@@ -16,5 +16,5 @@ public interface Customer {
      * @param ingredientTollerance bonus for ingredients.
      * @return the coins.
      */
-    int evaluateBurger(Hamburger madeHamburger, float placementTollerance, float ingredientTollerance);
+    int evaluateBurger(Hamburger madeHamburger, double placementTollerance, double ingredientTollerance);
 }

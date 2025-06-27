@@ -1,9 +1,13 @@
 package it.unibo.papasburgeria.controller.impl;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Customer;
+import it.unibo.papasburgeria.model.api.GameModel;
+import it.unibo.papasburgeria.model.api.Shop;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -16,7 +20,25 @@ import java.util.List;
 public class CustomerControllerImpl implements CustomerController {
     private final Deque<Customer> registerLine = new LinkedList<>();
     private final Deque<Customer> waitLine = new LinkedList<>();
+    private final GameModel model;
+    private final Shop shop;
     private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
+
+    @Inject
+    CustomerControllerImpl(final GameModel model, final Shop shop) {
+        this.model = model;
+        this.shop = shop;
+    }
+
+    /**
+     * @param customer the customer to serve
+     */
+    void serveCustomer(final Customer customer) {
+        removeCustomerWaitLine(customer);
+        model.setBalance(model.getBalance() + customer.evaluateBurger(model.getHamburgerOnAssembly(),
+                shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE),
+                shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE)));
+    }
 
     /**
      * @inheritDoc

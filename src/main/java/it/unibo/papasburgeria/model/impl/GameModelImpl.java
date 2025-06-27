@@ -2,6 +2,7 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Patty;
@@ -17,12 +18,15 @@ import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
  */
 @Singleton
 public class GameModelImpl implements GameModel {
-    public static final int START_DAY = FIRST_DAY.ordinal();
+    public static final DaysEnum START_DAY = FIRST_DAY;
     public static final int GRILL_ROWS = 4;
     public static final int GRILL_COLUMNS = 3;
     public static final int MAX_COOKED_PATTIES = 5;
 
     private static final int MAX_DAYS = Integer.MAX_VALUE;
+    private static final int STARTING_BALANCE = 50;
+
+    private int balance;
 
     private Hamburger hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
@@ -34,10 +38,11 @@ public class GameModelImpl implements GameModel {
      */
     @Inject
     public GameModelImpl() {
-        this.currentDay = START_DAY;
+        this.currentDay = START_DAY.getNumber();
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
+        balance = STARTING_BALANCE;
     }
 
     /**
@@ -121,6 +126,22 @@ public class GameModelImpl implements GameModel {
     @Override
     public int getCurrentDay() {
         return currentDay;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getBalance() {
+        return balance;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setBalance(final int amount) {
+        this.balance = amount;
     }
 
     /**

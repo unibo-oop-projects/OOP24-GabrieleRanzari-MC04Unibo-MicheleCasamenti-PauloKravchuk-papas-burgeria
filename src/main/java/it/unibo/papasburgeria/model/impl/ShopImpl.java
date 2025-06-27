@@ -1,5 +1,6 @@
 package it.unibo.papasburgeria.model.impl;
 
+import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Shop;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * models the shop and keeps track of the unlocked upgrades.
  */
+@Singleton
 public class ShopImpl implements Shop {
     private final Map<UpgradeEnum, Boolean> upgrades;
 
@@ -69,5 +71,13 @@ public class ShopImpl implements Shop {
         } else {
             return 0;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isUpgradeUnlocked(final UpgradeEnum upgrade) {
+        return upgrades.get(upgrade);
     }
 }

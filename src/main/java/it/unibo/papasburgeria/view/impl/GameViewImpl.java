@@ -181,7 +181,6 @@ public class GameViewImpl implements GameView {
 
                 final String name = currentView.getClass().getSimpleName();
                 bottomPanel.setVisible(btnSceneNames.contains(name.replace("ViewImpl", "")));
-
                 cardLayout.show(mainPanel, name);
             }
         });

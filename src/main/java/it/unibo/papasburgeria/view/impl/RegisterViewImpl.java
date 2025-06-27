@@ -1,8 +1,8 @@
 package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.CustomerController;
-import it.unibo.papasburgeria.controller.impl.CustomerControllerImpl;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
@@ -24,6 +24,7 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 /**
  * Register view.
  */
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class RegisterViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -65,14 +66,15 @@ public class RegisterViewImpl extends AbstractBaseView {
     private final JTextArea waitLine = new JTextArea();
 
     /**
-     * @param pantryModel used to get the available ingredients
+     * @param pantryModel        used to get the available ingredients
+     * @param customerController used to manage the customers' line
      */
     @Inject
-    public RegisterViewImpl(final PantryModel pantryModel) {
+    public RegisterViewImpl(final PantryModel pantryModel, final CustomerController customerController) {
         super.getInterfacePanel().setLayout(null);
         super.getInterfacePanel().setBackground(Color.GREEN);
 
-        this.controller = new CustomerControllerImpl();
+        this.controller = customerController;
         this.customerDifficulty = CustomerDifficultyEnum.FIRST;
 
         addCustomer.setBounds(X_ADD_CUSTOMER, Y_ADD_CUSTOMER, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -184,5 +186,15 @@ public class RegisterViewImpl extends AbstractBaseView {
     @Override
     void paintComponentDelegate(final Graphics g) {
 
+    }
+
+    /**
+     * Rebuilds the view.
+     */
+    @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView rebuilt");
+        }
     }
 }

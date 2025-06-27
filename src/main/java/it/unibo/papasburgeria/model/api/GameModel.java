@@ -59,7 +59,17 @@ public interface GameModel {
     /**
      * Returns the current day number.
      *
-     * @return the current day
+     * @return the current day number
      */
     int getCurrentDay();
+
+    /**
+     * @return the player's balance
+     */
+    int getBalance();
+
+    /**
+     * @param amount the amount of money given
+     */
+    void setBalance(int amount);
 }

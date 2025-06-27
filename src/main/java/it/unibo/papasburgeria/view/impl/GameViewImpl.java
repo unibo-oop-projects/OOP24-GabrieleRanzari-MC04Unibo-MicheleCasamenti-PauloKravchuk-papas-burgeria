@@ -188,10 +188,6 @@ public class GameViewImpl implements GameView {
         for (final Map.Entry<SceneType, BaseScene> entry : sceneMap.entrySet()) {
             final SceneType sceneType = entry.getKey();
             final BaseScene scene = entry.getValue();
-
-            Logger.debug(sceneType);
-            Logger.debug(scene instanceof AbstractBaseView);
-            Logger.debug(scene.getClass().getSimpleName());
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
                 this.mainPanel.add((AbstractBaseView) scene, sceneType.getValue());

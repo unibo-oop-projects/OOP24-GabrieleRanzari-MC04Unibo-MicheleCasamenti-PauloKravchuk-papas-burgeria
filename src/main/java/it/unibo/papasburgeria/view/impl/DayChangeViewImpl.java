@@ -164,8 +164,8 @@ public class DayChangeViewImpl extends AbstractBaseView {
         final JPanel interfacePanel = super.getInterfacePanel();
         for (final JLabel label : unlockedIngredientsLabels) {
             interfacePanel.remove(label);
-            unlockedIngredientsLabels.remove(label);
         }
+        unlockedIngredientsLabels.clear();
 
         final List<IngredientEnum> unlockedIngredients = controller.getIngredientsUnlockedToday();
         if (unlockedIngredients.isEmpty()) {

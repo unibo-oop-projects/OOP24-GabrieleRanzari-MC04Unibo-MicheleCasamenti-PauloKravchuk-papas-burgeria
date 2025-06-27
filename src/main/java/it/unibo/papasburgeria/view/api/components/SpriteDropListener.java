@@ -1,4 +1,4 @@
-package it.unibo.papasburgeria.utils.api;
+package it.unibo.papasburgeria.view.api.components;
 
 /**
  * Interface to listen for sprite actions.

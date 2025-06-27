@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.Serial;
+import java.util.ArrayList;
 import java.util.List;
 
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.EXTENSION;
@@ -58,6 +59,11 @@ public class DayChangeViewImpl extends AbstractBaseView {
 
     @Serial
     private static final long serialVersionUID = 1L;
+    private final transient DayChangeController controller;
+    private final transient ResourceService resourceService;
+    private final JLabel dayLabel;
+    private final JLabel unlockedIngredientsLabel;
+    private final List<JLabel> unlockedIngredientsLabels;
 
 
     /**
@@ -70,14 +76,16 @@ public class DayChangeViewImpl extends AbstractBaseView {
     @Inject
     public DayChangeViewImpl(final ResourceService resourceService, final GameController gameController,
                              final DayChangeController controller) {
+        this.controller = controller;
+        this.resourceService = resourceService;
+        unlockedIngredientsLabels = new ArrayList<>();
 
         super.setStaticBackgroundImage(resourceService.getImage("day_change_background.png"));
 
         final JPanel interfacePanel = super.getInterfacePanel();
-        interfacePanel.removeAll();
         interfacePanel.setLayout(new ScalableLayoutImpl());
 
-        final JLabel dayLabel = new JLabel("Current Day: " + controller.getCurrentDayNumber());
+        dayLabel = new JLabel();
         dayLabel.setFont(DEFAULT_FONT);
         interfacePanel.add(
                 dayLabel,
@@ -88,12 +96,8 @@ public class DayChangeViewImpl extends AbstractBaseView {
                 )
         );
 
-        final List<IngredientEnum> unlockedIngredients = controller.getIngredientsUnlockedToday();
-        final JLabel unlockedIngredientsLabel = new JLabel("Ingredients unlocked today:");
+        unlockedIngredientsLabel = new JLabel();
         unlockedIngredientsLabel.setFont(DEFAULT_FONT);
-        if (unlockedIngredients.isEmpty()) {
-            unlockedIngredientsLabel.setText("There are no ingredients unlocked today");
-        }
         interfacePanel.add(
                 unlockedIngredientsLabel,
                 new ScaleConstraintImpl(
@@ -102,25 +106,6 @@ public class DayChangeViewImpl extends AbstractBaseView {
                         new ScaleImpl(UNLOCKED_INGREDIENTS_LABEL_ORIGIN)
                 )
         );
-        double pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
-        double pbPositionYScale = UNLOCKED_INGREDIENTS_IMAGE_Y_POS;
-        for (final IngredientEnum ingredient : unlockedIngredients) {
-            final ImageIcon iconImage = new ImageIcon(resourceService.getImage(ingredient.getName() + EXTENSION));
-            final JLabel imageLabel = new JLabel(iconImage);
-            interfacePanel.add(
-                    imageLabel,
-                    new ScaleConstraintImpl(
-                            new ScaleImpl(UNLOCKED_INGREDIENTS_IMAGE_X_SIZE, UNLOCKED_INGREDIENTS_IMAGE_Y_SIZE),
-                            new ScaleImpl(pbPositionXScale, pbPositionYScale),
-                            new ScaleImpl(UNLOCKED_INGREDIENTS_IMAGE_ORIGIN)
-                    )
-            );
-            pbPositionXScale = pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE + UNLOCKED_INGREDIENTS_IMAGE_X_SPACING;
-            if (pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE > 1.0 - UNLOCKED_INGREDIENTS_IMAGE_X_POS) {
-                pbPositionYScale = pbPositionYScale + UNLOCKED_INGREDIENTS_IMAGE_Y_SIZE + UNLOCKED_INGREDIENTS_IMAGE_Y_SPACING;
-                pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
-            }
-        }
 
         final JButton newDayButton = new JButton("New Day");
         newDayButton.setFont(DEFAULT_FONT);
@@ -159,7 +144,9 @@ public class DayChangeViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        reset();
+        dayLabel.setText("Current Day: " + controller.getCurrentDayNumber());
+        unlockedIngredientsLabel.setText("Ingredients unlocked today:");
+        loadUnlocks();
     }
 
     /**
@@ -172,7 +159,37 @@ public class DayChangeViewImpl extends AbstractBaseView {
     /**
      * @inheritDoc
      */
-    private void reset() {
+    public final void loadUnlocks() {
+        final JPanel interfacePanel = super.getInterfacePanel();
+        for (final JLabel label : unlockedIngredientsLabels) {
+            interfacePanel.remove(label);
+            unlockedIngredientsLabels.remove(label);
+        }
 
+        final List<IngredientEnum> unlockedIngredients = controller.getIngredientsUnlockedToday();
+        if (unlockedIngredients.isEmpty()) {
+            unlockedIngredientsLabel.setText("There are no ingredients unlocked today");
+        }
+
+        double pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
+        double pbPositionYScale = UNLOCKED_INGREDIENTS_IMAGE_Y_POS;
+        for (final IngredientEnum ingredient : unlockedIngredients) {
+            final ImageIcon iconImage = new ImageIcon(resourceService.getImage(ingredient.getName() + EXTENSION));
+            final JLabel imageLabel = new JLabel(iconImage);
+            interfacePanel.add(
+                    imageLabel,
+                    new ScaleConstraintImpl(
+                            new ScaleImpl(UNLOCKED_INGREDIENTS_IMAGE_X_SIZE, UNLOCKED_INGREDIENTS_IMAGE_Y_SIZE),
+                            new ScaleImpl(pbPositionXScale, pbPositionYScale),
+                            new ScaleImpl(UNLOCKED_INGREDIENTS_IMAGE_ORIGIN)
+                    )
+            );
+            pbPositionXScale = pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE + UNLOCKED_INGREDIENTS_IMAGE_X_SPACING;
+            if (pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE > 1.0 - UNLOCKED_INGREDIENTS_IMAGE_X_POS) {
+                pbPositionYScale = pbPositionYScale + UNLOCKED_INGREDIENTS_IMAGE_Y_SIZE + UNLOCKED_INGREDIENTS_IMAGE_Y_SPACING;
+                pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
+            }
+            unlockedIngredientsLabels.add(imageLabel);
+        }
     }
 }

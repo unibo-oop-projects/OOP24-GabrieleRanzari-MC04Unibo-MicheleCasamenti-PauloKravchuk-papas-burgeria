@@ -5,6 +5,7 @@ import it.unibo.papasburgeria.controller.api.DayChangeController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
@@ -127,7 +128,7 @@ public class DayChangeViewImpl extends AbstractBaseView {
         newDayButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
         newDayButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
         newDayButton.setFocusPainted(false);
-        newDayButton.addActionListener(e -> gameController.switchToScene("Register"));
+        newDayButton.addActionListener(e -> gameController.switchToScene(SceneType.REGISTER));
         interfacePanel.add(
                 newDayButton,
                 new ScaleConstraintImpl(

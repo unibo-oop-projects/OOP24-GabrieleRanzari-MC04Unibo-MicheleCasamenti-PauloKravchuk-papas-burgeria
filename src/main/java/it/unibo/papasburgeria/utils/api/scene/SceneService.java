@@ -1,6 +1,6 @@
 package it.unibo.papasburgeria.utils.api.scene;
 
-import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -9,25 +9,25 @@ import java.util.function.Consumer;
 public interface SceneService {
 
     /**
-     * Switch to a scene having the provided {@code sceneName} as name.
+     * Switch to a scene having the provided {@code sceneType} as enum type.
      * Hides the currently-playing scene.
      * Preferred to be used within controllers.
      *
-     * @param sceneName Name of the scene to switch to
+     * @param sceneType Enum of the scene to switch to
      */
-    void switchTo(String sceneName);
+    void switchTo(SceneType sceneType);
 
     /**
-     * Used to retrieve the stored scenes within the service.
+     * Used to retrieve the stored scene map within the service.
      *
-     * @return collection of stored scene instances
+     * @return copy of the stored map
      */
-    List<BaseScene> getScenes();
+    Map<SceneType, BaseScene> getScenes();
 
     /**
      * Used to add a callback to be executed for when a scene changes.
      *
      * @param callback callback to execute
      */
-    void onSceneChanged(Consumer<BaseScene> callback);
+    void onSceneChanged(Consumer<SceneType> callback);
 }

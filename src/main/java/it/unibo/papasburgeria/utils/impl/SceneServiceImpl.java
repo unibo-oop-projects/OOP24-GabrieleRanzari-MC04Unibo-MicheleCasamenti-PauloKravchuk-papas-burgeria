@@ -4,9 +4,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -19,9 +20,9 @@ import java.util.function.Consumer;
  */
 @Singleton
 public class SceneServiceImpl implements SceneService {
-    private final Map<String, BaseScene> scenes;
-    private final List<Consumer<BaseScene>> onSceneChangedCallbacks;
-    private BaseScene currentScene;
+    private final Map<SceneType, BaseScene> scenes;
+    private final List<Consumer<SceneType>> onSceneChangedCallbacks;
+    private SceneType currentSceneType;
 
     /**
      * Initializes the service with a list of scenes to handle.
@@ -29,8 +30,8 @@ public class SceneServiceImpl implements SceneService {
      * @param scenes Scenes to operate on
      */
     @Inject
-    public SceneServiceImpl(final Map<String, BaseScene> scenes) {
-        this.scenes = new HashMap<>(scenes);
+    public SceneServiceImpl(final Map<SceneType, BaseScene> scenes) {
+        this.scenes = new EnumMap<>(scenes);
         this.onSceneChangedCallbacks = new ArrayList<>();
     }
 
@@ -38,26 +39,27 @@ public class SceneServiceImpl implements SceneService {
      * @inheritDoc
      */
     @Override
-    public void switchTo(final String sceneName) {
-        if (sceneName == null || sceneName.isEmpty()) {
+    public void switchTo(final SceneType sceneType) {
+        if (sceneType == null) {
             throw new IllegalArgumentException("Scene name cannot be null or empty.");
         }
 
-        final BaseScene view = scenes.get(sceneName);
-        if (view == null) {
-            throw new IllegalArgumentException("Scene " + sceneName + " not found.");
+        final BaseScene newScene = scenes.get(sceneType);
+        if (newScene == null) {
+            throw new IllegalArgumentException("Scene for " + sceneType + " not found.");
         }
 
-        if (currentScene != null) {
-            if (currentScene.equals(view)) {
+        if (currentSceneType != null) {
+            if (currentSceneType.equals(sceneType)) {
                 return;
             }
 
-            currentScene.hideScene();
+            // supposedly exists, otherwise it wouldn't have passed the previous checks to be set
+            scenes.get(currentSceneType).hideScene();
         }
 
-        currentScene = view;
-        currentScene.showScene();
+        currentSceneType = sceneType;
+        newScene.showScene();
 
         this.executeCallbacks();
     }
@@ -66,15 +68,15 @@ public class SceneServiceImpl implements SceneService {
      * @inheritDoc
      */
     @Override
-    public List<BaseScene> getScenes() {
-        return List.copyOf(scenes.values());
+    public Map<SceneType, BaseScene> getScenes() {
+        return Map.copyOf(scenes);
     }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void onSceneChanged(final Consumer<BaseScene> callback) {
+    public void onSceneChanged(final Consumer<SceneType> callback) {
         if (callback == null) {
             throw new IllegalArgumentException("Callback cannot be null.");
         }
@@ -91,8 +93,8 @@ public class SceneServiceImpl implements SceneService {
      * Executes added callbacks.
      */
     private void executeCallbacks() {
-        for (final Consumer<BaseScene> callback : this.onSceneChangedCallbacks) {
-            callback.accept(this.currentScene);
+        for (final Consumer<SceneType> callback : this.onSceneChangedCallbacks) {
+            callback.accept(this.currentSceneType);
         }
     }
 }

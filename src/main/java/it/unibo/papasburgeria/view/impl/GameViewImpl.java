@@ -6,7 +6,9 @@ import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.GameView;
+import it.unibo.papasburgeria.view.api.components.Scale;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
@@ -30,6 +32,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
@@ -73,7 +76,6 @@ public class GameViewImpl implements GameView {
             final ResourceService resourceService
     ) {
         this.gameController = gameController;
-
         this.gameIsRunning = false;
 
         // this should go well for most screens ig
@@ -95,6 +97,7 @@ public class GameViewImpl implements GameView {
             }
         };
 
+        // Defining base for all views + overlay on top
         this.cardLayout = new CardLayout();
         this.mainPanel = new JPanel(this.cardLayout);
         this.interfacePanel = new JPanel(new ScalableLayoutImpl());
@@ -138,23 +141,40 @@ public class GameViewImpl implements GameView {
         ));
 
         // somewhat hard-coded, but it's alright, it's just a view construction
-        final List<String> btnSceneNames = List.of("Register", "Grill", "BurgerAssembly");
+        final List<SceneType> btnSceneTypes = List.of(
+                SceneType.MENU,
+                SceneType.REGISTER,
+                SceneType.GRILL,
+                SceneType.BURGER_ASSEMBLY
+        );
+        final Scale sizeScale = new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.FULL - ScaleConstraintImpl.QUARTER);
+        final Scale menuPositionScale = new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.HALF);
+
         int i = -1;
-        for (final String sceneName : btnSceneNames) {
-            final JButton btn = new JButton(new ImageIcon(resourceService.getImage(sceneName + "_btn.png")));
+        for (final SceneType sceneType : btnSceneTypes) {
+            final JButton btn = new JButton(new ImageIcon(resourceService.getImage(sceneType.getValue() + "_btn.png")));
             btn.setBorder(BorderFactory.createEmptyBorder());
             btn.setContentAreaFilled(false);
             btn.setFocusPainted(false);
             btn.setOpaque(false);
             btn.addActionListener(e -> {
-                gameController.switchToScene(sceneName);
+                gameController.switchToScene(sceneType);
             });
-            bottomPanel.add(btn, new ScaleConstraintImpl(
-                    new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.FULL - ScaleConstraintImpl.QUARTER),
-                    new ScaleImpl(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i), ScaleConstraintImpl.HALF),
-                    ScaleConstraintImpl.ORIGIN_CENTER
-            ));
-            i++;
+
+            if (sceneType.equals(SceneType.MENU)) {
+                bottomPanel.add(btn, new ScaleConstraintImpl(
+                        sizeScale,
+                        menuPositionScale,
+                        ScaleConstraintImpl.ORIGIN_CENTER
+                ));
+            } else {
+                bottomPanel.add(btn, new ScaleConstraintImpl(
+                        sizeScale,
+                        new ScaleImpl(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i), ScaleConstraintImpl.HALF),
+                        ScaleConstraintImpl.ORIGIN_CENTER
+                ));
+                i++;
+            }
         }
         bottomPanel.setComponentZOrder(imageLabel, bottomPanel.getComponentCount() - 1);
         bottomPanel.setVisible(false);
@@ -165,23 +185,26 @@ public class GameViewImpl implements GameView {
         */
         this.views = new ArrayList<>();
 
-        final List<BaseScene> scenes = sceneService.getScenes();
-        for (final BaseScene scene : scenes) {
+        final Map<SceneType, BaseScene> sceneMap = sceneService.getScenes();
+        for (final Map.Entry<SceneType, BaseScene> entry : sceneMap.entrySet()) {
+            final SceneType sceneType = entry.getKey();
+            final BaseScene scene = entry.getValue();
+
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
-                this.mainPanel.add((AbstractBaseView) scene, scene.getClass().getSimpleName());
+                this.mainPanel.add((AbstractBaseView) scene, sceneType.getValue());
             }
         }
 
         // This implementation uses card-layout so we centralize through a callback the showing/hiding of the views
-        sceneService.onSceneChanged(scene -> {
+        sceneService.onSceneChanged(sceneType -> {
+            final BaseScene scene = sceneMap.get(sceneType);
             if (scene instanceof AbstractBaseView) {
                 currentView = (AbstractBaseView) scene;
                 currentView.revalidate();
 
-                final String name = currentView.getClass().getSimpleName();
-                bottomPanel.setVisible(btnSceneNames.contains(name.replace("ViewImpl", "")));
-                cardLayout.show(mainPanel, name);
+                bottomPanel.setVisible(btnSceneTypes.contains(sceneType));
+                cardLayout.show(mainPanel, sceneType.getValue());
             }
         });
 

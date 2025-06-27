@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
@@ -52,7 +53,7 @@ public class MenuViewImpl extends AbstractBaseView {
 
         playButton.addActionListener(e -> {
             playButton.setVisible(false);
-            gameController.switchToScene("Register");
+            gameController.switchToScene(SceneType.REGISTER);
         });
 
         interfacePanel.add(

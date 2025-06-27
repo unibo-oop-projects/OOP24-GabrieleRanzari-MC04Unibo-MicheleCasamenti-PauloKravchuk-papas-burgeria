@@ -7,6 +7,7 @@ import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.utils.impl.DrawingManagerImpl;
 import it.unibo.papasburgeria.utils.impl.SceneServiceImpl;
 import it.unibo.papasburgeria.utils.impl.SfxServiceImpl;
@@ -29,13 +30,13 @@ class UtilsModule extends AbstractModule {
     @Override
     protected void configure() {
         // sceneName to sceneView bindings
-        final MapBinder<String, BaseScene> boundScenes = MapBinder.newMapBinder(binder(), String.class, BaseScene.class);
-        boundScenes.addBinding("Register").to(RegisterViewImpl.class);
-        boundScenes.addBinding("BurgerAssembly").to(BurgerAssemblyViewImpl.class);
-        boundScenes.addBinding("Grill").to(GrillViewImpl.class);
-        boundScenes.addBinding("Menu").to(MenuViewImpl.class);
-        boundScenes.addBinding("Shop").to(ShopViewImpl.class);
-        boundScenes.addBinding("DayChange").to(DayChangeViewImpl.class);
+        final MapBinder<SceneType, BaseScene> boundScenes = MapBinder.newMapBinder(binder(), SceneType.class, BaseScene.class);
+        boundScenes.addBinding(SceneType.REGISTER).to(RegisterViewImpl.class);
+        boundScenes.addBinding(SceneType.BURGER_ASSEMBLY).to(BurgerAssemblyViewImpl.class);
+        boundScenes.addBinding(SceneType.GRILL).to(GrillViewImpl.class);
+        boundScenes.addBinding(SceneType.MENU).to(MenuViewImpl.class);
+        boundScenes.addBinding(SceneType.SHOP).to(ShopViewImpl.class);
+        boundScenes.addBinding(SceneType.DAY_CHANGE).to(DayChangeViewImpl.class);
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);

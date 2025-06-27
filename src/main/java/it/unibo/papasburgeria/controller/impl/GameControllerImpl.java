@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import jakarta.inject.Inject;
 
 /**
@@ -43,7 +44,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
-        sceneService.switchTo("Menu");
+        sceneService.switchTo(SceneType.MENU);
     }
 
     /**
@@ -58,8 +59,8 @@ public class GameControllerImpl implements GameController {
      * @inheritDoc
      */
     @Override
-    public void switchToScene(final String sceneName) {
-        sceneService.switchTo(sceneName);
+    public void switchToScene(final SceneType sceneType) {
+        sceneService.switchTo(sceneType);
     }
 
     /**
@@ -69,6 +70,6 @@ public class GameControllerImpl implements GameController {
     public void nextDay() {
         model.nextDay();
         pantryModel.unlockForDay(model.getCurrentDay());
-        switchToScene("DayChange");
+        switchToScene(SceneType.DAY_CHANGE);
     }
 }

@@ -5,8 +5,8 @@ import it.unibo.papasburgeria.model.DegreesOfDonenessEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 
 import java.awt.Dimension;

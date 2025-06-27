@@ -77,6 +77,7 @@ public class GameViewImpl implements GameView {
     ) {
         this.gameController = gameController;
         this.gameIsRunning = false;
+        this.views = new ArrayList<>();
 
         // this should go well for most screens ig
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -84,6 +85,7 @@ public class GameViewImpl implements GameView {
         final int proportionalHeight = (int) (scaledWidth / ASPECT_RATIO);
 
         /*
+            Defining base for all views + overlay on top.
             This part looks somewhat of a little dupe from AbstractBaseView, but I'd rather
             not have to use AbstractBaseView at all as we don't need its full functionality.
          */
@@ -97,7 +99,6 @@ public class GameViewImpl implements GameView {
             }
         };
 
-        // Defining base for all views + overlay on top
         this.cardLayout = new CardLayout();
         this.mainPanel = new JPanel(this.cardLayout);
         this.interfacePanel = new JPanel(new ScalableLayoutImpl());
@@ -183,13 +184,14 @@ public class GameViewImpl implements GameView {
             In the case of when SceneService has views implemented from different sources,
             we only retrieve the ones related to this implementation to handle updating/redrawing.
         */
-        this.views = new ArrayList<>();
-
         final Map<SceneType, BaseScene> sceneMap = sceneService.getScenes();
         for (final Map.Entry<SceneType, BaseScene> entry : sceneMap.entrySet()) {
             final SceneType sceneType = entry.getKey();
             final BaseScene scene = entry.getValue();
 
+            Logger.debug(sceneType);
+            Logger.debug(scene instanceof AbstractBaseView);
+            Logger.debug(scene.getClass().getSimpleName());
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
                 this.mainPanel.add((AbstractBaseView) scene, sceneType.getValue());
@@ -208,6 +210,7 @@ public class GameViewImpl implements GameView {
             }
         });
 
+        // Frame handler
         this.frameUpdate = new Timer(1000 / FRAMERATE, e -> {
             final long currentFrameTime = System.nanoTime();
             final double delta = (currentFrameTime - lastFrameTime) / 1_000_000_000.0;

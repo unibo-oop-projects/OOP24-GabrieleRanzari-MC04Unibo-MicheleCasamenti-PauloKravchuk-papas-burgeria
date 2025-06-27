@@ -26,6 +26,8 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
  */
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class RegisterViewImpl extends AbstractBaseView {
+    public static final String VIEW_NAME = getViewName(RegisterViewImpl.class);
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -186,5 +188,15 @@ public class RegisterViewImpl extends AbstractBaseView {
     @Override
     void paintComponentDelegate(final Graphics g) {
 
+    }
+
+    /**
+     * Rebuilds the view.
+     */
+    @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("RegisterView rebuilt");
+        }
     }
 }

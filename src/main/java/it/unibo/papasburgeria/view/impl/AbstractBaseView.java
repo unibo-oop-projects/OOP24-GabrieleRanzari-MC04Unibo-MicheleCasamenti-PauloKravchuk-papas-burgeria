@@ -20,15 +20,20 @@ import java.io.Serial;
  * See {@link BaseScene} for interface details.
  */
 abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
+    public static final String VIEW_NAME = "NOT DEFINED";
+
     static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0, 0);
     static final Color DEFAULT_BUTTON_BACKGROUND_COLOR = new Color(40, 122, 33);
     static final Color DEFAULT_BUTTON_TEXT_COLOR = Color.WHITE;
+    private static final String VIEW_NAME_SUFFIX = "ViewImpl";
 
     @Serial
     private static final long serialVersionUID = 1L;
     private final JLabel staticBackground; // static background layer
     private final JPanel gamePanel; // layer that gets repainted
     private final JPanel interfacePanel; // static interface layer
+
+    private int lastDayRefreshed = Integer.MIN_VALUE;
 
     private Image backgroundImage;
 
@@ -77,6 +82,10 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
 
         super.revalidate();
         super.setVisible(false);
+    }
+
+    static String getViewName(Class<? extends AbstractBaseView> viewClass) {
+        return viewClass.getSimpleName().replaceFirst(VIEW_NAME_SUFFIX + "$", "");
     }
 
     /**
@@ -141,4 +150,21 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
 
         this.backgroundImage = imageIcon;
     }
+
+    /**
+     * Rebuilds the view if the view is not up to date.
+     *
+     * @param currentDay the current day number
+     */
+    protected final void resetIfNeeded(final int currentDay) {
+        if (this.lastDayRefreshed != currentDay) {
+            this.reset();
+            this.lastDayRefreshed = currentDay;
+        }
+    }
+
+    /**
+     * Rebuilds the view.
+     */
+    protected abstract void reset();
 }

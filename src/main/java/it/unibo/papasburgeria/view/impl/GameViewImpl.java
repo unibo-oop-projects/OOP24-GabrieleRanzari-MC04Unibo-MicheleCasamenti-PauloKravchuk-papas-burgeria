@@ -138,7 +138,7 @@ public class GameViewImpl implements GameView {
         ));
 
         // somewhat hard-coded, but it's alright, it's just a view construction
-        final List<String> btnSceneNames = List.of("Register", "Grill", "BurgerAssembly");
+        final List<String> btnSceneNames = List.of(RegisterViewImpl.VIEW_NAME, GrillViewImpl.VIEW_NAME, BurgerAssemblyViewImpl.VIEW_NAME);
         int i = -1;
         for (final String sceneName : btnSceneNames) {
             final JButton btn = new JButton(new ImageIcon(resourceService.getImage(sceneName + "_btn.png")));
@@ -169,7 +169,7 @@ public class GameViewImpl implements GameView {
         for (final BaseScene scene : scenes) {
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
-                this.mainPanel.add((AbstractBaseView) scene, scene.getClass().getSimpleName());
+                this.mainPanel.add((AbstractBaseView) scene, scene);
             }
         }
 

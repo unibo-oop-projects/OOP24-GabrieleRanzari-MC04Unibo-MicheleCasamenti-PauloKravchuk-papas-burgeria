@@ -39,6 +39,8 @@ import static it.unibo.papasburgeria.utils.impl.DrawingManagerImpl.INGREDIENTS_Y
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
+    public static final String VIEW_NAME = getViewName(BurgerAssemblyViewImpl.class);
+
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.31;
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.55;
     public static final double HAMBURGER_X_POS_SCALE =
@@ -69,9 +71,9 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     /**
      * Default constructor, creates and initializes the GUI elements.
      *
-     * @param resourceService the service that handles resource obtainment.
-     * @param controller      the burger assembly controller.
-     * @param drawingManager  the manager for drawing various things.
+     * @param resourceService the service that handles resource obtainment
+     * @param controller      the burger assembly controller
+     * @param drawingManager  the manager for drawing various things
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller,
@@ -164,6 +166,16 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
 
         for (final Sprite sprite : draggablePattySprites) {
             drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("BurgerAssembly rebuilt");
         }
     }
 

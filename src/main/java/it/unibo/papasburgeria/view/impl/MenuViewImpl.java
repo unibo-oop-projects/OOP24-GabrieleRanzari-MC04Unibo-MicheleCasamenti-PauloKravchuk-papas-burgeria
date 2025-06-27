@@ -19,6 +19,8 @@ import java.io.Serial;
  * Menu View.
  */
 public class MenuViewImpl extends AbstractBaseView {
+    public static final String VIEW_NAME = getViewName(MenuViewImpl.class);
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +31,7 @@ public class MenuViewImpl extends AbstractBaseView {
      *
      * @param resourceService the service that handles resource obtainment
      * @param gameController  game controller instance
-     * @param sfxService  sfx player service
+     * @param sfxService      sfx player service
      */
     @Inject
     public MenuViewImpl(final GameController gameController, final ResourceService resourceService, final SfxService sfxService) {
@@ -76,6 +78,16 @@ public class MenuViewImpl extends AbstractBaseView {
     @Override
     void paintComponentDelegate(final Graphics g) {
 
+    }
+
+    /**
+     * Rebuilds the view.
+     */
+    @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("MenuView rebuilt");
+        }
     }
 
     /**

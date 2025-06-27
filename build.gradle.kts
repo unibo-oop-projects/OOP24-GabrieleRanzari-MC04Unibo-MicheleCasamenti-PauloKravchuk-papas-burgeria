@@ -7,7 +7,7 @@ plugins {
 }
 
 application {
-    mainClass = "it.unibo.papasburgeria.Main"
+    mainClass.set("it.unibo.papasburgeria.Main")
 }
 
 java { toolchain { languageVersion.set(JavaLanguageVersion.of(21)) } }

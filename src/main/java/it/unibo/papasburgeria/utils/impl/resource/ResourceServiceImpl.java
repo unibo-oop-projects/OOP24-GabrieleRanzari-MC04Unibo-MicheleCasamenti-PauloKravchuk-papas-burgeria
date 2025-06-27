@@ -2,13 +2,16 @@ package it.unibo.papasburgeria.utils.impl.resource;
 
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import org.tinylog.Logger;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -60,11 +63,22 @@ public class ResourceServiceImpl implements ResourceService {
         validateProvidedPath(soundPath);
 
         return this.sfxCache.computeIfAbsent(soundPath, path -> {
-            try (InputStream inputStream = getFile(SFX_PATH + path)) {
+            try (
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                            new BufferedInputStream(getFile(SFX_PATH + path))
+                    )
+            ) {
                 final Clip clip = AudioSystem.getClip();
-                clip.open(AudioSystem.getAudioInputStream(inputStream));
+                clip.open(audioInputStream);
                 return clip;
-            } catch (final LineUnavailableException | UnsupportedAudioFileException | IOException exception) {
+            } catch (final LineUnavailableException | IllegalArgumentException exception) {
+                /*
+                    Some devices may not have lines available, decided not to propagate the exception
+                    but rather handle it with no-ops while providing visual warning.
+                 */
+                Logger.warn(exception, "Exception while attempting to get sound effect: " + path);
+                return null;
+            } catch (final UnsupportedAudioFileException | IOException exception) {
                 throw new ResourceLoadException("Exception while attempting read: " + path, exception);
             }
         });

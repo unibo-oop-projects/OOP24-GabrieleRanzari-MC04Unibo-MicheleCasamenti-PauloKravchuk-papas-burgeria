@@ -88,10 +88,6 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
         draggablePattiesOnGrill = new ArrayList<>();
         stopCooking = false;
 
-        if (DEBUG_MODE) {
-            Logger.info("Grill created");
-        }
-
         super.setStaticBackgroundImage(resourceService.getImage("grill_background.png"));
 
         double pbPositionYScale = RAW_PATTIES_Y_POS_SCALE;

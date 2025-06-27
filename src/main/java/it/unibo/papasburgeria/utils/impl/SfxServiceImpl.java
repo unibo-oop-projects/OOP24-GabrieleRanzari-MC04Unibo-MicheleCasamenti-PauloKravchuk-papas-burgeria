@@ -3,6 +3,7 @@ package it.unibo.papasburgeria.utils.impl;
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
+import org.tinylog.Logger;
 
 import javax.sound.sampled.Clip;
 import java.util.function.Consumer;
@@ -47,8 +48,7 @@ public class SfxServiceImpl implements SfxService {
      */
     @Override
     public void stopSound(final String soundName) {
-        this.resetSoundWithAction(soundName, clip -> {
-        });
+        this.resetSoundWithAction(soundName, null);
     }
 
     /**
@@ -59,12 +59,19 @@ public class SfxServiceImpl implements SfxService {
      */
     private void resetSoundWithAction(final String soundName, final Consumer<Clip> action) {
         final Clip clip = this.resourceService.getSoundEffect(soundName);
-        synchronized (clip) {
-            if (clip.isRunning()) {
-                clip.stop();
+        if (clip != null) {
+            synchronized (clip) {
+                if (clip.isRunning()) {
+                    clip.stop();
+                }
+                clip.setFramePosition(0);
+
+                if (action != null) {
+                    action.accept(clip);
+                }
             }
-            clip.setFramePosition(0);
-            action.accept(clip);
+        } else {
+            Logger.warn("Clip not available: " + soundName);
         }
     }
 }

@@ -67,7 +67,7 @@ public class GameViewImpl implements GameView {
      * @param sceneService    scene service
      * @param gameController  base main controller
      * @param resourceService resource provider
-     * @param sfxService sfx player
+     * @param sfxService      sfx player
      */
     @Inject
     public GameViewImpl(
@@ -154,7 +154,6 @@ public class GameViewImpl implements GameView {
             btn.addActionListener(e -> {
                 gameController.switchToScene(sceneName);
             });
-            Logger.debug(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i));
             bottomPanel.add(btn, new ScaleConstraintImpl(
                     new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.FULL - ScaleConstraintImpl.QUARTER),
                     new ScaleImpl(ScaleConstraintImpl.HALF + (ScaleConstraintImpl.EIGHTH * i), ScaleConstraintImpl.HALF),

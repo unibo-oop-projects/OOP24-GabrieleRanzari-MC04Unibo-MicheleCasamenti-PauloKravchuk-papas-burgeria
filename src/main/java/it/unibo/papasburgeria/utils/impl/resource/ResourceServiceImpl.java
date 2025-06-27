@@ -2,6 +2,7 @@ package it.unibo.papasburgeria.utils.impl.resource;
 
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import org.tinylog.Logger;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
@@ -64,7 +65,14 @@ public class ResourceServiceImpl implements ResourceService {
                 final Clip clip = AudioSystem.getClip();
                 clip.open(AudioSystem.getAudioInputStream(inputStream));
                 return clip;
-            } catch (final LineUnavailableException | UnsupportedAudioFileException | IOException exception) {
+            } catch (final LineUnavailableException | IllegalArgumentException exception) {
+                /*
+                    Some devices may not have lines available, decided not to propagate the exception
+                    but rather handle it with no-ops while providing visual warning.
+                 */
+                Logger.warn("Exception while attempting to get sound effect: " + path, exception);
+                return null;
+            } catch (final UnsupportedAudioFileException | IOException exception) {
                 throw new ResourceLoadException("Exception while attempting read: " + path, exception);
             }
         });

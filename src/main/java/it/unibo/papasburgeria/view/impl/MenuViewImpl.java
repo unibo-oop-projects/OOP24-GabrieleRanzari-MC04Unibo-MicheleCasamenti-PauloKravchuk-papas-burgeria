@@ -6,7 +6,6 @@ import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,8 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.io.Serial;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Menu View.
@@ -80,9 +77,6 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        if (DEBUG_MODE) {
-            Logger.info("MenuView shown");
-        }
 
     }
 
@@ -91,8 +85,5 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("MenuView hidden");
-        }
     }
 }

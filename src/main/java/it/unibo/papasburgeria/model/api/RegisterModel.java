@@ -4,6 +4,9 @@ import java.util.List;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 
+/**
+ * models how the lines work.
+ */
 public interface RegisterModel {
 
     /**

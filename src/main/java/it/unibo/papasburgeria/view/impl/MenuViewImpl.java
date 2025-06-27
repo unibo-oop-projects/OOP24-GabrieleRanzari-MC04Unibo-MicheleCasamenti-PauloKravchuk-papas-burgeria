@@ -25,6 +25,8 @@ public class MenuViewImpl extends AbstractBaseView {
 
     private final transient SfxService sfxService;
 
+    private final JButton playButton;
+
     /**
      * Constructs the MenuView.
      *
@@ -44,7 +46,7 @@ public class MenuViewImpl extends AbstractBaseView {
         final double pbSizeXScale = 0.15;
         final double pbSizeYScale = 0.1;
         final double pbPositionYScale = 0.55;
-        final JButton playButton = new JButton(new ImageIcon(resourceService.getImage("play_btn.png")));
+        playButton = new JButton(new ImageIcon(resourceService.getImage("play_btn.png")));
         playButton.setBackground(DEFAULT_BACKGROUND_COLOR);
         playButton.setBorder(BorderFactory.createEmptyBorder());
         playButton.setContentAreaFilled(false);
@@ -85,6 +87,7 @@ public class MenuViewImpl extends AbstractBaseView {
     @Override
     public void showScene() {
         this.sfxService.playSoundLooped("MenuIntro.wav");
+        this.playButton.setVisible(true);
     }
 
     /**

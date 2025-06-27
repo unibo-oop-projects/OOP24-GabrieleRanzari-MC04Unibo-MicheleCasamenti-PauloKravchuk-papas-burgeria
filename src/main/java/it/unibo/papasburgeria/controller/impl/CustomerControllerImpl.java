@@ -38,7 +38,7 @@ public class CustomerControllerImpl implements CustomerController {
     /**
      * @inheritDoc
      */
-    @Inject
+    @Override
     public void serveCustomer(final Customer customer) {
         registerModel.removeCustomerWaitLine(customer);
         model.setBalance(model.getBalance() + customer.evaluateBurger(model.getHamburgerOnAssembly(),
@@ -59,10 +59,10 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void startClientThread(final CustomerDifficultyEnum difficulty) {
-        registerModel.startCustomerThread((int) (difficulty.getSpawnIntervalSeconds() +
-        (difficulty.getSpawnIntervalSeconds() * shop.getUpgradeModifier(UpgradeEnum.SLOW_CUSTOMERS))),
-        (int)(difficulty.getCustomerCount() -
-        (difficulty.getCustomerCount() * shop.getUpgradeModifier(UpgradeEnum.LESS_CUSTOMERS))),
+        registerModel.startCustomerThread((int) (difficulty.getSpawnIntervalSeconds()
+        + (difficulty.getSpawnIntervalSeconds() * shop.getUpgradeModifier(UpgradeEnum.SLOW_CUSTOMERS))),
+        (int) (difficulty.getCustomerCount()
+        - (difficulty.getCustomerCount() * shop.getUpgradeModifier(UpgradeEnum.LESS_CUSTOMERS))),
         pantryModel.getUnlockedIngredients().stream().toList());
     }
 

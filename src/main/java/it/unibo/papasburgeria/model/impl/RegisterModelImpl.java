@@ -10,13 +10,15 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
+/**
+ * Models how the customers interact with the register.
+ */
 @Singleton
-public class RegisterModelImpl implements RegisterModel{
-    public static final int MAX_CUSTOMERS = 4;
+public class RegisterModelImpl implements RegisterModel {
     private final Deque<Customer> registerLine = new LinkedList<>();
     private final Deque<Customer> waitLine = new LinkedList<>();
     private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
-    
+
     /**
      * @inheritDoc
      */

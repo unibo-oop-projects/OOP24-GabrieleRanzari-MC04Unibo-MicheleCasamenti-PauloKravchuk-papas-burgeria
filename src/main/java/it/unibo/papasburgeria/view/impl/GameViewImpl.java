@@ -188,10 +188,6 @@ public class GameViewImpl implements GameView {
         for (final Map.Entry<SceneType, BaseScene> entry : sceneMap.entrySet()) {
             final SceneType sceneType = entry.getKey();
             final BaseScene scene = entry.getValue();
-
-            Logger.debug(sceneType);
-            Logger.debug(scene instanceof AbstractBaseView);
-            Logger.debug(scene.getClass().getSimpleName());
             if (scene instanceof AbstractBaseView && !this.mainFrame.getContentPane().isAncestorOf((AbstractBaseView) scene)) {
                 this.views.add((AbstractBaseView) scene);
                 this.mainPanel.add((AbstractBaseView) scene, sceneType.getValue());
@@ -205,7 +201,7 @@ public class GameViewImpl implements GameView {
                 currentView = (AbstractBaseView) scene;
                 currentView.revalidate();
 
-                bottomPanel.setVisible(btnSceneTypes.contains(sceneType));
+                bottomPanel.setVisible(btnSceneTypes.contains(sceneType) && !sceneType.equals(SceneType.MENU));
                 cardLayout.show(mainPanel, sceneType.getValue());
             }
         });
@@ -242,8 +238,11 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void startGame() {
-        if (DEBUG_MODE && this.gameIsRunning) {
-            Logger.warn("The game has already started!");
+        if (this.gameIsRunning) {
+            if (DEBUG_MODE) {
+                Logger.warn("The game has already started!");
+            }
+            return;
         }
 
         this.gameIsRunning = true;

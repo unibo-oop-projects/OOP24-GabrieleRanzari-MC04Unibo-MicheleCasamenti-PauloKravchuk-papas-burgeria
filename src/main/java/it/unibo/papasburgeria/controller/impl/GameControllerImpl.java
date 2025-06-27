@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
+import it.unibo.papasburgeria.view.impl.DayChangeViewImpl;
 import jakarta.inject.Inject;
 import org.tinylog.Logger;
 
@@ -78,6 +79,14 @@ public class GameControllerImpl implements GameController {
     public void nextDay() {
         model.nextDay();
         pantryModel.unlockForDay(model.getCurrentDayNumber());
-        switchToScene("DayChanged");
+        switchToScene(DayChangeViewImpl.VIEW_NAME);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCurrentDayNumber() {
+        return model.getCurrentDayNumber();
     }
 }

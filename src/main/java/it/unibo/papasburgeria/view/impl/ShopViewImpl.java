@@ -278,6 +278,16 @@ public class ShopViewImpl extends AbstractBaseView {
     }
 
     /**
+     * Rebuilds the view.
+     */
+    @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("Shop rebuilt");
+        }
+    }
+
+    /**
      * @inheritDoc
      */
     @Override

@@ -35,16 +35,8 @@ public class DayChangeControllerImpl implements DayChangeController {
      * @inheritDoc
      */
     @Override
-    public int getCurrentDayNumber() {
-        return model.getCurrentDayNumber();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public List<IngredientEnum> getIngredientsUnlockedToday() {
-        final DaysEnum currentDay = DaysEnum.getDay(getCurrentDayNumber());
+        final DaysEnum currentDay = DaysEnum.getDay(model.getCurrentDayNumber());
         if (Objects.isNull(currentDay)) {
             return List.of();
         } else {

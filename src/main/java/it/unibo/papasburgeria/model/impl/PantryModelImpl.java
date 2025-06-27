@@ -26,7 +26,7 @@ public class PantryModelImpl implements PantryModel {
      */
     public PantryModelImpl() {
         resetUnlocks();
-        unlockForDay(START_DAY);
+        unlockForDay(START_DAY.getNumber());
     }
 
     /**

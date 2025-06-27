@@ -33,7 +33,7 @@ class UtilsModule extends AbstractModule {
         boundScenes.addBinding("Grill").to(GrillViewImpl.class);
         boundScenes.addBinding("Menu").to(MenuViewImpl.class);
         boundScenes.addBinding("Shop").to(ShopViewImpl.class);
-        boundScenes.addBinding("DayChanged").to(DayChangeViewImpl.class);
+        boundScenes.addBinding(DayChangeViewImpl.VIEW_NAME).to(DayChangeViewImpl.class);
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);

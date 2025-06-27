@@ -69,9 +69,9 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     /**
      * Default constructor, creates and initializes the GUI elements.
      *
-     * @param resourceService the service that handles resource obtainment.
-     * @param controller      the burger assembly controller.
-     * @param drawingManager  the manager for drawing various things.
+     * @param resourceService the service that handles resource obtainment
+     * @param controller      the burger assembly controller
+     * @param drawingManager  the manager for drawing various things
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService, final BurgerAssemblyController controller,
@@ -168,6 +168,16 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
 
         for (final Sprite sprite : draggablePattySprites) {
             drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("BurgerAssembly rebuilt");
         }
     }
 

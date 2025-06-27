@@ -151,6 +151,16 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      * @inheritDoc
      */
     @Override
+    protected void reset() {
+        if (DEBUG_MODE) {
+            Logger.info("Grill rebuilt");
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void showScene() {
         if (DEBUG_MODE) {
             Logger.info("Grill shown");

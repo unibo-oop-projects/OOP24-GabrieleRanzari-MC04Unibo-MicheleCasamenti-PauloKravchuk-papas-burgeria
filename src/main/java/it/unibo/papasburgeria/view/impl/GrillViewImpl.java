@@ -148,6 +148,8 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void showScene() {
+        draggablePattiesOnGrill.clear();
+        draggableCookedPatties.clear();
         if (DEBUG_MODE) {
             Logger.info("Grill shown");
         }

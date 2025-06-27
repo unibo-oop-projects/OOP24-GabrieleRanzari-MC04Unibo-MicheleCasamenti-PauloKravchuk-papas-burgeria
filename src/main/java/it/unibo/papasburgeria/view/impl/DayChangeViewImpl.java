@@ -58,9 +58,7 @@ public class DayChangeViewImpl extends AbstractBaseView {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    private final transient ResourceService resourceService;
-    private final transient GameController gameController;
-    private final transient DayChangeController controller;
+
 
     /**
      * Default constructor, creates and initializes the GUI elements.
@@ -72,56 +70,14 @@ public class DayChangeViewImpl extends AbstractBaseView {
     @Inject
     public DayChangeViewImpl(final ResourceService resourceService, final GameController gameController,
                              final DayChangeController controller) {
-        this.resourceService = resourceService;
-        this.gameController = gameController;
-        this.controller = controller;
 
         super.setStaticBackgroundImage(resourceService.getImage("day_change_background.png"));
 
-        resetIfNeeded(gameController.getCurrentDayNumber());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    void update(final double delta) {
-
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    void paintComponentDelegate(final Graphics g) {
-
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void showScene() {
-        this.resetIfNeeded(gameController.getCurrentDayNumber());
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void hideScene() {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    protected void reset() {
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.removeAll();
         interfacePanel.setLayout(new ScalableLayoutImpl());
 
-        final JLabel dayLabel = new JLabel("Current Day: " + gameController.getCurrentDayNumber());
+        final JLabel dayLabel = new JLabel("Current Day: " + controller.getCurrentDayNumber());
         dayLabel.setFont(DEFAULT_FONT);
         interfacePanel.add(
                 dayLabel,
@@ -180,5 +136,43 @@ public class DayChangeViewImpl extends AbstractBaseView {
                         new ScaleImpl(NEW_DAY_BUTTON_ORIGIN)
                 )
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    void update(final double delta) {
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    void paintComponentDelegate(final Graphics g) {
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void showScene() {
+        reset();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void hideScene() {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    private void reset() {
+
     }
 }

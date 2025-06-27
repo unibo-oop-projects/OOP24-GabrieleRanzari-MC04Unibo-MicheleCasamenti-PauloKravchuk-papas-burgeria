@@ -171,16 +171,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @inheritDoc
      */
     @Override
-    protected void reset() {
-        if (DEBUG_MODE) {
-            Logger.info("BurgerAssembly rebuilt");
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void showScene() {
         if (DEBUG_MODE) {
             Logger.info("BurgerAssembly shown");

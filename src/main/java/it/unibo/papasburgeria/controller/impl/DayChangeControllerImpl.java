@@ -43,4 +43,14 @@ public class DayChangeControllerImpl implements DayChangeController {
             return List.copyOf(UNLOCK_SCHEDULE.get(currentDay));
         }
     }
+
+    /**
+     * Returns the current day number.
+     *
+     * @return the day number
+     */
+    @Override
+    public int getCurrentDayNumber() {
+        return model.getCurrentDay();
+    }
 }

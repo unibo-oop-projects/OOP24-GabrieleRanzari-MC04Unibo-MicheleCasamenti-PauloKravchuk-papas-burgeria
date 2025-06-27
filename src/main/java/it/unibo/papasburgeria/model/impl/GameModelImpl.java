@@ -54,6 +54,9 @@ public class GameModelImpl implements GameModel {
             throw new IllegalStateException("Cannot advance beyond day " + MAX_DAYS);
         } else {
             currentDay++;
+            hamburgerOnAssembly = new HamburgerImpl();
+            pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+            cookedPatties = new ArrayList<>();
         }
     }
 

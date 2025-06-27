@@ -79,13 +79,6 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * Rebuilds the view.
-     */
-    @Override
-    protected void reset() {
-    }
-
-    /**
      * @inheritDoc
      */
     @Override

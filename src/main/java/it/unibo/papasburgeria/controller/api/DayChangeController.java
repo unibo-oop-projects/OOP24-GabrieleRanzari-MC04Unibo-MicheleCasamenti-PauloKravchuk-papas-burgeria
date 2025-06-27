@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Manages the interaction between the View and the Model for the day change scene.
  */
-@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface DayChangeController {
     /**
      * Returns the list of ingredient types unlocked today.
@@ -15,4 +14,11 @@ public interface DayChangeController {
      * @return list of ingredient types
      */
     List<IngredientEnum> getIngredientsUnlockedToday();
+
+    /**
+     * Returns the current day number.
+     *
+     * @return the day number
+     */
+    int getCurrentDayNumber();
 }

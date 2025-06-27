@@ -28,9 +28,7 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     private static final long serialVersionUID = 1L;
     private final JLabel staticBackground; // static background layer
     private final JPanel gamePanel; // layer that gets repainted
-    private final JPanel interfacePanel; // static interface layer
-
-    private int lastDayRefreshed = Integer.MIN_VALUE;
+    private final JPanel interfacePanel; // static interface layer;
 
     private Image backgroundImage;
 
@@ -143,21 +141,4 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
 
         this.backgroundImage = imageIcon;
     }
-
-    /**
-     * Rebuilds the view if the view is not up to date.
-     *
-     * @param currentDay the current day number
-     */
-    protected final void resetIfNeeded(final int currentDay) {
-        if (this.lastDayRefreshed != currentDay) {
-            this.reset();
-            this.lastDayRefreshed = currentDay;
-        }
-    }
-
-    /**
-     * Rebuilds the view.
-     */
-    protected abstract void reset();
 }

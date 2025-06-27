@@ -187,14 +187,4 @@ public class RegisterViewImpl extends AbstractBaseView {
     void paintComponentDelegate(final Graphics g) {
 
     }
-
-    /**
-     * Rebuilds the view.
-     */
-    @Override
-    protected void reset() {
-        if (DEBUG_MODE) {
-            Logger.info("RegisterView rebuilt");
-        }
-    }
 }

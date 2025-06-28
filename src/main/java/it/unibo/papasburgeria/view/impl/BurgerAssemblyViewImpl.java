@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
@@ -14,23 +15,23 @@ import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
-import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
-import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
 import org.tinylog.Logger;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.IngredientEnum.SAUCES;
+import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.BOTTLE_EXTENSION;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.EXTENSION;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
@@ -46,6 +47,7 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ING
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.31;
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.55;
+    public static final double HALF_RANGE = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
     public static final double HAMBURGER_X_POS_SCALE =
             (MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER + MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
     public static final double HAMBURGER_Y_POS_SCALE = 0.71;
@@ -66,10 +68,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private static final long serialVersionUID = 1L;
     private final transient BurgerAssemblyController controller;
     private final transient DrawingManagerImpl drawingManager;
+    private final transient GameController gameController;
     private final transient List<Sprite> sprites;
     private final transient List<Sprite> draggableSprites;
     private final transient List<Sprite> draggablePattySprites;
     private final transient List<Sprite> draggableHamburgerSprites;
+    private final transient List<Sprite> orderSprites;
+    private final transient Map<Sprite, Order> spriteOrders;
 
     /**
      * Default constructor, creates and initializes the GUI elements.
@@ -86,27 +91,20 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                                   final GameController gameController) {
         this.controller = controller;
         this.drawingManager = drawingManager;
+        this.gameController = gameController;
         sprites = new ArrayList<>();
         draggableSprites = new ArrayList<>();
         draggablePattySprites = new ArrayList<>();
         draggableHamburgerSprites = new ArrayList<>();
+        orderSprites = new ArrayList<>();
+        spriteOrders = new HashMap<>();
+
+        readOrders();
 
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
 
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.setLayout(new ScalableLayoutImpl());
-
-        final JButton shopButton = new JButton("Shop");
-        shopButton.setBackground(DEFAULT_BACKGROUND_COLOR);
-        shopButton.addActionListener(e -> gameController.switchToScene(SceneType.SHOP));
-        interfacePanel.add(
-                shopButton,
-                new ScaleConstraintImpl(
-                        new ScaleImpl(ScaleConstraintImpl.QUARTER, ScaleConstraintImpl.EIGHTH),
-                        new ScaleImpl(ScaleConstraintImpl.HALF + ScaleConstraintImpl.QUARTER, ScaleConstraintImpl.EIGHTH),
-                        ScaleConstraintImpl.ORIGIN_CENTER
-                )
-        );
 
         double pbPositionXScale = INGREDIENTS_X_POS_SCALE;
         double pbPositionYScale = INGREDIENTS_Y_POS_SCALE;
@@ -167,8 +165,13 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
-        final List<Ingredient> hamburgerIngredients = controller.getIngredients();
-        drawingManager.drawHamburger(hamburgerIngredients, getSize(), draggableHamburgerSprites, graphics);
+        for (final Sprite sprite : orderSprites) {
+            final Order order = spriteOrders.get(sprite);
+            drawingManager.drawOrder(sprite, order, getSize(), graphics);
+        }
+
+        drawingManager.drawHamburger(controller.getHamburgerOnAssembly(), getSize(), HALF_RANGE, HAMBURGER_Y_POS_SCALE,
+                draggableHamburgerSprites, graphics);
 
         final List<Patty> cookedPatties = controller.getCookedPatties();
         drawingManager.generateCookedPatties(cookedPatties, PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, draggablePattySprites);
@@ -195,6 +198,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void showScene() {
+        readOrders();
+
         draggablePattySprites.clear();
         draggableHamburgerSprites.clear();
         final List<IngredientEnum> unlockedIngredients = controller.getUnlockedIngredients();
@@ -259,6 +264,12 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                     controller.removeCookedPatty(patty);
                     draggablePattySprites.clear();
                 }
+                if (ingredient.getIngredientType().equals(TOP_BUN)) {
+                    draggableHamburgerSprites.clear();
+                    draggablePattySprites.remove(sprite);
+                    draggableSprites.remove(sprite);
+                    gameController.switchToScene(SceneType.ORDER_SELECTION);
+                }
             }
         }
         draggableHamburgerSprites.clear();
@@ -281,5 +292,15 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void spritePressed(final Sprite sprite) {
+    }
+
+    /**
+     * Creates the sprites for the orders stored in the model.
+     */
+    private void readOrders() {
+        final List<Order> orders = controller.getOrders();
+        orderSprites.clear();
+        spriteOrders.clear();
+        drawingManager.generateOrderSprites(orders, orderSprites, spriteOrders);
     }
 }

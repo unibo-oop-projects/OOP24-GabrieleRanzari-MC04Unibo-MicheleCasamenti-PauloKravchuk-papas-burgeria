@@ -13,4 +13,18 @@ public interface Order {
      * @return the maximum time given for the hamburger's assembly.
      */
     float getMaxTime();
+
+    /**
+     * Return the order number.
+     *
+     * @return the order number
+     */
+    int getOrderNumber();
+
+    /**
+     * Return a copy of this order.
+     *
+     * @return the copy
+     */
+    Order copyOf();
 }

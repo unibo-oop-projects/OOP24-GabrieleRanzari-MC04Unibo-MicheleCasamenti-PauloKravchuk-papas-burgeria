@@ -1,12 +1,14 @@
 package it.unibo.papasburgeria.view.api.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.Hamburger;
+import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Manages the drawing of varius things.
@@ -18,19 +20,25 @@ public interface DrawingManager {
      * @param patty            the patty
      * @param pbPositionXScale the x position in scale
      * @param pbPositionYScale the y position in scale
+     * @param pbSizeXScale     the x size in scale
+     * @param pbSizeYScale     the y size in scale
      * @return the sprite
      */
-    Sprite generatePattySprite(Patty patty, double pbPositionXScale, double pbPositionYScale);
+    Sprite generatePattySprite(Patty patty, double pbPositionXScale, double pbPositionYScale,
+                               double pbSizeXScale, double pbSizeYScale);
 
     /**
      * Draws the hamburger.
      *
-     * @param hamburgerIngredients      the list of ingredients of the hamburger
+     * @param hamburger                 the hamburger to draw
      * @param frameSize                 the sizes of the frame
+     * @param bottomBunXPosScale        the x position considered the center of the hamburger
+     * @param bottomBunYPosScale        the y position of the bottom bun of the hamburger
      * @param draggableHamburgerSprites the list of draggable sprites of the hamburger
      * @param graphics                  the graphics
      */
-    void drawHamburger(List<Ingredient> hamburgerIngredients, Dimension frameSize,
+    void drawHamburger(Hamburger hamburger, Dimension frameSize,
+                       double bottomBunXPosScale, double bottomBunYPosScale,
                        List<Sprite> draggableHamburgerSprites, Graphics graphics);
 
     /**
@@ -42,6 +50,16 @@ public interface DrawingManager {
      * @param graphics            the graphics
      */
     void drawIngredient(Sprite sprite, Dimension frameSize, List<IngredientEnum> unlockedIngredients, Graphics graphics);
+
+    /**
+     * Draws an order.
+     *
+     * @param sprite    the sprite to draw
+     * @param order     the order to draw
+     * @param frameSize the sizes of the frame
+     * @param graphics  the graphics
+     */
+    void drawOrder(Sprite sprite, Order order, Dimension frameSize, Graphics graphics);
 
     /**
      * Generates the sprites for the cooked patties.
@@ -63,10 +81,20 @@ public interface DrawingManager {
     void generatePattiesOnGrill(Patty[][] pattiesOnGrill, List<Sprite> draggablePattiesOnGrill);
 
     /**
+     * Generates the sprites for the orders.
+     *
+     * @param orders                the list of orders
+     * @param draggableOrderSprites the list of draggable orders
+     * @param spriteOrders          the map of orders for every sprite
+     */
+    void generateOrderSprites(List<Order> orders, List<Sprite> draggableOrderSprites, Map<Sprite, Order> spriteOrders);
+
+    /**
      * calculates the x position in scale given the accuracy.
      *
-     * @param accuracy the placement accuracy of the ingredient
+     * @param accuracy  the placement accuracy of the ingredient
+     * @param halfRange the x position to be centered
      * @return the x position in scale
      */
-    double getPositionXScaleFromAccuracy(double accuracy);
+    double getPositionXScaleFromAccuracy(double accuracy, double halfRange);
 }

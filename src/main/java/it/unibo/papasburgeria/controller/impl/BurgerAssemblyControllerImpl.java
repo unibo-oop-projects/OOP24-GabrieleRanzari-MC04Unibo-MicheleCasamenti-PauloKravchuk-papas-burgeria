@@ -8,14 +8,19 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.impl.HamburgerImpl;
+import it.unibo.papasburgeria.model.impl.OrderImpl;
 import org.tinylog.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.MAX_COOKED_PATTIES;
+import static it.unibo.papasburgeria.model.impl.HamburgerImpl.MAX_INGREDIENTS;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
@@ -30,6 +35,7 @@ import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_
 public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     private final GameModel model;
     private final PantryModel pantryModel;
+    private final List<Order> ordersTemp;
 
     /**
      * Default constructor that saves the game model and the pantryModel given via injection.
@@ -41,6 +47,18 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     public BurgerAssemblyControllerImpl(final GameModel model, final PantryModel pantryModel) {
         this.model = model;
         this.pantryModel = pantryModel;
+
+        ordersTemp = new ArrayList<>(); // TODO remove
+        final int maxOrders = 4;
+        for (int index = 0; index < maxOrders; index++) {
+            final List<Ingredient> ingredients =
+                    HamburgerImpl.generateRandomHamburger(List.of(IngredientEnum.values())).getIngredients();
+            final List<IngredientEnum> ingredientEnums = new ArrayList<>(ingredients.size());
+            for (final Ingredient ingredient : ingredients) {
+                ingredientEnums.add(ingredient.getIngredientType());
+            }
+            ordersTemp.add(new OrderImpl(ingredientEnums, index + 1));
+        }
     }
 
     /**
@@ -52,6 +70,10 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
         final Hamburger hamburger = model.getHamburgerOnAssembly();
         if (DEBUG_MODE) {
             ingredientDescription = "Ingredient (" + ingredient.getIngredientType().getName() + ") ";
+            if (model.getHamburgerOnAssembly().getIngredients().size() == MAX_INGREDIENTS) {
+                Logger.error(ingredientDescription + "can't be added, too many ingredients");
+                return false;
+            }
         }
 
         if (hamburger.addIngredient(ingredient)) {
@@ -107,8 +129,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * @inheritDoc
      */
     @Override
-    public List<Ingredient> getIngredients() {
-        return List.copyOf(model.getHamburgerOnAssembly().getIngredients());
+    public Hamburger getHamburgerOnAssembly() {
+        return model.getHamburgerOnAssembly().copyOf();
     }
 
     /**
@@ -178,6 +200,22 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     @Override
     public List<IngredientEnum> getUnlockedIngredients() {
         return List.copyOf(pantryModel.getUnlockedIngredients());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public List<Order> getOrders() {
+        /*
+        final List<Customer> waitingCustomers = registerModel.getWaitLine();
+        final List<Order> orders = new ArrayList<>();
+        for (final Customer waitingCustomer : waitingCustomers) {
+            orders.add(waitingCustomer.getOrder());
+        }
+        return new ArrayList<>(orders);
+        */
+        return new ArrayList<>(ordersTemp); //TODO Remove
     }
 
     /**

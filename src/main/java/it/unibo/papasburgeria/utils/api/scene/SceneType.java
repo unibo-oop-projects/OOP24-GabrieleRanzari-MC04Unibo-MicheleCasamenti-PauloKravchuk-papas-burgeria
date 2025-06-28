@@ -9,7 +9,8 @@ public enum SceneType {
     GRILL("Grill"),
     MENU("Menu"),
     SHOP("Shop"),
-    DAY_CHANGE("DayChange");
+    DAY_CHANGE("DayChange"),
+    ORDER_SELECTION("OrderSelection");
 
     private final String value;
 

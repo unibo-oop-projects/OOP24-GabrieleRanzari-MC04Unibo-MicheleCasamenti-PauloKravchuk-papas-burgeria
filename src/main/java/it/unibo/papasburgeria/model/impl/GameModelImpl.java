@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
+import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class GameModelImpl implements GameModel {
     private Hamburger hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
     private List<Patty> cookedPatties;
+    private Order selectedOrder;
     private int currentDay;
 
     /**
@@ -42,6 +44,7 @@ public class GameModelImpl implements GameModel {
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
+        selectedOrder = null;
         balance = STARTING_BALANCE;
     }
 
@@ -153,6 +156,22 @@ public class GameModelImpl implements GameModel {
     @Override
     public void setBalance(final int amount) {
         this.balance = amount;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Order getSelectedOrder() {
+        return selectedOrder.copyOf();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setSelectedOrder(final Order order) {
+        selectedOrder = order;
     }
 
     /**

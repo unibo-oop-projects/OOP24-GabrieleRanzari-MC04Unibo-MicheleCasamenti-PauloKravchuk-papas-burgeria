@@ -2,6 +2,8 @@ package it.unibo.papasburgeria.model.api;
 
 import it.unibo.papasburgeria.model.UpgradeEnum;
 
+import java.util.Map;
+
 /**
  * models how the shop should function.
  */
@@ -39,4 +41,11 @@ public interface Shop {
      * @return true if the upgrade is unlocked, false otherwise
      */
     boolean isUpgradeUnlocked(UpgradeEnum upgrade);
+
+    /**
+     * Used to obtain a copy of the current upgrades status.
+     *
+     * @return map copy instance
+     */
+    Map<UpgradeEnum, Boolean> getUpgrades();
 }

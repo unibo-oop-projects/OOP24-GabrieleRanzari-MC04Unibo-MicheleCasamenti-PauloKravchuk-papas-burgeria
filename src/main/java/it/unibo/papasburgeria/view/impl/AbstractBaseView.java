@@ -21,6 +21,7 @@ import java.io.Serial;
  */
 abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0, 0);
+    static final Color SHADOW_OVERLAY_COLOR = new Color(0, 0, 0, 128);
     static final Color DEFAULT_BUTTON_BACKGROUND_COLOR = new Color(40, 122, 33);
     static final Color DEFAULT_BUTTON_TEXT_COLOR = Color.WHITE;
 

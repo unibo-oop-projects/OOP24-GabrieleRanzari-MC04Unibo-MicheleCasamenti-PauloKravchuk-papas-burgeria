@@ -1,8 +1,11 @@
 package it.unibo.papasburgeria.controller.impl;
 
+<<<<<<< Updated upstream
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+=======
+>>>>>>> Stashed changes
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.CustomerController;
@@ -10,9 +13,11 @@ import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
+import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.Shop;
+
+import java.util.List;
 
 /**
  * @inheritDoc
@@ -27,10 +32,10 @@ public class CustomerControllerImpl implements CustomerController {
 
     @Inject
     CustomerControllerImpl(
-        final GameModel model,
-        final Shop shop,
-        final RegisterModel registerModel,
-        final PantryModel pantryModel) {
+            final GameModel model,
+            final Shop shop,
+            final RegisterModel registerModel,
+            final PantryModel pantryModel) {
         this.model = model;
         this.shop = shop;
         this.registerModel = registerModel;
@@ -94,10 +99,10 @@ public class CustomerControllerImpl implements CustomerController {
         }
 
         registerModel.startCustomerThread((int) (difficulty.getSpawnIntervalSeconds()
-        + (difficulty.getSpawnIntervalSeconds() * shop.getUpgradeModifier(UpgradeEnum.SLOW_CUSTOMERS))),
-        (int) (difficulty.getCustomerCount()
-        - (difficulty.getCustomerCount() * shop.getUpgradeModifier(UpgradeEnum.LESS_CUSTOMERS))),
-        pantryModel.getUnlockedIngredients().stream().toList());
+                        + (difficulty.getSpawnIntervalSeconds() * shop.getUpgradeModifier(UpgradeEnum.SLOW_CUSTOMERS))),
+                (int) (difficulty.getCustomerCount()
+                        - (difficulty.getCustomerCount() * shop.getUpgradeModifier(UpgradeEnum.LESS_CUSTOMERS))),
+                pantryModel.getUnlockedIngredients().stream().toList());
     }
 
     /**

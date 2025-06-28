@@ -80,4 +80,12 @@ public class ShopImpl implements Shop {
     public boolean isUpgradeUnlocked(final UpgradeEnum upgrade) {
         return upgrades.get(upgrade);
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public Map<UpgradeEnum, Boolean> getUpgrades() {
+        return new EnumMap<>(upgrades);
+    }
 }

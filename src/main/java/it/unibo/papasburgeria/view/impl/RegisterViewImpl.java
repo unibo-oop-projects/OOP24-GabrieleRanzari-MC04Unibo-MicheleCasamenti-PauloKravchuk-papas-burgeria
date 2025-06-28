@@ -3,6 +3,7 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.CustomerController;
+<<<<<<< Updated upstream
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
@@ -10,6 +11,9 @@ import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+=======
+import org.tinylog.Logger;
+>>>>>>> Stashed changes
 
 import java.awt.Graphics;
 import java.io.IOException;
@@ -24,7 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.tinylog.Logger;
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Register view.

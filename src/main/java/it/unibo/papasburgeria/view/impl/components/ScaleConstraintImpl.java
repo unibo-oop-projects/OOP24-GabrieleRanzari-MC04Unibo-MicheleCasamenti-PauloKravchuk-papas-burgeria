@@ -18,7 +18,11 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     public static final double HALF = 0.5;
     public static final double QUARTER = 0.25;
     public static final double EIGHTH = 0.125;
+<<<<<<< Updated upstream
     public static final double SIXTEENTH = 0.0625;
+=======
+    public static final double THIRD = 0.333_333;
+>>>>>>> Stashed changes
     public static final double ZERO = 0.0;
 
     public static final Scale SIZE_FULL = new ScaleImpl(FULL, FULL);

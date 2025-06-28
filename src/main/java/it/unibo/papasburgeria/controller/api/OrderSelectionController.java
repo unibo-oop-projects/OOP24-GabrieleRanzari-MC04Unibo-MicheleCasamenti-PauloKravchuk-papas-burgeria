@@ -18,13 +18,6 @@ public interface OrderSelectionController {
     List<Order> getOrders();
 
     /**
-     * TEST Returns the list of active orders.
-     *
-     * @return TEST the list of orders
-     */
-    List<Order> testGetOrders();
-
-    /**
      * Returns the hamburger on assembly.
      *
      * @return the hamburger

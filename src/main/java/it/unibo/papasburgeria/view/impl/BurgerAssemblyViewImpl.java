@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
@@ -23,7 +24,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
@@ -70,6 +73,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private final transient List<Sprite> draggableSprites;
     private final transient List<Sprite> draggablePattySprites;
     private final transient List<Sprite> draggableHamburgerSprites;
+    private final transient List<Sprite> orderSprites;
+    private final transient Map<Sprite, Order> spriteOrders;
 
     /**
      * Default constructor, creates and initializes the GUI elements.
@@ -91,6 +96,10 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         draggableSprites = new ArrayList<>();
         draggablePattySprites = new ArrayList<>();
         draggableHamburgerSprites = new ArrayList<>();
+        orderSprites = new ArrayList<>();
+        spriteOrders = new HashMap<>();
+
+        readOrders();
 
         super.setStaticBackgroundImage(resourceService.getImage("assembly_background.png"));
 
@@ -156,6 +165,11 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
+        for (final Sprite sprite : orderSprites) {
+            final Order order = spriteOrders.get(sprite);
+            drawingManager.drawOrder(sprite, order, getSize(), graphics);
+        }
+
         drawingManager.drawHamburger(controller.getHamburgerOnAssembly(), getSize(), HALF_RANGE, HAMBURGER_Y_POS_SCALE,
                 draggableHamburgerSprites, graphics);
 
@@ -184,6 +198,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void showScene() {
+        readOrders();
+
         draggablePattySprites.clear();
         draggableHamburgerSprites.clear();
         final List<IngredientEnum> unlockedIngredients = controller.getUnlockedIngredients();
@@ -276,5 +292,15 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void spritePressed(final Sprite sprite) {
+    }
+
+    /**
+     * Creates the sprites for the orders stored in the model.
+     */
+    private void readOrders() {
+        final List<Order> orders = controller.getOrders();
+        orderSprites.clear();
+        spriteOrders.clear();
+        drawingManager.generateOrderSprites(orders, orderSprites, spriteOrders);
     }
 }

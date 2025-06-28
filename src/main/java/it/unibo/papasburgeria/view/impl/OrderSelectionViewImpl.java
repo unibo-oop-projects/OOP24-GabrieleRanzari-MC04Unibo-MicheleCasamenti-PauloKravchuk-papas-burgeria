@@ -176,10 +176,10 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * Creates the sprites for the orders in the model.
+     * Creates the sprites for the orders stored in the model.
      */
     private void readOrders() {
-        final List<Order> orders = controller.testGetOrders();
+        final List<Order> orders = controller.getOrders();
         draggableOrderSprites.clear();
         spriteOrders.clear();
         drawingManager.generateOrderSprites(orders, draggableOrderSprites, spriteOrders);

@@ -130,6 +130,6 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public void takeOrderFromCustomer(final Customer customer) {
         registerModel.removeCustomerRegisterLine(customer);
-        registerModel.pushCustomerWaitLine(customer);
+        registerModel.addCustomerWaitLine(customer);
     }
 }

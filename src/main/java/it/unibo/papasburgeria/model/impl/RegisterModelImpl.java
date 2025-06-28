@@ -1,6 +1,5 @@
 package it.unibo.papasburgeria.model.impl;
 
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,8 +14,8 @@ import it.unibo.papasburgeria.model.api.RegisterModel;
  */
 @Singleton
 public class RegisterModelImpl implements RegisterModel {
-    private final Deque<Customer> registerLine = new LinkedList<>();
-    private final Deque<Customer> waitLine = new LinkedList<>();
+    private final List<Customer> registerLine = new LinkedList<>();
+    private final List<Customer> waitLine = new LinkedList<>();
     private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
 
     /**
@@ -45,19 +44,9 @@ public class RegisterModelImpl implements RegisterModel {
      * @inheritDoc
      */
     @Override
-    public Customer popCustomerRegisterLine() {
-        final Customer customer = registerLine.pop();
-        customer.setInRegisterLine(false);
-        return customer;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void pushCustomerRegisterLine(final Customer customer) {
+    public void addCustomerRegisterLine(final Customer customer) {
         customer.setInRegisterLine(true);
-        registerLine.push(customer);
+        registerLine.add(customer);
     }
 
     /**
@@ -73,19 +62,9 @@ public class RegisterModelImpl implements RegisterModel {
      * @inheritDoc
      */
     @Override
-    public Customer popCustomerWaitLine() {
-        final Customer customer = waitLine.pop();
-        customer.setInWaitLine(false);
-        return customer;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public void pushCustomerWaitLine(final Customer customer) {
+    public void addCustomerWaitLine(final Customer customer) {
         customer.setInWaitLine(true);
-        waitLine.push(customer);
+        waitLine.add(customer);
     }
 
     /**

@@ -46,10 +46,10 @@ public class RegisterViewImpl extends AbstractBaseView {
     private static final double CUSTOMER_WIDTH = 0.1;
     private static final double CUSTOMER_HEIGHT = 0.5;
 
-    private static final double[] REGISTER_X_POSITION = {0.1, 0.25, 0.4, 0.55, 0.70};
+    private static final double[] REGISTER_X_POSITION = {0.1, 0.3, 0.5, 0.7, 0.9};
     private static final double REGISTER_Y_POSITION = 0.4;
 
-    private static final double[] WAIT_X_POSITION = {0.2, 0.35, 0.5, 0.65, 0.80};
+    private static final double[] WAIT_X_POSITION = {0.2, 0.4, 0.6, 0.8, 1.0};
     private static final double WAIT_Y_POSITION = 0.2;
 
     private static final double TAKE_ORDER_WIDTH = 0.1;
@@ -200,7 +200,6 @@ public class RegisterViewImpl extends AbstractBaseView {
             }
             panel.repaint();
         }
-
         panel.repaint();
         panel.getParent().repaint();
     }

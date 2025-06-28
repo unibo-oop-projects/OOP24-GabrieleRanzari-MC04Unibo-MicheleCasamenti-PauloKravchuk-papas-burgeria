@@ -22,14 +22,9 @@ public interface RegisterModel {
     void killCustomerThread();
 
     /**
-     * @return first customer of register line.
-     */
-    Customer popCustomerRegisterLine();
-
-    /**
      * @param customer Customer added to end of register line.
      */
-    void pushCustomerRegisterLine(Customer customer);
+    void addCustomerRegisterLine(Customer customer);
 
     /**
      * @param customer Customer added to end of register line.
@@ -37,14 +32,9 @@ public interface RegisterModel {
     void removeCustomerRegisterLine(Customer customer);
 
     /**
-     * @return first customer of wait line.
-     */
-    Customer popCustomerWaitLine();
-
-    /**
      * @param customer Customer added to end of wait line.
      */
-    void pushCustomerWaitLine(Customer customer);
+    void addCustomerWaitLine(Customer customer);
 
     /**
      * @param customer Customer removed from wait line.

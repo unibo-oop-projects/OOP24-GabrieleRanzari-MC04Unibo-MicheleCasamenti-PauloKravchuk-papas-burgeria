@@ -4,11 +4,11 @@ package it.unibo.papasburgeria.model;
  * defines the amount of enemies arriving per day.
  */
 public enum CustomerDifficultyEnum {
-    FIRST(3, 80),
-    SECOND(5, 80),
-    THIRD(8, 70),
-    FORTH(11, 60),
-    FIFTH(14, 50);
+    FIRST(3, 30),
+    SECOND(5, 30),
+    THIRD(8, 25),
+    FORTH(11, 25),
+    FIFTH(14, 20);
 
     private final int customerCount;
     private final int customerSpawnInterval;

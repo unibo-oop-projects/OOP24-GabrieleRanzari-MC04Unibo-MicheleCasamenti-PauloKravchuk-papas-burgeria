@@ -38,7 +38,7 @@ class CustomerThread extends Thread {
     @Override
     public void run() {
         if (DEBUG_MODE) {
-            Logger.debug("Customer thread started");
+            Logger.info("Customer thread started");
         }
         int generatedCustomers = 0;
         while (!currentThread().isInterrupted()) {
@@ -46,7 +46,10 @@ class CustomerThread extends Thread {
                 if (generatedCustomers >= customerAmount) {
                     interrupt();
                 } else {
-                    model.pushCustomerRegisterLine(new CustomerImpl(unlockedIngredients, generatedCustomers + 1));
+                    if (DEBUG_MODE) {
+                        Logger.info("Customer has arrived");
+                    }
+                    model.addCustomerRegisterLine(new CustomerImpl(unlockedIngredients, generatedCustomers + 1));
                     generatedCustomers++;
                     sleep(intervalMilliSeconds);
                 }
@@ -55,7 +58,7 @@ class CustomerThread extends Thread {
             }
         }
         if (DEBUG_MODE) {
-            Logger.debug("Customer thread terminated");
+            Logger.info("Customer thread terminated");
         }
     }
 }

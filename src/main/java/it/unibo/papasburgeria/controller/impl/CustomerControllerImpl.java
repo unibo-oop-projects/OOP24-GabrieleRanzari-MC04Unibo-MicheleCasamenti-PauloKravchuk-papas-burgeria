@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.controller.impl;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -18,6 +19,7 @@ import it.unibo.papasburgeria.model.api.Shop;
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
+    private static final double DEFAULT_TIP = 0.05;
     private final GameModel model;
     private final Shop shop;
     private final RegisterModel registerModel;
@@ -41,9 +43,18 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public void serveCustomer(final Customer customer) {
         registerModel.removeCustomerWaitLine(customer);
-        model.setBalance(model.getBalance() + customer.evaluateBurger(model.getHamburgerOnAssembly(),
+        final int payment = customer.evaluateBurger(model.getHamburgerOnAssembly(),
                 shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE),
-                shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE)));
+                shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE));
+        int tip = 0;
+        if (ThreadLocalRandom.current().nextDouble() <= shop.getUpgradeModifier(UpgradeEnum.CUSTOMER_TIP)) {
+            if (shop.isUpgradeUnlocked(UpgradeEnum.CUSTOMER_MORE_TIP)) {
+                tip = (int) (payment * shop.getUpgradeModifier(UpgradeEnum.CUSTOMER_MORE_TIP));
+            } else {
+                tip = (int) (payment * DEFAULT_TIP);
+            }
+        }
+        model.setBalance(model.getBalance() + payment + tip);
     }
 
     /**
@@ -75,15 +86,17 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @return the register line
+     * @inheritDoc
      */
+    @Override
     public List<Customer> getRegisterLine() {
         return registerModel.getRegisterLine();
     }
 
     /**
-     * @return the wait line
+     * @inheritDoc
      */
+    @Override
     public List<Customer> getWaitLine() {
         return registerModel.getWaitLine();
     }

@@ -7,6 +7,9 @@ import org.tinylog.Logger;
 
 import java.util.List;
 
+/**
+ * defines a thread which adds the customers to the first line periodically.
+ */
 class CustomerThread extends Thread {
     private final Long intervalMilliSeconds;
     private final int customerAmount;
@@ -27,8 +30,12 @@ class CustomerThread extends Thread {
         this.model = model;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public void run() {
+        Logger.debug("Customer thread started");
         int generatedCustomers = 0;
         while (!currentThread().isInterrupted()) {
             try {
@@ -40,8 +47,9 @@ class CustomerThread extends Thread {
                     sleep(intervalMilliSeconds);
                 }
             } catch (final InterruptedException e) {
-                Logger.debug("sleep() did not work");
+                interrupt();
             }
         }
+        Logger.debug("Customer thread terminated");
     }
 }

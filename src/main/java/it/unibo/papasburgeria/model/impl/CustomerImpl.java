@@ -7,13 +7,21 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Order;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Customers in the game. They generate orders and evaluate Burgers.
  */
 public class CustomerImpl implements Customer {
     public static final int MAX_PAYMENT = 50;
+    public static final int EXISTING_SKIN_TYPES = 9;
     private final Order order;
+    private boolean inRegisterLine;
+    private boolean inWaitLine;
+    private boolean walkedIn;
+
+    /*just a 0-9 value used to indicate the customer's appearance */
+    private final int skinType;
 
     /**
      * @param availableIngredients list containing all available ingredients
@@ -21,6 +29,7 @@ public class CustomerImpl implements Customer {
      */
     public CustomerImpl(final List<IngredientEnum> availableIngredients, final int orderNumber) {
         order = new OrderImpl(availableIngredients, orderNumber);
+        skinType = ThreadLocalRandom.current().nextInt(EXISTING_SKIN_TYPES);
     }
 
     /**
@@ -86,6 +95,62 @@ public class CustomerImpl implements Customer {
          * MAX * difficulty% * similarity% * placement%
          */
         return (int) (MAX_PAYMENT * difficultyPercentage * similarityPercentage * placementPercentage);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getSkinType() {
+        return skinType;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isInRegisterLine() {
+        return inRegisterLine;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isInWaitLine() {
+        return inWaitLine;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean hasWalkedIn() {
+        return walkedIn;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setInRegisterLine(final boolean setFlag) {
+        this.inRegisterLine = setFlag;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setInWaitLine(final boolean setFlag) {
+        this.inWaitLine = setFlag;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setWalkedIn(final boolean setFlag) {
+        this.walkedIn = setFlag;
     }
 
     /**

@@ -37,4 +37,9 @@ public interface OrderSelectionController {
      * @param order the selected order
      */
     void setSelectedOrder(Order order);
+
+    /**
+     * Removes the top bun from the hamburger on assembly.
+     */
+    void removeTopBun();
 }

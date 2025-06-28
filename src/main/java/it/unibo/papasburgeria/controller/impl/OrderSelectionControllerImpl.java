@@ -41,7 +41,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
         hamburger = HamburgerImpl.generateRandomHamburger(List.of(IngredientEnum.values()));
 
         ordersTemp = new ArrayList<>();
-        final int maxOrders = 4;
+        final int maxOrders = 2;
         for (int index = 0; index < maxOrders; index++) {
             final List<Ingredient> ingredients = HamburgerImpl.generateRandomHamburger(
                     List.of(IngredientEnum.values())).getIngredients();
@@ -81,8 +81,8 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
      */
     @Override
     public Hamburger getHamburger() {
-        return hamburger.copyOf();
-        // return model.getHamburgerOnAssembly().copyOf();
+         //return hamburger.copyOf();
+         return model.getHamburgerOnAssembly().copyOf();
     }
 
     /**
@@ -91,5 +91,15 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
     @Override
     public void setSelectedOrder(final Order order) {
         model.setSelectedOrder(order);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void removeTopBun() {
+        final Hamburger hamburgerOnAssembly = model.getHamburgerOnAssembly();
+        hamburgerOnAssembly.removeLastIngredient();
+        model.setHamburgerOnAssembly(hamburgerOnAssembly);
     }
 }

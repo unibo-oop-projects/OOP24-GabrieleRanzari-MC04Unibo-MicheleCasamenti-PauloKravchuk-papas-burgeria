@@ -10,8 +10,15 @@ import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
+import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
+import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.io.Serial;
 import java.util.ArrayList;
@@ -63,6 +70,28 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
         draggableOrderSprites = new ArrayList<>();
         spriteOrders = new HashMap<>();
         super.setStaticBackgroundImage(resourceService.getImage("order_selection_background.png"));
+
+        final JButton backButton = new JButton(new ImageIcon(resourceService.getImage("back_arrow.png")));
+        backButton.setBackground(DEFAULT_BACKGROUND_COLOR);
+        backButton.setBorder(BorderFactory.createEmptyBorder());
+        backButton.setContentAreaFilled(false);
+        backButton.setOpaque(false);
+        backButton.setFocusPainted(false);
+        backButton.addActionListener(e -> {
+            controller.removeTopBun();
+            gameController.switchToScene(SceneType.BURGER_ASSEMBLY);
+        });
+
+        final JPanel interfacePanel = super.getInterfacePanel();
+        interfacePanel.setLayout(new ScalableLayoutImpl());
+        super.getInterfacePanel().add(
+                backButton,
+                new ScaleConstraintImpl(
+                        new ScaleImpl(ScaleConstraintImpl.EIGHTH, ScaleConstraintImpl.EIGHTH),
+                        new ScaleImpl(ScaleConstraintImpl.SIXTEENTH, ScaleConstraintImpl.SIXTEENTH),
+                        ScaleConstraintImpl.ORIGIN_CENTER
+                )
+        );
 
         readOrders();
 
@@ -126,7 +155,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
             controller.setSelectedOrder(spriteOrders.get(sprite));
             gameController.switchToScene(SceneType.SHOP);
         } else {
-            draggableOrderSprites.remove(sprite);
+            readOrders();
         }
     }
 

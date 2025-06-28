@@ -20,9 +20,12 @@ public interface DrawingManager {
      * @param patty            the patty
      * @param pbPositionXScale the x position in scale
      * @param pbPositionYScale the y position in scale
+     * @param pbSizeXScale     the x size in scale
+     * @param pbSizeYScale     the y size in scale
      * @return the sprite
      */
-    Sprite generatePattySprite(Patty patty, double pbPositionXScale, double pbPositionYScale);
+    Sprite generatePattySprite(Patty patty, double pbPositionXScale, double pbPositionYScale,
+                               double pbSizeXScale, double pbSizeYScale);
 
     /**
      * Draws the hamburger.

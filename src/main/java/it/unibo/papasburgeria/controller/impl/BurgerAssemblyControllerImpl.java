@@ -107,8 +107,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * @inheritDoc
      */
     @Override
-    public List<Ingredient> getIngredients() {
-        return List.copyOf(model.getHamburgerOnAssembly().getIngredients());
+    public Hamburger getHamburgerOnAssembly() {
+        return model.getHamburgerOnAssembly().copyOf();
     }
 
     /**

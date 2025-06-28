@@ -6,12 +6,14 @@ import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.api.DayChangeController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.controller.api.GrillController;
+import it.unibo.papasburgeria.controller.api.OrderSelectionController;
 import it.unibo.papasburgeria.controller.api.ShopController;
 import it.unibo.papasburgeria.controller.impl.BurgerAssemblyControllerImpl;
 import it.unibo.papasburgeria.controller.impl.CustomerControllerImpl;
 import it.unibo.papasburgeria.controller.impl.DayChangeControllerImpl;
 import it.unibo.papasburgeria.controller.impl.GameControllerImpl;
 import it.unibo.papasburgeria.controller.impl.GrillControllerImpl;
+import it.unibo.papasburgeria.controller.impl.OrderSelectionControllerImpl;
 import it.unibo.papasburgeria.controller.impl.ShopControllerImpl;
 
 /**
@@ -31,5 +33,6 @@ class ControllerModule extends AbstractModule {
         bind(GrillController.class).to(GrillControllerImpl.class);
         bind(ShopController.class).to(ShopControllerImpl.class);
         bind(DayChangeController.class).to(DayChangeControllerImpl.class);
+        bind(OrderSelectionController.class).to(OrderSelectionControllerImpl.class);
     }
 }

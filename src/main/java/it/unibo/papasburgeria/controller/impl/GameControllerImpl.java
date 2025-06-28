@@ -44,7 +44,7 @@ public class GameControllerImpl implements GameController {
      */
     @Override
     public void startGame() {
-        sceneService.switchTo(SceneType.MENU);
+        sceneService.switchTo(SceneType.ORDER_SELECTION);
     }
 
     /**

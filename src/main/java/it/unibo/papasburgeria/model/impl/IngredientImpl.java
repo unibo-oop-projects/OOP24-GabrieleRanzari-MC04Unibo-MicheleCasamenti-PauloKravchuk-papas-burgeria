@@ -12,7 +12,7 @@ public class IngredientImpl implements Ingredient {
     public static final double MAX_RIGHT_ACCURACY = 1.0;
     public static final double MAX_LEFT_ACCURACY = -MAX_RIGHT_ACCURACY;
     public static final double PERFECT_ACCURACY = MAX_RIGHT_ACCURACY + MAX_LEFT_ACCURACY;
-    public static final double ACCURACY_NOT_SET = Double.MAX_VALUE;
+    public static final double DEFAULT_ACCURACY = 0.0;
 
     private final IngredientEnum type;
     private double accuracy;
@@ -24,7 +24,7 @@ public class IngredientImpl implements Ingredient {
      */
     public IngredientImpl(final IngredientEnum type) {
         this.type = type;
-        accuracy = ACCURACY_NOT_SET;
+        accuracy = DEFAULT_ACCURACY;
     }
 
     /**

@@ -17,9 +17,10 @@ public class CustomerImpl implements Customer {
 
     /**
      * @param availableIngredients list containing all available ingredients
+     * @param orderNumber          the order number
      */
-    public CustomerImpl(final List<IngredientEnum> availableIngredients) {
-        order = new OrderImpl(availableIngredients);
+    public CustomerImpl(final List<IngredientEnum> availableIngredients, final int orderNumber) {
+        order = new OrderImpl(availableIngredients, orderNumber);
     }
 
     /**

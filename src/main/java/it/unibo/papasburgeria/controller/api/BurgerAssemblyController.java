@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Patty;
 
@@ -25,11 +26,11 @@ public interface BurgerAssemblyController {
     void removeLastIngredient();
 
     /**
-     * Returns the list of ingredients of the current hamburger.
+     * Returns the hamburger on assembly.
      *
-     * @return the list of ingredients
+     * @return the hamburger
      */
-    List<Ingredient> getIngredients();
+    Hamburger getHamburgerOnAssembly();
 
     /**
      * Checks if the ingredient type is unlocked.

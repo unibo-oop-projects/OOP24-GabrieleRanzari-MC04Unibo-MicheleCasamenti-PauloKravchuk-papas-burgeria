@@ -3,8 +3,11 @@ package it.unibo.papasburgeria.view.impl.components;
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.model.DegreesOfDonenessEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.view.api.components.Sprite;
@@ -17,15 +20,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.unibo.papasburgeria.model.IngredientEnum.CHEESE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_SPACING;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
-import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE;
-import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
-import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.GRILL_X_SPACING;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.GRILL_Y_SPACING;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.PATTY_ON_GRILL_X_POS;
@@ -41,6 +42,11 @@ public class DrawingManagerImpl implements DrawingManager {
     public static final String BOTTOM_EXTENSION = "_bottom";
     public static final double INGREDIENTS_X_SIZE_SCALE = 0.15;
     public static final double INGREDIENTS_Y_SIZE_SCALE = 0.15;
+    public static final double ORDER_X_SIZE_SCALE = 0.1199;
+    public static final double ORDER_Y_SIZE_SCALE = 0.4385;
+    public static final double ORDER_X_POS_SCALE = 0.68;
+    public static final double ORDER_Y_POS_SCALE = 0.02;
+    public static final double ORDER_SPACING = 0.003 + ORDER_X_SIZE_SCALE / 2;
     public static final double PATTY_SPACING = 0.04;
 
     private final transient Map<String, Image> pattyImages;
@@ -48,6 +54,7 @@ public class DrawingManagerImpl implements DrawingManager {
     private final transient Image horizontalLock;
     private final transient Image verticalLock;
     private final transient Image grillMark;
+    private final transient Image orderCard;
 
     /**
      * Default constructor, reeds and stores the images needed to draw.
@@ -61,6 +68,7 @@ public class DrawingManagerImpl implements DrawingManager {
         horizontalLock = resourceService.getImage("horizontal_lock.png");
         verticalLock = resourceService.getImage("vertical_lock.png");
         grillMark = resourceService.getImage("patty_grill_mark.png");
+        orderCard = resourceService.getImage("order.png");
 
         for (final IngredientEnum ingredientType : IngredientEnum.values()) {
             final Image image = resourceService.getImage(ingredientType.getName() + EXTENSION);
@@ -120,12 +128,14 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
-    public final void drawHamburger(final List<Ingredient> hamburgerIngredients, final Dimension frameSize,
+    public final void drawHamburger(final Hamburger hamburger, final Dimension frameSize,
+                                    final double bottomBunXPosScale, final double bottomBunYPosScale,
                                     final List<Sprite> draggableHamburgerSprites, final Graphics graphics) {
-        double pbPositionYScale = HAMBURGER_Y_POS_SCALE;
+        final List<Ingredient> hamburgerIngredients = hamburger.getIngredients();
+        double pbPositionYScale = bottomBunYPosScale;
         Sprite sprite = null;
         for (final Ingredient ingredient : hamburgerIngredients) {
-            final double pbPositionXScale = getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy());
+            final double pbPositionXScale = getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy(), bottomBunXPosScale);
             if (ingredient instanceof Patty) {
                 sprite = generatePattySprite((Patty) ingredient, pbPositionXScale, pbPositionYScale);
             } else {
@@ -176,6 +186,14 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
+    public void drawOrder(final Sprite sprite, final Order order, final Dimension frameSize, final Graphics graphics) {
+        sprite.draw(frameSize, graphics);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public final void generateCookedPatties(final List<Patty> cookedPatties, final double pbPositionXScale,
                                             final double initialPbPositionYScale, final List<Sprite> draggablePattySprites) {
         double pbPositionYScale = initialPbPositionYScale;
@@ -219,10 +237,34 @@ public class DrawingManagerImpl implements DrawingManager {
      * @inheritDoc
      */
     @Override
-    public double getPositionXScaleFromAccuracy(final double accuracy) {
+    public void generateOrderSprites(final List<Order> orders, final List<Sprite> draggableOrderSprites,
+                                     final Map<Sprite, Order> spriteOrders) {
+        double pbPositionXScale = ORDER_X_POS_SCALE;
+        for (final Order order : orders) {
+            final Sprite sprite = new SpriteImpl(orderCard, new IngredientImpl(CHEESE),
+                    pbPositionXScale, ORDER_Y_POS_SCALE, ORDER_X_SIZE_SCALE, ORDER_Y_SIZE_SCALE);
+            sprite.setDraggable(true);
+            sprite.setCloneable(false);
+            sprite.setRemovable(true);
+            if (!draggableOrderSprites.contains(sprite)) {
+                draggableOrderSprites.add(sprite);
+            }
+            spriteOrders.put(sprite, order);
+
+            pbPositionXScale = pbPositionXScale + ORDER_SPACING;
+            if (pbPositionXScale + ORDER_X_SIZE_SCALE > 1.0) {
+                pbPositionXScale = 1.0 - ORDER_X_SIZE_SCALE;
+            }
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double getPositionXScaleFromAccuracy(final double accuracy, final double halfRange) {
         final double boundedAccuracy = Math.max(MAX_LEFT_ACCURACY,
                 Math.min(MAX_RIGHT_ACCURACY, accuracy));
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
         return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
     }
 }

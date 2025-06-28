@@ -170,8 +170,8 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
-        final double pbPositionXScale = sprite.getPbPositionXScale() + INGREDIENTS_Y_SIZE_SCALE / 2;
-        final double pbPositionYScale = sprite.getPbPositionYScale() + INGREDIENTS_X_SIZE_SCALE / 2;
+        final double pbPositionXScale = sprite.getPbPositionXScale() + INGREDIENTS_X_SIZE_SCALE / 2;
+        final double pbPositionYScale = sprite.getPbPositionYScale() + INGREDIENTS_Y_SIZE_SCALE / 2;
 
         final Patty patty = (Patty) sprite.getIngredient();
         if (pbPositionXScale > MIN_X_POS_SCALE_TO_DROP_ON_GRILL

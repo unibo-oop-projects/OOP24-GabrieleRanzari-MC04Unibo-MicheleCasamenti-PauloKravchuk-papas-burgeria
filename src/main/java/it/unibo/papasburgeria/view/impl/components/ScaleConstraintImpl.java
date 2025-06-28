@@ -18,6 +18,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     public static final double HALF = 0.5;
     public static final double QUARTER = 0.25;
     public static final double EIGHTH = 0.125;
+    public static final double SIXTEENTH = 0.0625;
     public static final double ZERO = 0.0;
 
     public static final Scale SIZE_FULL = new ScaleImpl(FULL, FULL);
@@ -34,7 +35,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     public static final Scale POSITION_BOTTOM_CENTER = new ScaleImpl(HALF, FULL);
     public static final Scale POSITION_BOTTOM_RIGHT = new ScaleImpl(FULL, FULL);
 
-    public static final Scale ORIGIN_TOP_LEFT = new ScaleImpl(ZERO, FULL);
+    public static final Scale ORIGIN_TOP_LEFT = new ScaleImpl(ZERO, ZERO);
     public static final Scale ORIGIN_TOP_CENTER = new ScaleImpl(HALF, ZERO);
     public static final Scale ORIGIN_TOP_RIGHT = new ScaleImpl(FULL, ZERO);
     public static final Scale ORIGIN_CENTER_LEFT = new ScaleImpl(ZERO, HALF);

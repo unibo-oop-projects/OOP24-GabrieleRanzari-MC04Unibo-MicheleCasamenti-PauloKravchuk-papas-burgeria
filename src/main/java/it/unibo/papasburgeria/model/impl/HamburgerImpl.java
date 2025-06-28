@@ -56,8 +56,6 @@ public class HamburgerImpl implements Hamburger {
         if (!currentIngredients.isEmpty()) {
             final int ingredientNumber = (int) ((Math.random() * (MAX_INGREDIENTS - MIN_INGREDIENTS)) + MIN_INGREDIENTS);
 
-            Logger.debug("ingredient generated: " + ingredientNumber);
-
             for (int i = 0; i < ingredientNumber; i++) {
                 Ingredient ingredient;
                 do {

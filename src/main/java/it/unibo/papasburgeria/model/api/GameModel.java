@@ -72,4 +72,18 @@ public interface GameModel {
      * @param amount the amount of money given
      */
     void setBalance(int amount);
+
+    /**
+     * Returns the order selected.
+     *
+     * @return the order
+     */
+    Order getSelectedOrder();
+
+    /**
+     * sets a new order as the selected one.
+     *
+     * @param order the selected order
+     */
+    void setSelectedOrder(Order order);
 }

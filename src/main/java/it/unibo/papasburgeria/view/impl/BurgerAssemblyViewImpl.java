@@ -46,6 +46,7 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ING
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.31;
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.55;
+    public static final double HALF_RANGE = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
     public static final double HAMBURGER_X_POS_SCALE =
             (MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER + MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
     public static final double HAMBURGER_Y_POS_SCALE = 0.71;
@@ -167,8 +168,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
-        final List<Ingredient> hamburgerIngredients = controller.getIngredients();
-        drawingManager.drawHamburger(hamburgerIngredients, getSize(), draggableHamburgerSprites, graphics);
+        drawingManager.drawHamburger(controller.getHamburgerOnAssembly(), getSize(), HALF_RANGE, HAMBURGER_Y_POS_SCALE,
+                draggableHamburgerSprites, graphics);
 
         final List<Patty> cookedPatties = controller.getCookedPatties();
         drawingManager.generateCookedPatties(cookedPatties, PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, draggablePattySprites);

@@ -1,5 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
+import java.util.List;
+
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 
@@ -26,4 +28,14 @@ public interface CustomerController {
      * kills the customer thread.
      */
     void stopClientThread();
+
+    /**
+     * @return the customer line.
+     */
+    List<Customer> getRegisterLine();
+
+    /**
+     * @return the wait line.
+     */
+    List<Customer> getWaitLine();
 }

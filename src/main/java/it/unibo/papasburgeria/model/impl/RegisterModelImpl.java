@@ -46,7 +46,9 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public Customer popCustomerRegisterLine() {
-        return registerLine.pop();
+        final Customer customer = registerLine.pop();
+        customer.setInRegisterLine(false);
+        return customer;
     }
 
     /**
@@ -54,6 +56,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void pushCustomerRegisterLine(final Customer customer) {
+        customer.setInRegisterLine(true);
         registerLine.push(customer);
     }
 
@@ -62,6 +65,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void removeCustomerRegisterLine(final Customer customer) {
+        customer.setInRegisterLine(false);
         registerLine.remove(customer);
     }
 
@@ -70,7 +74,9 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public Customer popCustomerWaitLine() {
-        return waitLine.pop();
+        final Customer customer = waitLine.pop();
+        customer.setInWaitLine(false);
+        return customer;
     }
 
     /**
@@ -78,6 +84,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void pushCustomerWaitLine(final Customer customer) {
+        customer.setInWaitLine(true);
         waitLine.push(customer);
     }
 
@@ -86,6 +93,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void removeCustomerWaitLine(final Customer customer) {
+        customer.setWalkedIn(false);
         waitLine.remove(customer);
     }
 
@@ -103,6 +111,9 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void clearRegisterLine() {
+        for (final Customer customer : registerLine) {
+            customer.setInRegisterLine(false);
+        }
         registerLine.clear();
     }
 
@@ -111,6 +122,9 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void clearWaitLine() {
+        for (final Customer customer : waitLine) {
+            customer.setInWaitLine(false);
+        }
         waitLine.clear();
     }
 

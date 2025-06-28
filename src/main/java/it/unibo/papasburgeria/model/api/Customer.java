@@ -17,4 +17,39 @@ public interface Customer {
      * @return the coins.
      */
     int evaluateBurger(Hamburger madeHamburger, double placementTollerance, double ingredientTollerance);
+
+    /**
+     * @return the customer's skin type.
+     */
+    int getSkinType();
+
+    /**
+     * @return true if customer in regiser line.
+     */
+    boolean isInRegisterLine();
+
+    /**
+     * @return true if customer in wait line.
+     */
+    boolean isInWaitLine();
+
+    /**
+     * @return true if customer has walked in.
+     */
+    boolean hasWalkedIn();
+
+    /**
+     * @param setFlag if the customer is in registerLine
+     */
+    void setInRegisterLine(boolean setFlag);
+
+    /**
+     * @param setFlag if the customer is in WaitLine
+     */
+    void setInWaitLine(boolean setFlag);
+
+    /**
+     * @param setFlag if the customer has walked in
+     */
+    void setWalkedIn(boolean setFlag);
 }

@@ -3,6 +3,8 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 import org.tinylog.Logger;
 
 import java.util.List;
@@ -35,7 +37,9 @@ class CustomerThread extends Thread {
      */
     @Override
     public void run() {
-        Logger.debug("Customer thread started");
+        if (DEBUG_MODE) {
+            Logger.debug("Customer thread started");
+        }
         int generatedCustomers = 0;
         while (!currentThread().isInterrupted()) {
             try {
@@ -50,6 +54,8 @@ class CustomerThread extends Thread {
                 interrupt();
             }
         }
-        Logger.debug("Customer thread terminated");
+        if (DEBUG_MODE) {
+            Logger.debug("Customer thread terminated");
+        }
     }
 }

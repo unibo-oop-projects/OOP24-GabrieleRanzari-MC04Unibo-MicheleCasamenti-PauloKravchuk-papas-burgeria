@@ -69,7 +69,30 @@ public class CustomerControllerImpl implements CustomerController {
      * @inheritDoc
      */
     @Override
-    public void startClientThread(final CustomerDifficultyEnum difficulty) {
+    public void startClientThread() {
+        final CustomerDifficultyEnum difficulty;
+        switch (model.getCurrentDay()) {
+            case 1:
+                difficulty = CustomerDifficultyEnum.FIRST;
+            break;
+
+            case 2:
+                difficulty = CustomerDifficultyEnum.SECOND;
+            break;
+
+            case 3:
+            difficulty = CustomerDifficultyEnum.THIRD;
+            break;
+
+            case 4:
+                difficulty = CustomerDifficultyEnum.FORTH;
+            break;
+
+            default:
+                difficulty = CustomerDifficultyEnum.FIFTH;
+            break;
+        }
+
         registerModel.startCustomerThread((int) (difficulty.getSpawnIntervalSeconds()
         + (difficulty.getSpawnIntervalSeconds() * shop.getUpgradeModifier(UpgradeEnum.SLOW_CUSTOMERS))),
         (int) (difficulty.getCustomerCount()
@@ -99,5 +122,14 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public List<Customer> getWaitLine() {
         return registerModel.getWaitLine();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void takeOrderFromCustomer(final Customer customer) {
+        registerModel.removeCustomerRegisterLine(customer);
+        registerModel.pushCustomerWaitLine(customer);
     }
 }

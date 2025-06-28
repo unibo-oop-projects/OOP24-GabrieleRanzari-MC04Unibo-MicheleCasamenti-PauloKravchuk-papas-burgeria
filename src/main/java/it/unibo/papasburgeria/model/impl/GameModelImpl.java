@@ -160,6 +160,6 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public String toString() {
-        return "[currentDay=" + currentDay + "]"; // TODO update
+        return "[currentDay=" + currentDay + "]";
     }
 }

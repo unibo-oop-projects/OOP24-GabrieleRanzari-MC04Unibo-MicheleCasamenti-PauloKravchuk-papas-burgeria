@@ -49,6 +49,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public void startGame() {
         sceneService.switchTo(SceneType.MENU);
+        customerController.startClientThread();
     }
 
     /**
@@ -74,6 +75,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public void nextDay() {
         model.nextDay();
+        customerController.startClientThread();
         pantryModel.unlockForDay(model.getCurrentDay());
         switchToScene(SceneType.DAY_CHANGE);
     }

@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.controller.api;
 
 import java.util.List;
 
-import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 
 /**
@@ -15,14 +14,19 @@ public interface CustomerController {
     void serveCustomer(Customer customer);
 
     /**
+     * @param customer the customer to take the order from.
+     */
+    void takeOrderFromCustomer(Customer customer);
+
+    /**
      * clears both lines for the day.
      */
     void clearAllCustomers();
 
     /**
-     * @param difficulty defines the difficulty level for the types of customers the thread generates
+     * starts the customer thread that periodically adds customers to register line.
      */
-    void startClientThread(CustomerDifficultyEnum difficulty);
+    void startClientThread();
 
     /**
      * kills the customer thread.

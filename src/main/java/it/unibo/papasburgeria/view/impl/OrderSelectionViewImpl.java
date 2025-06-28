@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.io.Serial;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +68,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
         this.drawingManager = drawingManager;
         this.gameController = gameController;
         draggableOrderSprites = new ArrayList<>();
-        spriteOrders = new HashMap<>();
+        spriteOrders = new IdentityHashMap<>();
         super.setStaticBackgroundImage(resourceService.getImage("order_selection_background.png"));
 
         final JButton backButton = new JButton(new ImageIcon(resourceService.getImage("back_arrow.png")));
@@ -176,7 +176,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     *
+     * Creates the sprites for the orders in the model.
      */
     private void readOrders() {
         final List<Order> orders = controller.testGetOrders();

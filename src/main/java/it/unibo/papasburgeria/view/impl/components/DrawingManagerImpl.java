@@ -24,7 +24,6 @@ import java.util.Objects;
 
 import static it.unibo.papasburgeria.model.IngredientEnum.CHEESE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
-import static it.unibo.papasburgeria.model.impl.HamburgerImpl.MAX_INGREDIENTS;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
@@ -55,7 +54,7 @@ public class DrawingManagerImpl implements DrawingManager {
     public static final double ORDER_INGREDIENT_Y_SIZE_SCALE = ORDER_X_SIZE_SCALE / 4;
     public static final double ORDER_INGREDIENT_X_POS_SCALE = 0.045;
     public static final double ORDER_INGREDIENT_Y_POS_SCALE = 0.408;
-    public static final double ORDER_INGREDIENT_SPACING = 0.03125;
+    public static final double ORDER_INGREDIENT_SPACING = 0.0312;
     public static final double PATTY_SPACING = 0.04;
     public static final Font DEFAULT_FONT = new Font("Comic Sans MS", Font.BOLD, 25);
 

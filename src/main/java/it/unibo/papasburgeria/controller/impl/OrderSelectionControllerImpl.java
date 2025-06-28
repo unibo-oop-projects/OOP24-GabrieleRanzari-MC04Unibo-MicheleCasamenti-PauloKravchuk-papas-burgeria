@@ -41,7 +41,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
         hamburger = HamburgerImpl.generateRandomHamburger(List.of(IngredientEnum.values()));
 
         ordersTemp = new ArrayList<>();
-        final int maxOrders = 2;
+        final int maxOrders = 8;
         for (int index = 0; index < maxOrders; index++) {
             final List<Ingredient> ingredients = HamburgerImpl.generateRandomHamburger(
                     List.of(IngredientEnum.values())).getIngredients();

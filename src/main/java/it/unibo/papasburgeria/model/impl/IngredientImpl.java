@@ -81,10 +81,7 @@ public class IngredientImpl implements Ingredient {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(
-                type,
-                accuracy
-        );
+        return Objects.hash(type);
     }
 
     /**

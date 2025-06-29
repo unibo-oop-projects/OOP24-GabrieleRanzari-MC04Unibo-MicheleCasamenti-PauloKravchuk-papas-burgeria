@@ -41,10 +41,6 @@ public class MenuViewImpl extends AbstractBaseView {
 
     private final transient SfxService sfxService;
     private final transient MenuController menuController;
-    @SuppressFBWarnings(
-            value = "EI_EXPOSE_REP2",
-            justification = "Controllers intentionally hold references to mutable models."
-    )
     private final transient GameController gameController;
     private final transient List<SlotView> slotViews;
 
@@ -170,7 +166,10 @@ public class MenuViewImpl extends AbstractBaseView {
                 slotView.setSlotAsEmpty(); // defaulting
                 if (!isEmptySave) {
                     slotView.updateButton("[SELECT]", event -> {
-                        menuController.processLoad(boundIndex);
+                        final boolean status = gameController.processLoad(boundIndex);
+                        if (status) {
+                            gameController.switchToScene(SceneType.REGISTER);
+                        }
                     });
                     slotView.updateLabel(
                             SlotView.SlotLabelEnum.BALANCE, String.valueOf(saveInfo.playerBalance())
@@ -191,6 +190,8 @@ public class MenuViewImpl extends AbstractBaseView {
         private final JPanel panel;
         private final JButton interactionButton;
         private final Map<SlotLabelEnum, JLabel> labels;
+
+        private ActionListener currentListener;
 
         /**
          * Constructs a new slot view.
@@ -291,8 +292,13 @@ public class MenuViewImpl extends AbstractBaseView {
                 throw new IllegalStateException("buttonName must not be null or empty");
             }
 
+            if (this.currentListener != null) {
+                this.interactionButton.removeActionListener(this.currentListener);
+            }
+
+            this.currentListener = actionListener;
             this.interactionButton.setText(text);
-            this.interactionButton.addActionListener(actionListener);
+            this.interactionButton.addActionListener(this.currentListener);
         }
 
         /**
@@ -304,7 +310,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 this.updateLabel(slotLabelEnum, "N/A");
             }
             this.updateButton("[CREATE]", event -> {
-                final boolean status = menuController.processSave(this.index);
+                final boolean status = gameController.processSave();
                 if (status) {
                     gameController.switchToScene(SceneType.REGISTER);
                 } else {

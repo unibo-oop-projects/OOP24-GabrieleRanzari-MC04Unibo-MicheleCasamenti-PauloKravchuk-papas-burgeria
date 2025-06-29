@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.MenuController;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Shop;
 import it.unibo.papasburgeria.utils.api.SaveService;
 import it.unibo.papasburgeria.utils.impl.saving.SaveInfo;
 import it.unibo.papasburgeria.utils.impl.saving.SaveState;
@@ -29,65 +28,20 @@ public class MenuControllerImpl implements MenuController {
             justification = "Controllers intentionally hold references to mutable models."
     )
     private final GameModel gameModel;
-    private final Shop shopModel;
 
     /**
      * Initializes the menu controller.
      *
      * @param saveService service used to save data
-     * @param gameModel   game controller
-     * @param shopModel   shop data model
+     * @param gameModel   game data model
      */
     @Inject
     public MenuControllerImpl(
             final SaveService saveService,
-            final GameModel gameModel,
-            final Shop shopModel
+            final GameModel gameModel
     ) {
         this.saveService = saveService;
         this.gameModel = gameModel;
-        this.shopModel = shopModel;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public boolean processSave(final int slotNumber) {
-        try {
-            this.saveService.saveSlot(slotNumber,
-                    new SaveState(
-                            this.gameModel.getCurrentDay(),
-                            this.gameModel.getBalance(),
-                            this.shopModel.getUpgrades()
-                    )
-            );
-            return true;
-        } catch (final IOException e) {
-            Logger.error(e, "Failed to save slot {}", slotNumber);
-            return false;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public boolean processLoad(final int slotNumber) {
-        try {
-            final SaveState saveState = this.saveService.loadSlot(slotNumber);
-            this.gameModel.setCurrentDay(saveState.gameDay());
-            this.gameModel.setBalance(saveState.playerBalance());
-            saveState.upgrades().forEach((upgradeEnum, isUnlocked) -> {
-                if (isUnlocked) {
-                    this.shopModel.unlockUpgrade(upgradeEnum);
-                }
-            });
-            return true;
-        } catch (final IOException e) {
-            Logger.error(e, "Failed to load slot {}", slotNumber);
-            return false;
-        }
     }
 
     /**

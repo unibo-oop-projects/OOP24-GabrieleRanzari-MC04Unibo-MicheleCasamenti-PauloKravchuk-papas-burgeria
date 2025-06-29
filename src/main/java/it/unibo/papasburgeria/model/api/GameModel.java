@@ -93,4 +93,18 @@ public interface GameModel {
      * @param order the selected order
      */
     void setSelectedOrder(Order order);
+
+    /**
+     * Used to obtain the currently selected save slot.
+     *
+     * @return save slot index
+     */
+    int getCurrentSaveSlot();
+
+    /**
+     * Used to set the current save slot.
+     *
+     * @param currentSaveSlot save slot index
+     */
+    void setCurrentSaveSlot(int currentSaveSlot);
 }

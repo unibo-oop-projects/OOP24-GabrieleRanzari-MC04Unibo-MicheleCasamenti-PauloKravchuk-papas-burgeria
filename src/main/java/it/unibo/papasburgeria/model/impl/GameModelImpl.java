@@ -28,6 +28,7 @@ public class GameModelImpl implements GameModel {
     private static final int STARTING_BALANCE = 50;
 
     private int balance;
+    private int currentSaveSlot;
 
     private Hamburger hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
@@ -172,6 +173,22 @@ public class GameModelImpl implements GameModel {
     @Override
     public void setSelectedOrder(final Order order) {
         selectedOrder = order;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int getCurrentSaveSlot() {
+        return currentSaveSlot;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void setCurrentSaveSlot(final int currentSaveSlot) {
+        this.currentSaveSlot = currentSaveSlot;
     }
 
     /**

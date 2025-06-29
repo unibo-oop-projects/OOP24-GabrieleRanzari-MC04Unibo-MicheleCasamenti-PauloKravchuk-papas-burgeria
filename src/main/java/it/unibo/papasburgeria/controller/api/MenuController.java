@@ -10,22 +10,6 @@ import java.util.List;
 public interface MenuController {
 
     /**
-     * Processes data saving for the given slot number, provides success feedback.
-     *
-     * @param slotNumber slot number
-     * @return whether the save is successful or not
-     */
-    boolean processSave(int slotNumber);
-
-    /**
-     * Processes data loading for the given slot number, provides success feedback.
-     *
-     * @param slotNumber slot number
-     * @return whether the loading is successful or not
-     */
-    boolean processLoad(int slotNumber);
-
-    /**
      * Returns a list of info DTOs, one for each save.
      *
      * @return list of SaveInfo DTOs

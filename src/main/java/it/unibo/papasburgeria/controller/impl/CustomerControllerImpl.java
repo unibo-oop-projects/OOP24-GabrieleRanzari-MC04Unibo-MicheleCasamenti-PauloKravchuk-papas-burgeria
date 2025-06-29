@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @inheritDoc
+ * Manages the appearance and disappearance of customers.
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
@@ -135,7 +135,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double calculateSatisfactionPercentage(final Hamburger startingHamburger, 
@@ -190,7 +190,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int calculatePayment(final double percentage) {
@@ -198,7 +198,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int calculateTips(final int payment) {
@@ -214,10 +214,18 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void addBalance(final int payment) {
         model.setBalance(model.getBalance() + payment);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getBalance() {
+        return model.getBalance();
     }
 }

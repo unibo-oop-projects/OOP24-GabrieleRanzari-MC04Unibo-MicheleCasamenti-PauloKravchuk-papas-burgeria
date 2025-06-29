@@ -88,4 +88,11 @@ public interface CustomerController {
      * @param payment   money to be added to the balance
      */
     void addBalance(int payment);
+
+    /**
+     * gets the customer's balance.
+     *
+     * @return current balance.
+     */
+    int getBalance();
 }

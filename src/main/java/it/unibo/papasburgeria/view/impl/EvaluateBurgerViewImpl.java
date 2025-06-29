@@ -1,5 +1,6 @@
 package it.unibo.papasburgeria.view.impl;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,19 +47,40 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     private static final double CONTINUE_X_POS = 0.7;
     private static final double CONTINUE_Y_POS = 0.75;
 
-    private static final double BALANCE_WIDTH = 0.25;
-    private static final double BALANCE_HEIGHT = 0.2;
-    private static final double BALANCE_X_POS = 0.10;
-    private static final double BALANCE_Y_POS = 0.75;
+    private static final double BALANCE_WIDTH = 0.33;
+    private static final double BALANCE_HEIGHT = 0.25;
+    private static final double BALANCE_X_POS = 0.0;
+    private static final double BALANCE_Y_POS = 0.80;
+
+    private static final double PERCENTAGE_WIDTH = 0.0;
+    private static final double PERCENTAGE_HEIGHT = 0.0;
+    private static final double PERCENTAGE_X_POS = 0.0;
+    private static final double PERCENTAGE_Y_POS = 0.0;
+
+    private static final double TIP_WIDTH = 0.0;
+    private static final double TIP_HEIGHT = 0.0;
+    private static final double TIP_X_POS = 0.0;
+    private static final double TIP_Y_POS = 0.0;
+
+    private static final double PAYMENT_WIDTH = 0.0;
+    private static final double PAYMENT_HEIGHT = 0.0;
+    private static final double PAYMENT_X_POS = 0.0;
+    private static final double PAYMENT_Y_POS = 0.0;
+
     private static final double ORIGIN = 0.0;
 
-    // private static final Font DEFAULT_FONT = new Font("Comic Sans MS", Font.BOLD, 25);
+    private static final Font FONT = new Font("Comic Sans MS", Font.BOLD, 40);
 
     private final transient EvaluateBurgerController controller;
     private final transient DrawingManager drawingManager;
     private final transient ResourceService resourceService;
     private final transient CustomerController customerController;
+
     private final JLabel showMoneyLabel;
+    private final JLabel percentageLabel;
+    private final JLabel paymentLabel;
+    private final JLabel tipLabel;
+
     private final JPanel interfacePanel;
     private transient Hamburger burger;
     private transient Order order;
@@ -101,7 +123,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                     )
                 );
 
-        this.showMoneyLabel = new JLabel();
+        showMoneyLabel = new JLabel("BAL: 0$");
         interfacePanel.add(showMoneyLabel,
                 new ScaleConstraintImpl(
                     new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
@@ -109,6 +131,39 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                     new ScaleImpl(ORIGIN)
                     )
                 );
+        showMoneyLabel.setFont(FONT);
+
+        percentageLabel = new JLabel("SCORE: 0%");
+        interfacePanel.add(percentageLabel,
+                new ScaleConstraintImpl(
+                    new ScaleImpl(PERCENTAGE_WIDTH, PERCENTAGE_HEIGHT),
+                    new ScaleImpl(PERCENTAGE_X_POS, PERCENTAGE_Y_POS),
+                    new ScaleImpl(ORIGIN)
+                    )
+                );
+        percentageLabel.setFont(FONT);
+
+        paymentLabel = new JLabel("PAY: 0$");
+        interfacePanel.add(paymentLabel,
+                new ScaleConstraintImpl(
+                    new ScaleImpl(PAYMENT_WIDTH, PAYMENT_HEIGHT),
+                    new ScaleImpl(PAYMENT_X_POS, PAYMENT_Y_POS),
+                    new ScaleImpl(ORIGIN)
+                    )
+                );
+        paymentLabel.setFont(FONT);
+
+        tipLabel = new JLabel("TIP: 0$");
+        interfacePanel.add(tipLabel,
+                new ScaleConstraintImpl(
+                    new ScaleImpl(TIP_WIDTH, TIP_HEIGHT),
+                    new ScaleImpl(TIP_X_POS, TIP_Y_POS),
+                    new ScaleImpl(ORIGIN)
+                    )
+                );
+        tipLabel.setFont(FONT);
+
+        interfacePanel.validate();
     }
 
     /**
@@ -127,6 +182,8 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         if (DEBUG_MODE) {
             Logger.info("EvaluateBurgerView shown");
         }
+        showMoneyLabel.setText("BAL: " + customerController.getBalance() + "$");
+
         read();
         final double satisfaction = customerController.calculateSatisfactionPercentage(
             this.order.getHamburger().copyOf(), this.burger);
@@ -144,10 +201,14 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 }
             }
         }
+        percentageLabel.setText("SCORE: " + satisfaction);
+        paymentLabel.setText("PAYMENT:" + payment);
+        tipLabel.setText("TIP: " + tip);
+
         if (DEBUG_MODE) {
-            Logger.info("Satisfaction:\t" + satisfaction);
-            Logger.info("Payment:\t" + payment);
-            Logger.info("Tip:\t\t" + tip);
+            Logger.info("Satisfaction: " + satisfaction);
+            Logger.info("Payment: " + payment);
+            Logger.info("Tip: " + tip);
         }
     }
 

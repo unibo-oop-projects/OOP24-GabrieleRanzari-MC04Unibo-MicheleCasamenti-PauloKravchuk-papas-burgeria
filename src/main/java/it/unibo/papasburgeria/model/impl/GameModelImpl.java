@@ -58,9 +58,7 @@ public class GameModelImpl implements GameModel {
             throw new IllegalStateException("Cannot advance beyond day " + MAX_DAYS);
         } else {
             currentDay++;
-            hamburgerOnAssembly = new HamburgerImpl();
-            pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
-            cookedPatties = new ArrayList<>();
+            reset();
         }
     }
 
@@ -189,6 +187,17 @@ public class GameModelImpl implements GameModel {
     @Override
     public void setCurrentSaveSlot(final int currentSaveSlot) {
         this.currentSaveSlot = currentSaveSlot;
+    }
+
+    /**
+     * Resets the model's resettable variables.
+     */
+    @Override
+    public void reset() {
+        hamburgerOnAssembly = new HamburgerImpl();
+        pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        cookedPatties = new ArrayList<>();
+        selectedOrder = null;
     }
 
     /**

@@ -126,6 +126,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public boolean processLoad(final int slotNumber) {
         try {
+            gameModel.reset();
             final SaveState saveState = this.saveService.loadSlot(slotNumber);
             this.gameModel.setCurrentSaveSlot(slotNumber);
             this.gameModel.setCurrentDay(saveState.gameDay());

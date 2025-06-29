@@ -107,4 +107,9 @@ public interface GameModel {
      * @param currentSaveSlot save slot index
      */
     void setCurrentSaveSlot(int currentSaveSlot);
+
+    /**
+     * Resets the model's resettable variables.
+     */
+    void reset();
 }

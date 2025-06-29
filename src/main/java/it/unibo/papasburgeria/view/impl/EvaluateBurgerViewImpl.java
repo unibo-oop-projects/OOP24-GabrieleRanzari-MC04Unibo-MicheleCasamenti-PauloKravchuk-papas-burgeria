@@ -103,6 +103,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                controller.emptyHamburgerOnAssembly();
                 if (customerController.isCustomerThreadStatus()
                         || !customerController.getWaitLine().isEmpty()
                         || !customerController.getRegisterLine().isEmpty()) {

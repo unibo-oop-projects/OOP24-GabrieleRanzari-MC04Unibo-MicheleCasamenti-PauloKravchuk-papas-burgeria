@@ -20,4 +20,9 @@ public interface EvaluateBurgerController {
      * @return the selected order in game model.
      */
     Order getSelectedOrder();
+
+    /**
+     * Empties the current hamburger on assemblyline.
+     */
+    void emptyHamburgerOnAssembly();
 }

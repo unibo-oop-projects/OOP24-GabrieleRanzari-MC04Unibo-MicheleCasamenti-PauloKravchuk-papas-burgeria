@@ -5,6 +5,7 @@ import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.impl.HamburgerImpl;
 
 import java.util.Objects;
 
@@ -44,5 +45,13 @@ public class EvaluateBurgerControllerImpl implements EvaluateBurgerController {
         } else {
             return model.getSelectedOrder().copyOf();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void emptyHamburgerOnAssembly() {
+        model.setHamburgerOnAssembly(new HamburgerImpl());
     }
 }

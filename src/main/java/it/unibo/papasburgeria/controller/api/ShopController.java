@@ -19,9 +19,8 @@ public interface ShopController {
      * Buys the upgrade if possible.
      *
      * @param upgrade the upgrade to check
-     * @return true if the upgrade was bought, false otherwise
      */
-    boolean buyUpgrade(UpgradeEnum upgrade);
+    void buyUpgrade(UpgradeEnum upgrade);
 
     /**
      * Returns whether the upgrade is unlocked or not.

@@ -17,22 +17,30 @@ public interface Patty {
     boolean isFlipped();
 
     /**
-     * @return the top cook level.
+     * Returns the top cook level.
+     *
+     * @return the top cook level
      */
     double getTopCookLevel();
 
     /**
-     * @param cookLevel the top cook level.
+     * Sets the top cook level.
+     *
+     * @param cookLevel the top cook level
      */
     void setTopCookLevel(double cookLevel);
 
     /**
-     * @return the bottom cook level.
+     * Returns the bottom cook level.
+     *
+     * @return the bottom cook level
      */
     double getBottomCookLevel();
 
     /**
-     * @param cookLevel the bottom cook level.
+     * Sets the bottom cook level.
+     *
+     * @param cookLevel the bottom cook level
      */
     void setBottomCookLevel(double cookLevel);
 }

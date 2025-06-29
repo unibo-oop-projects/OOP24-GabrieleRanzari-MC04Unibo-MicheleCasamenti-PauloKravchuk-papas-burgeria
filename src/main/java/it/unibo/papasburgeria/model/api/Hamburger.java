@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface Hamburger {
     /**
-     * Adds an ingredient on top the hamburger.
+     * Adds an ingredient on top of the hamburger.
      *
      * @param ingredient the new ingredient to add to the hamburger
      * @return true if the ingredient was added, false otherwise

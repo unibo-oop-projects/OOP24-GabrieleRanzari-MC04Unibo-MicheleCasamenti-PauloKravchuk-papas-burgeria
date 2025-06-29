@@ -19,7 +19,13 @@ import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
  * See {@link Hamburger} for interface details.
  */
 public class HamburgerImpl implements Hamburger {
+    /**
+     * Defines the minimum number of ingredients of a hamburger.
+     */
     public static final int MIN_INGREDIENTS = 2;
+    /**
+     * Defines the maximum number of ingredients of a hamburger.
+     */
     public static final int MAX_INGREDIENTS = 10;
 
     private final List<Ingredient> ingredientList;
@@ -123,6 +129,14 @@ public class HamburgerImpl implements Hamburger {
      * {@inheritDoc}
      */
     @Override
+    public Hamburger copyOf() {
+        return new HamburgerImpl(ingredientList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         for (final Ingredient ingredient : ingredientList) {
@@ -132,13 +146,4 @@ public class HamburgerImpl implements Hamburger {
 
         return sb.toString();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Hamburger copyOf() {
-        return new HamburgerImpl(ingredientList);
-    }
-
 }

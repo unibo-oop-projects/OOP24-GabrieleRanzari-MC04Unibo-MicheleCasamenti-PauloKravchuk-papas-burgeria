@@ -27,18 +27,20 @@ public class SpriteImpl implements Sprite {
     private final double pbSizeXScale;
     private final double pbSizeYScale;
 
-    private Ingredient ingredient;
-    private List<Image> images;
     private double pbPositionXScale;
     private double pbPositionYScale;
-    private boolean draggable;
-    private boolean visible;
-    private boolean cloneable;
-    private boolean removable;
-    private boolean flipped;
+    private List<Image> images;
+    private Ingredient ingredient;
+
+    private boolean draggable; // Indicates whether the sprite can be dragged directly.
+    private boolean visible;   // Indicates whether the sprite is currently visible.
+    private boolean cloneable; // Indicates whether the sprite can be cloned.
+    private boolean removable; // Indicates whether the sprite represents something from the model.
+    private boolean flipped;   // Indicates whether the sprite has been vertically flipped.
 
     /**
-     * Constructor for single image, stores the image, the ingredient, its coordinates in scale and its size in scale.
+     * Constructor for single image, stores the image,
+     * the ingredient, its coordinates in scale and its size in scale.
      *
      * @param image            the image
      * @param ingredient       the ingredient
@@ -47,9 +49,13 @@ public class SpriteImpl implements Sprite {
      * @param pbSizeXScale     the width in scale
      * @param pbSizeYScale     the height in scale
      */
-    public SpriteImpl(final Image image, final Ingredient ingredient,
-                      final double pbPositionXScale, final double pbPositionYScale,
-                      final double pbSizeXScale, final double pbSizeYScale) {
+    public SpriteImpl(final Image image,
+                      final Ingredient ingredient,
+                      final double pbPositionXScale,
+                      final double pbPositionYScale,
+                      final double pbSizeXScale,
+                      final double pbSizeYScale
+    ) {
         this.images = new ArrayList<>(List.of(image));
         if (ingredient instanceof Patty patty) {
             this.ingredient = new PattyImpl(patty);
@@ -265,7 +271,8 @@ public class SpriteImpl implements Sprite {
                 throw new IllegalStateException("Could not flip: Image not loaded correctly");
             }
 
-            final BufferedImage flippedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            final BufferedImage flippedImage =
+                    new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             final Graphics2D graphics = flippedImage.createGraphics();
 
             final AffineTransform transform = AffineTransform.getScaleInstance(1, -1);
@@ -378,18 +385,23 @@ public class SpriteImpl implements Sprite {
         );
     }
 
-
     /**
-     * @return a string containing the most important variables.
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "SpriteImpl["
-                + "ingredient=[" + ingredient + "] "
-                + "bPositionXScale=[" + pbPositionXScale + "] "
-                + "pbPositionYScale=[" + pbPositionYScale + "] "
-                + "pbSizeXScale=[" + pbSizeXScale + "] "
-                + "pbSizeYScale=[" + pbSizeYScale + "]"
-                + "]";
+        return "SpriteImpl{"
+                + "pbSizeXScale=" + pbSizeXScale
+                + ", pbSizeYScale=" + pbSizeYScale
+                + ", ingredient=" + ingredient
+                + ", images=" + images
+                + ", pbPositionXScale=" + pbPositionXScale
+                + ", pbPositionYScale=" + pbPositionYScale
+                + ", draggable=" + draggable
+                + ", visible=" + visible
+                + ", cloneable=" + cloneable
+                + ", removable=" + removable
+                + ", flipped=" + flipped
+                + '}';
     }
 }

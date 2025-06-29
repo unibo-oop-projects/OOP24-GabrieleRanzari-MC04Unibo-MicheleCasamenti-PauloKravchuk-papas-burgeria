@@ -33,6 +33,9 @@ import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
  */
 @Singleton
 public final class UnlockSchedule {
+    /**
+     * Defines the unlock schedule for the ingredients.
+     */
     public static final Map<DaysEnum, Set<IngredientEnum>> UNLOCK_SCHEDULE;
 
     static {

@@ -4,10 +4,25 @@ package it.unibo.papasburgeria.model;
  * Enumeration containing the days in order.
  */
 public enum DaysEnum {
+    /**
+     * Defines the first day.
+     */
     FIRST_DAY(1),
+    /**
+     * Defines the second day.
+     */
     SECOND_DAY(2),
+    /**
+     * Defines the third day.
+     */
     THIRD_DAY(3),
+    /**
+     * Defines the fourth day.
+     */
     FOURTH_DAY(4),
+    /**
+     * Defines the fifth day.
+     */
     FIFTH_DAY(5);
 
     private final int number;

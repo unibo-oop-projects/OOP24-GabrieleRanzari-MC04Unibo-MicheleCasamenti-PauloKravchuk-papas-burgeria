@@ -4,14 +4,28 @@ import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
 
 /**
- * Enumeration containing the degrees of doneness for the patties
- * and a string containing its name.
+ * Enumeration containing the degrees of doneness for the patties.
  */
 public enum DegreesOfDonenessEnum {
+    /**
+     * Defines the degree of doneness raw.
+     */
     RAW("raw"),
+    /**
+     * Defines the degree of doneness rare.
+     */
     RARE("rare"),
+    /**
+     * Defines the degree of doneness medium.
+     */
     MEDIUM("medium"),
+    /**
+     * Defines the degree of doneness well done.
+     */
     WELL_DONE("well_done"),
+    /**
+     * Defines the degree of doneness burnt.
+     */
     BURNT("burnt");
 
     private final String name;
@@ -26,13 +40,14 @@ public enum DegreesOfDonenessEnum {
     }
 
     /**
-     * Calculate the degree of doneness give the cook level.
+     * Calculate the degree of doneness given the cook level.
      *
      * @param cookLevel the cook level
      * @return the degree of doneness
      */
     public static DegreesOfDonenessEnum calculateDegree(final double cookLevel) {
-        final double clampedValue = Math.max(MIN_COOK_LEVEL, Math.min(MAX_COOK_LEVEL, cookLevel));
+        final double clampedValue =
+                Math.max(MIN_COOK_LEVEL, Math.min(MAX_COOK_LEVEL, cookLevel));
 
         final DegreesOfDonenessEnum[] values = values();
         final int numberOfValues = values.length;

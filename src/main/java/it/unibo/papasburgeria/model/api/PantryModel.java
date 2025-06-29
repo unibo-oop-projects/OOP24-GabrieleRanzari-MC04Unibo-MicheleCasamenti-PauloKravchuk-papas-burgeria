@@ -28,8 +28,10 @@ public interface PantryModel {
     void resetUnlocks();
 
     /**
+     * Returns whether the ingredient is unlocked.
+     *
      * @param ingredientType the ingredient
-     * @return true if the ingredient is unlocked
+     * @return true if the ingredient is unlocked, false otherwise
      */
     boolean isIngredientUnlocked(IngredientEnum ingredientType);
 }

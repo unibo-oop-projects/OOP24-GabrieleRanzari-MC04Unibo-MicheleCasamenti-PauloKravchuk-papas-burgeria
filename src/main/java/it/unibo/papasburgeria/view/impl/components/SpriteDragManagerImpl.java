@@ -15,7 +15,7 @@ import static it.unibo.papasburgeria.model.IngredientEnum.SAUCES;
 /**
  * Manages the drag and click component of the sprites.
  */
-@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Component is used in read-only fashion")
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The component is used in read-only fashion")
 public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener {
     private final Component component;
     private final List<Sprite> sprites;
@@ -27,14 +27,17 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     private boolean dragged;
 
     /**
-     * Default constructor, adds a mouse listener and a mouse motion listener to the component.
+     * Default constructor that adds a mouse listener and a mouse motion listener to the component.
      *
      * @param component          the component where to listen from
      * @param sprites            the list of draggable sprites
      * @param spriteDropListener the listener for the sprites
      */
-    public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites,
-                                 final SpriteDropListener spriteDropListener) {
+    public SpriteDragManagerImpl(
+            final Component component,
+            final List<Sprite> sprites,
+            final SpriteDropListener spriteDropListener
+    ) {
         this.component = component;
         this.sprites = sprites;
         this.dropListener = spriteDropListener;
@@ -174,5 +177,22 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
             }
         }
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "SpriteDragManagerImpl{"
+                + "component=" + component
+                + ", sprites=" + sprites
+                + ", dropListener=" + dropListener
+                + ", draggedSprite=" + draggedSprite
+                + ", originalSprite=" + originalSprite
+                + ", dragOffsetX=" + dragOffsetX
+                + ", dragOffsetY=" + dragOffsetY
+                + ", dragged=" + dragged
+                + '}';
     }
 }

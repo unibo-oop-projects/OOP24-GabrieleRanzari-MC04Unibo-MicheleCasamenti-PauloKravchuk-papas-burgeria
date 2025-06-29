@@ -38,10 +38,17 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORD
  */
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
-        justification = "controller is injected and shared intentionally; views are not serialized at runtime"
+        justification = "The controller is injected and shared intentionally; "
+                + "The views are not serialized at runtime"
 )
 public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDropListener {
+    /**
+     * Defines the x position of the selected order.
+     */
     public static final double ORDER_SELECTED_X_POSITION = 0.1144;
+    /**
+     * Defines the y position of the selected order.
+     */
     public static final double ORDER_SELECTED_Y_POSITION = 0.3487;
 
     @Serial
@@ -61,10 +68,11 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
      * @param gameController  the game controller
      */
     @Inject
-    public OrderSelectionViewImpl(final ResourceService resourceService,
-                                  final OrderSelectionController controller,
-                                  final DrawingManagerImpl drawingManager,
-                                  final GameController gameController
+    public OrderSelectionViewImpl(
+            final ResourceService resourceService,
+            final OrderSelectionController controller,
+            final DrawingManagerImpl drawingManager,
+            final GameController gameController
     ) {
         this.controller = controller;
         this.drawingManager = drawingManager;
@@ -190,5 +198,19 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
         draggableOrderSprites.clear();
         spriteOrders.clear();
         drawingManager.generateOrderSprites(orders, draggableOrderSprites, spriteOrders);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "OrderSelectionViewImpl{"
+                + "controller=" + controller
+                + ", drawingManager=" + drawingManager
+                + ", gameController=" + gameController
+                + ", draggableOrderSprites=" + draggableOrderSprites
+                + ", spriteOrders=" + spriteOrders
+                + '}';
     }
 }

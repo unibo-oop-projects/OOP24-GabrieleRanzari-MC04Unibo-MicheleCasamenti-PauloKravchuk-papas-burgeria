@@ -44,8 +44,12 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
  */
 @Singleton
 public class GameViewImpl implements GameView {
+    /**
+     * Defines the framerate.
+     */
     public static final int FRAMERATE = 60;
-    public static final double ASPECT_RATIO = 16.0 / 9.0;
+
+    private static final double ASPECT_RATIO = 16.0 / 9.0;
     private static final Color DEFAULT_BACKGROUND_COLOR = new Color(0, 0, 0, 0);
     private static final double SIZE_SCALE = 0.7; // in %
     //

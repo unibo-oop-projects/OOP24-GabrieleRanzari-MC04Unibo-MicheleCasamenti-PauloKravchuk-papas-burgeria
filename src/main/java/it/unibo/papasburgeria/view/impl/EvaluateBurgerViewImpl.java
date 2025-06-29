@@ -4,11 +4,9 @@ import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.controller.api.GameController;
-import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
@@ -23,7 +21,6 @@ import org.tinylog.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -32,6 +29,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORDER_INGREDIENT;
 
 /**
  * the interface which contains the hamburger evaluation.
@@ -128,41 +126,41 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         showMoneyLabel = new JLabel("BAL: 0" + MONEY);
         interfacePanel.add(showMoneyLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
-                    new ScaleImpl(BALANCE_X_POS, BALANCE_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
+                        new ScaleImpl(BALANCE_X_POS, BALANCE_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         showMoneyLabel.setFont(FONT);
 
         percentageLabel = new JLabel("SCORE: 0%");
         interfacePanel.add(percentageLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(PERCENTAGE_WIDTH, PERCENTAGE_HEIGHT),
-                    new ScaleImpl(PERCENTAGE_X_POS, PERCENTAGE_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(PERCENTAGE_WIDTH, PERCENTAGE_HEIGHT),
+                        new ScaleImpl(PERCENTAGE_X_POS, PERCENTAGE_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         percentageLabel.setFont(FONT);
 
         paymentLabel = new JLabel("PAY: 0" + MONEY);
         interfacePanel.add(paymentLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(PAYMENT_WIDTH, PAYMENT_HEIGHT),
-                    new ScaleImpl(PAYMENT_X_POS, PAYMENT_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(PAYMENT_WIDTH, PAYMENT_HEIGHT),
+                        new ScaleImpl(PAYMENT_X_POS, PAYMENT_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         paymentLabel.setFont(FONT);
 
         tipLabel = new JLabel("TIP: 0" + MONEY);
         interfacePanel.add(tipLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(TIP_WIDTH, TIP_HEIGHT),
-                    new ScaleImpl(TIP_X_POS, TIP_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(TIP_WIDTH, TIP_HEIGHT),
+                        new ScaleImpl(TIP_X_POS, TIP_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         tipLabel.setFont(FONT);
 
         interfacePanel.validate();
@@ -242,7 +240,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
 
         final Sprite orderSprite = new SpriteImpl(resourceService.getImage("order.png"),
-                new IngredientImpl(IngredientEnum.CHEESE),
+                ORDER_INGREDIENT,
                 OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION,
                 OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
                 DrawingManagerImpl.ORDER_X_SIZE_SCALE,

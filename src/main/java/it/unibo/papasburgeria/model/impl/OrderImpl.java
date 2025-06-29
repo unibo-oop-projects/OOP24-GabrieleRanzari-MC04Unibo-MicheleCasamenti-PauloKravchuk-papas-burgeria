@@ -15,28 +15,27 @@ import java.util.List;
 public class OrderImpl implements Order {
     private final int orderNumber;
     private final Hamburger hamburger;
-    private final float maxTime;
 
     /**
-     * Default constructor, creates a new order given its number and a hamburger.
+     * Costructor that generates an order with a given Hamburger.
      *
-     * @param hamburger   possible ingredients used to generate a random hamburger
-     * @param orderNumber the order number
+     * @param hamburger   hamburger added to order.
+     * @param orderNumber the order number.
      */
     public OrderImpl(final Hamburger hamburger, final int orderNumber) {
         this.hamburger = hamburger.copyOf();
         this.orderNumber = orderNumber;
-        maxTime = (float) 10.0;
     }
 
     /**
-     * @param availableIngredients possible ingredients used to generate a random hamburger
-     * @param orderNumber          the order number
+     * Costructor that generates an order with a random Hamburger.
+     *
+     * @param availableIngredients possible ingredients used to generate a random hamburger.
+     * @param orderNumber          the order number.
      */
     public OrderImpl(final List<IngredientEnum> availableIngredients, final int orderNumber) {
         this.orderNumber = orderNumber;
         hamburger = HamburgerImpl.generateRandomHamburger(availableIngredients);
-        maxTime = (float) 10.0;
     }
 
     /**
@@ -45,14 +44,6 @@ public class OrderImpl implements Order {
     @Override
     public Hamburger getHamburger() {
         return hamburger.copyOf();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public float getMaxTime() {
-        return maxTime;
     }
 
     /**

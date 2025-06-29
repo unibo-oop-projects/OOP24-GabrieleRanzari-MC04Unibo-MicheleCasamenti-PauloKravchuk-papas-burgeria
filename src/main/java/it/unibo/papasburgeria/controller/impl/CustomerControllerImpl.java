@@ -23,7 +23,13 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
+    /**
+     * The maximum payment amount.
+     */
     public static final int MAX_PAYMENT = 50;
+    /**
+     * The default tip percentage.
+     */
     public static final double DEFAULT_TIP = 0.05;
     private final GameModel model;
     private final Shop shop;

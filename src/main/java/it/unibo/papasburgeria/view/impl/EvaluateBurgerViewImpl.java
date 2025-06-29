@@ -40,49 +40,83 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /** Balance label width. */
     private static final double BALANCE_WIDTH = 0.33;
+    /** Balance label height. */
     private static final double BALANCE_HEIGHT = 0.25;
+    /** Balance label x coordinate. */
     private static final double BALANCE_X_POS = 0.0;
+    /** Balance label y coordinate. */
     private static final double BALANCE_Y_POS = 0.80;
 
+    /** Percentage label width. */
     private static final double PERCENTAGE_WIDTH = 0.15;
+    /** Percentage label height. */
     private static final double PERCENTAGE_HEIGHT = 0.1;
+    /** Percentage label x coordinate. */
     private static final double PERCENTAGE_X_POS = 0.77;
+    /** Percentage label y coordinate. */
     private static final double PERCENTAGE_Y_POS = 0.35;
 
+    /** Payment label width. */
     private static final double PAYMENT_WIDTH = 0.15;
+    /** Payment label height. */
     private static final double PAYMENT_HEIGHT = 0.1;
+    /** Payment label x coordinate. */
     private static final double PAYMENT_X_POS = 0.77;
+    /** Payment label y coordinate. */
     private static final double PAYMENT_Y_POS = 0.45;
 
+    /** Tip label width. */
     private static final double TIP_WIDTH = 0.15;
+    /** Tip label height. */
     private static final double TIP_HEIGHT = 0.1;
+    /** Tip label x coordinate. */
     private static final double TIP_X_POS = 0.77;
+    /** Tip label y coordinate. */
     private static final double TIP_Y_POS = 0.55;
 
+    /** Continue label width. */
     private static final double CONTINUE_WIDTH = 0.1;
+    /** Continue label height. */
     private static final double CONTINUE_HEIGHT = 0.1;
+    /** Continue label x coordinate. */
     private static final double CONTINUE_X_POS = 0.77;
+    /** Continue label y coordinate. */
     private static final double CONTINUE_Y_POS = 0.65;
 
+    /** Origin coordinate. */
     private static final double ORIGIN = 0.0;
 
+    /** String indicating currency. */
     private static final String MONEY = "$";
 
+    /** The font mainly used in this view. */
     private static final Font FONT = new Font("Comic Sans MS", Font.BOLD, 20);
 
+    /** Controller that manages the Hamburger Evaluation phase. */
     private final transient EvaluateBurgerController controller;
+    /** Manages the drawing of components. */
     private final transient DrawingManager drawingManager;
+    /** Gets resources such as images. */
     private final transient ResourceService resourceService;
+    /** Controller that manages customers. */
     private final transient CustomerController customerController;
 
+    /** Label used for displaying the player's balance. */
     private final JLabel showMoneyLabel;
+    /** Label used for displaying percentageLabel. */
     private final JLabel percentageLabel;
+    /** Label used for displaying payment. */
     private final JLabel paymentLabel;
+    /** Label used for displaying tips. */
     private final JLabel tipLabel;
 
+    /** Main panel used in this view. */
     private final JPanel interfacePanel;
+    /** Hamburger read and displayed in this view. */
     private transient Hamburger burger;
+    /** Order read and displayed in this view. */
     private transient Order order;
 
     @Inject
@@ -169,7 +203,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * reads the burger and the order.
+     * Reads the burger and the order.
      */
     private void read() {
         burger = controller.getHamburgerOnAssembly();

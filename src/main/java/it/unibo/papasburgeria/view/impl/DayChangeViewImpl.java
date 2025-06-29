@@ -125,7 +125,7 @@ public class DayChangeViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -133,7 +133,7 @@ public class DayChangeViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics g) {
@@ -141,7 +141,7 @@ public class DayChangeViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -151,14 +151,14 @@ public class DayChangeViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
     }
 
     /**
-     * @inheritDoc
+     *
      */
     public final void loadUnlocks() {
         final JPanel interfacePanel = super.getInterfacePanel();

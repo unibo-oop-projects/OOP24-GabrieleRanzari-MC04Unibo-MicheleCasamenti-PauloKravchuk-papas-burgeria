@@ -18,7 +18,7 @@ import it.unibo.papasburgeria.model.impl.ShopImpl;
 class ModelModule extends AbstractModule {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void configure() {

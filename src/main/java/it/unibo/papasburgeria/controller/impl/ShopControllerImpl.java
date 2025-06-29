@@ -30,7 +30,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isUpgradePurchasable(final UpgradeEnum upgrade) {
@@ -38,7 +38,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean buyUpgrade(final UpgradeEnum upgrade) {
@@ -52,7 +52,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isUpgradeUnlocked(final UpgradeEnum upgrade) {
@@ -60,7 +60,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getBalance() {

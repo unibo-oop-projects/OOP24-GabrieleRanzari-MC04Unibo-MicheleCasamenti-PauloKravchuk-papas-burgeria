@@ -14,16 +14,12 @@ import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import org.tinylog.Logger;
-
 import java.awt.Graphics;
 import java.io.Serial;
 import java.util.ArrayList;
@@ -31,6 +27,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HALF_RANGE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORDER_X_SIZE_SCALE;
@@ -104,7 +101,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -112,7 +109,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics graphics) {
@@ -127,7 +124,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -138,7 +135,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -148,7 +145,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
@@ -170,7 +167,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteClicked(final Sprite sprite) {
@@ -178,7 +175,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spritePressed(final Sprite sprite) {

@@ -8,7 +8,7 @@ import com.google.inject.AbstractModule;
 public class MainModule extends AbstractModule {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void configure() {

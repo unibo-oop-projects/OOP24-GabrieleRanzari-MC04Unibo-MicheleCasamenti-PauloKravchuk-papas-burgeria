@@ -256,7 +256,7 @@ public class ShopViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -275,7 +275,7 @@ public class ShopViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
@@ -283,7 +283,7 @@ public class ShopViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -293,7 +293,7 @@ public class ShopViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {

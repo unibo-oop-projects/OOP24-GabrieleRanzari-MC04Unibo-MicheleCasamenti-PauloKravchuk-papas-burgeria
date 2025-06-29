@@ -12,7 +12,7 @@ import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
 class ViewModule extends AbstractModule {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void configure() {

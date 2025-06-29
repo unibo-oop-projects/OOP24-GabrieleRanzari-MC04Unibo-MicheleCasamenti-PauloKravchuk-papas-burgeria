@@ -1,21 +1,7 @@
 package it.unibo.papasburgeria.view.impl;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.Serial;
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import org.tinylog.Logger;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.impl.EvaluateBurgerControllerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
@@ -32,6 +18,17 @@ import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
+import org.tinylog.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.Serial;
+import java.util.ArrayList;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * the interface which contains the hamburger evaluation.
@@ -55,10 +52,10 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
     @Inject
     EvaluateBurgerViewImpl(final EvaluateBurgerControllerImpl controller,
-            final DrawingManager drawingManager,
-            final ResourceService resourceService,
-            final SceneService sceneService, 
-            final CustomerController customerController) {
+                           final DrawingManager drawingManager,
+                           final ResourceService resourceService,
+                           final SceneService sceneService,
+                           final CustomerController customerController) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         this.resourceService = resourceService;
@@ -73,7 +70,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (customerController.isCustomerThreadStatus()
-                || !customerController.getWaitLine().isEmpty()) {
+                        || !customerController.getWaitLine().isEmpty()) {
                     sceneService.switchTo(SceneType.REGISTER);
                 } else {
                     sceneService.switchTo(SceneType.SHOP);
@@ -83,11 +80,11 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
         interfacePanel.add(continueButton,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(CONTINUE_WIDTH, CONTINUE_HEIGHT),
-                    new ScaleImpl(CONTINUE_X_POS, CONTINUE_Y_POS),
-                    new ScaleImpl(CONTINUE_ORIGIN)
-                    )
-                );
+                        new ScaleImpl(CONTINUE_WIDTH, CONTINUE_HEIGHT),
+                        new ScaleImpl(CONTINUE_X_POS, CONTINUE_Y_POS),
+                        new ScaleImpl(CONTINUE_ORIGIN)
+                )
+        );
     }
 
     /**
@@ -99,7 +96,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -110,7 +107,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -120,7 +117,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -128,7 +125,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics g) {

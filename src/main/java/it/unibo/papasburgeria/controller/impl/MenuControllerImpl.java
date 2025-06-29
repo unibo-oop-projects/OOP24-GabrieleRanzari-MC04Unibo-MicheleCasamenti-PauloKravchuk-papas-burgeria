@@ -45,7 +45,7 @@ public class MenuControllerImpl implements MenuController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getCurrentlyUsedSaveIndex() {
@@ -53,7 +53,7 @@ public class MenuControllerImpl implements MenuController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<SaveInfo> getSaves() {
@@ -75,7 +75,7 @@ public class MenuControllerImpl implements MenuController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

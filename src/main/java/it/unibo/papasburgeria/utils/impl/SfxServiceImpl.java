@@ -34,7 +34,7 @@ public class SfxServiceImpl implements SfxService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void playSound(final String soundName) {
@@ -42,7 +42,7 @@ public class SfxServiceImpl implements SfxService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void playSound(final String soundName, final float volume) {
@@ -57,7 +57,7 @@ public class SfxServiceImpl implements SfxService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void playSoundLooped(final String soundName) {
@@ -65,7 +65,7 @@ public class SfxServiceImpl implements SfxService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void playSoundLooped(final String soundName, final float volume) {
@@ -80,7 +80,7 @@ public class SfxServiceImpl implements SfxService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void stopSound(final String soundName) {
@@ -137,7 +137,7 @@ public class SfxServiceImpl implements SfxService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

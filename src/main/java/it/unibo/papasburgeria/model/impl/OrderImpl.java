@@ -7,7 +7,10 @@ import it.unibo.papasburgeria.model.api.Order;
 import java.util.List;
 
 /**
- * Class used for managing hamburgers' assembling instructions and max time.
+ * Implementation of Order.
+ *
+ * <p>
+ * See {@link Order} for interface details.
  */
 public class OrderImpl implements Order {
     private final int orderNumber;
@@ -37,7 +40,7 @@ public class OrderImpl implements Order {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Hamburger getHamburger() {
@@ -45,7 +48,7 @@ public class OrderImpl implements Order {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public float getMaxTime() {
@@ -53,7 +56,7 @@ public class OrderImpl implements Order {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getOrderNumber() {
@@ -61,7 +64,7 @@ public class OrderImpl implements Order {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Order copyOf() {

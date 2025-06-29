@@ -6,7 +6,10 @@ import it.unibo.papasburgeria.model.api.Ingredient;
 import java.util.Objects;
 
 /**
- * Class for creating a simple ingredient.
+ * Implementation of Ingredient.
+ *
+ * <p>
+ * See {@link Ingredient} for interface details.
  */
 public class IngredientImpl implements Ingredient {
     public static final double MAX_RIGHT_ACCURACY = 1.0;
@@ -38,7 +41,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public IngredientEnum getIngredientType() {
@@ -46,7 +49,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getPlacementAccuracy() {
@@ -54,7 +57,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setPlacementAccuracy(final double newAccuracy) {
@@ -62,7 +65,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object object) {
@@ -77,7 +80,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {

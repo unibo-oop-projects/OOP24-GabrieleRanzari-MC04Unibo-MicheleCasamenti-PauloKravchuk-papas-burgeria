@@ -16,7 +16,10 @@ import java.util.Objects;
 import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 
 /**
- * @inheritDoc
+ * Implementation of GameModel.
+ *
+ * <p>
+ * See {@link GameModel} for interface details.
  */
 @Singleton
 public class GameModelImpl implements GameModel {
@@ -52,7 +55,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void nextDay() {
@@ -65,7 +68,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Hamburger getHamburgerOnAssembly() {
@@ -73,7 +76,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setHamburgerOnAssembly(final Hamburger hamburger) {
@@ -81,7 +84,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Patty[][] getPattiesOnGrill() {
@@ -101,7 +104,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setPattiesOnGrill(final Patty[][] patties) {
@@ -112,7 +115,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Patty> getCookedPatties() {
@@ -120,7 +123,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setCookedPatties(final List<Patty> patties) {
@@ -128,7 +131,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getCurrentDay() {
@@ -136,7 +139,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setCurrentDay(final int dayNumber) {
@@ -144,7 +147,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getBalance() {
@@ -152,7 +155,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setBalance(final int amount) {
@@ -160,7 +163,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Order getSelectedOrder() {
@@ -172,7 +175,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setSelectedOrder(final Order order) {
@@ -180,7 +183,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getCurrentSaveSlot() {
@@ -188,7 +191,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setCurrentSaveSlot(final int currentSaveSlot) {
@@ -196,7 +199,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void reset() {
@@ -207,7 +210,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

@@ -1,13 +1,12 @@
 package it.unibo.papasburgeria.controller.impl;
 
-import java.util.Objects;
-
 import com.google.inject.Inject;
-
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
+
+import java.util.Objects;
 
 /**
  * controller for the evaluateBurger.
@@ -24,7 +23,7 @@ public class EvaluateBurgerControllerImpl implements EvaluateBurgerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Hamburger getHamburgerOnAssembly() {
@@ -36,7 +35,7 @@ public class EvaluateBurgerControllerImpl implements EvaluateBurgerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Order getSelectedOrder() {

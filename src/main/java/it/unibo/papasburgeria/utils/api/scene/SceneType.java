@@ -10,7 +10,7 @@ public enum SceneType {
     MENU("Menu"),
     SHOP("Shop"),
     DAY_CHANGE("DayChange"),
-    ORDER_SELECTION("OrderSelection"), 
+    ORDER_SELECTION("OrderSelection"),
     EVALUATE_BURGER("EvaluateBurger");
 
     private final String value;
@@ -34,7 +34,7 @@ public enum SceneType {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

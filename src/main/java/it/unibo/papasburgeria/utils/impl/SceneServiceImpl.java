@@ -36,7 +36,7 @@ public class SceneServiceImpl implements SceneService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void switchTo(final SceneType sceneType) {
@@ -65,7 +65,7 @@ public class SceneServiceImpl implements SceneService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Map<SceneType, BaseScene> getScenes() {
@@ -73,7 +73,7 @@ public class SceneServiceImpl implements SceneService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void onSceneChanged(final Consumer<SceneType> callback) {
@@ -99,7 +99,7 @@ public class SceneServiceImpl implements SceneService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

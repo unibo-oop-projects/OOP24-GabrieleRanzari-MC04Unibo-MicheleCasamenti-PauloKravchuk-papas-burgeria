@@ -52,7 +52,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean addIngredient(final Ingredient ingredient) {
@@ -81,7 +81,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeLastIngredient() {
@@ -116,7 +116,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Hamburger getHamburgerOnAssembly() {
@@ -124,7 +124,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isIngredientUnlocked(final IngredientEnum ingredientType) {
@@ -132,7 +132,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Patty> getCookedPatties() {
@@ -140,7 +140,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean addCookedPatty(final Patty patty) {
@@ -154,7 +154,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeCookedPatty(final Patty patty) {
@@ -164,7 +164,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double calculateAccuracy(final double pbPositionXScale) {
@@ -175,7 +175,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void changeIngredientAccuracy(final Ingredient ingredient, final double accuracy) {
@@ -185,7 +185,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<IngredientEnum> getUnlockedIngredients() {
@@ -193,7 +193,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Order> getOrders() {
@@ -206,7 +206,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

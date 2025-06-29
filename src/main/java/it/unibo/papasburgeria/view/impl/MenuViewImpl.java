@@ -143,7 +143,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -156,7 +156,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -174,7 +174,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -240,7 +240,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

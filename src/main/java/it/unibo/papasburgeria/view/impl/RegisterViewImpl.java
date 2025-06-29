@@ -96,7 +96,7 @@ public class RegisterViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -107,7 +107,7 @@ public class RegisterViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -118,7 +118,7 @@ public class RegisterViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -208,7 +208,7 @@ public class RegisterViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics g) {

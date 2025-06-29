@@ -234,7 +234,7 @@ public class GameViewImpl implements GameView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void startGame() {
@@ -254,7 +254,7 @@ public class GameViewImpl implements GameView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void endGame() {
@@ -273,7 +273,7 @@ public class GameViewImpl implements GameView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

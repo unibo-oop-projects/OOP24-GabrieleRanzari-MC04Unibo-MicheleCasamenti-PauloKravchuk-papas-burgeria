@@ -96,6 +96,7 @@ public class GameControllerImpl implements GameController {
         gameModel.nextDay();
         customerController.startClientThread();
         pantryModel.unlockForDay(gameModel.getCurrentDay());
+        this.processSave();
         switchToScene(SceneType.DAY_CHANGE);
     }
 
@@ -126,6 +127,7 @@ public class GameControllerImpl implements GameController {
     @Override
     public boolean processLoad(final int slotNumber) {
         try {
+            gameModel.reset();
             final SaveState saveState = this.saveService.loadSlot(slotNumber);
             this.gameModel.setCurrentSaveSlot(slotNumber);
             this.gameModel.setCurrentDay(saveState.gameDay());

@@ -102,8 +102,11 @@ public class ShopViewImpl extends AbstractBaseView {
      * @param gameController  the controller for the game
      */
     @Inject
-    public ShopViewImpl(final ResourceService resourceService, final ShopController controller,
-                        final GameController gameController) {
+    public ShopViewImpl(
+            final ResourceService resourceService,
+            final ShopController controller,
+            final GameController gameController
+    ) {
         this.controller = controller;
 
         super.setStaticBackgroundImage(resourceService.getImage("shop_background.png"));
@@ -209,7 +212,8 @@ public class ShopViewImpl extends AbstractBaseView {
             );
 
             final JTextArea descriptionTextArea = new JTextArea(upgrade.getDescription());
-            descriptionTextArea.setFont(new Font(DESCRIPTION_FONT_NAME, Font.PLAIN, DESCRIPTION_FONT_SIZE));
+            descriptionTextArea.setFont(
+                    new Font(DESCRIPTION_FONT_NAME, Font.PLAIN, DESCRIPTION_FONT_SIZE));
             descriptionTextArea.setEditable(false);
             descriptionTextArea.setFocusable(false);
             descriptionTextArea.setLineWrap(true);

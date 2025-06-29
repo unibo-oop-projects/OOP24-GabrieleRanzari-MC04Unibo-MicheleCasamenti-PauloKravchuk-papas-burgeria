@@ -166,12 +166,12 @@ public class GrillControllerImpl implements GrillController {
      * @param maxPos   the maximum position in scale
      * @param segments the number of segments that the range is divided in
      * @return the segment index corresponding to the given position
-     * {@inheritDoc}
      */
-    private int calculatePosition(final double position,
-                                  final double minPos,
-                                  final double maxPos,
-                                  final int segments
+    private int calculatePosition(
+            final double position,
+            final double minPos,
+            final double maxPos,
+            final int segments
     ) {
         double norm = (position - minPos) / (maxPos - minPos);
         norm = Math.max(MIN_COOK_LEVEL, Math.min(MAX_COOK_LEVEL, norm));

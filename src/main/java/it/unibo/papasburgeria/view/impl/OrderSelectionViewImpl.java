@@ -38,7 +38,8 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORD
  */
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
-        justification = "The controller is injected and shared intentionally; The views are not serialized at runtime"
+        justification = "The controller is injected and shared intentionally; "
+                + "The views are not serialized at runtime"
 )
 public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDropListener {
     public static final double ORDER_SELECTED_X_POSITION = 0.1144;
@@ -61,10 +62,11 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
      * @param gameController  the game controller
      */
     @Inject
-    public OrderSelectionViewImpl(final ResourceService resourceService,
-                                  final OrderSelectionController controller,
-                                  final DrawingManagerImpl drawingManager,
-                                  final GameController gameController
+    public OrderSelectionViewImpl(
+            final ResourceService resourceService,
+            final OrderSelectionController controller,
+            final DrawingManagerImpl drawingManager,
+            final GameController gameController
     ) {
         this.controller = controller;
         this.drawingManager = drawingManager;

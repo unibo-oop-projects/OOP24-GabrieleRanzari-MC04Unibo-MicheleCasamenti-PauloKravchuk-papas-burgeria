@@ -86,15 +86,17 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @param drawingManager           the manager for drawing various things
      * @param gameController           the game controller
      * @param orderSelectionController the order selection controller
-     * @param sfxService      the service that handles sfx playing
+     * @param sfxService               the service that handles sfx playing
      */
     @Inject
-    public BurgerAssemblyViewImpl(final ResourceService resourceService,
-                                  final SfxService sfxService,
-                                  final BurgerAssemblyController controller,
-                                  final DrawingManagerImpl drawingManager,
-                                  final GameController gameController,
-                                  final OrderSelectionController orderSelectionController) {
+    public BurgerAssemblyViewImpl(
+            final ResourceService resourceService,
+            final SfxService sfxService,
+            final BurgerAssemblyController controller,
+            final DrawingManagerImpl drawingManager,
+            final GameController gameController,
+            final OrderSelectionController orderSelectionController
+    ) {
         this.controller = controller;
         this.sfxService = sfxService;
         this.drawingManager = drawingManager;
@@ -118,9 +120,12 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         double pbPositionYScale = INGREDIENTS_Y_POS_SCALE;
         for (final IngredientEnum ingredientType : IngredientEnum.values()) {
             if (ingredientType != PATTY && !SAUCES.contains(ingredientType)) {
-                final Image image = resourceService.getImage(ingredientType.getName() + EXTENSION);
-                final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
-                        pbPositionXScale, pbPositionYScale, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
+                final Image image =
+                        resourceService.getImage(ingredientType.getName() + EXTENSION);
+                final Sprite sprite =
+                        new SpriteImpl(image, new IngredientImpl(ingredientType),
+                                pbPositionXScale, pbPositionYScale,
+                                INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
 
                 if (controller.isIngredientUnlocked(ingredientType)) {
                     draggableSprites.add(sprite);
@@ -139,7 +144,8 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         pbPositionXScale = SAUCE_BOTTLES_X_POS_SCALE;
         pbPositionYScale = SAUCE_BOTTLES_Y_POS_SCALE;
         for (final IngredientEnum ingredientType : SAUCES) {
-            final Image image = resourceService.getImage(ingredientType.getName() + BOTTLE_EXTENSION + EXTENSION);
+            final Image image =
+                    resourceService.getImage(ingredientType.getName() + BOTTLE_EXTENSION + EXTENSION);
 
             final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
                     pbPositionXScale, pbPositionYScale, SAUCE_BOTTLES_X_SIZE_SCALE, SAUCE_BOTTLES_Y_SIZE_SCALE);
@@ -175,26 +181,51 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             drawingManager.drawOrder(sprite, order, getSize(), graphics);
         }
 
-        drawingManager.drawHamburger(controller.getHamburgerOnAssembly(), getSize(), HALF_RANGE, HAMBURGER_Y_POS_SCALE,
+        drawingManager.drawHamburger(
+                controller.getHamburgerOnAssembly(), getSize(),
+                HALF_RANGE, HAMBURGER_Y_POS_SCALE,
                 draggableHamburgerSprites, graphics);
 
         final List<Patty> cookedPatties = controller.getCookedPatties();
-        drawingManager.generateCookedPatties(cookedPatties, PATTIES_X_POS_SCALE, PATTIES_Y_POS_SCALE, draggablePattySprites);
+        drawingManager.generateCookedPatties(
+                cookedPatties, PATTIES_X_POS_SCALE,
+                PATTIES_Y_POS_SCALE, draggablePattySprites
+        );
 
         for (final Sprite sprite : sprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
+            drawingManager.drawIngredient(
+                    sprite,
+                    getSize(),
+                    controller.getUnlockedIngredients(),
+                    graphics
+            );
         }
 
         for (final Sprite sprite : draggableHamburgerSprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
+            drawingManager.drawIngredient(
+                    sprite,
+                    getSize(),
+                    controller.getUnlockedIngredients(),
+                    graphics
+            );
         }
 
         for (final Sprite sprite : draggableSprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
+            drawingManager.drawIngredient(
+                    sprite,
+                    getSize(),
+                    controller.getUnlockedIngredients(),
+                    graphics
+            );
         }
 
         for (final Sprite sprite : draggablePattySprites) {
-            drawingManager.drawIngredient(sprite, getSize(), controller.getUnlockedIngredients(), graphics);
+            drawingManager.drawIngredient(
+                    sprite,
+                    getSize(),
+                    controller.getUnlockedIngredients(),
+                    graphics
+            );
         }
     }
 
@@ -247,7 +278,10 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                 }
                 controller.removeLastIngredient();
             } else {
-                controller.changeIngredientAccuracy(ingredient, controller.calculateAccuracy(pbPositionXScale));
+                controller.changeIngredientAccuracy(
+                        ingredient,
+                        controller.calculateAccuracy(pbPositionXScale)
+                );
                 if (ingredient instanceof Patty) {
                     draggablePattySprites.clear();
                 }

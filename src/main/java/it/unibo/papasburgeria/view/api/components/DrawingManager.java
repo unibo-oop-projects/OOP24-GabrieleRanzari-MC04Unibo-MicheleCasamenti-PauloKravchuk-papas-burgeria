@@ -25,9 +25,14 @@ public interface DrawingManager {
      * @param draggableHamburgerSprites the list of draggable sprites of the hamburger
      * @param graphics                  the graphics
      */
-    void drawHamburger(Hamburger hamburger, Dimension frameSize,
-                       double bottomBunXPosScale, double bottomBunYPosScale,
-                       List<Sprite> draggableHamburgerSprites, Graphics graphics);
+    void drawHamburger(
+            Hamburger hamburger,
+            Dimension frameSize,
+            double bottomBunXPosScale,
+            double bottomBunYPosScale,
+            List<Sprite> draggableHamburgerSprites,
+            Graphics graphics
+    );
 
     /**
      * Draws a sprite.
@@ -37,7 +42,12 @@ public interface DrawingManager {
      * @param unlockedIngredients the list of unlocked ingredients
      * @param graphics            the graphics
      */
-    void drawIngredient(Sprite sprite, Dimension frameSize, List<IngredientEnum> unlockedIngredients, Graphics graphics);
+    void drawIngredient(
+            Sprite sprite,
+            Dimension frameSize,
+            List<IngredientEnum> unlockedIngredients,
+            Graphics graphics
+    );
 
     /**
      * Draws an order.
@@ -47,7 +57,12 @@ public interface DrawingManager {
      * @param frameSize the sizes of the frame
      * @param graphics  the graphics
      */
-    void drawOrder(Sprite sprite, Order order, Dimension frameSize, Graphics graphics);
+    void drawOrder(
+            Sprite sprite,
+            Order order,
+            Dimension frameSize,
+            Graphics graphics
+    );
 
     /**
      * Generates the sprites for the cooked patties.
@@ -57,8 +72,12 @@ public interface DrawingManager {
      * @param initialPbPositionYScale the initial y position in scale where to draw
      * @param draggablePattySprites   the list of draggable sprites
      */
-    void generateCookedPatties(List<Patty> cookedPatties, double pbPositionXScale,
-                               double initialPbPositionYScale, List<Sprite> draggablePattySprites);
+    void generateCookedPatties(
+            List<Patty> cookedPatties,
+            double pbPositionXScale,
+            double initialPbPositionYScale,
+            List<Sprite> draggablePattySprites
+    );
 
     /**
      * Generates the sprites for the patties on the grill.
@@ -66,7 +85,10 @@ public interface DrawingManager {
      * @param pattiesOnGrill          the matrix of patties on the grill
      * @param draggablePattiesOnGrill the list of draggable patties on the grill
      */
-    void generatePattiesOnGrill(Patty[][] pattiesOnGrill, List<Sprite> draggablePattiesOnGrill);
+    void generatePattiesOnGrill(
+            Patty[][] pattiesOnGrill,
+            List<Sprite> draggablePattiesOnGrill
+    );
 
     /**
      * Generates the sprites for the orders.
@@ -75,5 +97,9 @@ public interface DrawingManager {
      * @param draggableOrderSprites the list of draggable orders
      * @param spriteOrders          the map of orders for every sprite
      */
-    void generateOrderSprites(List<Order> orders, List<Sprite> draggableOrderSprites, Map<Sprite, Order> spriteOrders);
+    void generateOrderSprites(
+            List<Order> orders,
+            List<Sprite> draggableOrderSprites,
+            Map<Sprite, Order> spriteOrders
+    );
 }

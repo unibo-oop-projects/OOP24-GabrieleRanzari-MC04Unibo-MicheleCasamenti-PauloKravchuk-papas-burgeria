@@ -31,7 +31,8 @@ public enum DegreesOfDonenessEnum {
      * @return the degree of doneness
      */
     public static DegreesOfDonenessEnum calculateDegree(final double cookLevel) {
-        final double clampedValue = Math.max(MIN_COOK_LEVEL, Math.min(MAX_COOK_LEVEL, cookLevel));
+        final double clampedValue =
+                Math.max(MIN_COOK_LEVEL, Math.min(MAX_COOK_LEVEL, cookLevel));
 
         final DegreesOfDonenessEnum[] values = values();
         final int numberOfValues = values.length;

@@ -14,7 +14,8 @@ import java.util.Objects;
 public class IngredientImpl implements Ingredient {
     public static final double MAX_RIGHT_ACCURACY = 1.0;
     public static final double MAX_LEFT_ACCURACY = -MAX_RIGHT_ACCURACY;
-    public static final double PERFECT_ACCURACY = MAX_RIGHT_ACCURACY + MAX_LEFT_ACCURACY;
+    public static final double PERFECT_ACCURACY =
+            MAX_RIGHT_ACCURACY + MAX_LEFT_ACCURACY;
 
     private static final double DEFAULT_ACCURACY = PERFECT_ACCURACY;
 

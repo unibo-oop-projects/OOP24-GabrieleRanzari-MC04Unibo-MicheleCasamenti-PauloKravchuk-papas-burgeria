@@ -91,10 +91,12 @@ public class GameModelImpl implements GameModel {
 
         final Patty[][] newPattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         for (int row = 0; row < GRILL_ROWS; row++) {
-            newPattiesOnGrill[row] = Arrays.copyOf(pattiesOnGrill[row], pattiesOnGrill[row].length);
+            newPattiesOnGrill[row] =
+                    Arrays.copyOf(pattiesOnGrill[row], pattiesOnGrill[row].length);
             for (int column = 0; column < GRILL_COLUMNS
                     && pattiesOnGrill[row][column] != null; column++) {
-                newPattiesOnGrill[row][column] = new PattyImpl(pattiesOnGrill[row][column]);
+                newPattiesOnGrill[row][column] =
+                        new PattyImpl(pattiesOnGrill[row][column]);
             }
         }
         return newPattiesOnGrill;

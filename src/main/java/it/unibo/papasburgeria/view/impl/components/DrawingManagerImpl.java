@@ -92,8 +92,10 @@ public class DrawingManagerImpl implements DrawingManager {
 
         final IngredientEnum ingredientType = PATTY;
         for (final DegreesOfDonenessEnum degree : DegreesOfDonenessEnum.values()) {
-            final String pattyName = ingredientType.getName() + SEPARATOR + degree.getName() + EXTENSION;
-            final String pattyBottomName = ingredientType.getName() + BOTTOM_EXTENSION + SEPARATOR + degree.getName() + EXTENSION;
+            final String pattyName =
+                    ingredientType.getName() + SEPARATOR + degree.getName() + EXTENSION;
+            final String pattyBottomName =
+                    ingredientType.getName() + BOTTOM_EXTENSION + SEPARATOR + degree.getName() + EXTENSION;
 
             final Image image = resourceService.getImage(pattyName);
             pattyImages.put(pattyName, image);
@@ -106,14 +108,20 @@ public class DrawingManagerImpl implements DrawingManager {
      * {@inheritDoc}
      */
     @Override
-    public final void drawHamburger(final Hamburger hamburger, final Dimension frameSize,
-                                    final double bottomBunXPosScale, final double bottomBunYPosScale,
-                                    final List<Sprite> draggableHamburgerSprites, final Graphics graphics) {
+    public final void drawHamburger(
+            final Hamburger hamburger,
+            final Dimension frameSize,
+            final double bottomBunXPosScale,
+            final double bottomBunYPosScale,
+            final List<Sprite> draggableHamburgerSprites,
+            final Graphics graphics
+    ) {
         final List<Ingredient> hamburgerIngredients = hamburger.getIngredients();
         double pbPositionYScale = bottomBunYPosScale;
         Sprite sprite = null;
         for (final Ingredient ingredient : hamburgerIngredients) {
-            final double pbPositionXScale = getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy(), bottomBunXPosScale);
+            final double pbPositionXScale =
+                    getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy(), bottomBunXPosScale);
             if (ingredient instanceof Patty) {
                 sprite = generatePattySprite((Patty) ingredient, pbPositionXScale, pbPositionYScale,
                         INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
@@ -145,8 +153,12 @@ public class DrawingManagerImpl implements DrawingManager {
      * {@inheritDoc}
      */
     @Override
-    public final void drawIngredient(final Sprite sprite, final Dimension frameSize,
-                                     final List<IngredientEnum> unlockedIngredients, final Graphics graphics) {
+    public final void drawIngredient(
+            final Sprite sprite,
+            final Dimension frameSize,
+            final List<IngredientEnum> unlockedIngredients,
+            final Graphics graphics
+    ) {
         final int frameWidth = frameSize.width;
         final int frameHeight = frameSize.height;
         sprite.draw(frameSize, graphics);
@@ -165,7 +177,12 @@ public class DrawingManagerImpl implements DrawingManager {
      * {@inheritDoc}
      */
     @Override
-    public void drawOrder(final Sprite sprite, final Order order, final Dimension frameSize, final Graphics graphics) {
+    public void drawOrder(
+            final Sprite sprite,
+            final Order order,
+            final Dimension frameSize,
+            final Graphics graphics
+    ) {
         sprite.draw(frameSize, graphics);
         if (Objects.isNull(order)) {
             return;
@@ -204,8 +221,12 @@ public class DrawingManagerImpl implements DrawingManager {
      * {@inheritDoc}
      */
     @Override
-    public final void generateCookedPatties(final List<Patty> cookedPatties, final double pbPositionXScale,
-                                            final double initialPbPositionYScale, final List<Sprite> draggablePattySprites) {
+    public final void generateCookedPatties(
+            final List<Patty> cookedPatties,
+            final double pbPositionXScale,
+            final double initialPbPositionYScale,
+            final List<Sprite> draggablePattySprites
+    ) {
         double pbPositionYScale = initialPbPositionYScale;
         for (final Patty patty : cookedPatties) {
             final Sprite sprite = generatePattySprite(patty, pbPositionXScale, pbPositionYScale,
@@ -223,7 +244,10 @@ public class DrawingManagerImpl implements DrawingManager {
      * {@inheritDoc}
      */
     @Override
-    public final void generatePattiesOnGrill(final Patty[][] pattiesOnGrill, final List<Sprite> draggablePattiesOnGrill) {
+    public final void generatePattiesOnGrill(
+            final Patty[][] pattiesOnGrill,
+            final List<Sprite> draggablePattiesOnGrill
+    ) {
         double pbPositionXScale = PATTY_ON_GRILL_X_POS;
         double pbPositionYScale = PATTY_ON_GRILL_Y_POS + GRILL_Y_SPACING;
         for (final Patty[] pattyRow : pattiesOnGrill) {
@@ -249,13 +273,19 @@ public class DrawingManagerImpl implements DrawingManager {
      * {@inheritDoc}
      */
     @Override
-    public void generateOrderSprites(final List<Order> orders, final List<Sprite> draggableOrderSprites,
-                                     final Map<Sprite, Order> spriteOrders) {
+    public void generateOrderSprites(
+            final List<Order> orders,
+            final List<Sprite> draggableOrderSprites,
+            final Map<Sprite, Order> spriteOrders
+    ) {
         double pbPositionXScale = ORDER_X_POS_SCALE;
-        final double orderSpacing = (1.0 - ORDER_X_POS_SCALE - ORDER_X_SIZE_SCALE) / (orders.size() - 1);
+        final double orderSpacing =
+                (1.0 - ORDER_X_POS_SCALE - ORDER_X_SIZE_SCALE) / (orders.size() - 1);
         for (final Order order : orders) {
-            final Sprite sprite = new SpriteImpl(orderCard, ORDER_INGREDIENT,
-                    pbPositionXScale, ORDER_Y_POS_SCALE, ORDER_X_SIZE_SCALE, ORDER_Y_SIZE_SCALE);
+            final Sprite sprite =
+                    new SpriteImpl(orderCard, ORDER_INGREDIENT,
+                            pbPositionXScale, ORDER_Y_POS_SCALE,
+                            ORDER_X_SIZE_SCALE, ORDER_Y_SIZE_SCALE);
             sprite.setDraggable(true);
             sprite.setCloneable(false);
             sprite.setRemovable(true);
@@ -275,7 +305,10 @@ public class DrawingManagerImpl implements DrawingManager {
      * @param halfRange the x position to be centered
      * @return the x position in scale
      */
-    private double getPositionXScaleFromAccuracy(final double accuracy, final double halfRange) {
+    private double getPositionXScaleFromAccuracy(
+            final double accuracy,
+            final double halfRange
+    ) {
         final double boundedAccuracy = Math.max(MAX_LEFT_ACCURACY,
                 Math.min(MAX_RIGHT_ACCURACY, accuracy));
         return HAMBURGER_X_POS_SCALE + (boundedAccuracy * halfRange);
@@ -291,8 +324,13 @@ public class DrawingManagerImpl implements DrawingManager {
      * @param pbSizeYScale     the y size in scale
      * @return the sprite
      */
-    private Sprite generatePattySprite(final Patty patty, final double pbPositionXScale, final double pbPositionYScale,
-                                       final double pbSizeXScale, final double pbSizeYScale) {
+    private Sprite generatePattySprite(
+            final Patty patty,
+            final double pbPositionXScale,
+            final double pbPositionYScale,
+            final double pbSizeXScale,
+            final double pbSizeYScale
+    ) {
         double topCookLevel = patty.getTopCookLevel();
         DegreesOfDonenessEnum topDegree = DegreesOfDonenessEnum.calculateDegree(topCookLevel);
 

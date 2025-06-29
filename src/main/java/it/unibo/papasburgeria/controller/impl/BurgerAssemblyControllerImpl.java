@@ -54,7 +54,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public boolean addIngredient(final Ingredient ingredient) {
-        if (model.getHamburgerOnAssembly().getIngredients().size() == MAX_INGREDIENTS) {
+        if (model.getHamburgerOnAssembly().getIngredients().size() == MAX_INGREDIENTS + 2) {
             return false;
         }
 
@@ -111,7 +111,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     @Override
     public boolean addCookedPatty(final Patty patty) {
         final List<Patty> patties = model.getCookedPatties();
-        if (patties.size() == MAX_COOKED_PATTIES + 2) {
+        if (patties.size() == MAX_COOKED_PATTIES) {
             return false;
         }
         patties.add(patty);

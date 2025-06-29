@@ -30,16 +30,17 @@ public interface GameController {
     void nextDay();
 
     /**
-     * Returns the current day number.
+     * Processes data saving for the given slot number, provides success feedback.
      *
-     * @return the day number
+     * @return whether the save is successful or not
      */
-    int getCurrentDayNumber();
+    boolean processSave();
 
     /**
-     * Sets the current day to a new day and updates the PantryModel.
+     * Processes data loading for the given slot number, provides success feedback.
      *
-     * @param dayNumber the day number
+     * @param slotNumber slot number
+     * @return whether the loading is successful or not
      */
-    void setDay(int dayNumber);
+    boolean processLoad(int slotNumber);
 }

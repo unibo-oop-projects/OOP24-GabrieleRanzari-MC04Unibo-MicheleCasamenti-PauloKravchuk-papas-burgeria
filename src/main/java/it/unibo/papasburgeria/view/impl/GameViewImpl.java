@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.BaseScene;
@@ -44,7 +43,6 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
  * See {@link GameView} for interface details.
  */
 @Singleton
-@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class GameViewImpl implements GameView {
     public static final int FRAMERATE = 60;
     public static final double ASPECT_RATIO = 16.0 / 9.0;

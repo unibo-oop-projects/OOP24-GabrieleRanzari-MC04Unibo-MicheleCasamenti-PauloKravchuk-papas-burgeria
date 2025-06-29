@@ -14,6 +14,7 @@ import it.unibo.papasburgeria.utils.impl.resource.ResourceServiceImpl;
 import it.unibo.papasburgeria.utils.impl.saving.SaveServiceImpl;
 import it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl;
 import it.unibo.papasburgeria.view.impl.DayChangeViewImpl;
+import it.unibo.papasburgeria.view.impl.EvaluateBurgerViewImpl;
 import it.unibo.papasburgeria.view.impl.GrillViewImpl;
 import it.unibo.papasburgeria.view.impl.MenuViewImpl;
 import it.unibo.papasburgeria.view.impl.OrderSelectionViewImpl;
@@ -39,6 +40,7 @@ class UtilsModule extends AbstractModule {
         boundScenes.addBinding(SceneType.SHOP).to(ShopViewImpl.class);
         boundScenes.addBinding(SceneType.DAY_CHANGE).to(DayChangeViewImpl.class);
         boundScenes.addBinding(SceneType.ORDER_SELECTION).to(OrderSelectionViewImpl.class);
+        boundScenes.addBinding(SceneType.EVALUATE_BURGER).to(EvaluateBurgerViewImpl.class);
 
         // API to implementation bindings
         bind(SceneService.class).to(SceneServiceImpl.class);

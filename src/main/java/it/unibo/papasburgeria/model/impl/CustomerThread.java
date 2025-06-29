@@ -50,7 +50,11 @@ class CustomerThread extends Thread {
                     }
                     model.addCustomerRegisterLine(new CustomerImpl(unlockedIngredients, generatedCustomers + 1));
                     generatedCustomers++;
-                    sleep(intervalMilliSeconds);
+                    if (generatedCustomers >= customerAmount) {
+                        interrupt();
+                    } else {
+                        sleep(intervalMilliSeconds);
+                    }
                 }
             } catch (final InterruptedException e) {
                 interrupt();

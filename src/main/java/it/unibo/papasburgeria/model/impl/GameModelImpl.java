@@ -11,6 +11,7 @@ import it.unibo.papasburgeria.model.api.Patty;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static it.unibo.papasburgeria.model.DaysEnum.FIRST_DAY;
 
@@ -162,7 +163,11 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public Order getSelectedOrder() {
-        return selectedOrder.copyOf();
+        if (Objects.isNull(selectedOrder)) {
+            return null;
+        } else {
+            return selectedOrder.copyOf();
+        }
     }
 
     /**

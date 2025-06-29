@@ -1,8 +1,13 @@
 package it.unibo.papasburgeria.view.impl;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serial;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import org.tinylog.Logger;
 
@@ -11,15 +16,21 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.impl.EvaluateBurgerControllerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.scene.SceneService;
+import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
+import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
+import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
+import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
 
 /**
@@ -29,6 +40,13 @@ import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
 public class EvaluateBurgerViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
+
+    private static final double CONTINUE_WIDTH = 0.25;
+    private static final double CONTINUE_HEIGHT = 0.2;
+    private static final double CONTINUE_X_POS = 0.7;
+    private static final double CONTINUE_Y_POS = 0.75;
+    private static final double CONTINUE_ORIGIN = 0.0;
+
     private final transient EvaluateBurgerControllerImpl controller;
     private final transient DrawingManager drawingManager;
     private final transient ResourceService resourceService;
@@ -37,11 +55,39 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
     @Inject
     EvaluateBurgerViewImpl(final EvaluateBurgerControllerImpl controller,
-    final DrawingManager drawingManager, final ResourceService resourceService) {
+            final DrawingManager drawingManager,
+            final ResourceService resourceService,
+            final SceneService sceneService, 
+            final CustomerController customerController) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         this.resourceService = resourceService;
         read();
+
+        final JPanel interfacePanel = super.getInterfacePanel();
+        interfacePanel.setLayout(new ScalableLayoutImpl());
+        super.setStaticBackgroundImage(resourceService.getImage("order_evaluation_background.png"));
+
+        final JButton continueButton = new JButton();
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (customerController.isCustomerThreadStatus()
+                || !customerController.getWaitLine().isEmpty()) {
+                    sceneService.switchTo(SceneType.REGISTER);
+                } else {
+                    sceneService.switchTo(SceneType.SHOP);
+                }
+            }
+        });
+
+        interfacePanel.add(continueButton,
+                new ScaleConstraintImpl(
+                    new ScaleImpl(CONTINUE_WIDTH, CONTINUE_HEIGHT),
+                    new ScaleImpl(CONTINUE_X_POS, CONTINUE_Y_POS),
+                    new ScaleImpl(CONTINUE_ORIGIN)
+                    )
+                );
     }
 
     /**
@@ -77,7 +123,9 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
      * @inheritDoc
      */
     @Override
-    void update(final double delta) { }
+    void update(final double delta) {
+
+    }
 
     /**
      * @inheritDoc

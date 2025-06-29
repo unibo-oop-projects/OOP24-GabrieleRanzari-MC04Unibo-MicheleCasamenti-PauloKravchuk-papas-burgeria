@@ -113,6 +113,14 @@ public class CustomerControllerImpl implements CustomerController {
      * @inheritDoc
      */
     @Override
+    public boolean isCustomerThreadStatus() {
+        return registerModel.isCustomerThreadStatus();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public List<Customer> getRegisterLine() {
         return registerModel.getRegisterLine();
     }

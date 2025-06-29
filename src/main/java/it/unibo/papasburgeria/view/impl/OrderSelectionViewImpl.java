@@ -15,10 +15,15 @@ import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import org.tinylog.Logger;
+
 import java.awt.Graphics;
 import java.io.Serial;
 import java.util.ArrayList;
@@ -127,6 +132,9 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     @Override
     public void showScene() {
         readOrders();
+        if (DEBUG_MODE) {
+            Logger.info("OrderSelectionView shown");
+        }
     }
 
     /**
@@ -134,7 +142,9 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void hideScene() {
-
+        if (DEBUG_MODE) {
+            Logger.info("OrderSelectionView hidden");
+        }
     }
 
     /**
@@ -153,7 +163,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
             sprite.setPbPositionXScale(ORDER_SELECTED_X_POSITION);
             sprite.setPbPositionYScale(ORDER_SELECTED_Y_POSITION);
             controller.setSelectedOrder(spriteOrders.get(sprite));
-            gameController.switchToScene(SceneType.SHOP);
+            gameController.switchToScene(SceneType.EVALUATE_BURGER);
         } else {
             readOrders();
         }

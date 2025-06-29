@@ -128,4 +128,12 @@ public class RegisterModelImpl implements RegisterModel {
     public String toString() {
         return "[CustomerManager: [registerLine=" + registerLine.toString() + "], [waitLine=" + waitLine.toString() + "] ]";
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean isCustomerThreadStatus() {
+        return customerThread.isAlive();
+    }
 }

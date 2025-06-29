@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Manages interactions from the Menu View calling its methods.
  */
+@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface MenuController {
 
     /**

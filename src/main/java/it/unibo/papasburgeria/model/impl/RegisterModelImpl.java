@@ -23,10 +23,9 @@ public class RegisterModelImpl implements RegisterModel {
     @Override
     public void startCustomerThread(final int delay, final int customerAmount,
                                     final List<IngredientEnum> availableingredients) {
-        if (!customerThread.isAlive()) {
-            customerThread = new CustomerThread(delay, customerAmount, availableingredients, this);
-            customerThread.start();
-        }
+        killCustomerThread();
+        customerThread = new CustomerThread(delay, customerAmount, availableingredients, this);
+        customerThread.start();
     }
 
     /**

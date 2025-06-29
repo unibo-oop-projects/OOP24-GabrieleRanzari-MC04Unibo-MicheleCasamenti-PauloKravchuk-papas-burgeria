@@ -70,6 +70,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void startClientThread() {
+        clearAllCustomers();
         final CustomerDifficultyEnum difficulty;
         switch (model.getCurrentDay()) {
             case 1:

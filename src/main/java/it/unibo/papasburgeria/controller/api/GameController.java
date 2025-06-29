@@ -30,11 +30,19 @@ public interface GameController {
     void nextDay();
 
     /**
-     * Processes data saving for the given slot number, provides success feedback.
+     * Processes data saving for current slot number, provides success feedback.
      *
      * @return whether the save is successful or not
      */
     boolean processSave();
+
+    /**
+     * Processes data saving for the given slot number, provides success feedback.
+     *
+     * @param slotNumber slot number
+     * @return whether the save is successful or not
+     */
+    boolean processSave(int slotNumber);
 
     /**
      * Processes data loading for the given slot number, provides success feedback.

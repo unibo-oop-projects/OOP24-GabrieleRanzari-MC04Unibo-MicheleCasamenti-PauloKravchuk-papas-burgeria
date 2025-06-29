@@ -199,7 +199,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 if (!isEmptySave) {
                     slotView.updateButton(
                             "[SELECT" + (currentlySelected ? "ED]" : "]"), event -> {
-                                if (currentlySelected) {
+                                if (!currentlySelected) {
                                     gameController.processSave();
                                     if (gameController.processLoad(boundIndex)) {
                                         gameController.switchToScene(SceneType.REGISTER);
@@ -415,8 +415,9 @@ public class MenuViewImpl extends AbstractBaseView {
                 this.updateLabel(slotLabelEnum, "N/A");
             }
             this.updateButton("[CREATE]", event -> {
-                final boolean status = gameController.processSave();
+                final boolean status = gameController.processSave(index);
                 if (status) {
+                    gameController.processLoad(index);
                     gameController.switchToScene(SceneType.REGISTER);
                 } else {
                     this.interactionButton.setText("[RETRY]");

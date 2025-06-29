@@ -153,11 +153,10 @@ public class RegisterViewImpl extends AbstractBaseView {
                                     new ScaleImpl(ORIGIN)
                             )
                     );
-                    entry.getValue().repaint();
+                    panel.revalidate();
                 }
                 position++;
             }
-            panel.repaint();
         }
 
         /* if the customers do not coincide */
@@ -192,14 +191,11 @@ public class RegisterViewImpl extends AbstractBaseView {
                                     new ScaleImpl(ORIGIN)
                             )
                     );
-                    entry.getValue().repaint();
+                    panel.revalidate();
                 }
                 position++;
             }
-            panel.repaint();
         }
-        panel.repaint();
-        panel.getParent().repaint();
     }
 
     /**

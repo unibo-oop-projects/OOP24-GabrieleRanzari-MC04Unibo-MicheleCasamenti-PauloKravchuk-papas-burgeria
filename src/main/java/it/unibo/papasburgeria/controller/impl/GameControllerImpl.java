@@ -63,7 +63,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void startGame() {
@@ -72,7 +72,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void endGame() {
@@ -81,7 +81,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void switchToScene(final SceneType sceneType) {
@@ -89,7 +89,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void nextDay() {
@@ -101,7 +101,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean processSave() {
@@ -110,7 +110,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean processSave(final int slotNumber) {
@@ -130,7 +130,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean processLoad(final int slotNumber) {
@@ -156,7 +156,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

@@ -35,7 +35,10 @@ import static it.unibo.papasburgeria.view.impl.GrillViewImpl.PATTY_ON_GRILL_X_PO
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.PATTY_ON_GRILL_Y_POS;
 
 /**
- * @inheritDoc
+ * Implementation of DrawingManager.
+ *
+ * <p>
+ * See {@link DrawingManager} for interface details.
  */
 public class DrawingManagerImpl implements DrawingManager {
     public static final String EXTENSION = ".png";
@@ -97,7 +100,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final Sprite generatePattySprite(final Patty patty, final double pbPositionXScale, final double pbPositionYScale,
@@ -135,7 +138,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final void drawHamburger(final Hamburger hamburger, final Dimension frameSize,
@@ -174,7 +177,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final void drawIngredient(final Sprite sprite, final Dimension frameSize,
@@ -194,7 +197,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void drawOrder(final Sprite sprite, final Order order, final Dimension frameSize, final Graphics graphics) {
@@ -233,7 +236,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final void generateCookedPatties(final List<Patty> cookedPatties, final double pbPositionXScale,
@@ -252,7 +255,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final void generatePattiesOnGrill(final Patty[][] pattiesOnGrill, final List<Sprite> draggablePattiesOnGrill) {
@@ -278,7 +281,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void generateOrderSprites(final List<Order> orders, final List<Sprite> draggableOrderSprites,
@@ -301,7 +304,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getPositionXScaleFromAccuracy(final double accuracy, final double halfRange) {

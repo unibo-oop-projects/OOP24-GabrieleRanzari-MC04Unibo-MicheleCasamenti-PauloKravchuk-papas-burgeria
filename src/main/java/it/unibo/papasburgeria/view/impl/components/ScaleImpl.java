@@ -59,7 +59,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getXScale() {
@@ -67,7 +67,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getYScale() {
@@ -75,7 +75,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getXScaledValue(final int value) {
@@ -83,7 +83,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getYScaledValue(final int value) {
@@ -91,7 +91,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -104,7 +104,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object o) {
@@ -119,7 +119,7 @@ public class ScaleImpl implements Scale {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {

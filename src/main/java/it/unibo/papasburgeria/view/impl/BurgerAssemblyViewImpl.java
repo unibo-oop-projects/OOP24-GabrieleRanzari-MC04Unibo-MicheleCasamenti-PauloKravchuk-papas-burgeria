@@ -159,14 +159,14 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
@@ -199,7 +199,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -225,7 +225,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -236,7 +236,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
@@ -285,7 +285,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteClicked(final Sprite sprite) {
@@ -295,7 +295,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spritePressed(final Sprite sprite) {

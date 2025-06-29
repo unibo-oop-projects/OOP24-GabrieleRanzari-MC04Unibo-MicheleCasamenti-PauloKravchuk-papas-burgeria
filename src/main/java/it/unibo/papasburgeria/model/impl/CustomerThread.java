@@ -9,7 +9,10 @@ import java.util.List;
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
- * defines a thread which adds the customers to the first line periodically.
+ * Extension of Thread. Defines a thread which adds the customers to the first line periodically.
+ *
+ * <p>
+ * See {@link Thread} for superclass details.
  */
 class CustomerThread extends Thread {
     private final Long intervalMilliSeconds;
@@ -32,7 +35,7 @@ class CustomerThread extends Thread {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void run() {

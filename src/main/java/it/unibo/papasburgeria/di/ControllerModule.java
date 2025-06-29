@@ -26,7 +26,7 @@ import it.unibo.papasburgeria.controller.impl.ShopControllerImpl;
 class ControllerModule extends AbstractModule {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void configure() {

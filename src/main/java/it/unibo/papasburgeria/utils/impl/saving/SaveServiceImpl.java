@@ -36,7 +36,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void saveSlot(final int slotNumber, final SaveState saveState) throws IOException {
@@ -55,7 +55,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public SaveState loadSlot(final int slotNumber) throws IOException {
@@ -70,7 +70,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<SaveState> loadAllSlots() throws IOException {
@@ -95,7 +95,7 @@ public class SaveServiceImpl implements SaveService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

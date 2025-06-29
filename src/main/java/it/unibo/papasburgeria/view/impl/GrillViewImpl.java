@@ -113,7 +113,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -124,7 +124,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics graphics) {
@@ -150,7 +150,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -162,7 +162,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -173,7 +173,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
@@ -229,7 +229,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteClicked(final Sprite sprite) {
@@ -253,7 +253,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spritePressed(final Sprite sprite) {

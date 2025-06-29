@@ -68,6 +68,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
             final ResourceService resourceService,
             final GameController gameController, 
             final CustomerController customerController) {
+
         this.controller = controller;
         this.drawingManager = drawingManager;
         this.resourceService = resourceService;
@@ -106,7 +107,6 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                     new ScaleImpl(ORIGIN)
                     )
                 );
-        read();
     }
 
     /**
@@ -118,7 +118,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -136,7 +136,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
@@ -146,7 +146,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -154,7 +154,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics g) {

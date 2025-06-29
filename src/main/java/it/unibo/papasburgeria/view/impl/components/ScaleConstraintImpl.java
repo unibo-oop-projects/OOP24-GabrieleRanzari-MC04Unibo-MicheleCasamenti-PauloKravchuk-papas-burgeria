@@ -84,7 +84,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Scale getSizeScale() {
@@ -92,7 +92,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setSizeScale(final Scale scale) {
@@ -100,7 +100,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Scale getPositionScale() {
@@ -108,7 +108,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setPositionScale(final Scale scale) {
@@ -116,7 +116,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Scale getOriginScale() {
@@ -124,7 +124,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setOriginScale(final Scale scale) {
@@ -132,7 +132,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object o) {
@@ -148,7 +148,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -156,7 +156,7 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

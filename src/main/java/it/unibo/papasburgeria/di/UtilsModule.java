@@ -27,7 +27,7 @@ import it.unibo.papasburgeria.view.impl.ShopViewImpl;
 class UtilsModule extends AbstractModule {
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void configure() {

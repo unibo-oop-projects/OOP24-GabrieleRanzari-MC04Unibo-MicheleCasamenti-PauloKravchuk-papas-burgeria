@@ -146,7 +146,7 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     }
 
     /**
-     * @inheritDoc
+     * Returns a string version of this class.
      */
     @Override
     public String toString() {

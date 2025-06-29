@@ -71,11 +71,15 @@ public interface GameModel {
     void setCurrentDay(int dayNumber);
 
     /**
+     * Used to get the saved player's balance.
+     *
      * @return the player's balance
      */
     int getBalance();
 
     /**
+     * Used to set the player's balance.
+     *
      * @param amount the amount of money given
      */
     void setBalance(int amount);

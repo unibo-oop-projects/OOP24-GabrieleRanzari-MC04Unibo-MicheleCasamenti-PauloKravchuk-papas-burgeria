@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Customers in the game. They generate orders and evaluate Burgers.
+ * Implementation of Customer.
+ *
+ * <p>
+ * See {@link Customer} for interface details.
  */
 public class CustomerImpl implements Customer {
     public static final int MAX_PAYMENT = 50;
@@ -30,16 +33,15 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Order getOrder() {
         return order;
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getSkinType() {
@@ -47,7 +49,7 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isInRegisterLine() {
@@ -55,7 +57,7 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setInRegisterLine(final boolean setFlag) {
@@ -63,7 +65,7 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isInWaitLine() {
@@ -71,7 +73,7 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setInWaitLine(final boolean setFlag) {
@@ -79,7 +81,7 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean hasWalkedIn() {
@@ -87,7 +89,7 @@ public class CustomerImpl implements Customer {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setWalkedIn(final boolean setFlag) {

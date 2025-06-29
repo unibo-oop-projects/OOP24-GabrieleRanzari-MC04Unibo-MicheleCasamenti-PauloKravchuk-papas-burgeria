@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
 import it.unibo.papasburgeria.model.api.Customer;
+import it.unibo.papasburgeria.model.api.Hamburger;
 
 import java.util.List;
 
@@ -55,4 +56,36 @@ public interface CustomerController {
      * @return the wait line.
      */
     List<Customer> getWaitLine();
+
+    /**
+     * calculates the satisfaction percentage of the customer.
+     *
+     * @param startingHamburger     the starting hamburger
+     * @param madeHamburger         the hamburger cooked by the player
+     * @return                      the satisfaction percentage
+     */
+    double calculateSatisfactionPercentage(Hamburger startingHamburger, Hamburger madeHamburger);
+
+    /**
+     * calculates the payment based on the satisfaction percentage.
+     *
+     * @param percentage    the satisfaction percentage.
+     * @return              the total payment.
+     */
+    int calculatePayment(double percentage);
+
+    /**
+     * has a chance to generate a tip.
+     *
+     * @param payment   the total payment without tip.
+     * @return          the tip.
+     */
+    int calculateTips(int payment);
+
+    /**
+     * add money to balance.
+     *
+     * @param payment   money to be added to the balance
+     */
+    void addBalance(int payment);
 }

@@ -11,14 +11,6 @@ public interface Customer {
     Order getOrder();
 
     /**
-     * @param madeHamburger        the baked hamburger.
-     * @param placementTollerance  bonus for placement.
-     * @param ingredientTollerance bonus for ingredients.
-     * @return the coins.
-     */
-    int evaluateBurger(Hamburger madeHamburger, double placementTollerance, double ingredientTollerance);
-
-    /**
      * @return the customer's skin type.
      */
     int getSkinType();

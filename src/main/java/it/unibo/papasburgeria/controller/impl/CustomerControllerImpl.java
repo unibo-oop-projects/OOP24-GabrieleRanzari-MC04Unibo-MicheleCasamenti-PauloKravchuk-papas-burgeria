@@ -7,9 +7,12 @@ import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.GameModel;
+import it.unibo.papasburgeria.model.api.Hamburger;
+import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.Shop;
+import it.unibo.papasburgeria.model.impl.HamburgerImpl;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,7 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
-    private static final double DEFAULT_TIP = 0.05;
+    public static final int MAX_PAYMENT = 50;
+    public static final double DEFAULT_TIP = 0.05;
     private final GameModel model;
     private final Shop shop;
     private final RegisterModel registerModel;
@@ -43,18 +47,6 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public void serveCustomer(final Customer customer) {
         registerModel.removeCustomerWaitLine(customer);
-        final int payment = customer.evaluateBurger(model.getHamburgerOnAssembly(),
-                shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE),
-                shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE));
-        int tip = 0;
-        if (ThreadLocalRandom.current().nextDouble() <= shop.getUpgradeModifier(UpgradeEnum.CUSTOMER_TIP)) {
-            if (shop.isUpgradeUnlocked(UpgradeEnum.CUSTOMER_MORE_TIP)) {
-                tip = (int) (payment * shop.getUpgradeModifier(UpgradeEnum.CUSTOMER_MORE_TIP));
-            } else {
-                tip = (int) (payment * DEFAULT_TIP);
-            }
-        }
-        model.setBalance(model.getBalance() + payment + tip);
     }
 
     /**
@@ -140,5 +132,92 @@ public class CustomerControllerImpl implements CustomerController {
     public void takeOrderFromCustomer(final Customer customer) {
         registerModel.removeCustomerRegisterLine(customer);
         registerModel.addCustomerWaitLine(customer);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public double calculateSatisfactionPercentage(final Hamburger startingHamburger, 
+    final Hamburger madeHamburger) {
+        final List<Ingredient> list1 = startingHamburger.getIngredients();
+        final List<Ingredient> list2 = madeHamburger.getIngredients();
+
+        /*if either of them are empty, give no money */
+        if (list1 == null || list2 == null || list1.isEmpty() || list2.isEmpty()) {
+            return 0;
+        }
+
+        final int minLength = Math.min(list1.size(), list2.size());
+        int matchCount = 0;
+
+        for (int i = 0; i < minLength; i++) {
+            final Object a = list1.get(i);
+            final Object b = list2.get(i);
+
+            if (a == null || b == null) {
+                continue;
+            }
+
+            if (a.equals(b) && a.getClass().equals(b.getClass())) {
+                matchCount++;
+            }
+        }
+
+        /* normalize by the max length to penalize extra/missing elements */
+        final int maxLength = Math.max(list1.size(), list2.size());
+        double similarityPercentage = (double) matchCount / maxLength
+        + shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE);
+        if (similarityPercentage > 1.0) {
+            similarityPercentage = 1.0;
+        }
+
+        double placementAccuracyTotal = 0.0;
+        for (final Ingredient ingredient : list1) {
+            placementAccuracyTotal += ingredient.getPlacementAccuracy();
+        }
+        /* calculates the placement accuracy (1 - (averageAccuracy)) */
+        double placementPercentage = 1.0 - (placementAccuracyTotal / list1.size())
+        + shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE);
+        if (placementPercentage > 1.0) {
+            placementPercentage = 1.0;
+        }
+
+        /* calculates the difficulty percentage (size/maxsize) */
+        final double difficultyPercentage = (double) list1.size() / HamburgerImpl.MAX_INGREDIENTS;
+
+        return difficultyPercentage * similarityPercentage * placementPercentage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int calculatePayment(final double percentage) {
+        return (int) (MAX_PAYMENT * percentage);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public int calculateTips(final int payment) {
+        if (ThreadLocalRandom.current().nextDouble() <= shop.getUpgradeModifier(UpgradeEnum.CUSTOMER_TIP)) {
+            if (shop.isUpgradeUnlocked(UpgradeEnum.CUSTOMER_MORE_TIP)) {
+                return (int) (payment * shop.getUpgradeModifier(UpgradeEnum.CUSTOMER_MORE_TIP));
+            } else {
+                return (int) (payment * DEFAULT_TIP);
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public void addBalance(final int payment) {
+        model.setBalance(model.getBalance() + payment);
     }
 }

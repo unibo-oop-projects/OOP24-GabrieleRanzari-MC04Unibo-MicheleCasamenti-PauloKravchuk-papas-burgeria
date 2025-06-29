@@ -133,15 +133,15 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     @Override
     void paintComponentDelegate(final Graphics g) {
         drawingManager.drawHamburger(burger,
-        getSize(), BurgerAssemblyViewImpl.HALF_RANGE,
-        BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
+                getSize(), BurgerAssemblyViewImpl.HALF_RANGE,
+                BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
 
         final Sprite orderSprite = new SpriteImpl(resourceService.getImage("order.png"),
-            new IngredientImpl(IngredientEnum.CHEESE),
-            OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION, 
-            OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
-            DrawingManagerImpl.ORDER_X_SIZE_SCALE, 
-            DrawingManagerImpl.ORDER_Y_SIZE_SCALE);
+                new IngredientImpl(IngredientEnum.CHEESE),
+                OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION,
+                OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
+                DrawingManagerImpl.ORDER_X_SIZE_SCALE,
+                DrawingManagerImpl.ORDER_Y_SIZE_SCALE);
         drawingManager.drawOrder(orderSprite, order, getSize(), g);
     }
 }

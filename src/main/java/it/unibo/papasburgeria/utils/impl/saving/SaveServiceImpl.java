@@ -93,4 +93,17 @@ public class SaveServiceImpl implements SaveService {
             );
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "SaveServiceImpl{"
+                +
+                "mapper="
+                + mapper
+                +
+                '}';
+    }
 }

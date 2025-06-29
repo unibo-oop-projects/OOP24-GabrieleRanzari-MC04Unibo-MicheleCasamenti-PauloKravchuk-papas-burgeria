@@ -106,8 +106,16 @@ public class GameControllerImpl implements GameController {
     @Override
     public boolean processSave() {
         final int slotIndex = this.gameModel.getCurrentSaveSlot();
+        return slotIndex >= 0 && this.processSave(slotIndex);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean processSave(final int slotNumber) {
         try {
-            this.saveService.saveSlot(slotIndex,
+            this.saveService.saveSlot(slotNumber,
                     new SaveState(
                             this.gameModel.getBalance(),
                             this.gameModel.getCurrentDay(),
@@ -116,7 +124,7 @@ public class GameControllerImpl implements GameController {
             );
             return true;
         } catch (final IOException e) {
-            Logger.error(e, "Failed to save slot {}", slotIndex);
+            Logger.error(e, "Failed to save slot {}", slotNumber);
             return false;
         }
     }
@@ -127,8 +135,8 @@ public class GameControllerImpl implements GameController {
     @Override
     public boolean processLoad(final int slotNumber) {
         try {
-            gameModel.reset();
             final SaveState saveState = this.saveService.loadSlot(slotNumber);
+            this.gameModel.reset();
             this.gameModel.setCurrentSaveSlot(slotNumber);
             this.gameModel.setCurrentDay(saveState.gameDay());
             this.pantryModel.resetUnlocks();
@@ -139,10 +147,42 @@ public class GameControllerImpl implements GameController {
                     this.shopModel.unlockUpgrade(upgradeEnum);
                 }
             });
+            this.customerController.startClientThread(); // is controller -> controller the only way?
             return true;
         } catch (final IOException e) {
             Logger.error(e, "Failed to load slot {}", slotNumber);
             return false;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "GameControllerImpl{"
+                +
+                "gameModel="
+                + gameModel
+                +
+                ", pantryModel="
+                + pantryModel
+                +
+                ", shopModel="
+                + shopModel
+                +
+                ", sceneService="
+                + sceneService
+                +
+                ", resourceService="
+                + resourceService
+                +
+                ", saveService="
+                + saveService
+                +
+                ", customerController="
+                + customerController
+                +
+                '}';
     }
 }

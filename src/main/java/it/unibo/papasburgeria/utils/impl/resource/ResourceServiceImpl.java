@@ -130,4 +130,20 @@ public class ResourceServiceImpl implements ResourceService {
             throw new IllegalArgumentException("Provided path cannot be null or empty");
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "ResourceServiceImpl{"
+                +
+                "imageCache="
+                + imageCache
+                +
+                ", sfxCache="
+                + sfxCache
+                +
+                '}';
+    }
 }

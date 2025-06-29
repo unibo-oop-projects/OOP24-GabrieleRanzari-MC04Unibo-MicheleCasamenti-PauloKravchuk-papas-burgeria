@@ -32,4 +32,18 @@ public enum SceneType {
     public String getValue() {
         return value;
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "SceneType{"
+                +
+                "value='"
+                + value
+                + '\''
+                +
+                '}';
+    }
 }

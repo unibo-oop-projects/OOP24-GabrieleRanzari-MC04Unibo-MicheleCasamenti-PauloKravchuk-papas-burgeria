@@ -97,4 +97,23 @@ public class SceneServiceImpl implements SceneService {
             callback.accept(this.currentSceneType);
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "SceneServiceImpl{"
+                +
+                "scenes="
+                + scenes
+                +
+                ", onSceneChangedCallbacks="
+                + onSceneChangedCallbacks
+                +
+                ", currentSceneType="
+                + currentSceneType
+                +
+                '}';
+    }
 }

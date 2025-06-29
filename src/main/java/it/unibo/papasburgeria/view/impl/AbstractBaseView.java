@@ -25,6 +25,8 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
     static final Color DEFAULT_BUTTON_BACKGROUND_COLOR = new Color(40, 122, 33);
     static final Color DEFAULT_BUTTON_TEXT_COLOR = Color.WHITE;
 
+    static final float DEFAULT_SOUND_VOLUME = 0.2f;
+
     @Serial
     private static final long serialVersionUID = 1L;
     private final JLabel staticBackground; // static background layer
@@ -141,5 +143,27 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         }
 
         this.backgroundImage = imageIcon;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "AbstractBaseView{"
+                +
+                "staticBackground="
+                + staticBackground
+                +
+                ", gamePanel="
+                + gamePanel
+                +
+                ", interfacePanel="
+                + interfacePanel
+                +
+                ", backgroundImage="
+                + backgroundImage
+                +
+                '}';
     }
 }

@@ -5,6 +5,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
@@ -59,20 +60,26 @@ public class RegisterViewImpl extends AbstractBaseView {
     private final JLabel takeOrderLabel;
     private final transient CustomerController customerController;
     private final transient ResourceService resourceService;
+    private final transient SfxService sfxService;
     private final JPanel panel;
     private transient Map<Customer, JLabel> registerLineView = new LinkedHashMap<>();
     private transient Map<Customer, JLabel> waitLineView = new LinkedHashMap<>();
 
     /**
      * @param resourceService    used to get resources such as images and audio
+     * @param sfxService         used to play sfx
      * @param customerController used to manage the customers' line
      */
     @Inject
-    public RegisterViewImpl(final ResourceService resourceService,
-                            final CustomerController customerController) {
+    public RegisterViewImpl(
+            final ResourceService resourceService,
+            final SfxService sfxService,
+            final CustomerController customerController
+    ) {
         super.setStaticBackgroundImage(resourceService.getImage(BACKGROUNT_FILE_NAME + FILE_EXTENSION));
         this.customerController = customerController;
         this.resourceService = resourceService;
+        this.sfxService = sfxService;
         this.panel = super.getInterfacePanel();
         panel.setLayout(new ScalableLayoutImpl());
 
@@ -96,6 +103,7 @@ public class RegisterViewImpl extends AbstractBaseView {
         if (DEBUG_MODE) {
             Logger.info("RegisterView shown");
         }
+        this.sfxService.playSoundLooped("register_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
     /**
@@ -106,6 +114,7 @@ public class RegisterViewImpl extends AbstractBaseView {
         if (DEBUG_MODE) {
             Logger.info("RegisterView hidden");
         }
+        this.sfxService.stopSound("register_ost.wav");
     }
 
     /**

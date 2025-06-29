@@ -186,4 +186,17 @@ public class ScalableLayoutImpl implements LayoutManager2 {
                     throw new IllegalStateException("Obtained component's icon but have no way to set it for: " + component);
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "ScalableLayoutImpl{"
+                +
+                "mappedConstraints="
+                + mappedConstraints
+                +
+                '}';
+    }
 }

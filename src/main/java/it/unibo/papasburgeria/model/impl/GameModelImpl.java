@@ -42,6 +42,7 @@ public class GameModelImpl implements GameModel {
      */
     @Inject
     public GameModelImpl() {
+        this.currentSaveSlot = -1;
         this.currentDay = START_DAY.getNumber();
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
@@ -195,7 +196,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * Resets the model's resettable variables.
+     * @inheritDoc
      */
     @Override
     public void reset() {
@@ -206,10 +207,25 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * @return a string containing the current day.
+     * @inheritDoc
      */
     @Override
     public String toString() {
-        return "[currentDay=" + currentDay + "]";
+        return "GameModelImpl{"
+                + "balance="
+                + balance
+                + ", currentSaveSlot="
+                + currentSaveSlot
+                + ", hamburgerOnAssembly="
+                + hamburgerOnAssembly
+                + ", pattiesOnGrill="
+                + Arrays.toString(pattiesOnGrill)
+                + ", cookedPatties="
+                + cookedPatties
+                + ", selectedOrder="
+                + selectedOrder
+                + ", currentDay="
+                + currentDay
+                + '}';
     }
 }

@@ -7,8 +7,14 @@ import java.util.List;
 /**
  * Manages interactions from the Menu View calling its methods.
  */
-@SuppressWarnings("PMD.ImplicitFunctionalInterface")
 public interface MenuController {
+
+    /**
+     * Returns the currently selected save index or -1 if none are selected.
+     *
+     * @return save index
+     */
+    int getCurrentlyUsedSaveIndex();
 
     /**
      * Returns a list of info DTOs, one for each save.

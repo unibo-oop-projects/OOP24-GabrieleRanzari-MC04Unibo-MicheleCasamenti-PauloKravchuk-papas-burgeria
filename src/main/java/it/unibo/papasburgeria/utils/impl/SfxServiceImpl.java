@@ -135,4 +135,17 @@ public class SfxServiceImpl implements SfxService {
             Logger.warn(e, "Failed to set volume on clip: " + clip);
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "SfxServiceImpl{"
+                +
+                "resourceService="
+                + resourceService
+                +
+                '}';
+    }
 }

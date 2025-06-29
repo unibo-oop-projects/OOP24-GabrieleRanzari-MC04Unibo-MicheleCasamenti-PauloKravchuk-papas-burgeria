@@ -92,11 +92,11 @@ public class ShopViewImpl extends AbstractBaseView {
     private static final long serialVersionUID = 1L;
     private final transient ShopController controller;
     /**
-     *
+     * Defines the JLabel for the balance.
      */
     private final JLabel balanceLabel;
     /**
-     *
+     * Defines the map of upgrades for the corresponding JButton.
      */
     private final Map<UpgradeEnum, JButton> buttons;
 

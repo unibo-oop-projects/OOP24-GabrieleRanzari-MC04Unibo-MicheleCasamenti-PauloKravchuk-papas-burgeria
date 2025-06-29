@@ -3,10 +3,12 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.Patty;
 import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static it.unibo.papasburgeria.model.IngredientEnum.BOTTOM_BUN;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
@@ -72,6 +74,8 @@ public class HamburgerImpl implements Hamburger {
                             currentIngredients.get((int) (Math.random() * currentIngredients.size()));
                     if (PATTY.equals(ingredientType)) {
                         ingredient = new PattyImpl();
+                        ((Patty) ingredient).setTopCookLevel(ThreadLocalRandom.current().nextDouble());
+                        ((Patty) ingredient).setBottomCookLevel(ThreadLocalRandom.current().nextDouble());
                     } else {
                         ingredient = new IngredientImpl(ingredientType);
                     }

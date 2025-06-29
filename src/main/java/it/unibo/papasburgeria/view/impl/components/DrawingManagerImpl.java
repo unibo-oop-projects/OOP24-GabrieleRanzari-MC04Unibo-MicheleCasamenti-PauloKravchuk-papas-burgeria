@@ -40,16 +40,46 @@ import static it.unibo.papasburgeria.view.impl.GrillViewImpl.PATTY_ON_GRILL_Y_PO
  * See {@link DrawingManager} for interface details.
  */
 public class DrawingManagerImpl implements DrawingManager {
+    /**
+     * Defines the file extension.
+     */
     public static final String EXTENSION = ".png";
+    /**
+     * Defines the file separator.
+     */
     public static final String SEPARATOR = "_";
+    /**
+     * Defines the file name for the bottles.
+     */
     public static final String BOTTLE_EXTENSION = "_bottle";
+    /**
+     * Defines the file name for the bottom of patties.
+     */
     public static final String BOTTOM_EXTENSION = "_bottom";
 
+    /**
+     * Defines the width of the ingredients.
+     */
     public static final double INGREDIENTS_X_SIZE_SCALE = 0.15;
+    /**
+     * Defines the height of the ingredients.
+     */
     public static final double INGREDIENTS_Y_SIZE_SCALE = 0.15;
+    /**
+     * Defines the width of the orders.
+     */
     public static final double ORDER_X_SIZE_SCALE = 0.1199;
+    /**
+     * Defines the height of the orders.
+     */
     public static final double ORDER_Y_SIZE_SCALE = 0.4385;
+    /**
+     * Defines the spacing between patties.
+     */
     public static final double PATTY_SPACING = 0.04;
+    /**
+     * Defines the ingredient of the orders.
+     */
     public static final Ingredient ORDER_INGREDIENT = new IngredientImpl(IngredientEnum.TOP_BUN);
 
     private static final double ORDER_X_POS_SCALE = 0.68;

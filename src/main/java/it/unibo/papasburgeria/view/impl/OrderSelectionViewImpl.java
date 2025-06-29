@@ -42,7 +42,13 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORD
                 + "The views are not serialized at runtime"
 )
 public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDropListener {
+    /**
+     * Defines the x position of the selected order.
+     */
     public static final double ORDER_SELECTED_X_POSITION = 0.1144;
+    /**
+     * Defines the y position of the selected order.
+     */
     public static final double ORDER_SELECTED_Y_POSITION = 0.3487;
 
     @Serial

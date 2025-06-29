@@ -45,13 +45,32 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ING
         justification = "The controller is injected and shared intentionally; The views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
+    /**
+     * Defines the minimum x position to drop the ingredient in the hamburger.
+     */
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.31;
+    /**
+     * Defines the maximum x position to drop the ingredient in the hamburger.
+     */
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.55;
-    public static final double HALF_RANGE = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
+    /**
+     * Defines the half-range to drop perfectly.
+     */
+    public static final double HALF_RANGE =
+            (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
+    /**
+     * Defines the spacing between hamburgers.
+     */
+    public static final double HAMBURGER_SPACING = 0.04;
+    /**
+     * Defines the x position of the hamburger.
+     */
     public static final double HAMBURGER_X_POS_SCALE =
             (MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER + MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
+    /**
+     * Defines the y position of the hamburger.
+     */
     public static final double HAMBURGER_Y_POS_SCALE = 0.71;
-    public static final double HAMBURGER_SPACING = 0.04;
 
     private static final double INGREDIENTS_X_POS_SCALE = 0.005;
     private static final double INGREDIENTS_Y_POS_SCALE = 0.005;

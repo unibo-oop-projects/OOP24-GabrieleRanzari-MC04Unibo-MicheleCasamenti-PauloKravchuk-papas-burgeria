@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @inheritDoc
+ * {@inheritDoc}
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {

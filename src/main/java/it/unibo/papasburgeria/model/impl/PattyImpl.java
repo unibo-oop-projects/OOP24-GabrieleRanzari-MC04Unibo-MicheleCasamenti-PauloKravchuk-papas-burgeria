@@ -13,7 +13,13 @@ import java.util.Objects;
  * See {@link IngredientImpl} for superclass details.
  */
 public class PattyImpl extends IngredientImpl implements Patty {
+    /**
+     * Defines the maximum cook level.
+     */
     public static final double MAX_COOK_LEVEL = 1.0;
+    /**
+     * Defines the minimum cook level.
+     */
     public static final double MIN_COOK_LEVEL = 0.0;
 
     private double topCookLevel;

@@ -9,7 +9,7 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Shop;
 
 /**
- * @inheritDoc
+ * Manages the interaction between the View and the Model for the shop scene.
  */
 @Singleton
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")

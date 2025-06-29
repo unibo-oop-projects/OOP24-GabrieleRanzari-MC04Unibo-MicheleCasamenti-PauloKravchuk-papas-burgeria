@@ -23,7 +23,7 @@ import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MIN_X_POS_SCALE_TO_
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MIN_Y_POS_SCALE_TO_DROP_ON_GRILL;
 
 /**
- * @inheritDoc
+ * Manages the interaction between the View and the Model for the grill scene.
  */
 @Singleton
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The game model is injected and shared intentionally")

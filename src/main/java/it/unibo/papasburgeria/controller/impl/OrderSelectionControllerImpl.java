@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @inheritDoc
+ * Manages the interaction between the View and the Model for the order selection scene.
  */
 @Singleton
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")

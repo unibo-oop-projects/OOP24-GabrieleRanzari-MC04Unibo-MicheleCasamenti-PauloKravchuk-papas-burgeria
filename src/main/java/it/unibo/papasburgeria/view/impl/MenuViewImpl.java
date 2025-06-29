@@ -170,7 +170,7 @@ public class MenuViewImpl extends AbstractBaseView {
             this.resumeButton.setVisible(true);
             this.savesButton.setVisible(true);
         }
-        this.sfxService.playSoundLooped("MenuIntro.wav");
+        this.sfxService.playSoundLooped("menu_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
     /**
@@ -178,7 +178,7 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        this.sfxService.stopSound("MenuIntro.wav");
+        this.sfxService.stopSound("menu_ost.wav");
         this.slotPanel.setVisible(false);
     }
 

@@ -6,6 +6,7 @@ import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.PattyImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
@@ -63,6 +64,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     @Serial
     private static final long serialVersionUID = 1L;
     private final transient GrillController controller;
+    private final transient SfxService sfxService;
     private final transient DrawingManagerImpl drawingManager;
     private final transient List<Sprite> draggableRawPatties;
     private final transient List<Sprite> draggableCookedPatties;
@@ -73,16 +75,19 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      * Default constructor, creates and initializes the GUI elements.
      *
      * @param resourceService the service that handles resource obtainment
+     * @param sfxService      the service that handles sfx playing
      * @param controller      the grill controller
      * @param drawingManager  the manager for drawing various things
      */
     @Inject
     public GrillViewImpl(
             final ResourceService resourceService,
+            final SfxService sfxService,
             final GrillController controller,
             final DrawingManagerImpl drawingManager
     ) {
         this.controller = controller;
+        this.sfxService = sfxService;
         this.drawingManager = drawingManager;
         draggableRawPatties = new ArrayList<>();
         draggableCookedPatties = new ArrayList<>();
@@ -153,6 +158,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
         if (DEBUG_MODE) {
             Logger.info("Grill shown");
         }
+        this.sfxService.playSoundLooped("burger_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
     /**
@@ -163,6 +169,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
         if (DEBUG_MODE) {
             Logger.info("Grill hidden");
         }
+        this.sfxService.stopSound("burger_ost.wav");
     }
 
     /**

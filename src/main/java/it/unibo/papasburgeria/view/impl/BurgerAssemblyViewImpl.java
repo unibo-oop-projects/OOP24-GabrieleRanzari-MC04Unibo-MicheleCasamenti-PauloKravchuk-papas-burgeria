@@ -10,6 +10,7 @@ import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
@@ -69,6 +70,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private final transient BurgerAssemblyController controller;
     private final transient DrawingManagerImpl drawingManager;
     private final transient GameController gameController;
+    private final transient SfxService sfxService;
     private final transient List<Sprite> sprites;
     private final transient List<Sprite> draggableSprites;
     private final transient List<Sprite> draggablePattySprites;
@@ -80,16 +82,19 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Default constructor, creates and initializes the GUI elements.
      *
      * @param resourceService the service that handles resource obtainment
+     * @param sfxService      the service that handles sfx playing
      * @param controller      the burger assembly controller
      * @param drawingManager  the manager for drawing various things
      * @param gameController  the game controller
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService,
+                                  final SfxService sfxService,
                                   final BurgerAssemblyController controller,
                                   final DrawingManagerImpl drawingManager,
                                   final GameController gameController) {
         this.controller = controller;
+        this.sfxService = sfxService;
         this.drawingManager = drawingManager;
         this.gameController = gameController;
         sprites = new ArrayList<>();
@@ -216,6 +221,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         if (DEBUG_MODE) {
             Logger.info("BurgerAssembly shown");
         }
+        this.sfxService.playSoundLooped("assembly_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
     /**
@@ -226,6 +232,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         if (DEBUG_MODE) {
             Logger.info("BurgerAssembly hidden");
         }
+        this.sfxService.stopSound("assembly_ost.wav");
     }
 
     /**

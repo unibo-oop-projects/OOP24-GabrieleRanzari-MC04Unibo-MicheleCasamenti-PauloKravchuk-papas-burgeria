@@ -14,7 +14,7 @@ import java.util.Objects;
 import static it.unibo.papasburgeria.model.impl.UnlockSchedule.UNLOCK_SCHEDULE;
 
 /**
- * @inheritDoc
+ * Manages the interaction between the View and the Model for the day change scene.
  */
 @Singleton
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The game model is injected and shared intentionally")

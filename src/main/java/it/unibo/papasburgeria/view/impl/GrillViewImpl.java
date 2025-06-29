@@ -36,17 +36,47 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.PAT
         justification = "The controller is injected and shared intentionally; The views are not serialized at runtime"
 )
 public class GrillViewImpl extends AbstractBaseView implements SpriteDropListener {
+    /**
+     * Defines the minimum x position to drop a patty on the grill.
+     */
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_GRILL = 0.232;
+    /**
+     * Defines the maximum x position to drop a patty on the grill.
+     */
     public static final double MAX_X_POS_SCALE_TO_DROP_ON_GRILL = 0.742;
+    /**
+     * Defines the minimum y position to drop a patty on the grill.
+     */
     public static final double MIN_Y_POS_SCALE_TO_DROP_ON_GRILL = 0.203;
+    /**
+     * Defines the maximum y position to drop a patty on the grill.
+     */
     public static final double MAX_Y_POS_SCALE_TO_DROP_ON_GRILL = 0.981;
+    /**
+     * Defines the x position of a patty on the grill.
+     */
     public static final double PATTY_ON_GRILL_X_POS = MIN_X_POS_SCALE_TO_DROP_ON_GRILL + 0.02;
+    /**
+     * Defines the y position of a patty on the grill.
+     */
     public static final double PATTY_ON_GRILL_Y_POS = MIN_Y_POS_SCALE_TO_DROP_ON_GRILL + 0.02;
+    /**
+     * Defines the x spacing between patties on the grill.
+     */
     public static final double GRILL_X_SPACING = (MAX_X_POS_SCALE_TO_DROP_ON_GRILL - MIN_X_POS_SCALE_TO_DROP_ON_GRILL
             - INGREDIENTS_X_SIZE_SCALE * GRILL_COLUMNS) / (GRILL_COLUMNS + 2);
+    /**
+     * Defines the y spacing between patties on the grill.
+     */
     public static final double GRILL_Y_SPACING = (MAX_Y_POS_SCALE_TO_DROP_ON_GRILL - MIN_Y_POS_SCALE_TO_DROP_ON_GRILL
             - INGREDIENTS_Y_SIZE_SCALE * GRILL_ROWS) / (GRILL_ROWS + 2);
+    /**
+     * Defines the number of seconds needed to fully cook a patty that is on the grill.
+     */
     public static final double SECONDS_TO_FULLY_COOK_PATTY = 20.0;
+    /**
+     * Defines the increment per second of the cook level of a patty that is on the grill.
+     */
     public static final double COOK_LEVEL_INCREMENT_PER_SECOND = MAX_COOK_LEVEL / SECONDS_TO_FULLY_COOK_PATTY;
 
     private static final double RAW_PATTIES_X_POS_SCALE = 0.028;
@@ -97,7 +127,9 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
         double pbPositionYScale = RAW_PATTIES_Y_POS_SCALE;
         final Sprite pattySprite = new SpriteImpl(resourceService.getImage(
                 PATTY.getName() + EXTENSION), new PattyImpl(),
-                RAW_PATTIES_X_POS_SCALE, pbPositionYScale, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
+                RAW_PATTIES_X_POS_SCALE, pbPositionYScale,
+                INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE
+        );
         pattySprite.setDraggable(false);
         for (int index = 0; index < NUMBER_OF_RAW_PATTIES; index++) {
             pattySprite.setPbPositionYScale(pbPositionYScale);
@@ -127,8 +159,12 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     @Override
     void paintComponentDelegate(final Graphics graphics) {
         final List<Patty> cookedPatties = controller.getCookedPatties();
-        drawingManager.generateCookedPatties(cookedPatties, COOKED_PATTIES_X_POS_SCALE, COOKED_PATTIES_Y_POS_SCALE,
-                draggableCookedPatties);
+        drawingManager.generateCookedPatties(
+                cookedPatties,
+                COOKED_PATTIES_X_POS_SCALE,
+                COOKED_PATTIES_Y_POS_SCALE,
+                draggableCookedPatties
+        );
 
         final Patty[][] pattiesOnGrill = controller.getPattiesOnGrill();
         drawingManager.generatePattiesOnGrill(pattiesOnGrill, draggablePattiesOnGrill);
@@ -169,8 +205,10 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
-        final double pbPositionXScale = sprite.getPbPositionXScale() + INGREDIENTS_X_SIZE_SCALE / 2;
-        final double pbPositionYScale = sprite.getPbPositionYScale() + INGREDIENTS_Y_SIZE_SCALE / 2;
+        final double pbPositionXScale =
+                sprite.getPbPositionXScale() + INGREDIENTS_X_SIZE_SCALE / 2;
+        final double pbPositionYScale =
+                sprite.getPbPositionYScale() + INGREDIENTS_Y_SIZE_SCALE / 2;
 
         final Patty patty = (Patty) sprite.getIngredient();
         if (pbPositionXScale > MIN_X_POS_SCALE_TO_DROP_ON_GRILL
@@ -191,7 +229,8 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
             }
         } else if (patty.getBottomCookLevel() + patty.getTopCookLevel() > MIN_COOK_LEVEL
                 && pbPositionXScale > MAX_X_POS_SCALE_TO_DROP_ON_GRILL) {
-            if (!controller.getCookedPatties().contains(patty) && controller.addCookedPatty(patty)) {
+            if (!controller.getCookedPatties().contains(patty)
+                    && controller.addCookedPatty(patty)) {
                 draggableCookedPatties.clear();
                 controller.removePattyFromGrill(patty);
                 draggablePattiesOnGrill.clear();

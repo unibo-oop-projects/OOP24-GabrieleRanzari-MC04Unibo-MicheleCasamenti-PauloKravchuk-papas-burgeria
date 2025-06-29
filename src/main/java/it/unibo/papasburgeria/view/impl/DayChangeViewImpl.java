@@ -62,10 +62,18 @@ public class DayChangeViewImpl extends AbstractBaseView {
     private static final long serialVersionUID = 1L;
     private final transient DayChangeController controller;
     private final transient ResourceService resourceService;
+    /**
+     * The JLabel for the day.
+     */
     private final JLabel dayLabel;
+    /**
+     * The JLabel for the unlocked ingredients.
+     */
     private final JLabel unlockedIngredientsLabel;
+    /**
+     * The list of JLabel for the unlocked ingredients.
+     */
     private final List<JLabel> unlockedIngredientsLabels;
-
 
     /**
      * Default constructor, creates and initializes the GUI elements.
@@ -75,8 +83,11 @@ public class DayChangeViewImpl extends AbstractBaseView {
      * @param controller      the controller for the day change
      */
     @Inject
-    public DayChangeViewImpl(final ResourceService resourceService, final GameController gameController,
-                             final DayChangeController controller) {
+    public DayChangeViewImpl(
+            final ResourceService resourceService,
+            final GameController gameController,
+            final DayChangeController controller
+    ) {
         this.controller = controller;
         this.resourceService = resourceService;
         unlockedIngredientsLabels = new ArrayList<>();
@@ -175,7 +186,8 @@ public class DayChangeViewImpl extends AbstractBaseView {
         double pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
         double pbPositionYScale = UNLOCKED_INGREDIENTS_IMAGE_Y_POS;
         for (final IngredientEnum ingredient : unlockedIngredients) {
-            final ImageIcon iconImage = new ImageIcon(resourceService.getImage(ingredient.getName() + EXTENSION));
+            final ImageIcon iconImage =
+                    new ImageIcon(resourceService.getImage(ingredient.getName() + EXTENSION));
             final JLabel imageLabel = new JLabel(iconImage);
             interfacePanel.add(
                     imageLabel,
@@ -185,9 +197,11 @@ public class DayChangeViewImpl extends AbstractBaseView {
                             new ScaleImpl(UNLOCKED_INGREDIENTS_IMAGE_ORIGIN)
                     )
             );
-            pbPositionXScale = pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE + UNLOCKED_INGREDIENTS_IMAGE_X_SPACING;
+            pbPositionXScale =
+                    pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE + UNLOCKED_INGREDIENTS_IMAGE_X_SPACING;
             if (pbPositionXScale + UNLOCKED_INGREDIENTS_IMAGE_X_SIZE > 1.0 - UNLOCKED_INGREDIENTS_IMAGE_X_POS) {
-                pbPositionYScale = pbPositionYScale + UNLOCKED_INGREDIENTS_IMAGE_Y_SIZE + UNLOCKED_INGREDIENTS_IMAGE_Y_SPACING;
+                pbPositionYScale =
+                        pbPositionYScale + UNLOCKED_INGREDIENTS_IMAGE_Y_SIZE + UNLOCKED_INGREDIENTS_IMAGE_Y_SPACING;
                 pbPositionXScale = UNLOCKED_INGREDIENTS_IMAGE_X_POS;
             }
             unlockedIngredientsLabels.add(imageLabel);

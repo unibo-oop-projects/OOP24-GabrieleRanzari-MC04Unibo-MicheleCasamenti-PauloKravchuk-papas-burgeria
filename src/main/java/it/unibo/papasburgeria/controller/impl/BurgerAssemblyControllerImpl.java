@@ -23,7 +23,7 @@ import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
 
 /**
- * @inheritDoc
+ * Manages the interaction between the View and the Model for the burger assembly scene.
  */
 @Singleton
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")

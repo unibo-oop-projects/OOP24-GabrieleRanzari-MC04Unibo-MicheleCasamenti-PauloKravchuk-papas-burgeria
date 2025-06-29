@@ -33,8 +33,11 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
      * @param sprites            the list of draggable sprites
      * @param spriteDropListener the listener for the sprites
      */
-    public SpriteDragManagerImpl(final Component component, final List<Sprite> sprites,
-                                 final SpriteDropListener spriteDropListener) {
+    public SpriteDragManagerImpl(
+            final Component component,
+            final List<Sprite> sprites,
+            final SpriteDropListener spriteDropListener
+    ) {
         this.component = component;
         this.sprites = sprites;
         this.dropListener = spriteDropListener;

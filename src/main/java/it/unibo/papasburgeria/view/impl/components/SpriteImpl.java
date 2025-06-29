@@ -39,7 +39,8 @@ public class SpriteImpl implements Sprite {
     private boolean flipped;   // Indicates whether the sprite has been vertically flipped.
 
     /**
-     * Constructor for single image, stores the image, the ingredient, its coordinates in scale and its size in scale.
+     * Constructor for single image, stores the image,
+     * the ingredient, its coordinates in scale and its size in scale.
      *
      * @param image            the image
      * @param ingredient       the ingredient
@@ -48,9 +49,13 @@ public class SpriteImpl implements Sprite {
      * @param pbSizeXScale     the width in scale
      * @param pbSizeYScale     the height in scale
      */
-    public SpriteImpl(final Image image, final Ingredient ingredient,
-                      final double pbPositionXScale, final double pbPositionYScale,
-                      final double pbSizeXScale, final double pbSizeYScale) {
+    public SpriteImpl(final Image image,
+                      final Ingredient ingredient,
+                      final double pbPositionXScale,
+                      final double pbPositionYScale,
+                      final double pbSizeXScale,
+                      final double pbSizeYScale
+    ) {
         this.images = new ArrayList<>(List.of(image));
         if (ingredient instanceof Patty patty) {
             this.ingredient = new PattyImpl(patty);
@@ -266,7 +271,8 @@ public class SpriteImpl implements Sprite {
                 throw new IllegalStateException("Could not flip: Image not loaded correctly");
             }
 
-            final BufferedImage flippedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            final BufferedImage flippedImage =
+                    new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             final Graphics2D graphics = flippedImage.createGraphics();
 
             final AffineTransform transform = AffineTransform.getScaleInstance(1, -1);

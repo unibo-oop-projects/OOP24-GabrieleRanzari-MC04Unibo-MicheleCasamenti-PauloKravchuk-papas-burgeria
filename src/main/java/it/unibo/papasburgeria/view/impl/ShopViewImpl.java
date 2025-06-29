@@ -91,7 +91,13 @@ public class ShopViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
     private final transient ShopController controller;
+    /**
+     *
+     */
     private final JLabel balanceLabel;
+    /**
+     *
+     */
     private final Map<UpgradeEnum, JButton> buttons;
 
     /**

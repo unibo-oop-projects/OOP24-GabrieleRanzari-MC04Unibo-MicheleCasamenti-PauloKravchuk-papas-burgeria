@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * {@inheritDoc}
+ * Manages the appearance and disappearance of customers.
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {

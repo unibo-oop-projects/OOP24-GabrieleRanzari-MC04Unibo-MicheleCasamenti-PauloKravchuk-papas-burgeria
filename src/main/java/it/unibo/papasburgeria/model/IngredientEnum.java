@@ -55,6 +55,9 @@ public enum IngredientEnum {
      */
     MAYO("mayo");
 
+    /**
+     * Defines witch ingredients are sauces.
+     */
     public static final List<IngredientEnum> SAUCES = List.of(
             KETCHUP,
             MUSTARD,

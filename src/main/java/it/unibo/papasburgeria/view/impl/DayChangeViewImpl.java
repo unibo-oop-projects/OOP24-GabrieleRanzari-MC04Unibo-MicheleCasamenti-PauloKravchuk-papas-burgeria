@@ -62,10 +62,18 @@ public class DayChangeViewImpl extends AbstractBaseView {
     private static final long serialVersionUID = 1L;
     private final transient DayChangeController controller;
     private final transient ResourceService resourceService;
+    /**
+     * The JLabel for the day.
+     */
     private final JLabel dayLabel;
+    /**
+     * The JLabel for the unlocked ingredients.
+     */
     private final JLabel unlockedIngredientsLabel;
+    /**
+     * The list of JLabel for the unlocked ingredients.
+     */
     private final List<JLabel> unlockedIngredientsLabels;
-
 
     /**
      * Default constructor, creates and initializes the GUI elements.

@@ -265,6 +265,9 @@ public class ShopViewImpl extends AbstractBaseView {
             } else if (!controller.isUpgradePurchasable(upgrade)) {
                 button.setText("Need more money");
                 button.setEnabled(false);
+            } else {
+                button.setText("Purchase");
+                button.setEnabled(true);
             }
         }
     }

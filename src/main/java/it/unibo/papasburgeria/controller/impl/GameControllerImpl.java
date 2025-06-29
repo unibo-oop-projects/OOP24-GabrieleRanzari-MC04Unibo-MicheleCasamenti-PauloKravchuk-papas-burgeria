@@ -96,6 +96,7 @@ public class GameControllerImpl implements GameController {
         gameModel.nextDay();
         customerController.startClientThread();
         pantryModel.unlockForDay(gameModel.getCurrentDay());
+        this.processSave();
         switchToScene(SceneType.DAY_CHANGE);
     }
 

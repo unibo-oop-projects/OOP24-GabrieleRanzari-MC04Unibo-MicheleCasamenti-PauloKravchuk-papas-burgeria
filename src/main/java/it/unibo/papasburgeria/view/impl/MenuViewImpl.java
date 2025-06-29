@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.io.Serial;
@@ -204,28 +205,35 @@ public class MenuViewImpl extends AbstractBaseView {
             this.labels = new EnumMap<>(SlotLabelEnum.class);
 
             // Constants, once created and then gc'ed
-            final Color bgColor = new Color(0, 0, 0, 0);
-            final double textYOffset = 0.1;
+            final Color bgTransparentColor = new Color(0, 0, 0, 0);
+            final Color bgColor = new Color(236, 207, 203);
+            final Color textColor = new Color(101, 52, 52);
+            final double textYOffset = 0.085;
             final Scale buttonSizeScale = new ScaleImpl(ScaleConstraintImpl.FULL, ScaleConstraintImpl.EIGHTH);
             final Scale buttonPositionScale = new ScaleImpl(ScaleConstraintImpl.HALF, ScaleConstraintImpl.QUARTER);
 
             this.panel = new JPanel();
             this.panel.setLayout(new ScalableLayoutImpl());
-            this.panel.setBackground(bgColor);
+            this.panel.setBackground(bgTransparentColor);
             this.panel.setOpaque(false);
 
             this.interactionButton = new JButton("[PLACEHOLDER]");
+            this.interactionButton.setBackground(bgColor);
+            this.interactionButton.setForeground(textColor);
+            this.interactionButton.setFocusPainted(false);
+            this.interactionButton.setFocusable(false);
+            this.interactionButton.setBorder(BorderFactory.createEmptyBorder());
             this.panel.add(this.interactionButton, new ScaleConstraintImpl(
                     buttonSizeScale,
                     buttonPositionScale,
                     ScaleConstraintImpl.ORIGIN_CENTER
             ));
 
-            int j = 1;
+            int j = 0;
             for (final SlotLabelEnum slotLabel : SlotLabelEnum.values()) {
                 final JLabel statLabel = new JLabel(slotLabel.value() + ": _");
                 statLabel.setOpaque(false);
-                statLabel.setBackground(bgColor);
+                statLabel.setBackground(bgTransparentColor);
                 this.labels.put(slotLabel, statLabel);
                 this.panel.add(statLabel, new ScaleConstraintImpl(
                         buttonSizeScale,

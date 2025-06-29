@@ -106,19 +106,21 @@ public class GameControllerImpl implements GameController {
     @Override
     public boolean processSave() {
         final int slotIndex = this.gameModel.getCurrentSaveSlot();
-        try {
-            this.saveService.saveSlot(slotIndex,
-                    new SaveState(
-                            this.gameModel.getBalance(),
-                            this.gameModel.getCurrentDay(),
-                            this.shopModel.getUpgrades()
-                    )
-            );
-            return true;
-        } catch (final IOException e) {
-            Logger.error(e, "Failed to save slot {}", slotIndex);
-            return false;
+        if (slotIndex >= 0) {
+            try {
+                this.saveService.saveSlot(slotIndex,
+                        new SaveState(
+                                this.gameModel.getBalance(),
+                                this.gameModel.getCurrentDay(),
+                                this.shopModel.getUpgrades()
+                        )
+                );
+                return true;
+            } catch (final IOException e) {
+                Logger.error(e, "Failed to save slot {}", slotIndex);
+            }
         }
+        return false;
     }
 
     /**
@@ -127,8 +129,8 @@ public class GameControllerImpl implements GameController {
     @Override
     public boolean processLoad(final int slotNumber) {
         try {
-            gameModel.reset();
             final SaveState saveState = this.saveService.loadSlot(slotNumber);
+            this.gameModel.reset();
             this.gameModel.setCurrentSaveSlot(slotNumber);
             this.gameModel.setCurrentDay(saveState.gameDay());
             this.pantryModel.resetUnlocks();
@@ -144,5 +146,18 @@ public class GameControllerImpl implements GameController {
             Logger.error(e, "Failed to load slot {}", slotNumber);
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "GameControllerImpl{" +
+                "gameModel=" + gameModel +
+                ", pantryModel=" + pantryModel +
+                ", shopModel=" + shopModel +
+                ", sceneService=" + sceneService +
+                ", resourceService=" + resourceService +
+                ", saveService=" + saveService +
+                ", customerController=" + customerController +
+                '}';
     }
 }

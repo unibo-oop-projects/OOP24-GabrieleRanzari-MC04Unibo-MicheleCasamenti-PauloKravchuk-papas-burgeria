@@ -3,6 +3,8 @@ package it.unibo.papasburgeria.view.impl.components;
 import it.unibo.papasburgeria.view.api.components.Scale;
 import it.unibo.papasburgeria.view.api.components.ScaleConstraint;
 
+import java.util.Objects;
+
 /**
  * Implementation of ScaleConstraint.
  *
@@ -127,5 +129,26 @@ public class ScaleConstraintImpl implements ScaleConstraint {
     @Override
     public void setOriginScale(final Scale scale) {
         this.originScale = new ScaleImpl(scale);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ScaleConstraintImpl that)) return false;
+        return Objects.equals(sizeScale, that.sizeScale) && Objects.equals(positionScale, that.positionScale) && Objects.equals(originScale, that.originScale);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sizeScale, positionScale, originScale);
+    }
+
+    @Override
+    public String toString() {
+        return "ScaleConstraintImpl{" +
+                "sizeScale=" + sizeScale +
+                ", positionScale=" + positionScale +
+                ", originScale=" + originScale +
+                '}';
     }
 }

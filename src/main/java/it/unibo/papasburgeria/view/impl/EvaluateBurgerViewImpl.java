@@ -1,16 +1,7 @@
 package it.unibo.papasburgeria.view.impl;
 
-import java.awt.Graphics;
-import java.io.Serial;
-import java.util.ArrayList;
-
-import org.tinylog.Logger;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import it.unibo.papasburgeria.controller.impl.EvaluateBurgerControllerImpl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
@@ -21,6 +12,13 @@ import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
+import org.tinylog.Logger;
+
+import java.awt.Graphics;
+import java.io.Serial;
+import java.util.ArrayList;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * the interface which contains the hamburger evaluation.
@@ -37,7 +35,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
     @Inject
     EvaluateBurgerViewImpl(final EvaluateBurgerControllerImpl controller,
-    final DrawingManager drawingManager, final ResourceService resourceService) {
+                           final DrawingManager drawingManager, final ResourceService resourceService) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         this.resourceService = resourceService;
@@ -77,7 +75,8 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
      * @inheritDoc
      */
     @Override
-    void update(final double delta) { }
+    void update(final double delta) {
+    }
 
     /**
      * @inheritDoc
@@ -85,15 +84,15 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     @Override
     void paintComponentDelegate(final Graphics g) {
         drawingManager.drawHamburger(burger,
-        getSize(), BurgerAssemblyViewImpl.HALF_RANGE,
-        BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
+                getSize(), BurgerAssemblyViewImpl.HALF_RANGE,
+                BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
 
         final Sprite orderSprite = new SpriteImpl(resourceService.getImage("order.png"),
-            new IngredientImpl(IngredientEnum.CHEESE),
-            OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION, 
-            OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
-            DrawingManagerImpl.ORDER_X_SIZE_SCALE, 
-            DrawingManagerImpl.ORDER_Y_SIZE_SCALE);
+                new IngredientImpl(IngredientEnum.CHEESE),
+                OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION,
+                OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
+                DrawingManagerImpl.ORDER_X_SIZE_SCALE,
+                DrawingManagerImpl.ORDER_Y_SIZE_SCALE);
         drawingManager.drawOrder(orderSprite, order, getSize(), g);
     }
 }

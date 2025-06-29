@@ -48,6 +48,14 @@ public class MenuControllerImpl implements MenuController {
      * @inheritDoc
      */
     @Override
+    public int getCurrentlyUsedSaveIndex() {
+        return this.gameModel.getCurrentSaveSlot();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public List<SaveInfo> getSaves() {
         try {
             final List<SaveState> states = this.saveService.loadAllSlots();
@@ -64,5 +72,13 @@ public class MenuControllerImpl implements MenuController {
         }
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public String toString() {
+        return "MenuControllerImpl{" +
+                "saveService=" + saveService +
+                ", gameModel=" + gameModel +
+                '}';
     }
 }

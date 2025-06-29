@@ -190,16 +190,24 @@ public class MenuViewImpl extends AbstractBaseView {
         if (info != null) {
             for (final SlotView slotView : this.slotViews) {
                 final int boundIndex = slotView.getIndex();
+                final int currentIndex = this.menuController.getCurrentlyUsedSaveIndex();
+                final boolean currentlySelected = currentIndex >= 0 && currentIndex == boundIndex;
                 final SaveInfo saveInfo = info.get(boundIndex);
                 final boolean isEmptySave = saveInfo.checkNoSave();
+
                 slotView.setSlotAsEmpty(); // defaulting
                 if (!isEmptySave) {
-                    slotView.updateButton("[SELECT]", event -> {
-                        final boolean status = gameController.processLoad(boundIndex);
-                        if (status) {
-                            gameController.switchToScene(SceneType.REGISTER);
-                        }
-                    });
+                    slotView.updateButton(
+                            "[SELECT" + (currentlySelected ? "ED]" : "]"), event -> {
+                                if (currentlySelected) {
+                                    gameController.processSave();
+                                    if (gameController.processLoad(boundIndex)) {
+                                        gameController.switchToScene(SceneType.REGISTER);
+                                    }
+                                } else {
+                                    gameController.switchToScene(SceneType.REGISTER);
+                                }
+                            });
                     slotView.updateLabel(
                             SlotView.SlotLabelEnum.BALANCE, String.valueOf(saveInfo.playerBalance())
                     );
@@ -229,6 +237,22 @@ public class MenuViewImpl extends AbstractBaseView {
         button.setOpaque(false);
         button.setFocusPainted(false);
         return button;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuViewImpl{" +
+                "sfxService=" + sfxService +
+                ", resourceService=" + resourceService +
+                ", menuController=" + menuController +
+                ", gameController=" + gameController +
+                ", slotViews=" + slotViews +
+                ", playButton=" + playButton +
+                ", resumeButton=" + resumeButton +
+                ", savesButton=" + savesButton +
+                ", slotPanel=" + slotPanel +
+                ", playShown=" + playShown +
+                '}';
     }
 
     /**
@@ -374,6 +398,17 @@ public class MenuViewImpl extends AbstractBaseView {
                     this.interactionButton.setText("[RETRY]");
                 }
             });
+        }
+
+        @Override
+        public String toString() {
+            return "SlotView{" +
+                    "index=" + index +
+                    ", panel=" + panel +
+                    ", interactionButton=" + interactionButton +
+                    ", labels=" + labels +
+                    ", currentListener=" + currentListener +
+                    '}';
         }
 
         /**

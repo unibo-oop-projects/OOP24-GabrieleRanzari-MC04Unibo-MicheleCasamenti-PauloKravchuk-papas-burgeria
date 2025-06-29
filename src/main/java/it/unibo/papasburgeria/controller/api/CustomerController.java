@@ -60,32 +60,32 @@ public interface CustomerController {
     /**
      * calculates the satisfaction percentage of the customer.
      *
-     * @param startingHamburger     the starting hamburger
-     * @param madeHamburger         the hamburger cooked by the player
-     * @return                      the satisfaction percentage
+     * @param startingHamburger the starting hamburger
+     * @param madeHamburger     the hamburger cooked by the player
+     * @return the satisfaction percentage
      */
     double calculateSatisfactionPercentage(Hamburger startingHamburger, Hamburger madeHamburger);
 
     /**
      * calculates the payment based on the satisfaction percentage.
      *
-     * @param percentage    the satisfaction percentage.
-     * @return              the total payment.
+     * @param percentage the satisfaction percentage.
+     * @return the total payment.
      */
     int calculatePayment(double percentage);
 
     /**
      * has a chance to generate a tip.
      *
-     * @param payment   the total payment without tip.
-     * @return          the tip.
+     * @param payment the total payment without tip.
+     * @return the tip.
      */
     int calculateTips(int payment);
 
     /**
      * add money to balance.
      *
-     * @param payment   money to be added to the balance
+     * @param payment money to be added to the balance
      */
     void addBalance(int payment);
 

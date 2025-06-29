@@ -177,7 +177,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

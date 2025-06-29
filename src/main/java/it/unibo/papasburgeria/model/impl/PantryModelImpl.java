@@ -74,7 +74,7 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

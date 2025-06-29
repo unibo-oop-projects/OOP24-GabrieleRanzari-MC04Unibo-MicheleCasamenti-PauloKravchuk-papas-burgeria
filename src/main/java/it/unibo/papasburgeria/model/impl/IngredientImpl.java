@@ -89,7 +89,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

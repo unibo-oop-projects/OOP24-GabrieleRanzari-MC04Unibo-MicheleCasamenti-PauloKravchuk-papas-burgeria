@@ -193,7 +193,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

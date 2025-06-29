@@ -65,7 +65,7 @@ public class ShopControllerImpl implements ShopController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

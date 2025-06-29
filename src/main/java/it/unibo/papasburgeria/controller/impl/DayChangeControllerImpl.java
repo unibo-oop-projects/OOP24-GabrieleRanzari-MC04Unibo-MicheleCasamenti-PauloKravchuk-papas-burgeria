@@ -45,7 +45,7 @@ public class DayChangeControllerImpl implements DayChangeController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int getCurrentDayNumber() {
@@ -53,7 +53,7 @@ public class DayChangeControllerImpl implements DayChangeController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

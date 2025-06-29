@@ -380,7 +380,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

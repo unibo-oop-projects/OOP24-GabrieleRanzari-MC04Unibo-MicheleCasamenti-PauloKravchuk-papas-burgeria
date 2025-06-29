@@ -122,7 +122,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

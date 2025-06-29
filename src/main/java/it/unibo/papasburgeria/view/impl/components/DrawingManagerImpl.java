@@ -326,7 +326,7 @@ public class DrawingManagerImpl implements DrawingManager {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

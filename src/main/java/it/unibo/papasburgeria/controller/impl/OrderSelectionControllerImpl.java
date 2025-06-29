@@ -74,7 +74,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

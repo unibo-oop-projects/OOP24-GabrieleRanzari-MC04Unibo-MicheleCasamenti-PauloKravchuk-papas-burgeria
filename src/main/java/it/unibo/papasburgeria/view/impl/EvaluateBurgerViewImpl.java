@@ -40,34 +40,36 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private static final double CONTINUE_WIDTH = 0.25;
-    private static final double CONTINUE_HEIGHT = 0.2;
-    private static final double CONTINUE_X_POS = 0.7;
-    private static final double CONTINUE_Y_POS = 0.75;
-
     private static final double BALANCE_WIDTH = 0.33;
     private static final double BALANCE_HEIGHT = 0.25;
     private static final double BALANCE_X_POS = 0.0;
     private static final double BALANCE_Y_POS = 0.80;
 
-    private static final double PERCENTAGE_WIDTH = 0.0;
-    private static final double PERCENTAGE_HEIGHT = 0.0;
-    private static final double PERCENTAGE_X_POS = 0.0;
-    private static final double PERCENTAGE_Y_POS = 0.0;
+    private static final double PERCENTAGE_WIDTH = 0.15;
+    private static final double PERCENTAGE_HEIGHT = 0.1;
+    private static final double PERCENTAGE_X_POS = 0.77;
+    private static final double PERCENTAGE_Y_POS = 0.35;
 
-    private static final double TIP_WIDTH = 0.0;
-    private static final double TIP_HEIGHT = 0.0;
-    private static final double TIP_X_POS = 0.0;
-    private static final double TIP_Y_POS = 0.0;
+    private static final double PAYMENT_WIDTH = 0.15;
+    private static final double PAYMENT_HEIGHT = 0.1;
+    private static final double PAYMENT_X_POS = 0.77;
+    private static final double PAYMENT_Y_POS = 0.45;
 
-    private static final double PAYMENT_WIDTH = 0.0;
-    private static final double PAYMENT_HEIGHT = 0.0;
-    private static final double PAYMENT_X_POS = 0.0;
-    private static final double PAYMENT_Y_POS = 0.0;
+    private static final double TIP_WIDTH = 0.15;
+    private static final double TIP_HEIGHT = 0.1;
+    private static final double TIP_X_POS = 0.77;
+    private static final double TIP_Y_POS = 0.55;
+
+    private static final double CONTINUE_WIDTH = 0.1;
+    private static final double CONTINUE_HEIGHT = 0.1;
+    private static final double CONTINUE_X_POS = 0.77;
+    private static final double CONTINUE_Y_POS = 0.65;
 
     private static final double ORIGIN = 0.0;
 
-    private static final Font FONT = new Font("Comic Sans MS", Font.BOLD, 40);
+    private static final String MONEY = "$";
+
+    private static final Font FONT = new Font("Comic Sans MS", Font.BOLD, 20);
 
     private final transient EvaluateBurgerController controller;
     private final transient DrawingManager drawingManager;
@@ -99,7 +101,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         interfacePanel.setLayout(new ScalableLayoutImpl());
         super.setStaticBackgroundImage(resourceService.getImage("order_evaluation_background.png"));
 
-        final JButton continueButton = new JButton("CONTINUE COOKING");
+        final JButton continueButton = new JButton("NEXT");
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -121,8 +123,9 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                         new ScaleImpl(ORIGIN)
                 )
         );
+        continueButton.setFont(FONT);
 
-        showMoneyLabel = new JLabel("BAL: 0$");
+        showMoneyLabel = new JLabel("BAL: 0" + MONEY);
         interfacePanel.add(showMoneyLabel,
                 new ScaleConstraintImpl(
                     new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
@@ -142,7 +145,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 );
         percentageLabel.setFont(FONT);
 
-        paymentLabel = new JLabel("PAY: 0$");
+        paymentLabel = new JLabel("PAY: 0" + MONEY);
         interfacePanel.add(paymentLabel,
                 new ScaleConstraintImpl(
                     new ScaleImpl(PAYMENT_WIDTH, PAYMENT_HEIGHT),
@@ -152,7 +155,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 );
         paymentLabel.setFont(FONT);
 
-        tipLabel = new JLabel("TIP: 0$");
+        tipLabel = new JLabel("TIP: 0" + MONEY);
         interfacePanel.add(tipLabel,
                 new ScaleConstraintImpl(
                     new ScaleImpl(TIP_WIDTH, TIP_HEIGHT),
@@ -181,7 +184,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         if (DEBUG_MODE) {
             Logger.info("EvaluateBurgerView shown");
         }
-        showMoneyLabel.setText("BAL: " + customerController.getBalance() + "$");
+        showMoneyLabel.setText("BAL: " + customerController.getBalance() + MONEY);
 
         read();
         final double satisfaction = customerController.calculateSatisfactionPercentage(
@@ -200,9 +203,9 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 }
             }
         }
-        percentageLabel.setText("SCORE: " + satisfaction);
-        paymentLabel.setText("PAYMENT:" + payment);
-        tipLabel.setText("TIP: " + tip);
+        percentageLabel.setText("score: " + (int) (satisfaction * 100) + "%");
+        paymentLabel.setText("pay: " + payment + MONEY);
+        tipLabel.setText(" +tip " + tip + MONEY);
 
         if (DEBUG_MODE) {
             Logger.info("Satisfaction: " + satisfaction);

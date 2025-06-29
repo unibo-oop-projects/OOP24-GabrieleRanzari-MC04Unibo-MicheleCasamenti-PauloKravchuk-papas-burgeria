@@ -92,7 +92,7 @@ public interface GameModel {
     Order getSelectedOrder();
 
     /**
-     * sets a new order as the selected one.
+     * Sets a new order as the selected one.
      *
      * @param order the selected order
      */

@@ -5,26 +5,23 @@ package it.unibo.papasburgeria.model.api;
  */
 public interface Order {
     /**
+     * Get the hamburger from this order.
+     *
      * @return the current hamburger's order.
      */
     Hamburger getHamburger();
 
     /**
-     * @return the maximum time given for the hamburger's assembly.
-     */
-    float getMaxTime();
-
-    /**
      * Return the order number.
      *
-     * @return the order number
+     * @return the order number.
      */
     int getOrderNumber();
 
     /**
      * Return a copy of this order.
      *
-     * @return the copy
+     * @return the copy.
      */
     Order copyOf();
 }

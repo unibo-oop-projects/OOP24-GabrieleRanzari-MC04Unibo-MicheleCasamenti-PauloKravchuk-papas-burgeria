@@ -14,16 +14,17 @@ import java.util.concurrent.ThreadLocalRandom;
  * See {@link Customer} for interface details.
  */
 public class CustomerImpl implements Customer {
-    public static final int MAX_PAYMENT = 50;
+    /** How many types of skin are present. */
     public static final int EXISTING_SKIN_TYPES = 9;
     private final Order order;
     /*just a 0-9 value used to indicate the customer's appearance */
     private final int skinType;
     private boolean inRegisterLine;
     private boolean inWaitLine;
-    private boolean walkedIn;
 
     /**
+     * Constructs a customer and generates a random Hamburger.
+     *
      * @param availableIngredients list containing all available ingredients
      * @param orderNumber          the order number
      */
@@ -78,22 +79,6 @@ public class CustomerImpl implements Customer {
     @Override
     public void setInWaitLine(final boolean setFlag) {
         this.inWaitLine = setFlag;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean hasWalkedIn() {
-        return walkedIn;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setWalkedIn(final boolean setFlag) {
-        this.walkedIn = setFlag;
     }
 
     /**

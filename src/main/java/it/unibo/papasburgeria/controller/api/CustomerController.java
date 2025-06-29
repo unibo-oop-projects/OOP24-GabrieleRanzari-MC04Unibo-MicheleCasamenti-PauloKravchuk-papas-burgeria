@@ -53,6 +53,8 @@ public interface CustomerController {
     List<Customer> getRegisterLine();
 
     /**
+     * Gets the waitLine.
+     *
      * @return the wait line.
      */
     List<Customer> getWaitLine();

@@ -5,30 +5,36 @@ import it.unibo.papasburgeria.model.UpgradeEnum;
 import java.util.Map;
 
 /**
- * models how the shop should function.
+ * Models how the shop should function.
  */
 public interface Shop {
     /**
+     * Unlocks the selected upgrade.
+     *
      * @param upgrade unlocks the given upgrade.
      */
     void unlockUpgrade(UpgradeEnum upgrade);
 
     /**
+     * Locks the selected upgrade.
+     *
      * @param upgrade locks the given upgrade.
      */
     void lockUpgrade(UpgradeEnum upgrade);
 
     /**
-     * unlocks all upgrades.
+     * Unlocks all upgrades.
      */
     void unlockAllUpgrades();
 
     /**
-     * locks all upgrades.
+     * Locks all upgrades.
      */
     void lockAllUpgrades();
 
     /**
+     * Gets the upgrade modifier.
+     *
      * @param upgrade gets the given upgrade's modifier.
      * @return either the upgrade modifier or zero if locked.
      */

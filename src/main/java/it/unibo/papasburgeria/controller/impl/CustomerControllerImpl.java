@@ -10,6 +10,7 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.PantryModel;
+import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.Shop;
 import it.unibo.papasburgeria.model.impl.HamburgerImpl;
@@ -22,7 +23,13 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 @Singleton
 public class CustomerControllerImpl implements CustomerController {
+    /**
+     * The maximum payment amount.
+     */
     public static final int MAX_PAYMENT = 50;
+    /**
+     * The default tip percentage.
+     */
     public static final double DEFAULT_TIP = 0.05;
     private final GameModel model;
     private final Shop shop;
@@ -151,6 +158,8 @@ public class CustomerControllerImpl implements CustomerController {
         final int minLength = Math.min(list1.size(), list2.size());
         int matchCount = 0;
 
+        double totalCookDifference = 0;
+        int pattyComparisons = 0;
         for (int i = 0; i < minLength; i++) {
             final Object a = list1.get(i);
             final Object b = list2.get(i);
@@ -161,7 +170,22 @@ public class CustomerControllerImpl implements CustomerController {
 
             if (a.equals(b) && a.getClass().equals(b.getClass())) {
                 matchCount++;
+                 if (a instanceof Patty && b instanceof Patty) {
+                    final double diff = Math.abs(((Patty) a).getBottomCookLevel() - ((Patty) b).getBottomCookLevel())
+                                + Math.abs(((Patty) a).getTopCookLevel() - ((Patty) b).getTopCookLevel());
+
+                    totalCookDifference += diff;
+                    pattyComparisons++;
+                }
             }
+        }
+        /* calculates how similarly two patties are cooked */
+        final double pattySimilarityPercentage;
+
+        if (pattyComparisons > 0) {
+            pattySimilarityPercentage = 1.0 - (totalCookDifference / (pattyComparisons * 2.0));
+        } else {
+            pattySimilarityPercentage = 1.0;
         }
 
         /* normalize by the max length to penalize extra/missing elements */
@@ -186,7 +210,7 @@ public class CustomerControllerImpl implements CustomerController {
         /* calculates the difficulty percentage (size/maxsize) */
         final double difficultyPercentage = (double) list1.size() / HamburgerImpl.MAX_INGREDIENTS;
 
-        return difficultyPercentage * similarityPercentage * placementPercentage;
+        return (difficultyPercentage + similarityPercentage + placementPercentage + pattySimilarityPercentage) / 4;
     }
 
     /**

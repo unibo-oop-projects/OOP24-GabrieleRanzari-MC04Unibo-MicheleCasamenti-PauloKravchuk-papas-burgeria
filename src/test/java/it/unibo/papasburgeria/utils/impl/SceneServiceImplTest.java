@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class SceneServiceImplTest {
 
-    private SceneServiceImpl sceneService;
+    private SceneService sceneService;
     private TestBaseScene sceneA;
     private TestBaseScene sceneB;
 
@@ -69,7 +69,7 @@ class SceneServiceImplTest {
     @Test
     void testGetScenes() {
         final SceneService emptySceneService = new SceneServiceImpl(new EnumMap<>(SceneType.class));
-        assertEquals(Map.of(), emptySceneService.getScenes());
+        assertEquals(new EnumMap<>(SceneType.class), emptySceneService.getScenes());
 
         final Map<SceneType, BaseScene> copy = this.sceneService.getScenes();
         assertThrows(UnsupportedOperationException.class, () -> copy.put(SceneType.REGISTER, this.sceneA));
@@ -80,6 +80,14 @@ class SceneServiceImplTest {
      */
     @Test
     void testOnSceneChanged() {
+        final AtomicReference<SceneType> sceneReference = new AtomicReference<>();
+        final Consumer<SceneType> onSceneChanged = sceneReference::set;
+        this.sceneService.onSceneChanged(onSceneChanged);
+        assertThrows(IllegalArgumentException.class, () -> this.sceneService.onSceneChanged(null));
+        assertThrows(IllegalArgumentException.class, () -> this.sceneService.onSceneChanged(onSceneChanged));
+
+        this.sceneService.switchTo(SceneType.REGISTER);
+        assertEquals(SceneType.REGISTER, sceneReference.get());
     }
 
     /**
@@ -133,14 +141,6 @@ class SceneServiceImplTest {
          */
         public int getHiddenCount() {
             return this.hidden;
-        }
-
-        /**
-         * Resets the shown and hidden counts.
-         */
-        public void resetCounts() {
-            this.shown = 0;
-            this.hidden = 0;
         }
     }
 }

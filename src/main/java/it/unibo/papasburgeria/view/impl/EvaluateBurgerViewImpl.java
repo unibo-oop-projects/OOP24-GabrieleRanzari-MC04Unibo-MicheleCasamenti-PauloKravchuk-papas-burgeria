@@ -1,21 +1,6 @@
 package it.unibo.papasburgeria.view.impl;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.Serial;
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import org.tinylog.Logger;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-
 import com.google.inject.Inject;
-
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.controller.api.GameController;
@@ -33,6 +18,18 @@ import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
+import org.tinylog.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.Serial;
+import java.util.ArrayList;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * the interface which contains the hamburger evaluation.
@@ -65,10 +62,10 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
     @Inject
     EvaluateBurgerViewImpl(final EvaluateBurgerController controller,
-            final DrawingManager drawingManager,
-            final ResourceService resourceService,
-            final GameController gameController, 
-            final CustomerController customerController) {
+                           final DrawingManager drawingManager,
+                           final ResourceService resourceService,
+                           final GameController gameController,
+                           final CustomerController customerController) {
 
         this.controller = controller;
         this.drawingManager = drawingManager;
@@ -84,8 +81,8 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (customerController.isCustomerThreadStatus()
-                || !customerController.getWaitLine().isEmpty()
-                || !customerController.getRegisterLine().isEmpty()) {
+                        || !customerController.getWaitLine().isEmpty()
+                        || !customerController.getRegisterLine().isEmpty()) {
                     gameController.switchToScene(SceneType.REGISTER);
                 } else {
                     gameController.switchToScene(SceneType.SHOP);
@@ -95,20 +92,20 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
         interfacePanel.add(continueButton,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(CONTINUE_WIDTH, CONTINUE_HEIGHT),
-                    new ScaleImpl(CONTINUE_X_POS, CONTINUE_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(CONTINUE_WIDTH, CONTINUE_HEIGHT),
+                        new ScaleImpl(CONTINUE_X_POS, CONTINUE_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
 
         this.showMoneyLabel = new JLabel();
         interfacePanel.add(showMoneyLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
-                    new ScaleImpl(BALANCE_X_POS, BALANCE_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
+                        new ScaleImpl(BALANCE_X_POS, BALANCE_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
     }
 
     /**
@@ -129,14 +126,14 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         }
         read();
         final double satisfaction = customerController.calculateSatisfactionPercentage(
-            this.order.getHamburger().copyOf(), this.burger);
+                this.order.getHamburger().copyOf(), this.burger);
 
         final int payment = customerController.calculatePayment(satisfaction);
         final int tip = customerController.calculateTips(payment);
 
         customerController.addBalance(payment + tip);
 
-        for (final Customer currentCustomer: customerController.getWaitLine()) {
+        for (final Customer currentCustomer : customerController.getWaitLine()) {
             if (currentCustomer.getOrder().getOrderNumber() == this.order.getOrderNumber()) {
                 customerController.serveCustomer(currentCustomer);
                 if (DEBUG_MODE) {

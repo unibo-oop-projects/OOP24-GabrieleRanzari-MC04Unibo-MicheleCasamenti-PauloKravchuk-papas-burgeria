@@ -138,8 +138,8 @@ public class CustomerControllerImpl implements CustomerController {
      * @inheritDoc
      */
     @Override
-    public double calculateSatisfactionPercentage(final Hamburger startingHamburger, 
-    final Hamburger madeHamburger) {
+    public double calculateSatisfactionPercentage(final Hamburger startingHamburger,
+                                                  final Hamburger madeHamburger) {
         final List<Ingredient> list1 = startingHamburger.getIngredients();
         final List<Ingredient> list2 = madeHamburger.getIngredients();
 
@@ -167,7 +167,7 @@ public class CustomerControllerImpl implements CustomerController {
         /* normalize by the max length to penalize extra/missing elements */
         final int maxLength = Math.max(list1.size(), list2.size());
         double similarityPercentage = (double) matchCount / maxLength
-        + shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE);
+                + shop.getUpgradeModifier(UpgradeEnum.INGREDIENT_TOLERANCE);
         if (similarityPercentage > 1.0) {
             similarityPercentage = 1.0;
         }
@@ -178,7 +178,7 @@ public class CustomerControllerImpl implements CustomerController {
         }
         /* calculates the placement accuracy (1 - (averageAccuracy)) */
         double placementPercentage = 1.0 - (placementAccuracyTotal / list1.size())
-        + shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE);
+                + shop.getUpgradeModifier(UpgradeEnum.PLACEMENT_TOLERANCE);
         if (placementPercentage > 1.0) {
             placementPercentage = 1.0;
         }

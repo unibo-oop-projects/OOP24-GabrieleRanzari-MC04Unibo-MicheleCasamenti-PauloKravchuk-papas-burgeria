@@ -19,7 +19,7 @@ import java.util.List;
  * See {@link SaveService} for interface details.
  */
 public class SaveServiceImpl implements SaveService {
-    public static final int MAX_SAVE_SLOTS = 2;
+    public static final int MAX_SAVE_SLOT_INDEX = 2;
     private static final Path DIRECTORY = Paths.get(System.getProperty("user.home"), ".papasburgeria", "slots");
 
     private final ObjectMapper mapper;
@@ -75,7 +75,7 @@ public class SaveServiceImpl implements SaveService {
     @Override
     public List<SaveState> loadAllSlots() throws IOException {
         final List<SaveState> slots = new ArrayList<>();
-        for (int i = 0; i <= MAX_SAVE_SLOTS; i++) {
+        for (int i = 0; i <= MAX_SAVE_SLOT_INDEX; i++) {
             slots.add(loadSlot(i)); // state or null
         }
         return slots;
@@ -87,9 +87,9 @@ public class SaveServiceImpl implements SaveService {
      * @param slotNumber slot number
      */
     private void validateSlotNumber(final int slotNumber) {
-        if (slotNumber < 0 || slotNumber > MAX_SAVE_SLOTS) {
+        if (slotNumber < 0 || slotNumber > MAX_SAVE_SLOT_INDEX) {
             throw new IllegalArgumentException(
-                    "Invalid slot number, should be a positive integer and equal or below " + MAX_SAVE_SLOTS
+                    "Invalid slot number, should be a positive integer and equal or below " + MAX_SAVE_SLOT_INDEX
             );
         }
     }

@@ -39,8 +39,8 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORD
         justification = "controller is injected and shared intentionally; views are not serialized at runtime"
 )
 public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDropListener {
-    private static final double ORDER_SELECTED_X_POSITION = 0.1144;
-    private static final double ORDER_SELECTED_Y_POSITION = 0.3487;
+    public static final double ORDER_SELECTED_X_POSITION = 0.1144;
+    public static final double ORDER_SELECTED_Y_POSITION = 0.3487;
 
     @Serial
     private static final long serialVersionUID = 1L;

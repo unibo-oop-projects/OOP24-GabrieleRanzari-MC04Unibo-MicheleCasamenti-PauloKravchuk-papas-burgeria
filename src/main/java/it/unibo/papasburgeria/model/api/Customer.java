@@ -29,24 +29,24 @@ public interface Customer {
     boolean isInRegisterLine();
 
     /**
-     * @return true if customer in wait line.
-     */
-    boolean isInWaitLine();
-
-    /**
-     * @return true if customer has walked in.
-     */
-    boolean hasWalkedIn();
-
-    /**
      * @param setFlag if the customer is in registerLine
      */
     void setInRegisterLine(boolean setFlag);
 
     /**
+     * @return true if customer in wait line.
+     */
+    boolean isInWaitLine();
+
+    /**
      * @param setFlag if the customer is in WaitLine
      */
     void setInWaitLine(boolean setFlag);
+
+    /**
+     * @return true if customer has walked in.
+     */
+    boolean hasWalkedIn();
 
     /**
      * @param setFlag if the customer has walked in

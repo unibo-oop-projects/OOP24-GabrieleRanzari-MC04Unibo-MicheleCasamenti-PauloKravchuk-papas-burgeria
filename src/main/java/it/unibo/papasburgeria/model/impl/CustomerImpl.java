@@ -16,12 +16,11 @@ public class CustomerImpl implements Customer {
     public static final int MAX_PAYMENT = 50;
     public static final int EXISTING_SKIN_TYPES = 9;
     private final Order order;
+    /*just a 0-9 value used to indicate the customer's appearance */
+    private final int skinType;
     private boolean inRegisterLine;
     private boolean inWaitLine;
     private boolean walkedIn;
-
-    /*just a 0-9 value used to indicate the customer's appearance */
-    private final int skinType;
 
     /**
      * @param availableIngredients list containing all available ingredients
@@ -117,22 +116,6 @@ public class CustomerImpl implements Customer {
      * @inheritDoc
      */
     @Override
-    public boolean isInWaitLine() {
-        return inWaitLine;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
-    public boolean hasWalkedIn() {
-        return walkedIn;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public void setInRegisterLine(final boolean setFlag) {
         this.inRegisterLine = setFlag;
     }
@@ -141,8 +124,24 @@ public class CustomerImpl implements Customer {
      * @inheritDoc
      */
     @Override
+    public boolean isInWaitLine() {
+        return inWaitLine;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
     public void setInWaitLine(final boolean setFlag) {
         this.inWaitLine = setFlag;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public boolean hasWalkedIn() {
+        return walkedIn;
     }
 
     /**

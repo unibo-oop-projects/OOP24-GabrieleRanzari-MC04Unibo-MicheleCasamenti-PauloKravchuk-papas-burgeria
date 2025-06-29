@@ -1,8 +1,8 @@
 package it.unibo.papasburgeria.controller.api;
 
-import java.util.List;
-
 import it.unibo.papasburgeria.model.api.Customer;
+
+import java.util.List;
 
 /**
  * Manages the appearance and disappearance of customers.

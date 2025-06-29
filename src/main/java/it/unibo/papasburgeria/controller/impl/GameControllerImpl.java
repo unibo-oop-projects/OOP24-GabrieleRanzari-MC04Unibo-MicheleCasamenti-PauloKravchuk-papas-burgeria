@@ -27,11 +27,11 @@ public class GameControllerImpl implements GameController {
     /**
      * Constructs the controller with its model and several utility classes like for scene-switching or resource disposing.
      *
-     * @param model           the GameModel manager
-     * @param sceneService    service required to handle scenes
-     * @param resourceService       service required to handle resources
-     * @param pantryModel           the model that stores which ingredients are unlocked
-     * @param customerController    used to kill customerThread when the game ends
+     * @param model              the GameModel manager
+     * @param sceneService       service required to handle scenes
+     * @param resourceService    service required to handle resources
+     * @param pantryModel        the model that stores which ingredients are unlocked
+     * @param customerController used to kill customerThread when the game ends
      */
     @Inject
     public GameControllerImpl(final GameModel model, final SceneService sceneService, final ResourceService resourceService,

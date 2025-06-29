@@ -1,17 +1,10 @@
 package it.unibo.papasburgeria.model.impl;
 
-<<<<<<< Updated upstream
-import java.util.LinkedList;
-import java.util.List;
-
-=======
->>>>>>> Stashed changes
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 

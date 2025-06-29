@@ -17,8 +17,8 @@ public class OrderImpl implements Order {
     /**
      * Default constructor, creates a new order given its number and a hamburger.
      *
-     * @param hamburger possible ingredients used to generate a random hamburger
-     * @param orderNumber          the order number
+     * @param hamburger   possible ingredients used to generate a random hamburger
+     * @param orderNumber the order number
      */
     public OrderImpl(final Hamburger hamburger, final int orderNumber) {
         this.hamburger = hamburger.copyOf();

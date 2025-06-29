@@ -1,11 +1,5 @@
 package it.unibo.papasburgeria.controller.impl;
 
-<<<<<<< Updated upstream
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-=======
->>>>>>> Stashed changes
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.CustomerController;
@@ -18,6 +12,7 @@ import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.Shop;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @inheritDoc
@@ -79,23 +74,23 @@ public class CustomerControllerImpl implements CustomerController {
         switch (model.getCurrentDay()) {
             case 1:
                 difficulty = CustomerDifficultyEnum.FIRST;
-            break;
+                break;
 
             case 2:
                 difficulty = CustomerDifficultyEnum.SECOND;
-            break;
+                break;
 
             case 3:
-            difficulty = CustomerDifficultyEnum.THIRD;
-            break;
+                difficulty = CustomerDifficultyEnum.THIRD;
+                break;
 
             case 4:
                 difficulty = CustomerDifficultyEnum.FORTH;
-            break;
+                break;
 
             default:
                 difficulty = CustomerDifficultyEnum.FIFTH;
-            break;
+                break;
         }
 
         registerModel.startCustomerThread((int) (difficulty.getSpawnIntervalSeconds()

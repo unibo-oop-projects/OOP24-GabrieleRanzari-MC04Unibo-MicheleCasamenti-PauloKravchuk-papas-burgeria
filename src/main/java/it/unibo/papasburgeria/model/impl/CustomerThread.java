@@ -2,15 +2,11 @@ package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.RegisterModel;
-<<<<<<< Updated upstream
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-
-=======
->>>>>>> Stashed changes
 import org.tinylog.Logger;
 
 import java.util.List;
+
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * defines a thread which adds the customers to the first line periodically.

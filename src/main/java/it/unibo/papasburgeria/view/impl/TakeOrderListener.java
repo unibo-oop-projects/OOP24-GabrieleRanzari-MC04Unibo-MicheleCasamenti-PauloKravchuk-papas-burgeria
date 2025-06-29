@@ -1,9 +1,9 @@
 package it.unibo.papasburgeria.view.impl;
 
+import it.unibo.papasburgeria.controller.api.CustomerController;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import it.unibo.papasburgeria.controller.api.CustomerController;
 
 /**
  * manages the order taking of customers when the button is pressed.
@@ -27,23 +27,27 @@ class TakeOrderListener implements MouseListener {
      * @inheritDoc
      */
     @Override
-    public void mousePressed(final MouseEvent e) { }
+    public void mousePressed(final MouseEvent e) {
+    }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void mouseReleased(final MouseEvent e) { }
+    public void mouseReleased(final MouseEvent e) {
+    }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void mouseEntered(final MouseEvent e) { }
+    public void mouseEntered(final MouseEvent e) {
+    }
 
     /**
      * @inheritDoc
      */
     @Override
-    public void mouseExited(final MouseEvent e) { }
+    public void mouseExited(final MouseEvent e) {
+    }
 }

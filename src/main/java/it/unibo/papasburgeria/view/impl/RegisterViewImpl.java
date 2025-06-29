@@ -3,18 +3,16 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.CustomerController;
-<<<<<<< Updated upstream
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
-=======
 import org.tinylog.Logger;
->>>>>>> Stashed changes
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,10 +21,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
@@ -65,12 +59,12 @@ public class RegisterViewImpl extends AbstractBaseView {
     private final JLabel takeOrderLabel;
     private final transient CustomerController customerController;
     private final transient ResourceService resourceService;
+    private final JPanel panel;
     private transient Map<Customer, JLabel> registerLineView = new LinkedHashMap<>();
     private transient Map<Customer, JLabel> waitLineView = new LinkedHashMap<>();
-    private final JPanel panel;
 
     /**
-     * @param resourceService used to get resources such as images and audio
+     * @param resourceService    used to get resources such as images and audio
      * @param customerController used to manage the customers' line
      */
     @Inject
@@ -85,12 +79,12 @@ public class RegisterViewImpl extends AbstractBaseView {
         final ImageIcon iconImage = new ImageIcon(resourceService.getImage(TAKE_ORDER_FILE_NAME + FILE_EXTENSION));
         this.takeOrderLabel = new JLabel(iconImage);
 
-        panel.add(takeOrderLabel, 
-                        new ScaleConstraintImpl(
-                            new ScaleImpl(TAKE_ORDER_WIDTH, TAKE_ORDER_HEIGHT),
-                            new ScaleImpl(TAKE_ORDER_X_POSITION, TAKE_ORDER_Y_POSITION),
-                            new ScaleImpl(ORIGIN)
-                        ));
+        panel.add(takeOrderLabel,
+                new ScaleConstraintImpl(
+                        new ScaleImpl(TAKE_ORDER_WIDTH, TAKE_ORDER_HEIGHT),
+                        new ScaleImpl(TAKE_ORDER_X_POSITION, TAKE_ORDER_Y_POSITION),
+                        new ScaleImpl(ORIGIN)
+                ));
         takeOrderLabel.addMouseListener(new TakeOrderListener(customerController));
     }
 
@@ -140,10 +134,10 @@ public class RegisterViewImpl extends AbstractBaseView {
             /* and fill them back up */
             for (final Customer customer : customerController.getWaitLine()) {
                 final ImageIcon iconImage = new ImageIcon(
-                    resourceService.getImage(CUSTOMER_FILE_NAME
-                    + FILE_SEPARATOR
-                    + customer.getSkinType()
-                    + FILE_EXTENSION));
+                        resourceService.getImage(CUSTOMER_FILE_NAME
+                                + FILE_SEPARATOR
+                                + customer.getSkinType()
+                                + FILE_EXTENSION));
                 final JLabel imageLabel = new JLabel(iconImage);
                 waitLineView.put(customer, imageLabel);
             }
@@ -152,12 +146,12 @@ public class RegisterViewImpl extends AbstractBaseView {
             int position = 0;
             for (final Entry<Customer, JLabel> entry : waitLineView.entrySet()) {
                 if (position < MAX_DISPLAYABLE_CUSTOMERS) {
-                    panel.add(entry.getValue(), 
-                        new ScaleConstraintImpl(
-                            new ScaleImpl(CUSTOMER_WIDTH, CUSTOMER_HEIGHT),
-                            new ScaleImpl(WAIT_X_POSITION[position], WAIT_Y_POSITION),
-                            new ScaleImpl(ORIGIN)
-                        )
+                    panel.add(entry.getValue(),
+                            new ScaleConstraintImpl(
+                                    new ScaleImpl(CUSTOMER_WIDTH, CUSTOMER_HEIGHT),
+                                    new ScaleImpl(WAIT_X_POSITION[position], WAIT_Y_POSITION),
+                                    new ScaleImpl(ORIGIN)
+                            )
                     );
                     entry.getValue().repaint();
                 }
@@ -179,10 +173,10 @@ public class RegisterViewImpl extends AbstractBaseView {
             /* and fill them back up */
             for (final Customer customer : customerController.getRegisterLine()) {
                 final ImageIcon iconImage = new ImageIcon(
-                    resourceService.getImage(CUSTOMER_FILE_NAME
-                    + FILE_SEPARATOR
-                    + customer.getSkinType()
-                    + FILE_EXTENSION));
+                        resourceService.getImage(CUSTOMER_FILE_NAME
+                                + FILE_SEPARATOR
+                                + customer.getSkinType()
+                                + FILE_EXTENSION));
                 final JLabel imageLabel = new JLabel(iconImage);
                 registerLineView.put(customer, imageLabel);
             }
@@ -191,12 +185,12 @@ public class RegisterViewImpl extends AbstractBaseView {
             int position = 0;
             for (final Entry<Customer, JLabel> entry : registerLineView.entrySet()) {
                 if (position < MAX_DISPLAYABLE_CUSTOMERS) {
-                    panel.add(entry.getValue(), 
-                        new ScaleConstraintImpl(
-                            new ScaleImpl(CUSTOMER_WIDTH, CUSTOMER_HEIGHT),
-                            new ScaleImpl(REGISTER_X_POSITION[position], REGISTER_Y_POSITION),
-                            new ScaleImpl(ORIGIN)
-                        )
+                    panel.add(entry.getValue(),
+                            new ScaleConstraintImpl(
+                                    new ScaleImpl(CUSTOMER_WIDTH, CUSTOMER_HEIGHT),
+                                    new ScaleImpl(REGISTER_X_POSITION[position], REGISTER_Y_POSITION),
+                                    new ScaleImpl(ORIGIN)
+                            )
                     );
                     entry.getValue().repaint();
                 }
@@ -221,7 +215,7 @@ public class RegisterViewImpl extends AbstractBaseView {
      * during deserialization of this object.
      *
      * @param in the ObjectInputStream to read the object data from
-     * @throws IOException if an I/O error occurs while reading the stream.
+     * @throws IOException            if an I/O error occurs while reading the stream.
      * @throws ClassNotFoundException if a class required for deserialization cannot be found.
      */
     private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {

@@ -123,6 +123,14 @@ public class HamburgerImpl implements Hamburger {
      * {@inheritDoc}
      */
     @Override
+    public Hamburger copyOf() {
+        return new HamburgerImpl(ingredientList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         for (final Ingredient ingredient : ingredientList) {
@@ -132,13 +140,4 @@ public class HamburgerImpl implements Hamburger {
 
         return sb.toString();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Hamburger copyOf() {
-        return new HamburgerImpl(ingredientList);
-    }
-
 }

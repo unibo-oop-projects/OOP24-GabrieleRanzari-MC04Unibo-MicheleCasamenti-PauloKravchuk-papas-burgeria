@@ -8,7 +8,6 @@ import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,7 +24,6 @@ import java.io.Serial;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static java.awt.Color.GRAY;
 import static java.awt.Color.WHITE;
 
@@ -107,9 +105,6 @@ public class ShopViewImpl extends AbstractBaseView {
     public ShopViewImpl(final ResourceService resourceService, final ShopController controller,
                         final GameController gameController) {
         this.controller = controller;
-        if (DEBUG_MODE) {
-            Logger.info("Shop created");
-        }
 
         super.setStaticBackgroundImage(resourceService.getImage("shop_background.png"));
 
@@ -169,17 +164,7 @@ public class ShopViewImpl extends AbstractBaseView {
             purchaseButton.setBackground(DEFAULT_BUTTON_BACKGROUND_COLOR);
             purchaseButton.setForeground(DEFAULT_BUTTON_TEXT_COLOR);
             purchaseButton.setFocusPainted(false);
-            purchaseButton.addActionListener(e -> {
-                if (controller.buyUpgrade(upgrade)) {
-                    if (DEBUG_MODE) {
-                        Logger.debug("Upgrade purchased");
-                    }
-                } else {
-                    if (DEBUG_MODE) {
-                        Logger.debug("Upgrade could not be purchased");
-                    }
-                }
-            });
+            purchaseButton.addActionListener(e -> controller.buyUpgrade(upgrade));
             upgradePanel.add(
                     purchaseButton,
                     new ScaleConstraintImpl(
@@ -287,9 +272,6 @@ public class ShopViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        if (DEBUG_MODE) {
-            Logger.info("Shop shown");
-        }
     }
 
     /**
@@ -297,8 +279,17 @@ public class ShopViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("Shop hidden");
-        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "ShopViewImpl{"
+                + "controller=" + controller
+                + ", balanceLabel=" + balanceLabel
+                + ", buttons=" + buttons
+                + '}';
     }
 }

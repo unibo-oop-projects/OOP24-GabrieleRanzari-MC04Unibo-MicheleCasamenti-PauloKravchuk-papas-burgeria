@@ -25,7 +25,7 @@ public class PantryModelImpl implements PantryModel {
     private final Set<IngredientEnum> unlockedIngredients = EnumSet.noneOf(IngredientEnum.class);
 
     /**
-     * Default constructor, creates the schedule for unlocking ingredients and initializes the set of unlocked ingredients.
+     * Default constructor that initializes the set of unlocked ingredients.
      */
     public PantryModelImpl() {
         resetUnlocks();
@@ -74,10 +74,12 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @return a string containing all the unlocked ingredients
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
-        return "PantryModelImpl[unlockedIngredients=" + unlockedIngredients + "]";
+        return "PantryModelImpl{"
+                + "unlockedIngredients=" + unlockedIngredients
+                + '}';
     }
 }

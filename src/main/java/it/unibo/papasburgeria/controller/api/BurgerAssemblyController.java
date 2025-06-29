@@ -3,7 +3,6 @@ package it.unibo.papasburgeria.controller.api;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
-import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 public interface BurgerAssemblyController {
 
     /**
-     * Adds the ingredient to the current hamburger.
+     * Adds the ingredient to the current hamburger on assembly.
      *
      * @param ingredient the ingredient to add
      * @return true if the ingredient was added, false otherwise
@@ -85,11 +84,4 @@ public interface BurgerAssemblyController {
      * @return the list of unlocked types
      */
     List<IngredientEnum> getUnlockedIngredients();
-
-    /**
-     * Returns the list of active orders.
-     *
-     * @return the list of orders
-     */
-    List<Order> getOrders();
 }

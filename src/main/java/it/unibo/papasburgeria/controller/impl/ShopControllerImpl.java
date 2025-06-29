@@ -12,13 +12,13 @@ import it.unibo.papasburgeria.model.api.Shop;
  * @inheritDoc
  */
 @Singleton
-@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")
 public class ShopControllerImpl implements ShopController {
     private final GameModel model;
     private final Shop shop;
 
     /**
-     * Default constructor that saves the game model given via injection.
+     * Default constructor that saves the models given via injection.
      *
      * @param model the game model
      * @param shop  the shop model
@@ -41,13 +41,10 @@ public class ShopControllerImpl implements ShopController {
      * {@inheritDoc}
      */
     @Override
-    public boolean buyUpgrade(final UpgradeEnum upgrade) {
-        if (isUpgradeUnlocked(upgrade) || !isUpgradePurchasable(upgrade)) {
-            return false;
-        } else {
+    public void buyUpgrade(final UpgradeEnum upgrade) {
+        if (!isUpgradeUnlocked(upgrade) && isUpgradePurchasable(upgrade)) {
             shop.unlockUpgrade(upgrade);
             model.setBalance(model.getBalance() - upgrade.getCost());
-            return true;
         }
     }
 
@@ -65,5 +62,16 @@ public class ShopControllerImpl implements ShopController {
     @Override
     public int getBalance() {
         return model.getBalance();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "ShopControllerImpl{"
+                + "model=" + model
+                + ", shop=" + shop
+                + '}';
     }
 }

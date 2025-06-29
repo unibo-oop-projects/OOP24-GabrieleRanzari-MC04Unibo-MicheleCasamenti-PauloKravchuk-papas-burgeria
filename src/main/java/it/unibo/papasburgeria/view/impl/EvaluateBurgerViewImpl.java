@@ -2,13 +2,13 @@ package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.CustomerController;
+import it.unibo.papasburgeria.controller.impl.EvaluateBurgerControllerImpl;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
@@ -32,6 +32,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 
 import static it.unibo.papasburgeria.Main.DEBUG_MODE;
+import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORDER_INGREDIENT;
 
 /**
  * the interface which contains the hamburger evaluation.
@@ -239,7 +240,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
 
         final Sprite orderSprite = new SpriteImpl(resourceService.getImage("order.png"),
-                new IngredientImpl(IngredientEnum.CHEESE),
+                ORDER_INGREDIENT,
                 OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION,
                 OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
                 DrawingManagerImpl.ORDER_X_SIZE_SCALE,

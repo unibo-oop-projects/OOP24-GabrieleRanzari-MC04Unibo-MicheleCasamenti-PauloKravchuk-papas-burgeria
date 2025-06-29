@@ -17,7 +17,7 @@ import static it.unibo.papasburgeria.model.impl.UnlockSchedule.UNLOCK_SCHEDULE;
  * @inheritDoc
  */
 @Singleton
-@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The game model is injected and shared intentionally")
 public class DayChangeControllerImpl implements DayChangeController {
     private final GameModel model;
 
@@ -45,12 +45,20 @@ public class DayChangeControllerImpl implements DayChangeController {
     }
 
     /**
-     * Returns the current day number.
-     *
-     * @return the day number
+     * {@inheritDoc}
      */
     @Override
     public int getCurrentDayNumber() {
         return model.getCurrentDay();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "DayChangeControllerImpl{"
+                + "model=" + model
+                + '}';
     }
 }

@@ -158,9 +158,9 @@ public class DayChangeViewImpl extends AbstractBaseView {
     }
 
     /**
-     *
+     * Loads the sprites for the unlocked ingredients.
      */
-    public final void loadUnlocks() {
+    private void loadUnlocks() {
         final JPanel interfacePanel = super.getInterfacePanel();
         for (final JLabel label : unlockedIngredientsLabels) {
             interfacePanel.remove(label);
@@ -192,5 +192,19 @@ public class DayChangeViewImpl extends AbstractBaseView {
             }
             unlockedIngredientsLabels.add(imageLabel);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "DayChangeViewImpl{"
+                + "controller=" + controller
+                + ", resourceService=" + resourceService
+                + ", dayLabel=" + dayLabel
+                + ", unlockedIngredientsLabel=" + unlockedIngredientsLabel
+                + ", unlockedIngredientsLabels=" + unlockedIngredientsLabels
+                + '}';
     }
 }

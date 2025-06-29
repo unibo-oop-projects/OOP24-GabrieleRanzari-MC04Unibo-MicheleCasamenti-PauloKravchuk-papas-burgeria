@@ -3,7 +3,7 @@ package it.unibo.papasburgeria.model;
 import java.util.List;
 
 /**
- * Enum with all types of ingredients and a string with its name.
+ * Represents the types of ingredients.
  */
 public enum IngredientEnum {
     BOTTOM_BUN("bottom_bun"),

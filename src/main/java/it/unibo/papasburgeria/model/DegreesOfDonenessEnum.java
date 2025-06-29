@@ -4,8 +4,7 @@ import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
 
 /**
- * Enumeration containing the degrees of doneness for the patties
- * and a string containing its name.
+ * Enumeration containing the degrees of doneness for the patties.
  */
 public enum DegreesOfDonenessEnum {
     RAW("raw"),
@@ -26,7 +25,7 @@ public enum DegreesOfDonenessEnum {
     }
 
     /**
-     * Calculate the degree of doneness give the cook level.
+     * Calculate the degree of doneness given the cook level.
      *
      * @param cookLevel the cook level
      * @return the degree of doneness

@@ -131,11 +131,19 @@ public class ResourceServiceImpl implements ResourceService {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "ResourceServiceImpl{" +
-                "imageCache=" + imageCache +
-                ", sfxCache=" + sfxCache +
+        return "ResourceServiceImpl{"
+                +
+                "imageCache="
+                + imageCache
+                +
+                ", sfxCache="
+                + sfxCache
+                +
                 '}';
     }
 }

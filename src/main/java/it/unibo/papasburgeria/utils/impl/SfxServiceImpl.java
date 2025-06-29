@@ -136,10 +136,16 @@ public class SfxServiceImpl implements SfxService {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "SfxServiceImpl{" +
-                "resourceService=" + resourceService +
+        return "SfxServiceImpl{"
+                +
+                "resourceService="
+                + resourceService
+                +
                 '}';
     }
 }

@@ -201,16 +201,26 @@ public class GameModelImpl implements GameModel {
         selectedOrder = null;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "GameModelImpl{" +
-                "balance=" + balance +
-                ", currentSaveSlot=" + currentSaveSlot +
-                ", hamburgerOnAssembly=" + hamburgerOnAssembly +
-                ", pattiesOnGrill=" + Arrays.toString(pattiesOnGrill) +
-                ", cookedPatties=" + cookedPatties +
-                ", selectedOrder=" + selectedOrder +
-                ", currentDay=" + currentDay +
-                '}';
+        return "GameModelImpl{"
+                + "balance="
+                + balance
+                + ", currentSaveSlot="
+                + currentSaveSlot
+                + ", hamburgerOnAssembly="
+                + hamburgerOnAssembly
+                + ", pattiesOnGrill="
+                + Arrays.toString(pattiesOnGrill)
+                + ", cookedPatties="
+                + cookedPatties
+                + ", selectedOrder="
+                + selectedOrder
+                + ", currentDay="
+                + currentDay
+                + '}';
     }
 }

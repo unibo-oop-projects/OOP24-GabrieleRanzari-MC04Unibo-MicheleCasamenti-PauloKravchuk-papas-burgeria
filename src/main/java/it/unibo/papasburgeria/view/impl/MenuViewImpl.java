@@ -183,7 +183,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     *
+     * Updates visual information for each slot.
      */
     private void updateSlotInformation() {
         final List<SaveInfo> info = this.menuController.getSaves();
@@ -239,19 +239,43 @@ public class MenuViewImpl extends AbstractBaseView {
         return button;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "MenuViewImpl{" +
-                "sfxService=" + sfxService +
-                ", resourceService=" + resourceService +
-                ", menuController=" + menuController +
-                ", gameController=" + gameController +
-                ", slotViews=" + slotViews +
-                ", playButton=" + playButton +
-                ", resumeButton=" + resumeButton +
-                ", savesButton=" + savesButton +
-                ", slotPanel=" + slotPanel +
-                ", playShown=" + playShown +
+        return "MenuViewImpl{"
+                +
+                "sfxService="
+                + sfxService
+                +
+                ", resourceService="
+                + resourceService
+                +
+                ", menuController="
+                + menuController
+                +
+                ", gameController="
+                + gameController
+                +
+                ", slotViews="
+                + slotViews
+                +
+                ", playButton="
+                + playButton
+                +
+                ", resumeButton="
+                + resumeButton
+                +
+                ", savesButton="
+                + savesButton
+                +
+                ", slotPanel="
+                + slotPanel
+                +
+                ", playShown="
+                + playShown
+                +
                 '}';
     }
 
@@ -402,12 +426,23 @@ public class MenuViewImpl extends AbstractBaseView {
 
         @Override
         public String toString() {
-            return "SlotView{" +
-                    "index=" + index +
-                    ", panel=" + panel +
-                    ", interactionButton=" + interactionButton +
-                    ", labels=" + labels +
-                    ", currentListener=" + currentListener +
+            return "SlotView{"
+                    +
+                    "index="
+                    + index
+                    +
+                    ", panel="
+                    + panel
+                    +
+                    ", interactionButton="
+                    + interactionButton
+                    +
+                    ", labels="
+                    + labels
+                    +
+                    ", currentListener="
+                    + currentListener
+                    +
                     '}';
         }
 

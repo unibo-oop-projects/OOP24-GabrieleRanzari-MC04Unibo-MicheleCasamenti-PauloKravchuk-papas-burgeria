@@ -143,13 +143,25 @@ abstract class AbstractBaseView extends JLayeredPane implements BaseScene {
         this.backgroundImage = imageIcon;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "AbstractBaseView{" +
-                "staticBackground=" + staticBackground +
-                ", gamePanel=" + gamePanel +
-                ", interfacePanel=" + interfacePanel +
-                ", backgroundImage=" + backgroundImage +
+        return "AbstractBaseView{"
+                +
+                "staticBackground="
+                + staticBackground
+                +
+                ", gamePanel="
+                + gamePanel
+                +
+                ", interfacePanel="
+                + interfacePanel
+                +
+                ", backgroundImage="
+                + backgroundImage
+                +
                 '}';
     }
 }

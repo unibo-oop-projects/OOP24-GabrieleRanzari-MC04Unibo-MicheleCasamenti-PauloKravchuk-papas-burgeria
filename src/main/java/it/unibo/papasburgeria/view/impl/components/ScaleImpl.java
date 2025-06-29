@@ -96,8 +96,10 @@ public class ScaleImpl implements Scale {
     @Override
     public String toString() {
         return "ScaleImpl{"
-                + "xScale=" + xScale
-                + ", yScale=" + yScale
+                + "xScale="
+                + xScale
+                + ", yScale="
+                + yScale
                 + '}';
     }
 

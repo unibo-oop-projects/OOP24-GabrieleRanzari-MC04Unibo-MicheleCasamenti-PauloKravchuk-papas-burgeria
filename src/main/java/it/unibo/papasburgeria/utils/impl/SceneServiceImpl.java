@@ -98,12 +98,22 @@ public class SceneServiceImpl implements SceneService {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "SceneServiceImpl{" +
-                "scenes=" + scenes +
-                ", onSceneChangedCallbacks=" + onSceneChangedCallbacks +
-                ", currentSceneType=" + currentSceneType +
+        return "SceneServiceImpl{"
+                +
+                "scenes="
+                + scenes
+                +
+                ", onSceneChangedCallbacks="
+                + onSceneChangedCallbacks
+                +
+                ", currentSceneType="
+                + currentSceneType
+                +
                 '}';
     }
 }

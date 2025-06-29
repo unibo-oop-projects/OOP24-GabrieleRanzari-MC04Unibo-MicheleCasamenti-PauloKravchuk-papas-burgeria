@@ -131,24 +131,46 @@ public class ScaleConstraintImpl implements ScaleConstraint {
         this.originScale = new ScaleImpl(scale);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ScaleConstraintImpl that)) return false;
-        return Objects.equals(sizeScale, that.sizeScale) && Objects.equals(positionScale, that.positionScale) && Objects.equals(originScale, that.originScale);
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ScaleConstraintImpl that)) {
+            return false;
+        }
+        return Objects.equals(sizeScale, that.sizeScale)
+                && Objects.equals(positionScale, that.positionScale)
+                && Objects.equals(originScale, that.originScale);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public int hashCode() {
         return Objects.hash(sizeScale, positionScale, originScale);
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "ScaleConstraintImpl{" +
-                "sizeScale=" + sizeScale +
-                ", positionScale=" + positionScale +
-                ", originScale=" + originScale +
+        return "ScaleConstraintImpl{"
+                +
+                "sizeScale="
+                + sizeScale
+                +
+                ", positionScale="
+                + positionScale
+                +
+                ", originScale="
+                + originScale
+                +
                 '}';
     }
 }

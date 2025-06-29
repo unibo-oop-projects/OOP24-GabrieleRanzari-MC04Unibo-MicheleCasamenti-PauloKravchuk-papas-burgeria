@@ -272,19 +272,43 @@ public class GameViewImpl implements GameView {
         this.gameIsRunning = false;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "GameViewImpl{" +
-                "gameController=" + gameController +
-                ", views=" + views +
-                ", mainFrame=" + mainFrame +
-                ", mainPanel=" + mainPanel +
-                ", interfacePanel=" + interfacePanel +
-                ", cardLayout=" + cardLayout +
-                ", frameUpdate=" + frameUpdate +
-                ", currentView=" + currentView +
-                ", gameIsRunning=" + gameIsRunning +
-                ", lastFrameTime=" + lastFrameTime +
+        return "GameViewImpl{"
+                +
+                "gameController="
+                + gameController
+                +
+                ", views="
+                + views
+                +
+                ", mainFrame="
+                + mainFrame
+                +
+                ", mainPanel="
+                + mainPanel
+                +
+                ", interfacePanel="
+                + interfacePanel
+                +
+                ", cardLayout="
+                + cardLayout
+                +
+                ", frameUpdate="
+                + frameUpdate
+                +
+                ", currentView="
+                + currentView
+                +
+                ", gameIsRunning="
+                + gameIsRunning
+                +
+                ", lastFrameTime="
+                + lastFrameTime
+                +
                 '}';
     }
 }

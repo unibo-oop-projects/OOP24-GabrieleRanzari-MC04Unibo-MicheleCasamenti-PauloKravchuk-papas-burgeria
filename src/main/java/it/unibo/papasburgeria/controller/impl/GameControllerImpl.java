@@ -148,16 +148,34 @@ public class GameControllerImpl implements GameController {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "GameControllerImpl{" +
-                "gameModel=" + gameModel +
-                ", pantryModel=" + pantryModel +
-                ", shopModel=" + shopModel +
-                ", sceneService=" + sceneService +
-                ", resourceService=" + resourceService +
-                ", saveService=" + saveService +
-                ", customerController=" + customerController +
+        return "GameControllerImpl{"
+                +
+                "gameModel="
+                + gameModel
+                +
+                ", pantryModel="
+                + pantryModel
+                +
+                ", shopModel="
+                + shopModel
+                +
+                ", sceneService="
+                + sceneService
+                +
+                ", resourceService="
+                + resourceService
+                +
+                ", saveService="
+                + saveService
+                +
+                ", customerController="
+                + customerController
+                +
                 '}';
     }
 }

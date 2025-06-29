@@ -187,10 +187,16 @@ public class ScalableLayoutImpl implements LayoutManager2 {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "ScalableLayoutImpl{" +
-                "mappedConstraints=" + mappedConstraints +
+        return "ScalableLayoutImpl{"
+                +
+                "mappedConstraints="
+                + mappedConstraints
+                +
                 '}';
     }
 }

@@ -74,11 +74,19 @@ public class MenuControllerImpl implements MenuController {
         return Collections.emptyList();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public String toString() {
-        return "MenuControllerImpl{" +
-                "saveService=" + saveService +
-                ", gameModel=" + gameModel +
+        return "MenuControllerImpl{"
+                +
+                "saveService="
+                + saveService
+                +
+                ", gameModel="
+                + gameModel
+                +
                 '}';
     }
 }

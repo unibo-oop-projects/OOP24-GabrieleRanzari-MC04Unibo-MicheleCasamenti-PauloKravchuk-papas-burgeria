@@ -2,10 +2,8 @@ package it.unibo.papasburgeria.view.impl;
 
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.CustomerController;
-import it.unibo.papasburgeria.controller.impl.EvaluateBurgerControllerImpl;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.controller.api.GameController;
-import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
@@ -23,7 +21,6 @@ import org.tinylog.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -126,41 +123,41 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         showMoneyLabel = new JLabel("BAL: 0$");
         interfacePanel.add(showMoneyLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
-                    new ScaleImpl(BALANCE_X_POS, BALANCE_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(BALANCE_WIDTH, BALANCE_HEIGHT),
+                        new ScaleImpl(BALANCE_X_POS, BALANCE_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         showMoneyLabel.setFont(FONT);
 
         percentageLabel = new JLabel("SCORE: 0%");
         interfacePanel.add(percentageLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(PERCENTAGE_WIDTH, PERCENTAGE_HEIGHT),
-                    new ScaleImpl(PERCENTAGE_X_POS, PERCENTAGE_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(PERCENTAGE_WIDTH, PERCENTAGE_HEIGHT),
+                        new ScaleImpl(PERCENTAGE_X_POS, PERCENTAGE_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         percentageLabel.setFont(FONT);
 
         paymentLabel = new JLabel("PAY: 0$");
         interfacePanel.add(paymentLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(PAYMENT_WIDTH, PAYMENT_HEIGHT),
-                    new ScaleImpl(PAYMENT_X_POS, PAYMENT_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(PAYMENT_WIDTH, PAYMENT_HEIGHT),
+                        new ScaleImpl(PAYMENT_X_POS, PAYMENT_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         paymentLabel.setFont(FONT);
 
         tipLabel = new JLabel("TIP: 0$");
         interfacePanel.add(tipLabel,
                 new ScaleConstraintImpl(
-                    new ScaleImpl(TIP_WIDTH, TIP_HEIGHT),
-                    new ScaleImpl(TIP_X_POS, TIP_Y_POS),
-                    new ScaleImpl(ORIGIN)
-                    )
-                );
+                        new ScaleImpl(TIP_WIDTH, TIP_HEIGHT),
+                        new ScaleImpl(TIP_X_POS, TIP_Y_POS),
+                        new ScaleImpl(ORIGIN)
+                )
+        );
         tipLabel.setFont(FONT);
 
         interfacePanel.validate();

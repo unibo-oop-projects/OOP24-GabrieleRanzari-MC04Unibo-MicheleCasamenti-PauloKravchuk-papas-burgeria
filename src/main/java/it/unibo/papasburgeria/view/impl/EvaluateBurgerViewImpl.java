@@ -20,6 +20,7 @@ import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
@@ -83,7 +84,8 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 if (customerController.isCustomerThreadStatus()
-                || !customerController.getWaitLine().isEmpty()) {
+                || !customerController.getWaitLine().isEmpty()
+                || !customerController.getRegisterLine().isEmpty()) {
                     gameController.switchToScene(SceneType.REGISTER);
                 } else {
                     gameController.switchToScene(SceneType.SHOP);
@@ -122,6 +124,9 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
+        if (DEBUG_MODE) {
+            Logger.info("EvaluateBurgerView shown");
+        }
         read();
         final double satisfaction = customerController.calculateSatisfactionPercentage(
             this.order.getHamburger().copyOf(), this.burger);
@@ -130,8 +135,19 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         final int tip = customerController.calculateTips(payment);
 
         customerController.addBalance(payment + tip);
+
+        for (final Customer currentCustomer: customerController.getWaitLine()) {
+            if (currentCustomer.getOrder().getOrderNumber() == this.order.getOrderNumber()) {
+                customerController.serveCustomer(currentCustomer);
+                if (DEBUG_MODE) {
+                    Logger.info("Customer successfully removed");
+                }
+            }
+        }
         if (DEBUG_MODE) {
-            Logger.info("EvaluateBurgerView shown");
+            Logger.info("Satisfaction:\t" + satisfaction);
+            Logger.info("Payment:\t" + payment);
+            Logger.info("Tip:\t\t" + tip);
         }
     }
 

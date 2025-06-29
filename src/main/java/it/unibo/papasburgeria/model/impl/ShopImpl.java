@@ -8,7 +8,10 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * models the shop and keeps track of the unlocked upgrades.
+ * Implementation of Shop.
+ *
+ * <p>
+ * See {@link Shop} for interface details.
  */
 @Singleton
 public class ShopImpl implements Shop {
@@ -22,7 +25,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void unlockUpgrade(final UpgradeEnum upgrade) {
@@ -31,7 +34,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void lockUpgrade(final UpgradeEnum upgrade) {
@@ -40,7 +43,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void unlockAllUpgrades() {
@@ -51,7 +54,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void lockAllUpgrades() {
@@ -62,7 +65,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getUpgradeModifier(final UpgradeEnum upgrade) {
@@ -74,7 +77,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isUpgradeUnlocked(final UpgradeEnum upgrade) {
@@ -82,7 +85,7 @@ public class ShopImpl implements Shop {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Map<UpgradeEnum, Boolean> getUpgrades() {

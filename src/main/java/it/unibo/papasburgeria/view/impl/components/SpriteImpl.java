@@ -18,7 +18,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @inheritDoc
+ * Implementation of Sprite.
+ *
+ * <p>
+ * See {@link Sprite} for interface details.
  */
 public class SpriteImpl implements Sprite {
     private final double pbSizeXScale;
@@ -90,7 +93,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isDraggable() {
@@ -98,7 +101,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setDraggable(final boolean draggable) {
@@ -106,7 +109,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isVisible() {
@@ -114,7 +117,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setVisible(final boolean visible) {
@@ -122,7 +125,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isCloneable() {
@@ -130,7 +133,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setCloneable(final boolean cloneable) {
@@ -138,7 +141,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isRemovable() {
@@ -146,7 +149,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setRemovable(final boolean removable) {
@@ -154,7 +157,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isFlipped() {
@@ -162,7 +165,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setFlipped(final boolean flipped) {
@@ -170,7 +173,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Image> getImages() {
@@ -178,7 +181,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void addImage(final Image image) {
@@ -186,7 +189,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Ingredient getIngredient() {
@@ -198,7 +201,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setIngredient(final Ingredient newIngredient) {
@@ -210,7 +213,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public IngredientEnum getIngredientType() {
@@ -218,7 +221,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int calculateX(final int frameWidth) {
@@ -226,7 +229,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int calculateY(final int frameHeight) {
@@ -234,7 +237,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int calculateWidth(final int frameWidth) {
@@ -242,7 +245,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int calculateHeight(final int frameHeight) {
@@ -250,7 +253,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void flipImageVertically() {
@@ -279,7 +282,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getPbPositionXScale() {
@@ -287,7 +290,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setPbPositionXScale(final double newPbPositionXScale) {
@@ -295,7 +298,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getPbPositionYScale() {
@@ -303,7 +306,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setPbPositionYScale(final double newPbPositionYScale) {
@@ -311,7 +314,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getPbSizeXScale() {
@@ -319,7 +322,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getPbSizeYScale() {
@@ -327,7 +330,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void draw(final Dimension frameSize, final Graphics g) {
@@ -348,7 +351,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object object) {
@@ -365,7 +368,7 @@ public class SpriteImpl implements Sprite {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {

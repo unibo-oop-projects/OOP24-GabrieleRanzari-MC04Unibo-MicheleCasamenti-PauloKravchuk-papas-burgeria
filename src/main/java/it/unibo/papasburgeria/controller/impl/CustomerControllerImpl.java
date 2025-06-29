@@ -38,7 +38,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void serveCustomer(final Customer customer) {
@@ -58,7 +58,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void clearAllCustomers() {
@@ -66,7 +66,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void startClientThread() {
@@ -102,7 +102,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void stopClientThread() {
@@ -110,7 +110,15 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isCustomerThreadStatus() {
+        return registerModel.isCustomerThreadStatus();
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public List<Customer> getRegisterLine() {
@@ -118,7 +126,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Customer> getWaitLine() {
@@ -126,7 +134,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void takeOrderFromCustomer(final Customer customer) {

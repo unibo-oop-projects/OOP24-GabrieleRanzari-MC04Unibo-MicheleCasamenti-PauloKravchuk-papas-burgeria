@@ -15,7 +15,10 @@ import static it.unibo.papasburgeria.model.impl.GameModelImpl.START_DAY;
 import static it.unibo.papasburgeria.model.impl.UnlockSchedule.UNLOCK_SCHEDULE;
 
 /**
- * @inheritDoc
+ * Implementation of PantryModel.
+ *
+ * <p>
+ * See {@link PantryModel} for interface details.
  */
 @Singleton
 public class PantryModelImpl implements PantryModel {
@@ -30,7 +33,7 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final void unlockForDay(final int currentDay) {
@@ -43,7 +46,7 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Set<IngredientEnum> getUnlockedIngredients() {
@@ -51,7 +54,7 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final void resetUnlocks() {
@@ -63,7 +66,7 @@ public class PantryModelImpl implements PantryModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isIngredientUnlocked(final IngredientEnum ingredientType) {

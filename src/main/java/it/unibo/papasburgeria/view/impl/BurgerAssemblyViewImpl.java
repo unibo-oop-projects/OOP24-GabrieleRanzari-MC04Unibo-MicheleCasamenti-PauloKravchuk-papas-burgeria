@@ -11,6 +11,7 @@ import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.impl.IngredientImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
+import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
@@ -69,6 +70,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private final transient DrawingManagerImpl drawingManager;
     private final transient GameController gameController;
     private final transient OrderSelectionController orderSelectionController;
+    private final transient SfxService sfxService;
     private final transient List<Sprite> sprites;
     private final transient List<Sprite> draggableSprites;
     private final transient List<Sprite> draggablePattySprites;
@@ -84,14 +86,17 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * @param drawingManager           the manager for drawing various things
      * @param gameController           the game controller
      * @param orderSelectionController the order selection controller
+     * @param sfxService      the service that handles sfx playing
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService,
+                                  final SfxService sfxService,
                                   final BurgerAssemblyController controller,
                                   final DrawingManagerImpl drawingManager,
                                   final GameController gameController,
                                   final OrderSelectionController orderSelectionController) {
         this.controller = controller;
+        this.sfxService = sfxService;
         this.drawingManager = drawingManager;
         this.gameController = gameController;
         this.orderSelectionController = orderSelectionController;
@@ -154,14 +159,14 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
@@ -194,7 +199,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -213,17 +218,19 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             sprites.remove(sprite);
             draggableSprites.add(sprite);
         }
+        this.sfxService.playSoundLooped("assembly_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
+        this.sfxService.stopSound("assembly_ost.wav");
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
@@ -272,7 +279,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteClicked(final Sprite sprite) {
@@ -282,7 +289,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spritePressed(final Sprite sprite) {

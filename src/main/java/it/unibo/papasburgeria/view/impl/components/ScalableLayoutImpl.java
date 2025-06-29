@@ -32,7 +32,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void addLayoutComponent(final Component component, final Object constraint) {
@@ -44,7 +44,11 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc Note: Not supported.
+     * {@inheritDoc}
+     *
+     * <p>
+     * Not implemented.
+     * </p>
      */
     @Override
     public void addLayoutComponent(final String name, final Component comp) {
@@ -52,7 +56,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeLayoutComponent(final Component component) {
@@ -64,7 +68,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Dimension minimumLayoutSize(final Container target) {
@@ -76,7 +80,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Dimension maximumLayoutSize(final Container target) {
@@ -88,7 +92,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Dimension preferredLayoutSize(final Container target) {
@@ -100,7 +104,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void layoutContainer(final Container target) {
@@ -134,7 +138,11 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc Note: Defaults to 0.0f.
+     * {@inheritDoc}
+     *
+     * <p>
+     * Defaults to 0.0f.
+     * </p>
      */
     @Override
     public float getLayoutAlignmentX(final Container target) {
@@ -142,7 +150,11 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc Note: Defaults to 0.0f.
+     * {@inheritDoc}
+     *
+     * <p>
+     * Defaults to 0.0f.
+     * </p>
      */
     @Override
     public float getLayoutAlignmentY(final Container target) {
@@ -150,7 +162,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc Note: No implementation as there's no internal cache.
+     * {@inheritDoc}
      */
     @Override
     public void invalidateLayout(final Container target) {
@@ -188,7 +200,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

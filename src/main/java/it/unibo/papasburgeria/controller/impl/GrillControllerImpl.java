@@ -41,7 +41,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Patty[][] getPattiesOnGrill() {
@@ -49,7 +49,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean addPattyOnGrill(final Patty patty,
@@ -77,7 +77,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removePattyFromGrill(final Patty patty) {
@@ -95,7 +95,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Patty> getCookedPatties() {
@@ -103,7 +103,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean addCookedPatty(final Patty patty) {
@@ -117,7 +117,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeCookedPatty(final Patty patty) {
@@ -127,7 +127,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void flipPatty(final Patty patty) {
@@ -143,7 +143,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void cookPattiesOnGrill() {
@@ -166,6 +166,7 @@ public class GrillControllerImpl implements GrillController {
      * @param maxPos   the maximum position in scale
      * @param segments the number of segments that the range is divided in
      * @return the segment index corresponding to the given position
+     * {@inheritDoc}
      */
     private int calculatePosition(final double position,
                                   final double minPos,
@@ -193,7 +194,7 @@ public class GrillControllerImpl implements GrillController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

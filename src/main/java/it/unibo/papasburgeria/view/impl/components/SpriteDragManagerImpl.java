@@ -43,7 +43,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mousePressed(final MouseEvent event) {
@@ -80,7 +80,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseReleased(final MouseEvent event) {
@@ -102,7 +102,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseDragged(final MouseEvent event) {
@@ -122,7 +122,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseMoved(final MouseEvent event) {
@@ -130,7 +130,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseClicked(final MouseEvent event) {
@@ -138,7 +138,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseEntered(final MouseEvent event) {
@@ -146,7 +146,7 @@ public class SpriteDragManagerImpl implements MouseListener, MouseMotionListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseExited(final MouseEvent event) {

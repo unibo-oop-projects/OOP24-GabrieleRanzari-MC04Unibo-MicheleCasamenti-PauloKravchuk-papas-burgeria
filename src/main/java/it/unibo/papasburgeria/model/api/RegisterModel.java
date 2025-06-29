@@ -57,6 +57,13 @@ public interface RegisterModel {
     void clearLines();
 
     /**
+     * get the customer thread status.
+     *
+     * @return true if the customer thread is alive.
+     */
+    boolean isCustomerThreadStatus();
+
+    /**
      * @return the register line
      */
     List<Customer> getRegisterLine();

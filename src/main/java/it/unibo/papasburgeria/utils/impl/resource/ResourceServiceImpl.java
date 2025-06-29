@@ -40,7 +40,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public BufferedImage getImage(final String imagePath) {
@@ -56,7 +56,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Clip getSoundEffect(final String soundPath) {
@@ -85,7 +85,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void dispose() {
@@ -132,7 +132,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

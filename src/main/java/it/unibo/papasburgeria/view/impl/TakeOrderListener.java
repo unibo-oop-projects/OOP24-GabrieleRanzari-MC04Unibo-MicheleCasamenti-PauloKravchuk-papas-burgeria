@@ -16,7 +16,7 @@ class TakeOrderListener implements MouseListener {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseClicked(final MouseEvent e) {
@@ -24,28 +24,28 @@ class TakeOrderListener implements MouseListener {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mousePressed(final MouseEvent e) {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseReleased(final MouseEvent e) {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseEntered(final MouseEvent e) {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void mouseExited(final MouseEvent e) {

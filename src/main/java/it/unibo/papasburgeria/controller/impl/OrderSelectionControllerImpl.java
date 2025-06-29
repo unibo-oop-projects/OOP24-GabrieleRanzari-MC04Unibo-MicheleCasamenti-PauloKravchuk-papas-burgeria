@@ -35,7 +35,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Order> getOrders() {
@@ -48,7 +48,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Hamburger getHamburger() {
@@ -56,7 +56,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setSelectedOrder(final Order order) {
@@ -64,7 +64,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeTopBun() {

@@ -6,7 +6,11 @@ import it.unibo.papasburgeria.model.api.Patty;
 import java.util.Objects;
 
 /**
- * @inheritDoc
+ * Implementation of Patty. Extension of IngredientImpl.
+ *
+ * <p>
+ * See {@link Patty} for interface details.
+ * See {@link IngredientImpl} for superclass details.
  */
 public class PattyImpl extends IngredientImpl implements Patty {
     public static final double MAX_COOK_LEVEL = 1.0;
@@ -39,7 +43,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void flip() {
@@ -47,7 +51,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isFlipped() {
@@ -55,7 +59,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getTopCookLevel() {
@@ -63,7 +67,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setTopCookLevel(final double cookLevel) {
@@ -71,7 +75,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public double getBottomCookLevel() {
@@ -79,7 +83,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void setBottomCookLevel(final double cookLevel) {
@@ -87,7 +91,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object object) {
@@ -105,7 +109,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {

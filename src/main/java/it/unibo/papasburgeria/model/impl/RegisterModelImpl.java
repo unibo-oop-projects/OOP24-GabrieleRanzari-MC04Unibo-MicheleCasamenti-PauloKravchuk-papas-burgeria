@@ -9,7 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Models how the customers interact with the register.
+ * Implementation of RegisterModel.
+ *
+ * <p>
+ * See {@link RegisterModel} for interface details.
  */
 @Singleton
 public class RegisterModelImpl implements RegisterModel {
@@ -18,7 +21,7 @@ public class RegisterModelImpl implements RegisterModel {
     private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void startCustomerThread(final int delay, final int customerAmount,
@@ -29,7 +32,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void killCustomerThread() {
@@ -39,7 +42,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void addCustomerRegisterLine(final Customer customer) {
@@ -48,7 +51,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeCustomerRegisterLine(final Customer customer) {
@@ -57,7 +60,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void addCustomerWaitLine(final Customer customer) {
@@ -66,7 +69,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void removeCustomerWaitLine(final Customer customer) {
@@ -75,7 +78,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void clearLines() {
@@ -84,7 +87,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void clearRegisterLine() {
@@ -95,7 +98,7 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void clearWaitLine() {
@@ -122,10 +125,18 @@ public class RegisterModelImpl implements RegisterModel {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
         return "[CustomerManager: [registerLine=" + registerLine.toString() + "], [waitLine=" + waitLine.toString() + "] ]";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isCustomerThreadStatus() {
+        return customerThread.isAlive();
     }
 }

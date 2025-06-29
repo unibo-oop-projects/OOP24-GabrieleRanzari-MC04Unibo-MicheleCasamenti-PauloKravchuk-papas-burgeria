@@ -143,7 +143,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -156,7 +156,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
@@ -170,15 +170,15 @@ public class MenuViewImpl extends AbstractBaseView {
             this.resumeButton.setVisible(true);
             this.savesButton.setVisible(true);
         }
-        this.sfxService.playSoundLooped("MenuIntro.wav");
+        this.sfxService.playSoundLooped("menu_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
-        this.sfxService.stopSound("MenuIntro.wav");
+        this.sfxService.stopSound("menu_ost.wav");
         this.slotPanel.setVisible(false);
     }
 
@@ -199,7 +199,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 if (!isEmptySave) {
                     slotView.updateButton(
                             "[SELECT" + (currentlySelected ? "ED]" : "]"), event -> {
-                                if (currentlySelected) {
+                                if (!currentlySelected) {
                                     gameController.processSave();
                                     if (gameController.processLoad(boundIndex)) {
                                         gameController.switchToScene(SceneType.REGISTER);
@@ -240,7 +240,7 @@ public class MenuViewImpl extends AbstractBaseView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -415,8 +415,9 @@ public class MenuViewImpl extends AbstractBaseView {
                 this.updateLabel(slotLabelEnum, "N/A");
             }
             this.updateButton("[CREATE]", event -> {
-                final boolean status = gameController.processSave();
+                final boolean status = gameController.processSave(index);
                 if (status) {
+                    gameController.processLoad(index);
                     gameController.switchToScene(SceneType.REGISTER);
                 } else {
                     this.interactionButton.setText("[RETRY]");

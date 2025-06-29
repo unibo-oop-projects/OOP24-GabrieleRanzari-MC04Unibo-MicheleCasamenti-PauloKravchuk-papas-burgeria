@@ -13,7 +13,10 @@ import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
 
 /**
- * Class used for creating a simple hamburger.
+ * Implementation of Hamburger.
+ *
+ * <p>
+ * See {@link Hamburger} for interface details.
  */
 public class HamburgerImpl implements Hamburger {
     public static final int MIN_INGREDIENTS = 2;
@@ -75,7 +78,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public final boolean addIngredient(final Ingredient ingredient) {
@@ -97,7 +100,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean removeLastIngredient() {
@@ -109,7 +112,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<Ingredient> getIngredients() {
@@ -117,7 +120,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Hamburger copyOf() {
@@ -125,7 +128,7 @@ public class HamburgerImpl implements Hamburger {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

@@ -63,7 +63,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void startGame() {
@@ -72,7 +72,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void endGame() {
@@ -81,7 +81,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void switchToScene(final SceneType sceneType) {
@@ -89,7 +89,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void nextDay() {
@@ -101,30 +101,36 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean processSave() {
         final int slotIndex = this.gameModel.getCurrentSaveSlot();
-        if (slotIndex >= 0) {
-            try {
-                this.saveService.saveSlot(slotIndex,
-                        new SaveState(
-                                this.gameModel.getBalance(),
-                                this.gameModel.getCurrentDay(),
-                                this.shopModel.getUpgrades()
-                        )
-                );
-                return true;
-            } catch (final IOException e) {
-                Logger.error(e, "Failed to save slot {}", slotIndex);
-            }
-        }
-        return false;
+        return slotIndex >= 0 && this.processSave(slotIndex);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean processSave(final int slotNumber) {
+        try {
+            this.saveService.saveSlot(slotNumber,
+                    new SaveState(
+                            this.gameModel.getBalance(),
+                            this.gameModel.getCurrentDay(),
+                            this.shopModel.getUpgrades()
+                    )
+            );
+            return true;
+        } catch (final IOException e) {
+            Logger.error(e, "Failed to save slot {}", slotNumber);
+            return false;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public boolean processLoad(final int slotNumber) {
@@ -141,6 +147,7 @@ public class GameControllerImpl implements GameController {
                     this.shopModel.unlockUpgrade(upgradeEnum);
                 }
             });
+            this.customerController.startClientThread(); // is controller -> controller the only way?
             return true;
         } catch (final IOException e) {
             Logger.error(e, "Failed to load slot {}", slotNumber);
@@ -149,7 +156,7 @@ public class GameControllerImpl implements GameController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

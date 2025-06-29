@@ -32,7 +32,7 @@ public class DayChangeControllerImpl implements DayChangeController {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<IngredientEnum> getIngredientsUnlockedToday() {

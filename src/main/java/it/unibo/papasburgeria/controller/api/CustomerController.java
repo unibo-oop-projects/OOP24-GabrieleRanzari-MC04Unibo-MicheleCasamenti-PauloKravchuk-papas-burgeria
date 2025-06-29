@@ -9,11 +9,15 @@ import java.util.List;
  */
 public interface CustomerController {
     /**
+     * Serves the customer and updates the line.
+     *
      * @param customer the customer to serve.
      */
     void serveCustomer(Customer customer);
 
     /**
+     * Takes the order from the selected customer.
+     *
      * @param customer the customer to take the order from.
      */
     void takeOrderFromCustomer(Customer customer);
@@ -34,6 +38,15 @@ public interface CustomerController {
     void stopClientThread();
 
     /**
+     * gets the customer thread status.
+     *
+     * @return true if customer thread is alive
+     */
+    boolean isCustomerThreadStatus();
+
+    /**
+     * gets the register line.
+     *
      * @return the customer line.
      */
     List<Customer> getRegisterLine();

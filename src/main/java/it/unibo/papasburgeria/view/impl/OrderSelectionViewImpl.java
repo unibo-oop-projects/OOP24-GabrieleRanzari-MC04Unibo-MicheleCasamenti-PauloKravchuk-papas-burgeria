@@ -14,6 +14,7 @@ import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
+import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -26,6 +27,7 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HALF_RANGE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORDER_X_SIZE_SCALE;
@@ -99,7 +101,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void update(final double delta) {
@@ -107,7 +109,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void paintComponentDelegate(final Graphics graphics) {
@@ -122,23 +124,28 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void showScene() {
         readOrders();
+        if (DEBUG_MODE) {
+            Logger.info("OrderSelectionView shown");
+        }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void hideScene() {
-
+        if (DEBUG_MODE) {
+            Logger.info("OrderSelectionView hidden");
+        }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteDropped(final Sprite sprite) {
@@ -153,14 +160,14 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
             sprite.setPbPositionXScale(ORDER_SELECTED_X_POSITION);
             sprite.setPbPositionYScale(ORDER_SELECTED_Y_POSITION);
             controller.setSelectedOrder(spriteOrders.get(sprite));
-            gameController.switchToScene(SceneType.SHOP);
+            gameController.switchToScene(SceneType.EVALUATE_BURGER);
         } else {
             readOrders();
         }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spriteClicked(final Sprite sprite) {
@@ -168,7 +175,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void spritePressed(final Sprite sprite) {

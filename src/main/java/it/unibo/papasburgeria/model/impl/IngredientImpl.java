@@ -12,7 +12,8 @@ public class IngredientImpl implements Ingredient {
     public static final double MAX_RIGHT_ACCURACY = 1.0;
     public static final double MAX_LEFT_ACCURACY = -MAX_RIGHT_ACCURACY;
     public static final double PERFECT_ACCURACY = MAX_RIGHT_ACCURACY + MAX_LEFT_ACCURACY;
-    public static final double DEFAULT_ACCURACY = 0.0;
+
+    private static final double DEFAULT_ACCURACY = PERFECT_ACCURACY;
 
     private final IngredientEnum type;
     private double accuracy;
@@ -85,10 +86,13 @@ public class IngredientImpl implements Ingredient {
     }
 
     /**
-     * @return a string containing the ingredient's type and placement accuracy.
+     * @inheritDoc
      */
     @Override
     public String toString() {
-        return "[ type:" + this.getIngredientType() + ", accuracy:" + this.getPlacementAccuracy() + " ]";
+        return "IngredientImpl{"
+                + "type=" + type
+                + ", accuracy=" + accuracy
+                + '}';
     }
 }

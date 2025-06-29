@@ -63,26 +63,8 @@ public interface GrillController {
     void flipPatty(Patty patty);
 
     /**
-     * Cooks the face the patty that is on the grill, keeping count of the FPS.
-     *
-     * @param patty the patty to cook
-     */
-    void cookPatty(Patty patty);
-
-    /**
      * Cooks all the patties on the grill.
      */
     void cookPattiesOnGrill();
-
-    /**
-     * Calculates the segment index given the range, the number of segments and the position.
-     *
-     * @param position the position in scale
-     * @param minPos   the minimum position in scale
-     * @param maxPos   the maximum position in scale
-     * @param segments the number of segments that the range is divided in
-     * @return the segment index corresponding to the given position
-     */
-    int calculatePosition(double position, double minPos, double maxPos, int segments);
 }
 

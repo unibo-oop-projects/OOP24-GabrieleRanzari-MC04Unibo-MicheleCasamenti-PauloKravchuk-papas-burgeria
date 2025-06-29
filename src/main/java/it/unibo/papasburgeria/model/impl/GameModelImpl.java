@@ -25,8 +25,9 @@ public class GameModelImpl implements GameModel {
     public static final int MAX_COOKED_PATTIES = 5;
 
     private static final int MAX_DAYS = Integer.MAX_VALUE;
-    private static final int STARTING_BALANCE = 50;
+    private static final int STARTING_BALANCE = 0;
 
+    private int currentDay;
     private int balance;
     private int currentSaveSlot;
 
@@ -34,20 +35,16 @@ public class GameModelImpl implements GameModel {
     private Patty[][] pattiesOnGrill;
     private List<Patty> cookedPatties;
     private Order selectedOrder;
-    private int currentDay;
 
     /**
-     * Default constructor, initializes currentDay with the starting day.
+     * Default constructor, initializes the model's variables.
      */
     @Inject
     public GameModelImpl() {
         this.currentSaveSlot = -1;
         this.currentDay = START_DAY.getNumber();
-        hamburgerOnAssembly = new HamburgerImpl();
-        pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
-        cookedPatties = new ArrayList<>();
-        selectedOrder = null;
-        balance = STARTING_BALANCE;
+        this.balance = STARTING_BALANCE;
+        reset();
     }
 
     /**
@@ -194,7 +191,7 @@ public class GameModelImpl implements GameModel {
      * @inheritDoc
      */
     @Override
-    public void reset() {
+    public final void reset() {
         hamburgerOnAssembly = new HamburgerImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();

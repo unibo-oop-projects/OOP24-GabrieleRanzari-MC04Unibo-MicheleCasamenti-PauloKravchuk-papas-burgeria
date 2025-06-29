@@ -11,14 +11,12 @@ import it.unibo.papasburgeria.view.api.components.SpriteDropListener;
 import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
-import org.tinylog.Logger;
 
 import java.awt.Graphics;
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_COLUMNS;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_ROWS;
@@ -34,7 +32,7 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.PAT
  */
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
-        justification = "controller is injected and shared intentionally; views are not serialized at runtime"
+        justification = "The controller is injected and shared intentionally; The views are not serialized at runtime"
 )
 public class GrillViewImpl extends AbstractBaseView implements SpriteDropListener {
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_GRILL = 0.232;
@@ -47,7 +45,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
             - INGREDIENTS_X_SIZE_SCALE * GRILL_COLUMNS) / (GRILL_COLUMNS + 2);
     public static final double GRILL_Y_SPACING = (MAX_Y_POS_SCALE_TO_DROP_ON_GRILL - MIN_Y_POS_SCALE_TO_DROP_ON_GRILL
             - INGREDIENTS_Y_SIZE_SCALE * GRILL_ROWS) / (GRILL_ROWS + 2);
-    public static final double SECONDS_TO_FULLY_COOK_PATTY = 10.0;
+    public static final double SECONDS_TO_FULLY_COOK_PATTY = 20.0;
     public static final double COOK_LEVEL_INCREMENT_PER_SECOND = MAX_COOK_LEVEL / SECONDS_TO_FULLY_COOK_PATTY;
 
     private static final double RAW_PATTIES_X_POS_SCALE = 0.028;
@@ -150,9 +148,6 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     @Override
     public void showScene() {
         draggableCookedPatties.clear();
-        if (DEBUG_MODE) {
-            Logger.info("Grill shown");
-        }
     }
 
     /**
@@ -160,9 +155,6 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("Grill hidden");
-        }
     }
 
     /**
@@ -209,9 +201,6 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
                 controller.removePattyFromGrill(patty);
                 draggablePattiesOnGrill.clear();
             }
-            if (DEBUG_MODE) {
-                Logger.info("Patty deleted");
-            }
         }
 
         draggableRawPatties.remove(sprite);
@@ -251,5 +240,20 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     @Override
     public void spritePressed(final Sprite sprite) {
         stopCooking = true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "GrillViewImpl{"
+                + "controller=" + controller
+                + ", drawingManager=" + drawingManager
+                + ", draggableRawPatties=" + draggableRawPatties
+                + ", draggableCookedPatties=" + draggableCookedPatties
+                + ", draggablePattiesOnGrill=" + draggablePattiesOnGrill
+                + ", stopCooking=" + stopCooking
+                + '}';
     }
 }

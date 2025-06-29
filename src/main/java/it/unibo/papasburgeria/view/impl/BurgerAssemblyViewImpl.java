@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.controller.api.GameController;
+import it.unibo.papasburgeria.controller.api.OrderSelectionController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.Ingredient;
 import it.unibo.papasburgeria.model.api.Order;
@@ -17,7 +18,6 @@ import it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
-import org.tinylog.Logger;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.IngredientEnum.SAUCES;
 import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
@@ -42,7 +41,7 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ING
  */
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
-        justification = "controller is injected and shared intentionally; views are not serialized at runtime"
+        justification = "The controller is injected and shared intentionally; The views are not serialized at runtime"
 )
 public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDropListener {
     public static final double MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER = 0.31;
@@ -69,6 +68,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private final transient BurgerAssemblyController controller;
     private final transient DrawingManagerImpl drawingManager;
     private final transient GameController gameController;
+    private final transient OrderSelectionController orderSelectionController;
     private final transient List<Sprite> sprites;
     private final transient List<Sprite> draggableSprites;
     private final transient List<Sprite> draggablePattySprites;
@@ -79,19 +79,22 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     /**
      * Default constructor, creates and initializes the GUI elements.
      *
-     * @param resourceService the service that handles resource obtainment
-     * @param controller      the burger assembly controller
-     * @param drawingManager  the manager for drawing various things
-     * @param gameController  the game controller
+     * @param resourceService          the service that handles resource obtainment
+     * @param controller               the burger assembly controller
+     * @param drawingManager           the manager for drawing various things
+     * @param gameController           the game controller
+     * @param orderSelectionController the order selection controller
      */
     @Inject
     public BurgerAssemblyViewImpl(final ResourceService resourceService,
                                   final BurgerAssemblyController controller,
                                   final DrawingManagerImpl drawingManager,
-                                  final GameController gameController) {
+                                  final GameController gameController,
+                                  final OrderSelectionController orderSelectionController) {
         this.controller = controller;
         this.drawingManager = drawingManager;
         this.gameController = gameController;
+        this.orderSelectionController = orderSelectionController;
         sprites = new ArrayList<>();
         draggableSprites = new ArrayList<>();
         draggablePattySprites = new ArrayList<>();
@@ -109,25 +112,22 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         double pbPositionXScale = INGREDIENTS_X_POS_SCALE;
         double pbPositionYScale = INGREDIENTS_Y_POS_SCALE;
         for (final IngredientEnum ingredientType : IngredientEnum.values()) {
-            final Image image = resourceService.getImage(ingredientType.getName() + EXTENSION);
+            if (ingredientType != PATTY && !SAUCES.contains(ingredientType)) {
+                final Image image = resourceService.getImage(ingredientType.getName() + EXTENSION);
+                final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
+                        pbPositionXScale, pbPositionYScale, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
 
-            if (ingredientType == PATTY || SAUCES.contains(ingredientType)) {
-                continue;
-            }
+                if (controller.isIngredientUnlocked(ingredientType)) {
+                    draggableSprites.add(sprite);
+                } else {
+                    sprites.add(sprite);
+                }
 
-            final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
-                    pbPositionXScale, pbPositionYScale, INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
-
-            if (controller.isIngredientUnlocked(ingredientType)) {
-                draggableSprites.add(sprite);
-            } else {
-                sprites.add(sprite);
-            }
-
-            pbPositionYScale = pbPositionYScale + INGREDIENTS_Y_SIZE_SCALE + SPACING;
-            if (pbPositionYScale > INGREDIENTS_MAX_Y_POS_SCALE) {
-                pbPositionYScale = INGREDIENTS_Y_POS_SCALE;
-                pbPositionXScale = pbPositionXScale + INGREDIENTS_X_SIZE_SCALE + SPACING;
+                pbPositionYScale = pbPositionYScale + INGREDIENTS_Y_SIZE_SCALE + SPACING;
+                if (pbPositionYScale > INGREDIENTS_MAX_Y_POS_SCALE) {
+                    pbPositionYScale = INGREDIENTS_Y_POS_SCALE;
+                    pbPositionXScale = pbPositionXScale + INGREDIENTS_X_SIZE_SCALE + SPACING;
+                }
             }
         }
 
@@ -213,9 +213,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             sprites.remove(sprite);
             draggableSprites.add(sprite);
         }
-        if (DEBUG_MODE) {
-            Logger.info("BurgerAssembly shown");
-        }
     }
 
     /**
@@ -223,9 +220,6 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("BurgerAssembly hidden");
-        }
     }
 
     /**
@@ -298,9 +292,27 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Creates the sprites for the orders stored in the model.
      */
     private void readOrders() {
-        final List<Order> orders = controller.getOrders();
+        final List<Order> orders = orderSelectionController.getOrders();
         orderSprites.clear();
         spriteOrders.clear();
         drawingManager.generateOrderSprites(orders, orderSprites, spriteOrders);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "BurgerAssemblyViewImpl{"
+                + "controller=" + controller
+                + ", drawingManager=" + drawingManager
+                + ", gameController=" + gameController
+                + ", sprites=" + sprites
+                + ", draggableSprites=" + draggableSprites
+                + ", draggablePattySprites=" + draggablePattySprites
+                + ", draggableHamburgerSprites=" + draggableHamburgerSprites
+                + ", orderSprites=" + orderSprites
+                + ", spriteOrders=" + spriteOrders
+                + '}';
     }
 }

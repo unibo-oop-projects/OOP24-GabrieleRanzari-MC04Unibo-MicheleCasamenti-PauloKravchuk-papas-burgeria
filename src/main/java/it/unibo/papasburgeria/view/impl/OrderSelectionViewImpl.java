@@ -36,7 +36,7 @@ import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORD
  */
 @SuppressFBWarnings(
         value = {"EI_EXPOSE_REP2", "SE_TRANSIENT_FIELD_NOT_RESTORED"},
-        justification = "controller is injected and shared intentionally; views are not serialized at runtime"
+        justification = "The controller is injected and shared intentionally; The views are not serialized at runtime"
 )
 public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDropListener {
     public static final double ORDER_SELECTED_X_POSITION = 0.1144;
@@ -183,5 +183,19 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
         draggableOrderSprites.clear();
         spriteOrders.clear();
         drawingManager.generateOrderSprites(orders, draggableOrderSprites, spriteOrders);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "OrderSelectionViewImpl{"
+                + "controller=" + controller
+                + ", drawingManager=" + drawingManager
+                + ", gameController=" + gameController
+                + ", draggableOrderSprites=" + draggableOrderSprites
+                + ", spriteOrders=" + spriteOrders
+                + '}';
     }
 }

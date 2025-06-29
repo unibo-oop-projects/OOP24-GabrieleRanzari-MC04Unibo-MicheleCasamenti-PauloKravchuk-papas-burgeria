@@ -27,4 +27,5 @@ public interface Ingredient {
      * @param accuracy the new placement accuracy
      */
     void setPlacementAccuracy(double accuracy);
+
 }

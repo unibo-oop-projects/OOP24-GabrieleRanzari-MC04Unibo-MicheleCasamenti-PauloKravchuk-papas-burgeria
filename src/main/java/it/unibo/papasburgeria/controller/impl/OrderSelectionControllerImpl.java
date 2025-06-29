@@ -17,13 +17,13 @@ import java.util.List;
  * @inheritDoc
  */
 @Singleton
-@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")
 public class OrderSelectionControllerImpl implements OrderSelectionController {
     private final GameModel model;
     private final RegisterModel registerModel;
 
     /**
-     * Default constructor that saves the register model given via injection.
+     * Default constructor that saves the models given via injection.
      *
      * @param model         the game model
      * @param registerModel the register model
@@ -71,5 +71,16 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
         final Hamburger hamburgerOnAssembly = model.getHamburgerOnAssembly();
         hamburgerOnAssembly.removeLastIngredient();
         model.setHamburgerOnAssembly(hamburgerOnAssembly);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    public String toString() {
+        return "OrderSelectionControllerImpl{"
+                + "model=" + model
+                + ", registerModel=" + registerModel
+                + '}';
     }
 }

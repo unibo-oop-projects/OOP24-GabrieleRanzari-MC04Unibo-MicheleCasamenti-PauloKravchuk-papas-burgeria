@@ -5,20 +5,15 @@ import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Customer;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.Hamburger;
 import it.unibo.papasburgeria.model.api.Ingredient;
-import it.unibo.papasburgeria.model.api.Order;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.api.RegisterModel;
-import org.tinylog.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.MAX_COOKED_PATTIES;
 import static it.unibo.papasburgeria.model.impl.HamburgerImpl.MAX_INGREDIENTS;
 import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
@@ -31,21 +26,24 @@ import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_
  * @inheritDoc
  */
 @Singleton
-@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")
 public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     private final GameModel model;
     private final PantryModel pantryModel;
     private final RegisterModel registerModel;
 
     /**
-     * Default constructor that saves the game model and the pantryModel given via injection.
+     * Default constructor that saves the models given via injection.
      *
      * @param model         the game model
      * @param pantryModel   the model containing the list of unlocked ingredients
      * @param registerModel the register model
      */
     @Inject
-    public BurgerAssemblyControllerImpl(final GameModel model, final PantryModel pantryModel, final RegisterModel registerModel) {
+    public BurgerAssemblyControllerImpl(final GameModel model,
+                                        final PantryModel pantryModel,
+                                        final RegisterModel registerModel
+    ) {
         this.model = model;
         this.pantryModel = pantryModel;
         this.registerModel = registerModel;
@@ -56,28 +54,16 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public boolean addIngredient(final Ingredient ingredient) {
-        final String ingredientDescription;
-        final Hamburger hamburger = model.getHamburgerOnAssembly();
-        if (DEBUG_MODE) {
-            ingredientDescription = "Ingredient (" + ingredient.getIngredientType().getName() + ") ";
-            if (model.getHamburgerOnAssembly().getIngredients().size() == MAX_INGREDIENTS) {
-                Logger.error(ingredientDescription + "can't be added, too many ingredients");
-                return false;
-            }
-        }
-
-        if (hamburger.addIngredient(ingredient)) {
-            if (DEBUG_MODE) {
-                Logger.info(ingredientDescription + "added successfully");
-            }
-            model.setHamburgerOnAssembly(hamburger);
-            return true;
-        } else {
-            if (DEBUG_MODE) {
-                Logger.error(ingredientDescription + "can't be added");
-            }
+        if (model.getHamburgerOnAssembly().getIngredients().size() == MAX_INGREDIENTS) {
             return false;
         }
+
+        final Hamburger hamburger = model.getHamburgerOnAssembly();
+        if (hamburger.addIngredient(ingredient)) {
+            model.setHamburgerOnAssembly(hamburger);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -85,33 +71,13 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public void removeLastIngredient() {
-        String ingredientDescription;
-        if (DEBUG_MODE) {
-            ingredientDescription = "Ingredient (empty)";
-        }
-
         final Hamburger hamburger = model.getHamburgerOnAssembly();
         if (hamburger.getIngredients().isEmpty()) {
-            if (DEBUG_MODE) {
-                Logger.error(ingredientDescription + " could not be removed");
-            }
             return;
         }
 
-        if (DEBUG_MODE) {
-            final Ingredient last = hamburger.getIngredients().getLast();
-            ingredientDescription = "Ingredient" + " (" + last.getIngredientType().getName() + ")";
-        }
-
         if (hamburger.removeLastIngredient()) {
-            if (DEBUG_MODE) {
-                Logger.info(ingredientDescription + " removed successfully");
-            }
             model.setHamburgerOnAssembly(hamburger);
-        } else {
-            if (DEBUG_MODE) {
-                Logger.error(ingredientDescription + " could not be removed");
-            }
         }
     }
 
@@ -145,7 +111,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
     @Override
     public boolean addCookedPatty(final Patty patty) {
         final List<Patty> patties = model.getCookedPatties();
-        if (patties.size() == MAX_COOKED_PATTIES) {
+        if (patties.size() == MAX_COOKED_PATTIES + 2) {
             return false;
         }
         patties.add(patty);
@@ -168,7 +134,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public double calculateAccuracy(final double pbPositionXScale) {
-        final double halfRange = (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
+        final double halfRange =
+                (MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER - MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER) / 2.0;
         final double difference = pbPositionXScale - HAMBURGER_X_POS_SCALE;
         final double accuracy = difference / halfRange;
         return Math.max(MAX_LEFT_ACCURACY, Math.min(MAX_RIGHT_ACCURACY, accuracy));
@@ -196,20 +163,11 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * @inheritDoc
      */
     @Override
-    public List<Order> getOrders() {
-        final List<Customer> waitingCustomers = registerModel.getWaitLine();
-        final List<Order> orders = new ArrayList<>();
-        for (final Customer waitingCustomer : waitingCustomers) {
-            orders.add(waitingCustomer.getOrder());
-        }
-        return new ArrayList<>(orders);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    @Override
     public String toString() {
-        return "[BurgerAssemblyControllerImpl]";
+        return "BurgerAssemblyControllerImpl{"
+                + "model=" + model
+                + ", pantryModel=" + pantryModel
+                + ", registerModel=" + registerModel
+                + '}';
     }
 }

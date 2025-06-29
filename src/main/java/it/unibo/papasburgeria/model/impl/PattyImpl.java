@@ -17,7 +17,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     private boolean flipped;
 
     /**
-     * Default constructor for the patty, creates a raw patty not flipped.
+     * Default constructor that creates a raw patty not flipped.
      */
     public PattyImpl() {
         super(IngredientEnum.PATTY);
@@ -29,7 +29,7 @@ public class PattyImpl extends IngredientImpl implements Patty {
     /**
      * Constructor for coping another patty.
      *
-     * @param patty the patty to copy.
+     * @param patty the patty to copy
      */
     public PattyImpl(final Patty patty) {
         super(IngredientEnum.PATTY);
@@ -118,14 +118,14 @@ public class PattyImpl extends IngredientImpl implements Patty {
     }
 
     /**
-     * @return a string containing the meat's type, placement accuracy , the cook level and if it is flipped.
+     * @inheritDoc
      */
     @Override
     public String toString() {
-        return "Patty[type:" + this.getIngredientType()
-                + ", accuracy:" + this.getPlacementAccuracy()
-                + ", top cook level:" + this.getTopCookLevel()
-                + ", bottom cook level:" + this.getBottomCookLevel()
-                + ", flipped:" + this.isFlipped() + "]";
+        return "PattyImpl{"
+                + "topCookLevel=" + topCookLevel
+                + ", bottomCookLevel=" + bottomCookLevel
+                + ", flipped=" + flipped
+                + '}';
     }
 }

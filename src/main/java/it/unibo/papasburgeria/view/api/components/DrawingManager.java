@@ -14,18 +14,6 @@ import java.util.Map;
  * Manages the drawing of varius things.
  */
 public interface DrawingManager {
-    /**
-     * Creates a Sprite for the Patty.
-     *
-     * @param patty            the patty
-     * @param pbPositionXScale the x position in scale
-     * @param pbPositionYScale the y position in scale
-     * @param pbSizeXScale     the x size in scale
-     * @param pbSizeYScale     the y size in scale
-     * @return the sprite
-     */
-    Sprite generatePattySprite(Patty patty, double pbPositionXScale, double pbPositionYScale,
-                               double pbSizeXScale, double pbSizeYScale);
 
     /**
      * Draws the hamburger.
@@ -88,13 +76,4 @@ public interface DrawingManager {
      * @param spriteOrders          the map of orders for every sprite
      */
     void generateOrderSprites(List<Order> orders, List<Sprite> draggableOrderSprites, Map<Sprite, Order> spriteOrders);
-
-    /**
-     * calculates the x position in scale given the accuracy.
-     *
-     * @param accuracy  the placement accuracy of the ingredient
-     * @param halfRange the x position to be centered
-     * @return the x position in scale
-     */
-    double getPositionXScaleFromAccuracy(double accuracy, double halfRange);
 }

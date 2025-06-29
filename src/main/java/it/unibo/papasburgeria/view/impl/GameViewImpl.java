@@ -265,6 +265,7 @@ public class GameViewImpl implements GameView {
             return;
         }
 
+        this.gameController.processSave();
         this.frameUpdate.stop();
         this.gameController.endGame();
         this.mainFrame.dispose();

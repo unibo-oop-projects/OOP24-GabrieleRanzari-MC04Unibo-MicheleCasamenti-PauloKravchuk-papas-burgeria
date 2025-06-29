@@ -40,7 +40,7 @@ public class ScalableLayoutImpl implements LayoutManager2 {
             throw new IllegalArgumentException("You must provide a component with a ScaleConstraint for this layout");
         }
 
-        this.mappedConstraints.put(component, (ScaleConstraint) constraint);
+        this.mappedConstraints.put(component, new ScaleConstraintImpl((ScaleConstraint) constraint));
     }
 
     /**

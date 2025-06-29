@@ -9,6 +9,7 @@ import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.utils.impl.saving.SaveInfo;
 import it.unibo.papasburgeria.view.api.components.Scale;
+import it.unibo.papasburgeria.view.api.components.ScaleConstraint;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
@@ -20,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.io.Serial;
@@ -41,12 +41,17 @@ public class MenuViewImpl extends AbstractBaseView {
     private static final long serialVersionUID = 1L;
 
     private final transient SfxService sfxService;
+    private final transient ResourceService resourceService;
     private final transient MenuController menuController;
     private final transient GameController gameController;
     private final transient List<SlotView> slotViews;
 
     private final JButton playButton;
+    private final JButton resumeButton;
+    private final JButton savesButton;
     private final JPanel slotPanel;
+
+    private boolean playShown;
 
     /**
      * Constructs the MenuView.
@@ -66,31 +71,35 @@ public class MenuViewImpl extends AbstractBaseView {
         super.setStaticBackgroundImage(resourceService.getImage("menu-background.jpg"));
 
         this.sfxService = sfxService;
+        this.resourceService = resourceService;
         this.gameController = gameController;
         this.menuController = menuController;
         this.slotViews = new ArrayList<>();
+        this.playShown = false;
 
         final JPanel interfacePanel = super.getInterfacePanel();
         interfacePanel.setLayout(new ScalableLayoutImpl());
 
-        final double pbSizeXScale = 0.15;
-        final double pbSizeYScale = 0.1;
-        final double pbPositionYScale = 0.55;
-        playButton = new JButton(new ImageIcon(resourceService.getImage("play_btn.png")));
-        playButton.setBackground(DEFAULT_BACKGROUND_COLOR);
-        playButton.setBorder(BorderFactory.createEmptyBorder());
-        playButton.setContentAreaFilled(false);
-        playButton.setOpaque(false);
-        playButton.setFocusPainted(false);
-
-        interfacePanel.add(
-                playButton,
-                new ScaleConstraintImpl(
-                        new ScaleImpl(pbSizeXScale, pbSizeYScale),
-                        new ScaleImpl(ScaleConstraintImpl.HALF, pbPositionYScale),
-                        ScaleConstraintImpl.ORIGIN_CENTER
-                )
+        // declared once and gc'ed at end
+        final double bSizeXScale = 0.15;
+        final double bSizeYScale = 0.1;
+        final double bPositionYScale = 0.55;
+        final double nsbPositionYScale = 0.65;
+        final Scale bSizeScale = new ScaleImpl(bSizeXScale, bSizeYScale);
+        final ScaleConstraint bScaleConstraint = new ScaleConstraintImpl(
+                bSizeScale,
+                new ScaleImpl(ScaleConstraintImpl.HALF, bPositionYScale),
+                ScaleConstraintImpl.ORIGIN_CENTER
         );
+        this.playButton = this.createButtonWithImage("play_btn.png");
+        this.resumeButton = this.createButtonWithImage("resume_btn.png");
+        this.savesButton = this.createButtonWithImage("saves_btn.png");
+        this.resumeButton.setVisible(false);
+        this.savesButton.setVisible(false);
+        interfacePanel.add(this.playButton, bScaleConstraint);
+        interfacePanel.add(this.resumeButton, bScaleConstraint);
+        bScaleConstraint.setPositionScale(new ScaleImpl(ScaleConstraintImpl.HALF, nsbPositionYScale));
+        interfacePanel.add(this.savesButton, bScaleConstraint);
 
         this.slotPanel = new JPanel();
         this.slotPanel.setLayout(new ScalableLayoutImpl());
@@ -119,10 +128,17 @@ public class MenuViewImpl extends AbstractBaseView {
             ));
         }
 
-        this.playButton.addActionListener(e -> {
+        final ActionListener savesListener = event -> {
             this.updateSlotInformation();
             this.playButton.setVisible(false);
+            this.savesButton.setVisible(false);
+            this.resumeButton.setVisible(false);
             this.slotPanel.setVisible(true);
+        };
+        this.playButton.addActionListener(savesListener);
+        this.savesButton.addActionListener(savesListener);
+        this.resumeButton.addActionListener(event -> {
+            this.gameController.switchToScene(SceneType.REGISTER);
         });
     }
 
@@ -144,8 +160,17 @@ public class MenuViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
+        if (!this.playShown) {
+            this.playShown = true;
+            this.playButton.setVisible(true);
+            this.resumeButton.setVisible(false);
+            this.savesButton.setVisible(false);
+        } else {
+            this.playButton.setVisible(false);
+            this.resumeButton.setVisible(true);
+            this.savesButton.setVisible(true);
+        }
         this.sfxService.playSoundLooped("MenuIntro.wav");
-        this.playButton.setVisible(true);
     }
 
     /**
@@ -157,6 +182,9 @@ public class MenuViewImpl extends AbstractBaseView {
         this.slotPanel.setVisible(false);
     }
 
+    /**
+     *
+     */
     private void updateSlotInformation() {
         final List<SaveInfo> info = this.menuController.getSaves();
         if (info != null) {
@@ -181,6 +209,26 @@ public class MenuViewImpl extends AbstractBaseView {
                 }
             }
         }
+    }
+
+    /**
+     * Helper method to create menu buttons.
+     *
+     * @param imageName name of the image
+     * @return JButton instance
+     */
+    private JButton createButtonWithImage(final String imageName) {
+        if (imageName == null) {
+            throw new IllegalArgumentException("Image name cannot be null");
+        }
+
+        final JButton button = new JButton(new ImageIcon(this.resourceService.getImage(imageName)));
+        button.setBackground(DEFAULT_BACKGROUND_COLOR);
+        button.setBorder(BorderFactory.createEmptyBorder());
+        button.setContentAreaFilled(false);
+        button.setOpaque(false);
+        button.setFocusPainted(false);
+        return button;
     }
 
     /**
@@ -229,6 +277,7 @@ public class MenuViewImpl extends AbstractBaseView {
                     ScaleConstraintImpl.ORIGIN_CENTER
             ));
 
+            final double scaleYOffset = ScaleConstraintImpl.HALF - ScaleConstraintImpl.SIXTEENTH;
             int j = 0;
             for (final SlotLabelEnum slotLabel : SlotLabelEnum.values()) {
                 final JLabel statLabel = new JLabel(slotLabel.value() + ": _");
@@ -237,7 +286,7 @@ public class MenuViewImpl extends AbstractBaseView {
                 this.labels.put(slotLabel, statLabel);
                 this.panel.add(statLabel, new ScaleConstraintImpl(
                         buttonSizeScale,
-                        new ScaleImpl(ScaleConstraintImpl.HALF, ScaleConstraintImpl.QUARTER + (textYOffset * j)),
+                        new ScaleImpl(ScaleConstraintImpl.HALF, scaleYOffset + (textYOffset * j)),
                         ScaleConstraintImpl.ORIGIN_CENTER
                 ));
                 j++;

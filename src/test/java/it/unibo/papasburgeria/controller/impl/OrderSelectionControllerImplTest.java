@@ -96,6 +96,6 @@ class OrderSelectionControllerImplTest {
 
         final List<IngredientModel> ingredients = gameModel.getHamburgerOnAssembly().getIngredients();
         assertEquals(1, ingredients.size());
-        assertEquals(IngredientEnum.BOTTOM_BUN, ingredients.get(0).getIngredientType());
+        assertEquals(IngredientEnum.BOTTOM_BUN, ingredients.getFirst().getIngredientType());
     }
 }

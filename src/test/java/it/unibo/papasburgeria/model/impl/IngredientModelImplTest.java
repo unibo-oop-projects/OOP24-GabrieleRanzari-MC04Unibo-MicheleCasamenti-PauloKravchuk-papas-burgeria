@@ -24,7 +24,7 @@ class IngredientModelImplTest {
     }
 
     /**
-     * Tests {@link IngredientModelImpl#IngredientImpl(IngredientEnum)}.
+     * Tests {@link IngredientModelImpl#IngredientModelImpl(IngredientEnum)}.
      */
     @Test
     void testInitialState() {
@@ -32,7 +32,7 @@ class IngredientModelImplTest {
     }
 
     /**
-     * Tests {@link IngredientModelImpl#IngredientImpl(IngredientModel)}.
+     * Tests {@link IngredientModelImpl#IngredientModelImpl(IngredientModel)}.
      */
     @Test
     void testCopyConstructor() {

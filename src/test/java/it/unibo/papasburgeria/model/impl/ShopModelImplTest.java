@@ -38,7 +38,7 @@ class ShopModelImplTest {
     }
 
     /**
-     * Tests {@link ShopModelImpl#unlockUpgrade()}.
+     * Tests {@link ShopModelImpl#unlockUpgrade(UpgradeEnum)}.
      */
     @Test
     void testUnlockUpgrade() {
@@ -49,7 +49,7 @@ class ShopModelImplTest {
     }
 
     /**
-     * Tests {@link ShopModelImpl#lockUpgrade()}.
+     * Tests {@link ShopModelImpl#lockUpgrade(UpgradeEnum)}.
      */
     @Test
     void testLockUpgrade() {

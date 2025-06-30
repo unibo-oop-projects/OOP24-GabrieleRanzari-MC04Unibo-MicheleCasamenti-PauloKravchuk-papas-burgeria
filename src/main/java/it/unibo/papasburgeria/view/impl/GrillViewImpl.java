@@ -73,7 +73,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     /**
      * Defines the number of seconds needed to fully cook a patty that is on the grill.
      */
-    public static final double SECONDS_TO_FULLY_COOK_PATTY = 20.0;
+    public static final double SECONDS_TO_FULLY_COOK_PATTY = 15.0;
     /**
      * Defines the increment per second of the cook level of a patty that is on the grill.
      */

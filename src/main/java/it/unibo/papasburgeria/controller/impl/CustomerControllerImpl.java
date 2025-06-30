@@ -170,9 +170,9 @@ public class CustomerControllerImpl implements CustomerController {
 
             if (a.equals(b) && a.getClass().equals(b.getClass())) {
                 matchCount++;
-                 if (a instanceof Patty && b instanceof Patty) {
+                if (a instanceof Patty && b instanceof Patty) {
                     final double diff = Math.abs(((Patty) a).getBottomCookLevel() - ((Patty) b).getBottomCookLevel())
-                                + Math.abs(((Patty) a).getTopCookLevel() - ((Patty) b).getTopCookLevel());
+                            + Math.abs(((Patty) a).getTopCookLevel() - ((Patty) b).getTopCookLevel());
 
                     totalCookDifference += diff;
                     pattyComparisons++;

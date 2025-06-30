@@ -4,21 +4,37 @@ package it.unibo.papasburgeria.utils.api.scene;
  * Enum specifying the game's scene types in an abstract way to maintain MVC.
  */
 public enum SceneType {
-    /** Register scene. */
+    /**
+     * Register scene.
+     */
     REGISTER("Register"),
-    /** Burger assembly scene. */
+    /**
+     * Burger assembly scene.
+     */
     BURGER_ASSEMBLY("BurgerAssembly"),
-    /** Grill scene. */
+    /**
+     * Grill scene.
+     */
     GRILL("Grill"),
-    /** Menu scene. */
+    /**
+     * Menu scene.
+     */
     MENU("Menu"),
-    /** Shop scene. */
+    /**
+     * Shop scene.
+     */
     SHOP("Shop"),
-    /** Day change scene. */
+    /**
+     * Day change scene.
+     */
     DAY_CHANGE("DayChange"),
-    /** Order selection scene. */
+    /**
+     * Order selection scene.
+     */
     ORDER_SELECTION("OrderSelection"),
-    /** Burger evaluation scene. */
+    /**
+     * Burger evaluation scene.
+     */
     EVALUATE_BURGER("EvaluateBurger");
 
     private final String value;

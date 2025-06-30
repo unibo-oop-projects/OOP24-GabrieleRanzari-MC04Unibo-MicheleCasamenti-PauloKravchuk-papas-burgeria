@@ -30,65 +30,113 @@ import static it.unibo.papasburgeria.Main.DEBUG_MODE;
  */
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "model is injected and shared intentionally")
 public class RegisterViewImpl extends AbstractBaseView {
-    /** Customer image name. */
+    /**
+     * Customer image name.
+     */
     public static final String CUSTOMER_FILE_NAME = "customer";
-    /** Take order button image name. */
+    /**
+     * Take order button image name.
+     */
     public static final String TAKE_ORDER_FILE_NAME = "take_order_button";
-    /** Background image name. */
+    /**
+     * Background image name.
+     */
     public static final String BACKGROUNT_FILE_NAME = "register_background";
-    /** File separator character. */
+    /**
+     * File separator character.
+     */
     public static final String FILE_SEPARATOR = "_";
-    /** File extension. */
+    /**
+     * File extension.
+     */
     public static final String FILE_EXTENSION = ".png";
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** Maximum displayable customers. */
+    /**
+     * Maximum displayable customers.
+     */
     private static final int MAX_DISPLAYABLE_CUSTOMERS = 5;
 
-    /** Origin position. */
+    /**
+     * Origin position.
+     */
     private static final double ORIGIN = 0.0;
-    /** Customer's width. */
+    /**
+     * Customer's width.
+     */
     private static final double CUSTOMER_WIDTH = 0.1;
-    /** Customer's height. */
+    /**
+     * Customer's height.
+     */
     private static final double CUSTOMER_HEIGHT = 0.5;
 
-    /** Register line customer x coordinates. */
+    /**
+     * Register line customer x coordinates.
+     */
     private static final double[] REGISTER_X_POSITION = {0.1, 0.3, 0.5, 0.7, 0.9};
-    /** Register line customer x coordinate. */
+    /**
+     * Register line customer x coordinate.
+     */
     private static final double REGISTER_Y_POSITION = 0.4;
 
-    /** Wait line customers y coordinates. */
+    /**
+     * Wait line customers y coordinates.
+     */
     private static final double[] WAIT_X_POSITION = {0.2, 0.4, 0.6, 0.8, 1.0};
-    /** Wait line y customers coordinate. */
+    /**
+     * Wait line y customers coordinate.
+     */
     private static final double WAIT_Y_POSITION = 0.2;
 
-    /** Take order button width. */
+    /**
+     * Take order button width.
+     */
     private static final double TAKE_ORDER_WIDTH = 0.1;
-    /** Take order button height. */
+    /**
+     * Take order button height.
+     */
     private static final double TAKE_ORDER_HEIGHT = 0.2;
 
-    /** Take order button x coordinate. */
+    /**
+     * Take order button x coordinate.
+     */
     private static final double TAKE_ORDER_X_POSITION = 0.1;
-    /** Take order button y coordinate. */
+    /**
+     * Take order button y coordinate.
+     */
     private static final double TAKE_ORDER_Y_POSITION = 0.2;
 
-    /** Label that takes order when pressed. */
+    /**
+     * Label that takes order when pressed.
+     */
     private final JLabel takeOrderLabel;
-    /** Controller that manages customers. */
+    /**
+     * Controller that manages customers.
+     */
     private final transient CustomerController customerController;
-    /** Service that manages images. */
+    /**
+     * Service that manages images.
+     */
     private final transient ResourceService resourceService;
-    /** Service that manages audios. */
+    /**
+     * Service that manages audios.
+     */
     private final transient SfxService sfxService;
 
-    /** The main JPanel for this view. */
+    /**
+     * The main JPanel for this view.
+     */
     private final JPanel panel;
 
-    /** A map containing all the customers in the regiserLine and their JLabel. */
+    /**
+     * A map containing all the customers in the regiserLine and their JLabel.
+     */
     private transient Map<Customer, JLabel> registerLineView = new LinkedHashMap<>();
-    /** A map containing all the customers in the waitLine and their JLabel. */
+    /**
+     * A map containing all the customers in the waitLine and their JLabel.
+     */
     private transient Map<Customer, JLabel> waitLineView = new LinkedHashMap<>();
 
     /**

@@ -14,7 +14,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * See {@link Customer} for interface details.
  */
 public class CustomerImpl implements Customer {
-    /** How many types of skin are present. */
+    /**
+     * How many types of skin are present.
+     */
     public static final int EXISTING_SKIN_TYPES = 9;
     private final Order order;
     /*just a 0-9 value used to indicate the customer's appearance */

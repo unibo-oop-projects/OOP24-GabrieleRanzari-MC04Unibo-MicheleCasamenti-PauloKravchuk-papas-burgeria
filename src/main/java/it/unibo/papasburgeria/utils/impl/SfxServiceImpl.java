@@ -16,9 +16,18 @@ import java.util.function.Consumer;
  * See {@link SfxService} for interface details.
  */
 public class SfxServiceImpl implements SfxService {
-    private static final float MINIMUM_VOLUME = 0.1f;
-    private static final float MAXIMUM_VOLUME = 3f;
-    private static final float DEFAULT_VOLUME = 1f;
+    /**
+     * Maximum volume scale.
+     */
+    public static final float MINIMUM_VOLUME = 0.1f;
+    /**
+     * Minimum volume scale.
+     */
+    public static final float MAXIMUM_VOLUME = 3f;
+    /**
+     * Default volume scale.
+     */
+    public static final float DEFAULT_VOLUME = 1f;
     private static final float AMPLITUDE_CONVERSION_FACTOR = 20f;
 
     private final ResourceService resourceService;

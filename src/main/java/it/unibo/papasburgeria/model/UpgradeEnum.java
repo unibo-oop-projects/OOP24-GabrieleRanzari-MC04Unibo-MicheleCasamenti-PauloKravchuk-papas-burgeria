@@ -4,47 +4,67 @@ package it.unibo.papasburgeria.model;
  * Defines the upgrades and their modifiers.
  */
 public enum UpgradeEnum {
-    /** Makes customers arrival slower by 10%.*/
+    /**
+     * Makes customers arrival slower by 10%.
+     */
     SLOW_CUSTOMERS("Slow Customers",
             "Makes customers arrival slower by 10%!",
             10, 0.10),
-    /** Makes less customers arrive per day.*/
+    /**
+     * Makes less customers arrive per day.
+     */
     LESS_CUSTOMERS("Less Customers",
             "Makes less customers arrive per day!",
             10, 0.20),
-    /** Customers are more tolerant if you place the wrong ingredients. */
+    /**
+     * Customers are more tolerant if you place the wrong ingredients.
+     */
     INGREDIENT_TOLERANCE("Ingredient Tolerance",
             "Customers are more tolerant if you place the wrong ingredients!",
             25, 0.15),
-    /** Customers are more tolerant if you place the ingredients incorrectly. */
+    /**
+     * Customers are more tolerant if you place the ingredients incorrectly.
+     */
     PLACEMENT_TOLERANCE("Placement Tolerance",
             "Customers are more tolerant if you place the ingredients incorrectly!",
             25, 0.15),
-    /** Customers tips are set to 20%. */
+    /**
+     * Customers tips are set to 20%.
+     */
     CUSTOMER_TIP("Customer Tip",
             "Customers tips are set to 20%!",
             50, 0.2),
-    /** Customers' tips probability is set to 33%. */
+    /**
+     * Customers' tips probability is set to 33%.
+     */
     CUSTOMER_MORE_TIP("Customer More Tips",
             "Customers' tips probability is set to 33%!",
             100, 0.33);
 
-    /** The upgrade's name.*/
+    /**
+     * The upgrade's name.
+     */
     private final String name;
-    /** The upgrade's description.*/
+    /**
+     * The upgrade's description.
+     */
     private final String description;
-    /** The upgrade's cost.*/
+    /**
+     * The upgrade's cost.
+     */
     private final int cost;
-    /** The upgrade's name. */
+    /**
+     * The upgrade's name.
+     */
     private final double modifier;
 
     /**
      * Constructs a new UpgradeEnum.
      *
-     * @param name          upgrade's name.
-     * @param description   upgrade's description.
-     * @param cost          upgrade's cost.
-     * @param modifier      upgrade's percentage modifier.
+     * @param name        upgrade's name.
+     * @param description upgrade's description.
+     * @param cost        upgrade's cost.
+     * @param modifier    upgrade's percentage modifier.
      */
     UpgradeEnum(final String name, final String description, final int cost, final double modifier) {
         this.name = name;

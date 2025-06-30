@@ -19,7 +19,9 @@ import java.util.List;
  * See {@link SaveService} for interface details.
  */
 public class SaveServiceImpl implements SaveService {
-    /** Maximum index for save slots. */
+    /**
+     * Maximum index for save slots.
+     */
     public static final int MAX_SAVE_SLOT_INDEX = 2;
     private static final Path DIRECTORY = Paths.get(System.getProperty("user.home"), ".papasburgeria", "slots");
 

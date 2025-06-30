@@ -82,6 +82,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void removeCustomerWaitLine(final CustomerModel customer) {
+        customer.setInWaitLine(false);
         waitLine.remove(customer);
     }
 

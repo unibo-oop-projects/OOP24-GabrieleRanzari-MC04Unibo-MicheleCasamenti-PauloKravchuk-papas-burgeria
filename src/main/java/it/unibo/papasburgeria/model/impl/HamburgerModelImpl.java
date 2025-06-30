@@ -4,7 +4,6 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PattyModel;
-import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +92,6 @@ public class HamburgerModelImpl implements HamburgerModel {
     @Override
     public final boolean addIngredient(final IngredientModel ingredient) {
         if (ingredientList.isEmpty() && ingredient.getIngredientType() != BOTTOM_BUN) {
-            Logger.debug("first ingredient is NOT a bun");
             return false;
         }
 

@@ -12,7 +12,6 @@ import it.unibo.papasburgeria.utils.api.scene.SceneService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.utils.impl.saving.SaveState;
 import jakarta.inject.Inject;
-import org.tinylog.Logger;
 
 import java.io.IOException;
 
@@ -124,7 +123,6 @@ public class GameControllerImpl implements GameController {
             );
             return true;
         } catch (final IOException e) {
-            Logger.error(e, "Failed to save slot {}", slotNumber);
             return false;
         }
     }
@@ -150,7 +148,6 @@ public class GameControllerImpl implements GameController {
             this.customerController.startClientThread(); // is controller -> controller the only way?
             return true;
         } catch (final IOException e) {
-            Logger.error(e, "Failed to load slot {}", slotNumber);
             return false;
         }
     }

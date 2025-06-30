@@ -2,7 +2,6 @@ package it.unibo.papasburgeria.utils.impl.saving;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unibo.papasburgeria.utils.api.SaveService;
-import org.tinylog.Logger;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -52,7 +51,6 @@ public class SaveServiceImpl implements SaveService {
         // no need for files exist check, the writer opens or creates it
         final Path path = DIRECTORY.resolve(slotNumber + ".txt");
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            Logger.debug("Writing slot " + slotNumber + " to " + path);
             writer.write(mapper.writeValueAsString(saveState));
         }
     }

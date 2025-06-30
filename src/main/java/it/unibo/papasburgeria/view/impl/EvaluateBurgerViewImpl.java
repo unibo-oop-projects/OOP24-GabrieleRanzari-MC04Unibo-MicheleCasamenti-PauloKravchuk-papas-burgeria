@@ -18,7 +18,6 @@ import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteImpl;
-import org.tinylog.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,8 +28,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serial;
 import java.util.ArrayList;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * the interface which contains the hamburger evaluation.
@@ -282,9 +279,6 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        if (DEBUG_MODE) {
-            Logger.info("EvaluateBurgerView shown");
-        }
         showMoneyLabel.setText("BAL: " + customerController.getBalance() + MONEY);
 
         read();
@@ -299,31 +293,18 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
         for (final CustomerModel currentCustomer : customerController.getWaitLine()) {
             if (currentCustomer.getOrder().getOrderNumber() == this.order.getOrderNumber()) {
                 customerController.serveCustomer(currentCustomer);
-                if (DEBUG_MODE) {
-                    Logger.info("Customer successfully removed");
-                }
             }
         }
         percentageLabel.setText("score: " + (int) (satisfaction * 100) + "%");
         paymentLabel.setText("pay: " + payment + MONEY);
         tipLabel.setText(" +tip " + tip + MONEY);
-
-        if (DEBUG_MODE) {
-            Logger.info("Satisfaction: " + satisfaction);
-            Logger.info("Payment: " + payment);
-            Logger.info("Tip: " + tip);
-        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("EvaluateBurgerView hidden");
-        }
-    }
+    public void hideScene() { }
 
     /**
      * {@inheritDoc}

@@ -12,7 +12,6 @@ import it.unibo.papasburgeria.view.api.components.Scale;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,8 +32,6 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Implementation of GameView.
@@ -243,9 +240,6 @@ public class GameViewImpl implements GameView {
     @Override
     public void startGame() {
         if (this.gameIsRunning) {
-            if (DEBUG_MODE) {
-                Logger.warn("The game has already started!");
-            }
             return;
         }
 
@@ -263,9 +257,6 @@ public class GameViewImpl implements GameView {
     @Override
     public void endGame() {
         if (!this.gameIsRunning) {
-            if (DEBUG_MODE) {
-                Logger.warn("The game has already ended!");
-            }
             return;
         }
 

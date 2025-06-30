@@ -7,7 +7,6 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.utils.api.SaveService;
 import it.unibo.papasburgeria.utils.impl.saving.SaveInfo;
 import it.unibo.papasburgeria.utils.impl.saving.SaveState;
-import org.tinylog.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,8 +66,8 @@ public class MenuControllerImpl implements MenuController {
 
                 return transformed;
             }
-        } catch (final IOException e) {
-            Logger.error(e, "Failed to fetch slots");
+        } catch (final IOException e) { 
+            return Collections.emptyList();
         }
 
         return Collections.emptyList();

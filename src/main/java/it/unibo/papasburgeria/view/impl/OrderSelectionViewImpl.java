@@ -14,7 +14,6 @@ import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
 import it.unibo.papasburgeria.view.impl.components.SpriteDragManagerImpl;
-import org.tinylog.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -27,7 +26,6 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HALF_RANGE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.ORDER_X_SIZE_SCALE;
@@ -137,20 +135,13 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     @Override
     public void showScene() {
         readOrders();
-        if (DEBUG_MODE) {
-            Logger.info("OrderSelectionView shown");
-        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("OrderSelectionView hidden");
-        }
-    }
+    public void hideScene() { }
 
     /**
      * {@inheritDoc}

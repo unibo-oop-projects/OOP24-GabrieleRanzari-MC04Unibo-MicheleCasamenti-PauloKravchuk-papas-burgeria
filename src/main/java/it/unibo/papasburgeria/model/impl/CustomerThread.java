@@ -2,11 +2,8 @@ package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.RegisterModel;
-import org.tinylog.Logger;
 
 import java.util.List;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Extension of Thread. Defines a thread which adds the customers to the first line periodically.
@@ -39,18 +36,12 @@ class CustomerThread extends Thread {
      */
     @Override
     public void run() {
-        if (DEBUG_MODE) {
-            Logger.info("Customer thread started");
-        }
         int generatedCustomers = 0;
         while (!currentThread().isInterrupted()) {
             try {
                 if (generatedCustomers >= customerAmount) {
                     interrupt();
                 } else {
-                    if (DEBUG_MODE) {
-                        Logger.info("Customer has arrived");
-                    }
                     model.addCustomerRegisterLine(new CustomerModelImpl(unlockedIngredients, generatedCustomers + 1));
                     generatedCustomers++;
                     if (generatedCustomers >= customerAmount) {
@@ -62,9 +53,6 @@ class CustomerThread extends Thread {
             } catch (final InterruptedException e) {
                 interrupt();
             }
-        }
-        if (DEBUG_MODE) {
-            Logger.info("Customer thread terminated");
         }
     }
 }

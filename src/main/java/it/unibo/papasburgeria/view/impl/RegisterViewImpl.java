@@ -9,7 +9,6 @@ import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleConstraintImpl;
 import it.unibo.papasburgeria.view.impl.components.ScaleImpl;
-import org.tinylog.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,8 +21,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-
-import static it.unibo.papasburgeria.Main.DEBUG_MODE;
 
 /**
  * Register view.
@@ -176,9 +173,6 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     public void showScene() {
-        if (DEBUG_MODE) {
-            Logger.info("RegisterView shown");
-        }
         this.sfxService.playSoundLooped("register_ost.wav", DEFAULT_SOUND_VOLUME);
     }
 
@@ -187,9 +181,6 @@ public class RegisterViewImpl extends AbstractBaseView {
      */
     @Override
     public void hideScene() {
-        if (DEBUG_MODE) {
-            Logger.info("RegisterView hidden");
-        }
         this.sfxService.stopSound("register_ost.wav");
     }
 

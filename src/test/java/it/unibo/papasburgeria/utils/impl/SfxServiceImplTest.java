@@ -31,6 +31,8 @@ class SfxServiceImplTest {
     void setUp() {
         if (!ServiceHelpers.hasAnyMixer()) {
             this.shouldRunTest = false;
+        }
+        else {
             this.resourceService = new ResourceServiceImpl();
             this.sfxService = new SfxServiceImpl(this.resourceService);
         }
@@ -42,7 +44,6 @@ class SfxServiceImplTest {
     @Test
     void playStopSound() {
         if (shouldRunTest) {
-            assertNotNull(this.resourceService);
             final Clip clip = this.resourceService.getSoundEffect(SOUND_NAME);
             assertNotNull(clip);
             this.sfxService.playSound(SOUND_NAME);
@@ -65,7 +66,6 @@ class SfxServiceImplTest {
     @Test
     void playLoopedStopSound() {
         if (shouldRunTest) {
-            assertNotNull(this.resourceService);
             final Clip clip = this.resourceService.getSoundEffect(SOUND_NAME);
             assertNotNull(clip);
             this.sfxService.playSoundLooped(SOUND_NAME);

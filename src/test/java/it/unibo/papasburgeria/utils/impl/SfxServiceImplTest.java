@@ -42,6 +42,7 @@ class SfxServiceImplTest {
     @Test
     void playStopSound() {
         if (shouldRunTest) {
+            assertNotNull(this.resourceService);
             final Clip clip = this.resourceService.getSoundEffect(SOUND_NAME);
             assertNotNull(clip);
             this.sfxService.playSound(SOUND_NAME);
@@ -64,6 +65,7 @@ class SfxServiceImplTest {
     @Test
     void playLoopedStopSound() {
         if (shouldRunTest) {
+            assertNotNull(this.resourceService);
             final Clip clip = this.resourceService.getSoundEffect(SOUND_NAME);
             assertNotNull(clip);
             this.sfxService.playSoundLooped(SOUND_NAME);

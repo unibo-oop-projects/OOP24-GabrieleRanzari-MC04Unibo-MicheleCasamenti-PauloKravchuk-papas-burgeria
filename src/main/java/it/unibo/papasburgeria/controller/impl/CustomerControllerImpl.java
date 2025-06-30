@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
+import it.unibo.papasburgeria.model.LineEnum;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.model.api.GameModel;
@@ -53,7 +54,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void serveCustomer(final CustomerModel customer) {
-        registerModel.removeCustomerWaitLine(customer);
+        registerModel.removeCustomerFromLine(customer, LineEnum.WAIT_LINE);
     }
 
     /**
@@ -61,7 +62,8 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void clearAllCustomers() {
-        registerModel.clearLines();
+        registerModel.clearLine(LineEnum.REGISTER_LINE);
+        registerModel.clearLine(LineEnum.WAIT_LINE);
     }
 
     /**
@@ -121,7 +123,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public List<CustomerModel> getRegisterLine() {
-        return registerModel.getRegisterLine();
+        return registerModel.getLine(LineEnum.REGISTER_LINE);
     }
 
     /**
@@ -129,7 +131,7 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public List<CustomerModel> getWaitLine() {
-        return registerModel.getWaitLine();
+        return registerModel.getLine(LineEnum.WAIT_LINE);
     }
 
     /**
@@ -137,8 +139,8 @@ public class CustomerControllerImpl implements CustomerController {
      */
     @Override
     public void takeOrderFromCustomer(final CustomerModel customer) {
-        registerModel.removeCustomerRegisterLine(customer);
-        registerModel.addCustomerWaitLine(customer);
+        registerModel.removeCustomerFromLine(customer, LineEnum.REGISTER_LINE);
+        registerModel.addCustomerToLine(customer, LineEnum.WAIT_LINE);
     }
 
     /**

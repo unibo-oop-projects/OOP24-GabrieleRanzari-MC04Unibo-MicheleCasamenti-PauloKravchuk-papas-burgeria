@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.model.api;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.LineEnum;
 
 import java.util.List;
 
@@ -8,6 +9,37 @@ import java.util.List;
  * Models how the lines work.
  */
 public interface RegisterModel {
+
+    /**
+     * Adds a customer to the register line.
+     *
+     * @param customer Customer added to end of register line.
+     * @param line     The line to which the customer is added.
+     */
+    void addCustomerToLine(CustomerModel customer, LineEnum line);
+
+    /**
+     * Removes a customer from the selected line.
+     *
+     * @param customer Customer added to end of register line.
+     * @param line     the line the customer is removed from.
+     */
+    void removeCustomerFromLine(CustomerModel customer, LineEnum line);
+
+    /**
+     * Get the selected line line.
+     *
+     * @param line the selected line.
+     * @return     the returned line.
+     */
+    List<CustomerModel> getLine(LineEnum line);
+
+    /**
+     * Empties the line.
+     *
+     * @param line the selected line.
+     */
+    void clearLine(LineEnum line);
 
     /**
      * Starts a new customer thread and kills the previous one.
@@ -24,66 +56,9 @@ public interface RegisterModel {
     void killCustomerThread();
 
     /**
-     * Adds a customer to the register line.
-     *
-     * @param customer Customer added to end of register line.
-     */
-    void addCustomerRegisterLine(CustomerModel customer);
-
-    /**
-     * Removes a customer from the register line.
-     *
-     * @param customer Customer added to end of register line.
-     */
-    void removeCustomerRegisterLine(CustomerModel customer);
-
-    /**
-     * Adds a customer to the wait line.
-     *
-     * @param customer Customer added to end of wait line.
-     */
-    void addCustomerWaitLine(CustomerModel customer);
-
-    /**
-     * Removes a customer from the register line.
-     *
-     * @param customer Customer removed from wait line.
-     */
-    void removeCustomerWaitLine(CustomerModel customer);
-
-    /**
-     * Empties the Register line.
-     */
-    void clearRegisterLine();
-
-    /**
-     * Empties the Wait line.
-     */
-    void clearWaitLine();
-
-    /**
-     * Empties both lines.
-     */
-    void clearLines();
-
-    /**
      * Get the customer thread status.
      *
      * @return true if the customer thread is alive.
      */
     boolean isCustomerThreadStatus();
-
-    /**
-     * Get the register line.
-     *
-     * @return the register line.
-     */
-    List<CustomerModel> getRegisterLine();
-
-    /**
-     * Get the register line.
-     *
-     * @return the wait line
-     */
-    List<CustomerModel> getWaitLine();
 }

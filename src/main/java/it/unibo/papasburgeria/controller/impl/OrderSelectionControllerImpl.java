@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.OrderSelectionController;
+import it.unibo.papasburgeria.model.LineEnum;
 import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
@@ -39,7 +40,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
      */
     @Override
     public List<OrderModel> getOrders() {
-        final List<CustomerModel> waitingCustomers = registerModel.getWaitLine();
+        final List<CustomerModel> waitingCustomers = registerModel.getLine(LineEnum.WAIT_LINE);
         final List<OrderModel> orders = new ArrayList<>();
         for (final CustomerModel waitingCustomer : waitingCustomers) {
             orders.add(waitingCustomer.getOrder());

@@ -2,10 +2,11 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.LineEnum;
 import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,16 +17,16 @@ import java.util.List;
  */
 @Singleton
 public class RegisterModelImpl implements RegisterModel {
-    private final List<CustomerModel> registerLine;
-    private final List<CustomerModel> waitLine;
+    private final List<List<CustomerModel>> lineList;
     private CustomerThread customerThread;
 
     /**
      * Constructs the register model.
      */
     public RegisterModelImpl() {
-        this.registerLine = new LinkedList<>();
-        this.waitLine = new LinkedList<>();
+        this.lineList = new ArrayList<>();
+        this.lineList.add(new ArrayList<>());
+        this.lineList.add(new ArrayList<>());
         this.customerThread = new CustomerThread(0, -1, null, this);
     }
 
@@ -54,83 +55,34 @@ public class RegisterModelImpl implements RegisterModel {
      * {@inheritDoc}
      */
     @Override
-    public void addCustomerRegisterLine(final CustomerModel customer) {
+    public void addCustomerToLine(final CustomerModel customer, final LineEnum lineEnum) {
         customer.setInRegisterLine(true);
-        registerLine.add(customer);
+        lineList.get(lineEnum.getValue()).add(customer);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void removeCustomerRegisterLine(final CustomerModel customer) {
+    public void removeCustomerFromLine(final CustomerModel customer, final LineEnum lineEnum) {
         customer.setInRegisterLine(false);
-        registerLine.remove(customer);
+        lineList.get(lineEnum.getValue()).remove(customer);
+    }
+
+    /**
+     * @return the line
+     */
+    @Override
+    public List<CustomerModel> getLine(final LineEnum lineEnum) {
+        return List.copyOf(lineList.get(lineEnum.getValue()));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addCustomerWaitLine(final CustomerModel customer) {
-        customer.setInWaitLine(true);
-        waitLine.add(customer);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removeCustomerWaitLine(final CustomerModel customer) {
-        customer.setInWaitLine(false);
-        waitLine.remove(customer);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clearLines() {
-        clearRegisterLine();
-        clearWaitLine();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clearRegisterLine() {
-        for (final CustomerModel customer : registerLine) {
-            customer.setInRegisterLine(false);
-        }
-        registerLine.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void clearWaitLine() {
-        for (final CustomerModel customer : waitLine) {
-            customer.setInWaitLine(false);
-        }
-        waitLine.clear();
-    }
-
-    /**
-     * @return the register line
-     */
-    @Override
-    public List<CustomerModel> getRegisterLine() {
-        return List.copyOf(registerLine);
-    }
-
-    /**
-     * @return the wait line
-     */
-    @Override
-    public List<CustomerModel> getWaitLine() {
-        return List.copyOf(waitLine);
+    public void clearLine(final LineEnum lineEnum) {
+        lineList.get(lineEnum.getValue()).clear();
     }
 
     /**
@@ -138,7 +90,8 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public String toString() {
-        return "[CustomerManager: [registerLine=" + registerLine.toString() + "], [waitLine=" + waitLine.toString() + "] ]";
+        return "[CustomerManager: [registerLine=" + lineList.get(LineEnum.REGISTER_LINE.getValue())
+        + "], [waitLine=" + lineList.get(LineEnum.WAIT_LINE.getValue()) + "] ]";
     }
 
     /**

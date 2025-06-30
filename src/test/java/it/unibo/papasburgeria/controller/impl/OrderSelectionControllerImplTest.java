@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.controller.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.LineEnum;
 import it.unibo.papasburgeria.model.api.CustomerModel;
 
 import it.unibo.papasburgeria.model.api.GameModel;
@@ -41,7 +42,7 @@ class OrderSelectionControllerImplTest {
         final PantryModelImpl pantryModel = new PantryModelImpl();
 
         final CustomerModel customer = new CustomerModelImpl(new ArrayList<>(pantryModel.getUnlockedIngredients()), 1);
-        registerModel.addCustomerWaitLine(customer);
+        registerModel.addCustomerToLine(customer, LineEnum.WAIT_LINE);
 
         controller = new OrderSelectionControllerImpl(gameModel, registerModel);
     }
@@ -75,7 +76,7 @@ class OrderSelectionControllerImplTest {
      */
     @Test
     void testSetSelectedOrder() {
-        final OrderModel order = registerModel.getWaitLine().getFirst().getOrder();
+        final OrderModel order = registerModel.getLine(LineEnum.WAIT_LINE).getFirst().getOrder();
         controller.setSelectedOrder(order);
         assertEquals(order.getOrderNumber(), gameModel.getSelectedOrder().getOrderNumber());
         assertEquals(order.getHamburger().getIngredients(), gameModel.getSelectedOrder().getHamburger().getIngredients());

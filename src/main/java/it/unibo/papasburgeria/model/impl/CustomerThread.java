@@ -1,6 +1,7 @@
 package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
+import it.unibo.papasburgeria.model.LineEnum;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
 import java.util.List;
@@ -42,7 +43,8 @@ class CustomerThread extends Thread {
                 if (generatedCustomers >= customerAmount) {
                     interrupt();
                 } else {
-                    model.addCustomerRegisterLine(new CustomerModelImpl(unlockedIngredients, generatedCustomers + 1));
+                    model.addCustomerToLine(new CustomerModelImpl(unlockedIngredients, generatedCustomers + 1),
+                    LineEnum.REGISTER_LINE);
                     generatedCustomers++;
                     if (generatedCustomers >= customerAmount) {
                         interrupt();

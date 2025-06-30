@@ -23,7 +23,7 @@ class PattyImplTest {
     }
 
     /**
-     * Tests {@link PattyModelImpl#PattyImpl()}.
+     * Tests {@link PattyModelImpl#PattyModelImpl()}.
      */
     @Test
     void testInitialState() {
@@ -33,7 +33,7 @@ class PattyImplTest {
     }
 
     /**
-     * Tests {@link PattyModelImpl#PattyImpl(PattyModel)}.
+     * Tests {@link PattyModelImpl#PattyModelImpl(PattyModel)}.
      */
     @Test
     void testCopyConstructor() {

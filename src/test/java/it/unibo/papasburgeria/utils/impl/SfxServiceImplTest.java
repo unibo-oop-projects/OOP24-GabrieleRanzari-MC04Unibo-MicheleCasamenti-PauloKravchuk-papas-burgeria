@@ -55,7 +55,7 @@ class SfxServiceImplTest {
                     () -> this.sfxService.playSound(SOUND_NAME, SfxServiceImpl.MAXIMUM_VOLUME + 1));
             assertThrows(
                     IllegalArgumentException.class,
-                    () -> this.sfxService.playSound(SOUND_NAME, SfxServiceImpl.MINIMUM_VOLUME - 1));
+                    () -> this.sfxService.playSound(SOUND_NAME, 0));
         }
     }
 
@@ -77,7 +77,7 @@ class SfxServiceImplTest {
                     () -> this.sfxService.playSoundLooped(SOUND_NAME, SfxServiceImpl.MAXIMUM_VOLUME + 1f));
             assertThrows(
                     IllegalArgumentException.class,
-                    () -> this.sfxService.playSoundLooped(SOUND_NAME, SfxServiceImpl.MINIMUM_VOLUME - 1f));
+                    () -> this.sfxService.playSoundLooped(SOUND_NAME, 0));
         }
     }
 }

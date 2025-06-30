@@ -3,7 +3,7 @@ package it.unibo.papasburgeria.model.impl;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import org.tinylog.Logger;
 
 import java.util.ArrayList;
@@ -73,9 +73,9 @@ public class HamburgerModelImpl implements HamburgerModel {
                     final IngredientEnum ingredientType =
                             currentIngredients.get((int) (Math.random() * currentIngredients.size()));
                     if (PATTY.equals(ingredientType)) {
-                        ingredient = new PattyImpl();
-                        ((Patty) ingredient).setTopCookLevel(ThreadLocalRandom.current().nextDouble());
-                        ((Patty) ingredient).setBottomCookLevel(ThreadLocalRandom.current().nextDouble());
+                        ingredient = new PattyModelImpl();
+                        ((PattyModel) ingredient).setTopCookLevel(ThreadLocalRandom.current().nextDouble());
+                        ((PattyModel) ingredient).setBottomCookLevel(ThreadLocalRandom.current().nextDouble());
                     } else {
                         ingredient = new IngredientModelImpl(ingredientType);
                     }

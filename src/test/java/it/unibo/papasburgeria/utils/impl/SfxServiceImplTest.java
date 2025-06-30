@@ -31,6 +31,8 @@ class SfxServiceImplTest {
     void setUp() {
         if (!ServiceHelpers.hasAnyMixer()) {
             this.shouldRunTest = false;
+        }
+        else {
             this.resourceService = new ResourceServiceImpl();
             this.sfxService = new SfxServiceImpl(this.resourceService);
         }

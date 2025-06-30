@@ -4,7 +4,7 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.OrderModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -83,7 +83,7 @@ class GameModelTest {
      */
     @Test
     void testSetAndGetCookedPatties() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         model.setCookedPatties(List.of(patty));
         assertEquals(1, model.getCookedPatties().size());
     }

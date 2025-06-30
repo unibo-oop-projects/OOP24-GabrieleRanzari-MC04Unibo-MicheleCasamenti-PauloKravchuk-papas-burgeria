@@ -1,9 +1,9 @@
 package it.unibo.papasburgeria.controller.impl;
 
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.impl.GameModelImpl;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
+import it.unibo.papasburgeria.model.impl.PattyModelImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,20 +28,20 @@ class GrillControllerImplTest {
     }
 
     /**
-     * Tests {@link GrillControllerImpl#addPattyOnGrill(Patty, double, double)}
-     * and {@link GrillControllerImpl#removePattyFromGrill(Patty)}.
+     * Tests {@link GrillControllerImpl#addPattyOnGrill(PattyModel, double, double)}
+     * and {@link GrillControllerImpl#removePattyFromGrill(PattyModel)}.
      */
     @Test
     void testAddPattyOnGrillAndRemove() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         final double pbPositionXScale = 0.5;
         final double pbPositionYScale = 0.5;
         assertTrue(controller.addPattyOnGrill(patty, pbPositionXScale, pbPositionYScale));
 
-        Patty[][] pattiesOnGrill = controller.getPattiesOnGrill();
+        PattyModel[][] pattiesOnGrill = controller.getPattiesOnGrill();
         boolean found = false;
-        for (final Patty[] pattyRow : pattiesOnGrill) {
-            for (final Patty pattyOnGrill : pattyRow) {
+        for (final PattyModel[] pattyRow : pattiesOnGrill) {
+            for (final PattyModel pattyOnGrill : pattyRow) {
                 if (Objects.nonNull(pattyOnGrill) && pattyOnGrill.equals(patty)) {
                     found = true;
                 }
@@ -52,8 +52,8 @@ class GrillControllerImplTest {
         controller.removePattyFromGrill(patty);
         pattiesOnGrill = controller.getPattiesOnGrill();
         found = false;
-        for (final Patty[] pattyRow : pattiesOnGrill) {
-            for (final Patty pattyOnGrill : pattyRow) {
+        for (final PattyModel[] pattyRow : pattiesOnGrill) {
+            for (final PattyModel pattyOnGrill : pattyRow) {
                 if (Objects.nonNull(pattyOnGrill) && pattyOnGrill.equals(patty)) {
                     found = true;
                 }
@@ -67,7 +67,7 @@ class GrillControllerImplTest {
      */
     @Test
     void testCookPattiesOnGrill() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         final double pbPositionXScale = 0.5;
         final double pbPositionYScale = 0.5;
 
@@ -83,12 +83,12 @@ class GrillControllerImplTest {
     }
 
     /**
-     * Tests {@link GrillControllerImpl#addCookedPatty(Patty)}
-     * and {@link GrillControllerImpl#removeCookedPatty(Patty)}.
+     * Tests {@link GrillControllerImpl#addCookedPatty(PattyModel)}
+     * and {@link GrillControllerImpl#removeCookedPatty(PattyModel)}.
      */
     @Test
     void testAddAndRemoveCookedPatty() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         assertTrue(controller.addCookedPatty(patty));
         assertTrue(controller.getCookedPatties().contains(patty));
 
@@ -97,11 +97,11 @@ class GrillControllerImplTest {
     }
 
     /**
-     * Tests {@link GrillControllerImpl#flipPatty(Patty)}.
+     * Tests {@link GrillControllerImpl#flipPatty(PattyModel)}.
      */
     @Test
     void testFlipPatty() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         final double pbPositionXScale = 0.5;
         final double pbPositionYScale = 0.5;
 

@@ -6,7 +6,7 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.OrderModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
@@ -25,7 +25,7 @@ import java.util.Objects;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.impl.IngredientModelImpl.MAX_LEFT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.IngredientModelImpl.MAX_RIGHT_ACCURACY;
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MIN_COOK_LEVEL;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_SPACING;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.GRILL_X_SPACING;
@@ -152,8 +152,8 @@ public class DrawingManagerImpl implements DrawingManager {
         for (final IngredientModel ingredient : hamburgerIngredients) {
             final double pbPositionXScale =
                     getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy(), bottomBunXPosScale);
-            if (ingredient instanceof Patty) {
-                sprite = generatePattySprite((Patty) ingredient, pbPositionXScale, pbPositionYScale,
+            if (ingredient instanceof PattyModel) {
+                sprite = generatePattySprite((PattyModel) ingredient, pbPositionXScale, pbPositionYScale,
                         INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
             } else {
                 final Image image = ingredientImages.get(ingredient.getIngredientType());
@@ -228,8 +228,8 @@ public class DrawingManagerImpl implements DrawingManager {
         double ingredientPbPositionYScale = ORDER_INGREDIENT_Y_POS_SCALE;
         for (final IngredientModel ingredient : order.getHamburger().getIngredients()) {
             final Sprite ingredientSprite;
-            if (ingredient instanceof Patty) {
-                ingredientSprite = generatePattySprite((Patty) ingredient,
+            if (ingredient instanceof PattyModel) {
+                ingredientSprite = generatePattySprite((PattyModel) ingredient,
                         sprite.getPbPositionXScale() + ORDER_INGREDIENT_X_POS_SCALE,
                         sprite.getPbPositionYScale() + ingredientPbPositionYScale,
                         ORDER_INGREDIENT_X_SIZE_SCALE, ORDER_INGREDIENT_Y_SIZE_SCALE);
@@ -252,13 +252,13 @@ public class DrawingManagerImpl implements DrawingManager {
      */
     @Override
     public final void generateCookedPatties(
-            final List<Patty> cookedPatties,
+            final List<PattyModel> cookedPatties,
             final double pbPositionXScale,
             final double initialPbPositionYScale,
             final List<Sprite> draggablePattySprites
     ) {
         double pbPositionYScale = initialPbPositionYScale;
-        for (final Patty patty : cookedPatties) {
+        for (final PattyModel patty : cookedPatties) {
             final Sprite sprite = generatePattySprite(patty, pbPositionXScale, pbPositionYScale,
                     INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
             sprite.setCloneable(false);
@@ -275,13 +275,13 @@ public class DrawingManagerImpl implements DrawingManager {
      */
     @Override
     public final void generatePattiesOnGrill(
-            final Patty[][] pattiesOnGrill,
+            final PattyModel[][] pattiesOnGrill,
             final List<Sprite> draggablePattiesOnGrill
     ) {
         double pbPositionXScale = PATTY_ON_GRILL_X_POS;
         double pbPositionYScale = PATTY_ON_GRILL_Y_POS + GRILL_Y_SPACING;
-        for (final Patty[] pattyRow : pattiesOnGrill) {
-            for (final Patty patty : pattyRow) {
+        for (final PattyModel[] pattyRow : pattiesOnGrill) {
+            for (final PattyModel patty : pattyRow) {
                 if (patty != null) {
                     final Sprite sprite = generatePattySprite(patty, pbPositionXScale, pbPositionYScale,
                             INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
@@ -355,7 +355,7 @@ public class DrawingManagerImpl implements DrawingManager {
      * @return the sprite
      */
     private Sprite generatePattySprite(
-            final Patty patty,
+            final PattyModel patty,
             final double pbPositionXScale,
             final double pbPositionYScale,
             final double pbSizeXScale,

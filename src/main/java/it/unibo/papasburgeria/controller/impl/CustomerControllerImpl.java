@@ -10,7 +10,7 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.api.ShopModel;
 import it.unibo.papasburgeria.model.impl.HamburgerModelImpl;
@@ -170,9 +170,9 @@ public class CustomerControllerImpl implements CustomerController {
 
             if (a.equals(b) && a.getClass().equals(b.getClass())) {
                 matchCount++;
-                if (a instanceof Patty && b instanceof Patty) {
-                    final double diff = Math.abs(((Patty) a).getBottomCookLevel() - ((Patty) b).getBottomCookLevel())
-                            + Math.abs(((Patty) a).getTopCookLevel() - ((Patty) b).getTopCookLevel());
+                if (a instanceof PattyModel && b instanceof PattyModel) {
+                    final double diff = Math.abs(((PattyModel) a).getBottomCookLevel() - ((PattyModel) b).getBottomCookLevel())
+                            + Math.abs(((PattyModel) a).getTopCookLevel() - ((PattyModel) b).getTopCookLevel());
 
                     totalCookDifference += diff;
                     pattyComparisons++;

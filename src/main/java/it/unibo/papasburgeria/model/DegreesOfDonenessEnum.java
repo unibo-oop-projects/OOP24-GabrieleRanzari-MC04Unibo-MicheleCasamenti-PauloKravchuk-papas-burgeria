@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.model;
 
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MAX_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MIN_COOK_LEVEL;
 
 /**
  * Enumeration containing the degrees of doneness for the patties.

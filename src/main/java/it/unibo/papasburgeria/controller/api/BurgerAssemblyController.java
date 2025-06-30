@@ -3,7 +3,7 @@ package it.unibo.papasburgeria.controller.api;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public interface BurgerAssemblyController {
      *
      * @return the list of patties
      */
-    List<Patty> getCookedPatties();
+    List<PattyModel> getCookedPatties();
 
     /**
      * Adds the patty to the list of cooked patties.
@@ -53,14 +53,14 @@ public interface BurgerAssemblyController {
      * @param patty the patty to add
      * @return true if the patty was added, false otherwise
      */
-    boolean addCookedPatty(Patty patty);
+    boolean addCookedPatty(PattyModel patty);
 
     /**
      * Removes the patty form the list of cooked patties.
      *
      * @param patty the patty to remove
      */
-    void removeCookedPatty(Patty patty);
+    void removeCookedPatty(PattyModel patty);
 
     /**
      * Calculates the accuracy given the x position in a scale.

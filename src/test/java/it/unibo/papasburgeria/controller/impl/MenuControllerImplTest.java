@@ -5,7 +5,7 @@ import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.OrderModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.utils.api.SaveService;
 import it.unibo.papasburgeria.utils.impl.saving.SaveInfo;
 import it.unibo.papasburgeria.utils.impl.saving.SaveState;
@@ -193,22 +193,22 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public Patty[][] getPattiesOnGrill() {
-            return new Patty[0][];
+        public PattyModel[][] getPattiesOnGrill() {
+            return new PattyModel[0][];
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public void setPattiesOnGrill(final Patty[][] patties) {
+        public void setPattiesOnGrill(final PattyModel[][] patties) {
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public List<Patty> getCookedPatties() {
+        public List<PattyModel> getCookedPatties() {
             return List.of();
         }
 
@@ -216,7 +216,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public void setCookedPatties(final List<Patty> patties) {
+        public void setCookedPatties(final List<PattyModel> patties) {
         }
 
         /**

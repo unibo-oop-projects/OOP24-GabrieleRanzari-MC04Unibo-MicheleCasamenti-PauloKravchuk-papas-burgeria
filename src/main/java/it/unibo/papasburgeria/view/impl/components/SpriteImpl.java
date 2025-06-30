@@ -2,9 +2,9 @@ package it.unibo.papasburgeria.view.impl.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.IngredientModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
+import it.unibo.papasburgeria.model.impl.PattyModelImpl;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 
 import java.awt.Dimension;
@@ -57,8 +57,8 @@ public class SpriteImpl implements Sprite {
                       final double pbSizeYScale
     ) {
         this.images = new ArrayList<>(List.of(image));
-        if (ingredient instanceof Patty patty) {
-            this.ingredient = new PattyImpl(patty);
+        if (ingredient instanceof PattyModel patty) {
+            this.ingredient = new PattyModelImpl(patty);
         } else {
             this.ingredient = new IngredientModelImpl(ingredient);
         }
@@ -81,8 +81,8 @@ public class SpriteImpl implements Sprite {
     public SpriteImpl(final Sprite sprite) {
         this.images = sprite.getImages();
         final IngredientModel newIngredient = sprite.getIngredient();
-        if (newIngredient instanceof Patty patty) {
-            this.ingredient = new PattyImpl(patty);
+        if (newIngredient instanceof PattyModel patty) {
+            this.ingredient = new PattyModelImpl(patty);
         } else {
             this.ingredient = new IngredientModelImpl(newIngredient);
         }
@@ -198,8 +198,8 @@ public class SpriteImpl implements Sprite {
      */
     @Override
     public IngredientModel getIngredient() {
-        if (ingredient instanceof Patty patty) {
-            return new PattyImpl(patty);
+        if (ingredient instanceof PattyModel patty) {
+            return new PattyModelImpl(patty);
         } else {
             return new IngredientModelImpl(ingredient);
         }
@@ -210,8 +210,8 @@ public class SpriteImpl implements Sprite {
      */
     @Override
     public void setIngredient(final IngredientModel newIngredient) {
-        if (newIngredient instanceof Patty patty) {
-            ingredient = new PattyImpl(patty);
+        if (newIngredient instanceof PattyModel patty) {
+            ingredient = new PattyModelImpl(patty);
         } else {
             ingredient = new IngredientModelImpl(newIngredient);
         }

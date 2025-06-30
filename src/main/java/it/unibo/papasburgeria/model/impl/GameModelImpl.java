@@ -6,7 +6,7 @@ import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.OrderModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,8 +48,8 @@ public class GameModelImpl implements GameModel {
     private int currentSaveSlot;
 
     private HamburgerModel hamburgerOnAssembly;
-    private Patty[][] pattiesOnGrill;
-    private List<Patty> cookedPatties;
+    private PattyModel[][] pattiesOnGrill;
+    private List<PattyModel> cookedPatties;
     private OrderModel selectedOrder;
 
     /**
@@ -96,19 +96,19 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Patty[][] getPattiesOnGrill() {
+    public PattyModel[][] getPattiesOnGrill() {
         if (pattiesOnGrill == null) {
-            return new Patty[GRILL_ROWS][GRILL_COLUMNS];
+            return new PattyModel[GRILL_ROWS][GRILL_COLUMNS];
         }
 
-        final Patty[][] newPattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        final PattyModel[][] newPattiesOnGrill = new PattyModel[GRILL_ROWS][GRILL_COLUMNS];
         for (int row = 0; row < GRILL_ROWS; row++) {
             newPattiesOnGrill[row] =
                     Arrays.copyOf(pattiesOnGrill[row], pattiesOnGrill[row].length);
             for (int column = 0; column < GRILL_COLUMNS
                     && pattiesOnGrill[row][column] != null; column++) {
                 newPattiesOnGrill[row][column] =
-                        new PattyImpl(pattiesOnGrill[row][column]);
+                        new PattyModelImpl(pattiesOnGrill[row][column]);
             }
         }
         return newPattiesOnGrill;
@@ -118,8 +118,8 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void setPattiesOnGrill(final Patty[][] patties) {
-        pattiesOnGrill = new Patty[patties.length][];
+    public void setPattiesOnGrill(final PattyModel[][] patties) {
+        pattiesOnGrill = new PattyModel[patties.length][];
         for (int index = 0; index < patties.length; index++) {
             pattiesOnGrill[index] = patties[index].clone();
         }
@@ -129,7 +129,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public List<Patty> getCookedPatties() {
+    public List<PattyModel> getCookedPatties() {
         return new ArrayList<>(cookedPatties);
     }
 
@@ -137,7 +137,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void setCookedPatties(final List<Patty> patties) {
+    public void setCookedPatties(final List<PattyModel> patties) {
         cookedPatties = List.copyOf(patties);
     }
 
@@ -215,7 +215,7 @@ public class GameModelImpl implements GameModel {
     @Override
     public final void reset() {
         hamburgerOnAssembly = new HamburgerModelImpl();
-        pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        pattiesOnGrill = new PattyModel[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
         selectedOrder = null;
     }

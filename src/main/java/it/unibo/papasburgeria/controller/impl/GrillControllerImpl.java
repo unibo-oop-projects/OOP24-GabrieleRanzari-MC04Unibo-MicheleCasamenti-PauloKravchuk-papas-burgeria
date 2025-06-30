@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GrillController;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,8 +13,8 @@ import java.util.Objects;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_COLUMNS;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_ROWS;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.MAX_COOKED_PATTIES;
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MAX_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MIN_COOK_LEVEL;
 import static it.unibo.papasburgeria.view.impl.GameViewImpl.FRAMERATE;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.COOK_LEVEL_INCREMENT_PER_SECOND;
 import static it.unibo.papasburgeria.view.impl.GrillViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_GRILL;
@@ -44,7 +44,7 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public Patty[][] getPattiesOnGrill() {
+    public PattyModel[][] getPattiesOnGrill() {
         return model.getPattiesOnGrill();
     }
 
@@ -52,11 +52,11 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public boolean addPattyOnGrill(final Patty patty,
+    public boolean addPattyOnGrill(final PattyModel patty,
                                    final double pbPositionXScale,
                                    final double pbPositionYScale
     ) {
-        final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
+        final PattyModel[][] pattiesOnGrill = model.getPattiesOnGrill();
 
         final int row = calculatePosition(pbPositionYScale,
                 MIN_Y_POS_SCALE_TO_DROP_ON_GRILL,
@@ -80,8 +80,8 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public void removePattyFromGrill(final Patty patty) {
-        final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
+    public void removePattyFromGrill(final PattyModel patty) {
+        final PattyModel[][] pattiesOnGrill = model.getPattiesOnGrill();
 
         for (int row = 0; row < GRILL_ROWS; row++) {
             for (int column = 0; column < GRILL_COLUMNS; column++) {
@@ -98,7 +98,7 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public List<Patty> getCookedPatties() {
+    public List<PattyModel> getCookedPatties() {
         return List.copyOf(model.getCookedPatties());
     }
 
@@ -106,8 +106,8 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public boolean addCookedPatty(final Patty patty) {
-        final List<Patty> patties = model.getCookedPatties();
+    public boolean addCookedPatty(final PattyModel patty) {
+        final List<PattyModel> patties = model.getCookedPatties();
         if (patties.size() == MAX_COOKED_PATTIES) {
             return false;
         }
@@ -120,8 +120,8 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public void removeCookedPatty(final Patty patty) {
-        final List<Patty> patties = model.getCookedPatties();
+    public void removeCookedPatty(final PattyModel patty) {
+        final List<PattyModel> patties = model.getCookedPatties();
         patties.remove(patty);
         model.setCookedPatties(patties);
     }
@@ -130,10 +130,10 @@ public class GrillControllerImpl implements GrillController {
      * {@inheritDoc}
      */
     @Override
-    public void flipPatty(final Patty patty) {
-        final Patty[][] pattiesOnGrill = model.getPattiesOnGrill();
-        for (final Patty[] pattyRow : pattiesOnGrill) {
-            for (final Patty pattyOnGrill : pattyRow) {
+    public void flipPatty(final PattyModel patty) {
+        final PattyModel[][] pattiesOnGrill = model.getPattiesOnGrill();
+        for (final PattyModel[] pattyRow : pattiesOnGrill) {
+            for (final PattyModel pattyOnGrill : pattyRow) {
                 if (Objects.nonNull(pattyOnGrill) && pattyOnGrill.equals(patty)) {
                     pattyOnGrill.flip();
                 }
@@ -147,9 +147,9 @@ public class GrillControllerImpl implements GrillController {
      */
     @Override
     public void cookPattiesOnGrill() {
-        final Patty[][] patties = model.getPattiesOnGrill();
-        for (final Patty[] pattyRow : patties) {
-            for (final Patty patty : pattyRow) {
+        final PattyModel[][] patties = model.getPattiesOnGrill();
+        for (final PattyModel[] pattyRow : patties) {
+            for (final PattyModel patty : pattyRow) {
                 if (Objects.nonNull(patty)) {
                     cookPatty(patty);
                 }
@@ -184,7 +184,7 @@ public class GrillControllerImpl implements GrillController {
      *
      * @param patty the patty to cook
      */
-    private void cookPatty(final Patty patty) {
+    private void cookPatty(final PattyModel patty) {
         final double cookLevelIncrement = COOK_LEVEL_INCREMENT_PER_SECOND / FRAMERATE;
         if (patty.isFlipped()) {
             patty.setTopCookLevel(patty.getTopCookLevel() + cookLevelIncrement);

@@ -33,28 +33,28 @@ public interface GameModel {
      *
      * @return the matrix of patties
      */
-    Patty[][] getPattiesOnGrill();
+    PattyModel[][] getPattiesOnGrill();
 
     /**
      * Sets the matrix of patties that are on the grill to the new matrix of patties.
      *
      * @param patties the new matrix of patties
      */
-    void setPattiesOnGrill(Patty[][] patties);
+    void setPattiesOnGrill(PattyModel[][] patties);
 
     /**
      * Returns the list of cooked patties.
      *
      * @return the list of patties
      */
-    List<Patty> getCookedPatties();
+    List<PattyModel> getCookedPatties();
 
     /**
      * Sets the list of cooked patties to the new list of patties.
      *
      * @param patties the new list of patties
      */
-    void setCookedPatties(List<Patty> patties);
+    void setCookedPatties(List<PattyModel> patties);
 
     /**
      * Returns the current day number.

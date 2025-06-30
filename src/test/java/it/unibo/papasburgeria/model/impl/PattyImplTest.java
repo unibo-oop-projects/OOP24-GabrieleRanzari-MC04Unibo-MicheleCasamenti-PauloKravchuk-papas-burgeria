@@ -1,6 +1,6 @@
 package it.unibo.papasburgeria.model.impl;
 
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,21 +9,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Test class for {@link PattyImpl}.
+ * Test class for {@link PattyModelImpl}.
  */
 class PattyImplTest {
-    private Patty patty;
+    private PattyModel patty;
 
     /**
      * Called before each test.
      */
     @BeforeEach
     void setUp() {
-        patty = new PattyImpl();
+        patty = new PattyModelImpl();
     }
 
     /**
-     * Tests {@link PattyImpl#PattyImpl()}.
+     * Tests {@link PattyModelImpl#PattyImpl()}.
      */
     @Test
     void testInitialState() {
@@ -33,7 +33,7 @@ class PattyImplTest {
     }
 
     /**
-     * Tests {@link PattyImpl#PattyImpl(Patty)}.
+     * Tests {@link PattyModelImpl#PattyImpl(PattyModel)}.
      */
     @Test
     void testCopyConstructor() {
@@ -44,7 +44,7 @@ class PattyImplTest {
         patty.setBottomCookLevel(bottomCookLevel);
         patty.flip();
 
-        final Patty copy = new PattyImpl(patty);
+        final PattyModel copy = new PattyModelImpl(patty);
 
         assertEquals(patty.getTopCookLevel(), copy.getTopCookLevel());
         assertEquals(patty.getBottomCookLevel(), copy.getBottomCookLevel());
@@ -53,10 +53,10 @@ class PattyImplTest {
 
     /**
      * Tests:
-     * {@link PattyImpl#setTopCookLevel(double)},
-     * {@link PattyImpl#setBottomCookLevel(double)},
-     * {@link PattyImpl#getTopCookLevel()},
-     * {@link PattyImpl#getBottomCookLevel()}.
+     * {@link PattyModelImpl#setTopCookLevel(double)},
+     * {@link PattyModelImpl#setBottomCookLevel(double)},
+     * {@link PattyModelImpl#getTopCookLevel()},
+     * {@link PattyModelImpl#getBottomCookLevel()}.
      */
     @Test
     void testSetAndGetCookLevels() {
@@ -71,7 +71,7 @@ class PattyImplTest {
     }
 
     /**
-     * Tests {@link PattyImpl#isFlipped()}.
+     * Tests {@link PattyModelImpl#isFlipped()}.
      */
     @Test
     void testFlip() {
@@ -83,8 +83,8 @@ class PattyImplTest {
     }
 
     /**
-     * Tests {@link PattyImpl#equals(Object)}
-     * and {@link PattyImpl#hashCode()}.
+     * Tests {@link PattyModelImpl#equals(Object)}
+     * and {@link PattyModelImpl#hashCode()}.
      */
     @Test
     void testEqualsAndHashCode() {
@@ -95,7 +95,7 @@ class PattyImplTest {
         patty.setBottomCookLevel(bottomCookLevel);
         patty.flip();
 
-        final Patty patty2 = new PattyImpl(patty);
+        final PattyModel patty2 = new PattyModelImpl(patty);
         assertEquals(patty, patty2);
         assertEquals(patty.hashCode(), patty2.hashCode());
     }

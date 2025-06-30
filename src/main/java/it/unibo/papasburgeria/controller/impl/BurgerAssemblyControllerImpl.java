@@ -9,7 +9,7 @@ import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.HamburgerModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
 import java.util.List;
@@ -101,7 +101,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public List<Patty> getCookedPatties() {
+    public List<PattyModel> getCookedPatties() {
         return List.copyOf(model.getCookedPatties());
     }
 
@@ -109,8 +109,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public boolean addCookedPatty(final Patty patty) {
-        final List<Patty> patties = model.getCookedPatties();
+    public boolean addCookedPatty(final PattyModel patty) {
+        final List<PattyModel> patties = model.getCookedPatties();
         if (patties.size() == MAX_COOKED_PATTIES) {
             return false;
         }
@@ -123,8 +123,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public void removeCookedPatty(final Patty patty) {
-        final List<Patty> patties = model.getCookedPatties();
+    public void removeCookedPatty(final PattyModel patty) {
+        final List<PattyModel> patties = model.getCookedPatties();
         patties.remove(patty);
         model.setCookedPatties(patties);
     }

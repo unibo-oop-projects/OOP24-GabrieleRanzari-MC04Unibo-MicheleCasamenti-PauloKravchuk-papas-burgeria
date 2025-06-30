@@ -8,7 +8,7 @@ import it.unibo.papasburgeria.controller.api.OrderSelectionController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.OrderModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
@@ -205,7 +205,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                 HALF_RANGE, HAMBURGER_Y_POS_SCALE,
                 draggableHamburgerSprites, graphics);
 
-        final List<Patty> cookedPatties = controller.getCookedPatties();
+        final List<PattyModel> cookedPatties = controller.getCookedPatties();
         drawingManager.generateCookedPatties(
                 cookedPatties, PATTIES_X_POS_SCALE,
                 PATTIES_Y_POS_SCALE, draggablePattySprites
@@ -292,7 +292,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             final IngredientModel ingredient = sprite.getIngredient();
             if (pbPositionXScale < MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER
                     || pbPositionXScale > MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER) {
-                if (ingredient instanceof Patty patty && controller.addCookedPatty(patty)) {
+                if (ingredient instanceof PattyModel patty && controller.addCookedPatty(patty)) {
                     draggablePattySprites.clear();
                 }
                 controller.removeLastIngredient();
@@ -301,7 +301,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                         ingredient,
                         controller.calculateAccuracy(pbPositionXScale)
                 );
-                if (ingredient instanceof Patty) {
+                if (ingredient instanceof PattyModel) {
                     draggablePattySprites.clear();
                 }
             }
@@ -314,7 +314,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
 
             if (controller.addIngredient(ingredient)) {
                 sprite.setDraggable(false);
-                if (ingredient instanceof Patty patty) {
+                if (ingredient instanceof PattyModel patty) {
                     controller.removeCookedPatty(patty);
                     draggablePattySprites.clear();
                 }

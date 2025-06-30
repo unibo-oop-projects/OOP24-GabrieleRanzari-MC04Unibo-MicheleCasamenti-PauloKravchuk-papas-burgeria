@@ -5,12 +5,12 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.impl.GameModelImpl;
 import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.model.impl.PantryModelImpl;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
+import it.unibo.papasburgeria.model.impl.PattyModelImpl;
 import it.unibo.papasburgeria.model.impl.RegisterModelImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,12 +61,12 @@ class BurgerAssemblyControllerImplTest {
     }
 
     /**
-     * Tests {@link BurgerAssemblyControllerImpl#addCookedPatty(Patty)}
-     * and {@link BurgerAssemblyControllerImpl#removeCookedPatty(Patty)}.
+     * Tests {@link BurgerAssemblyControllerImpl#addCookedPatty(PattyModel)}
+     * and {@link BurgerAssemblyControllerImpl#removeCookedPatty(PattyModel)}.
      */
     @Test
     void testAddAndRemoveCookedPatty() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         assertTrue(controller.addCookedPatty(patty));
         assertTrue(controller.getCookedPatties().contains(patty));
 

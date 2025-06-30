@@ -36,6 +36,16 @@ public class CustomerModelImpl implements CustomerModel {
     }
 
     /**
+     * Constructs a customer with a given Order.
+     *
+     * @param order the customer's order.
+     */
+    public CustomerModelImpl(final OrderModel order) {
+        this.order = order;
+        skinType = ThreadLocalRandom.current().nextInt(EXISTING_SKIN_TYPES);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

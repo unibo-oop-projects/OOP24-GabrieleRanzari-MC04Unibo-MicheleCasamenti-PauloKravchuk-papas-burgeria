@@ -150,7 +150,7 @@ public class CustomerControllerImpl implements CustomerController {
         final List<IngredientModel> list1 = startingHamburger.getIngredients();
         final List<IngredientModel> list2 = madeHamburger.getIngredients();
 
-        /*if either of them are empty, give no money */
+        /*if either of them are empty, return satisfacion % 0 */
         if (list1 == null || list2 == null || list1.isEmpty() || list2.isEmpty()) {
             return 0;
         }
@@ -208,9 +208,13 @@ public class CustomerControllerImpl implements CustomerController {
         }
 
         /* calculates the difficulty percentage (size/maxsize) */
-        final double difficultyPercentage = (double) list1.size() / HamburgerModelImpl.MAX_INGREDIENTS;
+        final double ignoreTwoIngredients = 2.0;
+        final double difficultyPercentage = (list1.size() - ignoreTwoIngredients) / HamburgerModelImpl.MAX_INGREDIENTS;
 
-        return (difficultyPercentage + similarityPercentage + placementPercentage + pattySimilarityPercentage) / 4;
+        final double similarityPercentageWeight = 6.0;
+        final double placementPercentageWeight = 2.0;
+        return (difficultyPercentage + similarityPercentage * similarityPercentageWeight
+        + placementPercentage * placementPercentageWeight + pattySimilarityPercentage) / 10;
     }
 
     /**

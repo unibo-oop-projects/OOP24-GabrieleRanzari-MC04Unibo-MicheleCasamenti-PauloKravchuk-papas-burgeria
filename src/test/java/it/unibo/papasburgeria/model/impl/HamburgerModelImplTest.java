@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Test class for {@link HamburgerModelImpl}.
  */
-class HamburgerImplTest {
+class HamburgerModelImplTest {
     private HamburgerModel hamburger;
 
     /**

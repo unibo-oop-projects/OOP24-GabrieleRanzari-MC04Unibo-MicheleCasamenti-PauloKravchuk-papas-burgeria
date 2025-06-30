@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 /**
  * Test class for {@link IngredientModelImpl}.
  */
-class IngredientImplTest {
+class IngredientModelImplTest {
     private IngredientModelImpl ingredient;
 
     /**

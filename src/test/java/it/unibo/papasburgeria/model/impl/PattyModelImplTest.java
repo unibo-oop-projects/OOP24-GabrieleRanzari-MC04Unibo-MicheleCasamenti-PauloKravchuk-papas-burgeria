@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * Test class for {@link PattyModelImpl}.
  */
-class PattyImplTest {
+class PattyModelImplTest {
     private PattyModel patty;
 
     /**

@@ -2,9 +2,9 @@ package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -63,16 +63,16 @@ class GameModelTest {
     }
 
     /**
-     * Tests {@link GameModelImpl#setHamburgerOnAssembly(Hamburger)}
+     * Tests {@link GameModelImpl#setHamburgerOnAssembly(HamburgerModel)}
      * and {@link GameModelImpl#getHamburgerOnAssembly()}.
      */
     @Test
     void testSetAndGetHamburgerOnAssembly() {
-        final Hamburger hamburger = model.getHamburgerOnAssembly();
-        hamburger.addIngredient(new IngredientImpl(IngredientEnum.BOTTOM_BUN));
+        final HamburgerModel hamburger = model.getHamburgerOnAssembly();
+        hamburger.addIngredient(new IngredientModelImpl(IngredientEnum.BOTTOM_BUN));
         model.setHamburgerOnAssembly(hamburger);
 
-        final Hamburger retrieved = model.getHamburgerOnAssembly();
+        final HamburgerModel retrieved = model.getHamburgerOnAssembly();
         assertNotNull(retrieved);
         assertEquals(hamburger.getIngredients(), retrieved.getIngredients());
     }
@@ -83,21 +83,21 @@ class GameModelTest {
      */
     @Test
     void testSetAndGetCookedPatties() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         model.setCookedPatties(List.of(patty));
         assertEquals(1, model.getCookedPatties().size());
     }
 
     /**
-     * Tests {@link GameModelImpl#setSelectedOrder(Order)}
+     * Tests {@link GameModelImpl#setSelectedOrder(OrderModel)}
      * and {@link GameModelImpl#getSelectedOrder()}.
      */
     @Test
     void testSetAndGetSelectedOrder() {
-        final Order order = new OrderImpl(new HamburgerImpl(), 1);
+        final OrderModel order = new OrderModelImpl(new HamburgerModelImpl(), 1);
         model.setSelectedOrder(order);
 
-        final Order retrieved = model.getSelectedOrder();
+        final OrderModel retrieved = model.getSelectedOrder();
         assertNotNull(retrieved);
         assertEquals(order.getOrderNumber(), retrieved.getOrderNumber());
         assertEquals(order.getHamburger().getIngredients(), retrieved.getHamburger().getIngredients());

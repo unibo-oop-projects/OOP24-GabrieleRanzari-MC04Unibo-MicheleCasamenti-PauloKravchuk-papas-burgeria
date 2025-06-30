@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.api.PattyModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,10 +47,10 @@ public class GameModelImpl implements GameModel {
     private int balance;
     private int currentSaveSlot;
 
-    private Hamburger hamburgerOnAssembly;
-    private Patty[][] pattiesOnGrill;
-    private List<Patty> cookedPatties;
-    private Order selectedOrder;
+    private HamburgerModel hamburgerOnAssembly;
+    private PattyModel[][] pattiesOnGrill;
+    private List<PattyModel> cookedPatties;
+    private OrderModel selectedOrder;
 
     /**
      * Default constructor, initializes the model's variables.
@@ -80,35 +80,35 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Hamburger getHamburgerOnAssembly() {
-        return new HamburgerImpl(hamburgerOnAssembly.getIngredients());
+    public HamburgerModel getHamburgerOnAssembly() {
+        return new HamburgerModelImpl(hamburgerOnAssembly.getIngredients());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setHamburgerOnAssembly(final Hamburger hamburger) {
-        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
+    public void setHamburgerOnAssembly(final HamburgerModel hamburger) {
+        this.hamburgerOnAssembly = new HamburgerModelImpl(hamburger.getIngredients());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Patty[][] getPattiesOnGrill() {
+    public PattyModel[][] getPattiesOnGrill() {
         if (pattiesOnGrill == null) {
-            return new Patty[GRILL_ROWS][GRILL_COLUMNS];
+            return new PattyModel[GRILL_ROWS][GRILL_COLUMNS];
         }
 
-        final Patty[][] newPattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        final PattyModel[][] newPattiesOnGrill = new PattyModel[GRILL_ROWS][GRILL_COLUMNS];
         for (int row = 0; row < GRILL_ROWS; row++) {
             newPattiesOnGrill[row] =
                     Arrays.copyOf(pattiesOnGrill[row], pattiesOnGrill[row].length);
             for (int column = 0; column < GRILL_COLUMNS
                     && pattiesOnGrill[row][column] != null; column++) {
                 newPattiesOnGrill[row][column] =
-                        new PattyImpl(pattiesOnGrill[row][column]);
+                        new PattyModelImpl(pattiesOnGrill[row][column]);
             }
         }
         return newPattiesOnGrill;
@@ -118,8 +118,8 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void setPattiesOnGrill(final Patty[][] patties) {
-        pattiesOnGrill = new Patty[patties.length][];
+    public void setPattiesOnGrill(final PattyModel[][] patties) {
+        pattiesOnGrill = new PattyModel[patties.length][];
         for (int index = 0; index < patties.length; index++) {
             pattiesOnGrill[index] = patties[index].clone();
         }
@@ -129,7 +129,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public List<Patty> getCookedPatties() {
+    public List<PattyModel> getCookedPatties() {
         return new ArrayList<>(cookedPatties);
     }
 
@@ -137,7 +137,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void setCookedPatties(final List<Patty> patties) {
+    public void setCookedPatties(final List<PattyModel> patties) {
         cookedPatties = List.copyOf(patties);
     }
 
@@ -177,7 +177,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Order getSelectedOrder() {
+    public OrderModel getSelectedOrder() {
         if (Objects.isNull(selectedOrder)) {
             return null;
         } else {
@@ -189,7 +189,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void setSelectedOrder(final Order order) {
+    public void setSelectedOrder(final OrderModel order) {
         selectedOrder = order;
     }
 
@@ -214,8 +214,8 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public final void reset() {
-        hamburgerOnAssembly = new HamburgerImpl();
-        pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
+        hamburgerOnAssembly = new HamburgerModelImpl();
+        pattiesOnGrill = new PattyModel[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
         selectedOrder = null;
     }

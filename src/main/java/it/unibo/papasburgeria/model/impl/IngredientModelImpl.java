@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 
 import java.util.Objects;
 
@@ -9,9 +9,9 @@ import java.util.Objects;
  * Implementation of Ingredient.
  *
  * <p>
- * See {@link Ingredient} for interface details.
+ * See {@link IngredientModel} for interface details.
  */
-public class IngredientImpl implements Ingredient {
+public class IngredientModelImpl implements IngredientModel {
     /**
      * Defines the maximum right accuracy.
      */
@@ -36,7 +36,7 @@ public class IngredientImpl implements Ingredient {
      *
      * @param type type of ingredient
      */
-    public IngredientImpl(final IngredientEnum type) {
+    public IngredientModelImpl(final IngredientEnum type) {
         this.type = type;
         accuracy = DEFAULT_ACCURACY;
     }
@@ -46,7 +46,7 @@ public class IngredientImpl implements Ingredient {
      *
      * @param ingredient the ingredient to copy.
      */
-    public IngredientImpl(final Ingredient ingredient) {
+    public IngredientModelImpl(final IngredientModel ingredient) {
         type = ingredient.getIngredientType();
         accuracy = ingredient.getPlacementAccuracy();
     }
@@ -86,7 +86,7 @@ public class IngredientImpl implements Ingredient {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        final Ingredient other = (Ingredient) object;
+        final IngredientModel other = (IngredientModel) object;
         return type == other.getIngredientType();
     }
 

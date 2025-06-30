@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.controller.api.OrderSelectionController;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.OrderModel;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.Sprite;
@@ -57,7 +57,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
     private final transient DrawingManagerImpl drawingManager;
     private final transient GameController gameController;
     private final transient List<Sprite> draggableOrderSprites;
-    private final transient Map<Sprite, Order> spriteOrders;
+    private final transient Map<Sprite, OrderModel> spriteOrders;
 
     /**
      * Default constructor, creates and initializes the GUI elements.
@@ -126,7 +126,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
                 new ArrayList<>(), graphics);
 
         for (final Sprite sprite : draggableOrderSprites) {
-            final Order order = spriteOrders.get(sprite);
+            final OrderModel order = spriteOrders.get(sprite);
             drawingManager.drawOrder(sprite, order, getSize(), graphics);
         }
     }
@@ -194,7 +194,7 @@ public class OrderSelectionViewImpl extends AbstractBaseView implements SpriteDr
      * Creates the sprites for the orders stored in the model.
      */
     private void readOrders() {
-        final List<Order> orders = controller.getOrders();
+        final List<OrderModel> orders = controller.getOrders();
         draggableOrderSprites.clear();
         spriteOrders.clear();
         drawingManager.generateOrderSprites(orders, draggableOrderSprites, spriteOrders);

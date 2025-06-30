@@ -1,6 +1,6 @@
 package it.unibo.papasburgeria.controller.api;
 
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface GrillController {
      *
      * @return the matrix of patties
      */
-    Patty[][] getPattiesOnGrill();
+    PattyModel[][] getPattiesOnGrill();
 
     /**
      * Adds the patty to the grill if the slot is free.
@@ -24,21 +24,21 @@ public interface GrillController {
      * @param pbPositionYScale the y position in a scale of the patty
      * @return true if the patty was added, false otherwise
      */
-    boolean addPattyOnGrill(Patty patty, double pbPositionXScale, double pbPositionYScale);
+    boolean addPattyOnGrill(PattyModel patty, double pbPositionXScale, double pbPositionYScale);
 
     /**
      * Removes the patty from the grill.
      *
      * @param patty the patty to remove
      */
-    void removePattyFromGrill(Patty patty);
+    void removePattyFromGrill(PattyModel patty);
 
     /**
      * Returns the list of cooked patties.
      *
      * @return the list of patties
      */
-    List<Patty> getCookedPatties();
+    List<PattyModel> getCookedPatties();
 
     /**
      * Adds the patty to the list of cooked patties.
@@ -46,21 +46,21 @@ public interface GrillController {
      * @param patty the patty to add
      * @return true if the patty was added, false otherwise
      */
-    boolean addCookedPatty(Patty patty);
+    boolean addCookedPatty(PattyModel patty);
 
     /**
      * Removes the patty from the list of cooked patties.
      *
      * @param patty the patty to remove
      */
-    void removeCookedPatty(Patty patty);
+    void removeCookedPatty(PattyModel patty);
 
     /**
      * Flips the patty.
      *
      * @param patty the patty to flip
      */
-    void flipPatty(Patty patty);
+    void flipPatty(PattyModel patty);
 
     /**
      * Cooks all the patties on the grill.

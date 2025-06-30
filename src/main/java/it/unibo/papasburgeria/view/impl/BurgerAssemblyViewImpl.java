@@ -6,10 +6,10 @@ import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.controller.api.OrderSelectionController;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
+import it.unibo.papasburgeria.model.api.IngredientModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.api.PattyModel;
+import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
@@ -95,7 +95,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     private final transient List<Sprite> draggablePattySprites;
     private final transient List<Sprite> draggableHamburgerSprites;
     private final transient List<Sprite> orderSprites;
-    private final transient Map<Sprite, Order> spriteOrders;
+    private final transient Map<Sprite, OrderModel> spriteOrders;
 
     /**
      * Default constructor, creates and initializes the GUI elements.
@@ -142,7 +142,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                 final Image image =
                         resourceService.getImage(ingredientType.getName() + EXTENSION);
                 final Sprite sprite =
-                        new SpriteImpl(image, new IngredientImpl(ingredientType),
+                        new SpriteImpl(image, new IngredientModelImpl(ingredientType),
                                 pbPositionXScale, pbPositionYScale,
                                 INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE);
 
@@ -166,7 +166,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             final Image image =
                     resourceService.getImage(ingredientType.getName() + BOTTLE_EXTENSION + EXTENSION);
 
-            final Sprite sprite = new SpriteImpl(image, new IngredientImpl(ingredientType),
+            final Sprite sprite = new SpriteImpl(image, new IngredientModelImpl(ingredientType),
                     pbPositionXScale, pbPositionYScale, SAUCE_BOTTLES_X_SIZE_SCALE, SAUCE_BOTTLES_Y_SIZE_SCALE);
 
             if (controller.isIngredientUnlocked(ingredientType)) {
@@ -196,7 +196,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
     @Override
     final void paintComponentDelegate(final Graphics graphics) {
         for (final Sprite sprite : orderSprites) {
-            final Order order = spriteOrders.get(sprite);
+            final OrderModel order = spriteOrders.get(sprite);
             drawingManager.drawOrder(sprite, order, getSize(), graphics);
         }
 
@@ -205,7 +205,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                 HALF_RANGE, HAMBURGER_Y_POS_SCALE,
                 draggableHamburgerSprites, graphics);
 
-        final List<Patty> cookedPatties = controller.getCookedPatties();
+        final List<PattyModel> cookedPatties = controller.getCookedPatties();
         drawingManager.generateCookedPatties(
                 cookedPatties, PATTIES_X_POS_SCALE,
                 PATTIES_Y_POS_SCALE, draggablePattySprites
@@ -289,10 +289,10 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
             pbPositionXScale = pbPositionXScale - SAUCE_BOTTLES_X_SIZE_SCALE / 2;
         }
         if (sprite.isRemovable()) {
-            final Ingredient ingredient = sprite.getIngredient();
+            final IngredientModel ingredient = sprite.getIngredient();
             if (pbPositionXScale < MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER
                     || pbPositionXScale > MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER) {
-                if (ingredient instanceof Patty patty && controller.addCookedPatty(patty)) {
+                if (ingredient instanceof PattyModel patty && controller.addCookedPatty(patty)) {
                     draggablePattySprites.clear();
                 }
                 controller.removeLastIngredient();
@@ -301,7 +301,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
                         ingredient,
                         controller.calculateAccuracy(pbPositionXScale)
                 );
-                if (ingredient instanceof Patty) {
+                if (ingredient instanceof PattyModel) {
                     draggablePattySprites.clear();
                 }
             }
@@ -309,12 +309,12 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
         if (pbPositionXScale > MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER
                 && pbPositionXScale < MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER
                 && !sprite.isRemovable()) {
-            final Ingredient ingredient = sprite.getIngredient();
+            final IngredientModel ingredient = sprite.getIngredient();
             ingredient.setPlacementAccuracy(controller.calculateAccuracy(pbPositionXScale));
 
             if (controller.addIngredient(ingredient)) {
                 sprite.setDraggable(false);
-                if (ingredient instanceof Patty patty) {
+                if (ingredient instanceof PattyModel patty) {
                     controller.removeCookedPatty(patty);
                     draggablePattySprites.clear();
                 }
@@ -352,7 +352,7 @@ public class BurgerAssemblyViewImpl extends AbstractBaseView implements SpriteDr
      * Creates the sprites for the orders stored in the model.
      */
     private void readOrders() {
-        final List<Order> orders = orderSelectionController.getOrders();
+        final List<OrderModel> orders = orderSelectionController.getOrders();
         orderSprites.clear();
         spriteOrders.clear();
         drawingManager.generateOrderSprites(orders, orderSprites, spriteOrders);

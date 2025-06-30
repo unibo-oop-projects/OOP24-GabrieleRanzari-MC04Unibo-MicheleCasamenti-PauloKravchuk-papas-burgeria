@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 
 import java.util.List;
 
@@ -15,21 +15,21 @@ public interface OrderSelectionController {
      *
      * @return the list of orders
      */
-    List<Order> getOrders();
+    List<OrderModel> getOrders();
 
     /**
      * Returns the hamburger on assembly.
      *
      * @return the hamburger
      */
-    Hamburger getHamburger();
+    HamburgerModel getHamburger();
 
     /**
      * sets a new order as the selected one.
      *
      * @param order the selected order
      */
-    void setSelectedOrder(Order order);
+    void setSelectedOrder(OrderModel order);
 
     /**
      * Removes the top bun from the hamburger on assembly.

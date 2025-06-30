@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.view.api.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -101,14 +101,14 @@ public interface Sprite {
      *
      * @return the ingredient
      */
-    Ingredient getIngredient();
+    IngredientModel getIngredient();
 
     /**
      * Sets the sprite ingredient to a new ingredient.
      *
      * @param ingredient the new ingredient
      */
-    void setIngredient(Ingredient ingredient);
+    void setIngredient(IngredientModel ingredient);
 
     /**
      * Returns the type of the ingredient.

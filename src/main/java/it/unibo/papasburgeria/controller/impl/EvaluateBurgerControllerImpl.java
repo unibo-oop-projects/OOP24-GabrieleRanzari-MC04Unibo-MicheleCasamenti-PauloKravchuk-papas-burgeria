@@ -3,9 +3,9 @@ package it.unibo.papasburgeria.controller.impl;
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.impl.HamburgerImpl;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.impl.HamburgerModelImpl;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class EvaluateBurgerControllerImpl implements EvaluateBurgerController {
      * {@inheritDoc}
      */
     @Override
-    public Hamburger getHamburgerOnAssembly() {
+    public HamburgerModel getHamburgerOnAssembly() {
         if (Objects.isNull(model.getHamburgerOnAssembly())) {
             return null;
         } else {
@@ -39,7 +39,7 @@ public class EvaluateBurgerControllerImpl implements EvaluateBurgerController {
      * {@inheritDoc}
      */
     @Override
-    public Order getSelectedOrder() {
+    public OrderModel getSelectedOrder() {
         if (Objects.isNull(model.getSelectedOrder())) {
             return null;
         } else {
@@ -52,6 +52,6 @@ public class EvaluateBurgerControllerImpl implements EvaluateBurgerController {
      */
     @Override
     public void emptyHamburgerOnAssembly() {
-        model.setHamburgerOnAssembly(new HamburgerImpl());
+        model.setHamburgerOnAssembly(new HamburgerModelImpl());
     }
 }

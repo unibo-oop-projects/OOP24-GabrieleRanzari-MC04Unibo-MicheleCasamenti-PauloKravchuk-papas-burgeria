@@ -5,7 +5,7 @@ import it.unibo.papasburgeria.model.IngredientEnum;
 /**
  * Interface used for creating Ingredients in the game.
  */
-public interface Ingredient {
+public interface IngredientModel {
 
     /**
      * Returns the type of this ingredient.

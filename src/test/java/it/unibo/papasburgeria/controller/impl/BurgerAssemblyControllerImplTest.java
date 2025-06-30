@@ -3,14 +3,14 @@ package it.unibo.papasburgeria.controller.impl;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 import it.unibo.papasburgeria.model.impl.GameModelImpl;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
+import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.model.impl.PantryModelImpl;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
+import it.unibo.papasburgeria.model.impl.PattyModelImpl;
 import it.unibo.papasburgeria.model.impl.RegisterModelImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,11 +41,11 @@ class BurgerAssemblyControllerImplTest {
     }
 
     /**
-     * Tests {@link BurgerAssemblyControllerImpl#addIngredient(Ingredient)}.
+     * Tests {@link BurgerAssemblyControllerImpl#addIngredient(IngredientModel)}.
      */
     @Test
     void testAddIngredient() {
-        final Ingredient ingredient = new IngredientImpl(IngredientEnum.BOTTOM_BUN);
+        final IngredientModel ingredient = new IngredientModelImpl(IngredientEnum.BOTTOM_BUN);
         assertTrue(controller.addIngredient(ingredient));
     }
 
@@ -54,19 +54,19 @@ class BurgerAssemblyControllerImplTest {
      */
     @Test
     void testRemoveLastIngredient() {
-        final Ingredient ingredient = new IngredientImpl(IngredientEnum.BOTTOM_BUN);
+        final IngredientModel ingredient = new IngredientModelImpl(IngredientEnum.BOTTOM_BUN);
         controller.addIngredient(ingredient);
         controller.removeLastIngredient();
         assertTrue(controller.getHamburgerOnAssembly().getIngredients().isEmpty());
     }
 
     /**
-     * Tests {@link BurgerAssemblyControllerImpl#addCookedPatty(Patty)}
-     * and {@link BurgerAssemblyControllerImpl#removeCookedPatty(Patty)}.
+     * Tests {@link BurgerAssemblyControllerImpl#addCookedPatty(PattyModel)}
+     * and {@link BurgerAssemblyControllerImpl#removeCookedPatty(PattyModel)}.
      */
     @Test
     void testAddAndRemoveCookedPatty() {
-        final Patty patty = new PattyImpl();
+        final PattyModel patty = new PattyModelImpl();
         assertTrue(controller.addCookedPatty(patty));
         assertTrue(controller.getCookedPatties().contains(patty));
 
@@ -84,18 +84,18 @@ class BurgerAssemblyControllerImplTest {
     }
 
     /**
-     * Tests {@link BurgerAssemblyControllerImpl#changeIngredientAccuracy(Ingredient, double)}.
+     * Tests {@link BurgerAssemblyControllerImpl#changeIngredientAccuracy(IngredientModel, double)}.
      */
     @Test
     void testChangeIngredientAccuracy() {
         final double accuracy = 0.3;
 
-        Ingredient ingredient = new IngredientImpl(IngredientEnum.BOTTOM_BUN);
+        IngredientModel ingredient = new IngredientModelImpl(IngredientEnum.BOTTOM_BUN);
         controller.addIngredient(ingredient);
         controller.changeIngredientAccuracy(ingredient, accuracy);
         assertEquals(0.0, controller.getHamburgerOnAssembly().getIngredients().getFirst().getPlacementAccuracy());
 
-        ingredient = new IngredientImpl(IngredientEnum.TOMATO);
+        ingredient = new IngredientModelImpl(IngredientEnum.TOMATO);
         controller.addIngredient(ingredient);
         controller.changeIngredientAccuracy(ingredient, accuracy);
         assertEquals(accuracy, controller.getHamburgerOnAssembly().getIngredients().get(1).getPlacementAccuracy());

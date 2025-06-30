@@ -3,8 +3,8 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.GrillController;
-import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
+import it.unibo.papasburgeria.model.api.PattyModel;
+import it.unibo.papasburgeria.model.impl.PattyModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.api.components.Sprite;
@@ -21,8 +21,8 @@ import java.util.List;
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_COLUMNS;
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.GRILL_ROWS;
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MAX_COOK_LEVEL;
-import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MAX_COOK_LEVEL;
+import static it.unibo.papasburgeria.model.impl.PattyModelImpl.MIN_COOK_LEVEL;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.EXTENSION;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_X_SIZE_SCALE;
 import static it.unibo.papasburgeria.view.impl.components.DrawingManagerImpl.INGREDIENTS_Y_SIZE_SCALE;
@@ -73,7 +73,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     /**
      * Defines the number of seconds needed to fully cook a patty that is on the grill.
      */
-    public static final double SECONDS_TO_FULLY_COOK_PATTY = 20.0;
+    public static final double SECONDS_TO_FULLY_COOK_PATTY = 15.0;
     /**
      * Defines the increment per second of the cook level of a patty that is on the grill.
      */
@@ -126,7 +126,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
 
         double pbPositionYScale = RAW_PATTIES_Y_POS_SCALE;
         final Sprite pattySprite = new SpriteImpl(resourceService.getImage(
-                PATTY.getName() + EXTENSION), new PattyImpl(),
+                PATTY.getName() + EXTENSION), new PattyModelImpl(),
                 RAW_PATTIES_X_POS_SCALE, pbPositionYScale,
                 INGREDIENTS_X_SIZE_SCALE, INGREDIENTS_Y_SIZE_SCALE
         );
@@ -158,7 +158,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
      */
     @Override
     void paintComponentDelegate(final Graphics graphics) {
-        final List<Patty> cookedPatties = controller.getCookedPatties();
+        final List<PattyModel> cookedPatties = controller.getCookedPatties();
         drawingManager.generateCookedPatties(
                 cookedPatties,
                 COOKED_PATTIES_X_POS_SCALE,
@@ -166,7 +166,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
                 draggableCookedPatties
         );
 
-        final Patty[][] pattiesOnGrill = controller.getPattiesOnGrill();
+        final PattyModel[][] pattiesOnGrill = controller.getPattiesOnGrill();
         drawingManager.generatePattiesOnGrill(pattiesOnGrill, draggablePattiesOnGrill);
 
         for (final Sprite sprite : draggableCookedPatties) {
@@ -210,7 +210,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
         final double pbPositionYScale =
                 sprite.getPbPositionYScale() + INGREDIENTS_Y_SIZE_SCALE / 2;
 
-        final Patty patty = (Patty) sprite.getIngredient();
+        final PattyModel patty = (PattyModel) sprite.getIngredient();
         if (pbPositionXScale > MIN_X_POS_SCALE_TO_DROP_ON_GRILL
                 && pbPositionXScale < MAX_X_POS_SCALE_TO_DROP_ON_GRILL
                 && pbPositionYScale > MIN_Y_POS_SCALE_TO_DROP_ON_GRILL
@@ -263,7 +263,7 @@ public class GrillViewImpl extends AbstractBaseView implements SpriteDropListene
     public void spriteClicked(final Sprite sprite) {
         final double pbPositionXScale = sprite.getPbPositionXScale();
         final double pbPositionYScale = sprite.getPbPositionYScale();
-        final Patty patty = (Patty) sprite.getIngredient();
+        final PattyModel patty = (PattyModel) sprite.getIngredient();
 
         if (pbPositionXScale > MIN_X_POS_SCALE_TO_DROP_ON_GRILL
                 && pbPositionXScale < MAX_X_POS_SCALE_TO_DROP_ON_GRILL

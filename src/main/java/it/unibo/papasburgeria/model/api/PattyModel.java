@@ -3,7 +3,7 @@ package it.unibo.papasburgeria.model.api;
 /**
  * Models a patty that can be flipped and cooked on both sides.
  */
-public interface Patty {
+public interface PattyModel {
     /**
      * Flips the patty.
      */

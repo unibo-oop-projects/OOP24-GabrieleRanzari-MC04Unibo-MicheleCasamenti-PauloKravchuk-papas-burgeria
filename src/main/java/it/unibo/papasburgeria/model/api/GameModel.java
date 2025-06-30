@@ -19,42 +19,42 @@ public interface GameModel {
      *
      * @return the hamburger
      */
-    Hamburger getHamburgerOnAssembly();
+    HamburgerModel getHamburgerOnAssembly();
 
     /**
      * Sets the hamburger on assembly to the new hamburger.
      *
      * @param hamburger the new hamburger
      */
-    void setHamburgerOnAssembly(Hamburger hamburger);
+    void setHamburgerOnAssembly(HamburgerModel hamburger);
 
     /**
      * Returns the matrix of patties that are on the grill.
      *
      * @return the matrix of patties
      */
-    Patty[][] getPattiesOnGrill();
+    PattyModel[][] getPattiesOnGrill();
 
     /**
      * Sets the matrix of patties that are on the grill to the new matrix of patties.
      *
      * @param patties the new matrix of patties
      */
-    void setPattiesOnGrill(Patty[][] patties);
+    void setPattiesOnGrill(PattyModel[][] patties);
 
     /**
      * Returns the list of cooked patties.
      *
      * @return the list of patties
      */
-    List<Patty> getCookedPatties();
+    List<PattyModel> getCookedPatties();
 
     /**
      * Sets the list of cooked patties to the new list of patties.
      *
      * @param patties the new list of patties
      */
-    void setCookedPatties(List<Patty> patties);
+    void setCookedPatties(List<PattyModel> patties);
 
     /**
      * Returns the current day number.
@@ -89,14 +89,14 @@ public interface GameModel {
      *
      * @return the order
      */
-    Order getSelectedOrder();
+    OrderModel getSelectedOrder();
 
     /**
      * Sets a new order as the selected one.
      *
      * @param order the selected order
      */
-    void setSelectedOrder(Order order);
+    void setSelectedOrder(OrderModel order);
 
     /**
      * Used to obtain the currently selected save slot.

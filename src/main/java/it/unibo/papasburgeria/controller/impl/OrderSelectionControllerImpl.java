@@ -4,10 +4,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.OrderSelectionController;
-import it.unibo.papasburgeria.model.api.Customer;
+import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
 import java.util.ArrayList;
@@ -38,10 +38,10 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
      * {@inheritDoc}
      */
     @Override
-    public List<Order> getOrders() {
-        final List<Customer> waitingCustomers = registerModel.getWaitLine();
-        final List<Order> orders = new ArrayList<>();
-        for (final Customer waitingCustomer : waitingCustomers) {
+    public List<OrderModel> getOrders() {
+        final List<CustomerModel> waitingCustomers = registerModel.getWaitLine();
+        final List<OrderModel> orders = new ArrayList<>();
+        for (final CustomerModel waitingCustomer : waitingCustomers) {
             orders.add(waitingCustomer.getOrder());
         }
         return new ArrayList<>(orders);
@@ -51,7 +51,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
      * {@inheritDoc}
      */
     @Override
-    public Hamburger getHamburger() {
+    public HamburgerModel getHamburger() {
         return model.getHamburgerOnAssembly().copyOf();
     }
 
@@ -59,7 +59,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
      * {@inheritDoc}
      */
     @Override
-    public void setSelectedOrder(final Order order) {
+    public void setSelectedOrder(final OrderModel order) {
         model.setSelectedOrder(order);
     }
 
@@ -68,7 +68,7 @@ public class OrderSelectionControllerImpl implements OrderSelectionController {
      */
     @Override
     public void removeTopBun() {
-        final Hamburger hamburgerOnAssembly = model.getHamburgerOnAssembly();
+        final HamburgerModel hamburgerOnAssembly = model.getHamburgerOnAssembly();
         hamburgerOnAssembly.removeLastIngredient();
         model.setHamburgerOnAssembly(hamburgerOnAssembly);
     }

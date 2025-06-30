@@ -1,10 +1,10 @@
 package it.unibo.papasburgeria.view.impl.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
-import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
-import it.unibo.papasburgeria.model.impl.PattyImpl;
+import it.unibo.papasburgeria.model.api.IngredientModel;
+import it.unibo.papasburgeria.model.api.PattyModel;
+import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
+import it.unibo.papasburgeria.model.impl.PattyModelImpl;
 import it.unibo.papasburgeria.view.api.components.Sprite;
 
 import java.awt.Dimension;
@@ -30,7 +30,7 @@ public class SpriteImpl implements Sprite {
     private double pbPositionXScale;
     private double pbPositionYScale;
     private List<Image> images;
-    private Ingredient ingredient;
+    private IngredientModel ingredient;
 
     private boolean draggable; // Indicates whether the sprite can be dragged directly.
     private boolean visible;   // Indicates whether the sprite is currently visible.
@@ -50,17 +50,17 @@ public class SpriteImpl implements Sprite {
      * @param pbSizeYScale     the height in scale
      */
     public SpriteImpl(final Image image,
-                      final Ingredient ingredient,
+                      final IngredientModel ingredient,
                       final double pbPositionXScale,
                       final double pbPositionYScale,
                       final double pbSizeXScale,
                       final double pbSizeYScale
     ) {
         this.images = new ArrayList<>(List.of(image));
-        if (ingredient instanceof Patty patty) {
-            this.ingredient = new PattyImpl(patty);
+        if (ingredient instanceof PattyModel patty) {
+            this.ingredient = new PattyModelImpl(patty);
         } else {
-            this.ingredient = new IngredientImpl(ingredient);
+            this.ingredient = new IngredientModelImpl(ingredient);
         }
         this.pbPositionXScale = pbPositionXScale;
         this.pbPositionYScale = pbPositionYScale;
@@ -80,11 +80,11 @@ public class SpriteImpl implements Sprite {
      */
     public SpriteImpl(final Sprite sprite) {
         this.images = sprite.getImages();
-        final Ingredient newIngredient = sprite.getIngredient();
-        if (newIngredient instanceof Patty patty) {
-            this.ingredient = new PattyImpl(patty);
+        final IngredientModel newIngredient = sprite.getIngredient();
+        if (newIngredient instanceof PattyModel patty) {
+            this.ingredient = new PattyModelImpl(patty);
         } else {
-            this.ingredient = new IngredientImpl(newIngredient);
+            this.ingredient = new IngredientModelImpl(newIngredient);
         }
         this.pbPositionXScale = sprite.getPbPositionXScale();
         this.pbPositionYScale = sprite.getPbPositionYScale();
@@ -197,11 +197,11 @@ public class SpriteImpl implements Sprite {
      * {@inheritDoc}
      */
     @Override
-    public Ingredient getIngredient() {
-        if (ingredient instanceof Patty patty) {
-            return new PattyImpl(patty);
+    public IngredientModel getIngredient() {
+        if (ingredient instanceof PattyModel patty) {
+            return new PattyModelImpl(patty);
         } else {
-            return new IngredientImpl(ingredient);
+            return new IngredientModelImpl(ingredient);
         }
     }
 
@@ -209,11 +209,11 @@ public class SpriteImpl implements Sprite {
      * {@inheritDoc}
      */
     @Override
-    public void setIngredient(final Ingredient newIngredient) {
-        if (newIngredient instanceof Patty patty) {
-            ingredient = new PattyImpl(patty);
+    public void setIngredient(final IngredientModel newIngredient) {
+        if (newIngredient instanceof PattyModel patty) {
+            ingredient = new PattyModelImpl(patty);
         } else {
-            ingredient = new IngredientImpl(newIngredient);
+            ingredient = new IngredientModelImpl(newIngredient);
         }
     }
 

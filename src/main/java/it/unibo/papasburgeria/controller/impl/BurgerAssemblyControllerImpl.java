@@ -6,18 +6,18 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.BurgerAssemblyController;
 import it.unibo.papasburgeria.model.IngredientEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
 import java.util.List;
 
 import static it.unibo.papasburgeria.model.impl.GameModelImpl.MAX_COOKED_PATTIES;
-import static it.unibo.papasburgeria.model.impl.HamburgerImpl.MAX_INGREDIENTS;
-import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
-import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.HamburgerModelImpl.MAX_INGREDIENTS;
+import static it.unibo.papasburgeria.model.impl.IngredientModelImpl.MAX_LEFT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.IngredientModelImpl.MAX_RIGHT_ACCURACY;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MAX_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.MIN_X_POS_SCALE_TO_DROP_ON_HAMBURGER;
@@ -53,12 +53,12 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public boolean addIngredient(final Ingredient ingredient) {
+    public boolean addIngredient(final IngredientModel ingredient) {
         if (model.getHamburgerOnAssembly().getIngredients().size() == MAX_INGREDIENTS + 2) {
             return false;
         }
 
-        final Hamburger hamburger = model.getHamburgerOnAssembly();
+        final HamburgerModel hamburger = model.getHamburgerOnAssembly();
         if (hamburger.addIngredient(ingredient)) {
             model.setHamburgerOnAssembly(hamburger);
             return true;
@@ -71,7 +71,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      */
     @Override
     public void removeLastIngredient() {
-        final Hamburger hamburger = model.getHamburgerOnAssembly();
+        final HamburgerModel hamburger = model.getHamburgerOnAssembly();
         if (hamburger.getIngredients().isEmpty()) {
             return;
         }
@@ -85,7 +85,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public Hamburger getHamburgerOnAssembly() {
+    public HamburgerModel getHamburgerOnAssembly() {
         return model.getHamburgerOnAssembly().copyOf();
     }
 
@@ -101,7 +101,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public List<Patty> getCookedPatties() {
+    public List<PattyModel> getCookedPatties() {
         return List.copyOf(model.getCookedPatties());
     }
 
@@ -109,8 +109,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public boolean addCookedPatty(final Patty patty) {
-        final List<Patty> patties = model.getCookedPatties();
+    public boolean addCookedPatty(final PattyModel patty) {
+        final List<PattyModel> patties = model.getCookedPatties();
         if (patties.size() == MAX_COOKED_PATTIES) {
             return false;
         }
@@ -123,8 +123,8 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public void removeCookedPatty(final Patty patty) {
-        final List<Patty> patties = model.getCookedPatties();
+    public void removeCookedPatty(final PattyModel patty) {
+        final List<PattyModel> patties = model.getCookedPatties();
         patties.remove(patty);
         model.setCookedPatties(patties);
     }
@@ -145,7 +145,7 @@ public class BurgerAssemblyControllerImpl implements BurgerAssemblyController {
      * {@inheritDoc}
      */
     @Override
-    public void changeIngredientAccuracy(final Ingredient ingredient, final double accuracy) {
+    public void changeIngredientAccuracy(final IngredientModel ingredient, final double accuracy) {
         ingredient.setPlacementAccuracy(accuracy);
         removeLastIngredient();
         addIngredient(ingredient);

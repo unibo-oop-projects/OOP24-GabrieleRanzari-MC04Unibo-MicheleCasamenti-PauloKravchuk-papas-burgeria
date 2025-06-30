@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Models how the shop should function.
  */
-public interface Shop {
+public interface ShopModel {
     /**
      * Unlocks the selected upgrade.
      *

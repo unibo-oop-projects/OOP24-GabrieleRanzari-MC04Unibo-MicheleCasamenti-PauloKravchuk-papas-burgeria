@@ -5,7 +5,7 @@ import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.api.GameModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
-import it.unibo.papasburgeria.model.api.Shop;
+import it.unibo.papasburgeria.model.api.ShopModel;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SaveService;
 import it.unibo.papasburgeria.utils.api.scene.SceneService;
@@ -26,7 +26,7 @@ import java.io.IOException;
 public class GameControllerImpl implements GameController {
     private final GameModel gameModel;
     private final PantryModel pantryModel;
-    private final Shop shopModel;
+    private final ShopModel shopModel;
     private final SceneService sceneService;
     private final ResourceService resourceService;
     private final SaveService saveService;
@@ -47,7 +47,7 @@ public class GameControllerImpl implements GameController {
     public GameControllerImpl(
             final GameModel gameModel,
             final PantryModel pantryModel,
-            final Shop shopModel,
+            final ShopModel shopModel,
             final SceneService sceneService,
             final ResourceService resourceService,
             final SaveService saveService,

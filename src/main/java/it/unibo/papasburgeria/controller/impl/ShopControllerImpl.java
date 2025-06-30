@@ -6,7 +6,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.ShopController;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Shop;
+import it.unibo.papasburgeria.model.api.ShopModel;
 
 /**
  * Manages the interaction between the View and the Model for the shop scene.
@@ -15,7 +15,7 @@ import it.unibo.papasburgeria.model.api.Shop;
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "The models are injected and shared intentionally")
 public class ShopControllerImpl implements ShopController {
     private final GameModel model;
-    private final Shop shop;
+    private final ShopModel shop;
 
     /**
      * Default constructor that saves the models given via injection.
@@ -24,7 +24,7 @@ public class ShopControllerImpl implements ShopController {
      * @param shop  the shop model
      */
     @Inject
-    public ShopControllerImpl(final GameModel model, final Shop shop) {
+    public ShopControllerImpl(final GameModel model, final ShopModel shop) {
         this.model = model;
         this.shop = shop;
     }

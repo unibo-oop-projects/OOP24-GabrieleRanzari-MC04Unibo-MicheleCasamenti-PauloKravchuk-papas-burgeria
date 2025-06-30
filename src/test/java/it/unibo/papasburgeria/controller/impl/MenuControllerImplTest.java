@@ -3,9 +3,9 @@ package it.unibo.papasburgeria.controller.impl;
 import it.unibo.papasburgeria.controller.api.MenuController;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.api.PattyModel;
 import it.unibo.papasburgeria.utils.api.SaveService;
 import it.unibo.papasburgeria.utils.impl.saving.SaveInfo;
 import it.unibo.papasburgeria.utils.impl.saving.SaveState;
@@ -178,7 +178,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public Hamburger getHamburgerOnAssembly() {
+        public HamburgerModel getHamburgerOnAssembly() {
             return null;
         }
 
@@ -186,29 +186,29 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public void setHamburgerOnAssembly(final Hamburger hamburger) {
+        public void setHamburgerOnAssembly(final HamburgerModel hamburger) {
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public Patty[][] getPattiesOnGrill() {
-            return new Patty[0][];
+        public PattyModel[][] getPattiesOnGrill() {
+            return new PattyModel[0][];
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public void setPattiesOnGrill(final Patty[][] patties) {
+        public void setPattiesOnGrill(final PattyModel[][] patties) {
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public List<Patty> getCookedPatties() {
+        public List<PattyModel> getCookedPatties() {
             return List.of();
         }
 
@@ -216,7 +216,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public void setCookedPatties(final List<Patty> patties) {
+        public void setCookedPatties(final List<PattyModel> patties) {
         }
 
         /**
@@ -253,7 +253,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public Order getSelectedOrder() {
+        public OrderModel getSelectedOrder() {
             return null;
         }
 
@@ -261,7 +261,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public void setSelectedOrder(final Order order) {
+        public void setSelectedOrder(final OrderModel order) {
         }
 
         /**

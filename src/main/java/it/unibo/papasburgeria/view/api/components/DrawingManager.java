@@ -1,9 +1,9 @@
 package it.unibo.papasburgeria.view.api.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.api.Patty;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.api.PattyModel;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -26,7 +26,7 @@ public interface DrawingManager {
      * @param graphics                  the graphics
      */
     void drawHamburger(
-            Hamburger hamburger,
+            HamburgerModel hamburger,
             Dimension frameSize,
             double bottomBunXPosScale,
             double bottomBunYPosScale,
@@ -59,7 +59,7 @@ public interface DrawingManager {
      */
     void drawOrder(
             Sprite sprite,
-            Order order,
+            OrderModel order,
             Dimension frameSize,
             Graphics graphics
     );
@@ -73,7 +73,7 @@ public interface DrawingManager {
      * @param draggablePattySprites   the list of draggable sprites
      */
     void generateCookedPatties(
-            List<Patty> cookedPatties,
+            List<PattyModel> cookedPatties,
             double pbPositionXScale,
             double initialPbPositionYScale,
             List<Sprite> draggablePattySprites
@@ -86,7 +86,7 @@ public interface DrawingManager {
      * @param draggablePattiesOnGrill the list of draggable patties on the grill
      */
     void generatePattiesOnGrill(
-            Patty[][] pattiesOnGrill,
+            PattyModel[][] pattiesOnGrill,
             List<Sprite> draggablePattiesOnGrill
     );
 
@@ -98,8 +98,8 @@ public interface DrawingManager {
      * @param spriteOrders          the map of orders for every sprite
      */
     void generateOrderSprites(
-            List<Order> orders,
+            List<OrderModel> orders,
             List<Sprite> draggableOrderSprites,
-            Map<Sprite, Order> spriteOrders
+            Map<Sprite, OrderModel> spriteOrders
     );
 }

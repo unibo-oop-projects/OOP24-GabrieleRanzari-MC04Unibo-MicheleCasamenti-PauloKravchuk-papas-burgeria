@@ -2,7 +2,7 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.UpgradeEnum;
-import it.unibo.papasburgeria.model.api.Shop;
+import it.unibo.papasburgeria.model.api.ShopModel;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -11,13 +11,13 @@ import java.util.Map;
  * Implementation of Shop.
  *
  * <p>
- * See {@link Shop} for interface details.
+ * See {@link ShopModel} for interface details.
  */
 @Singleton
-public class ShopImpl implements Shop {
+public class ShopModelImpl implements ShopModel {
     private final Map<UpgradeEnum, Boolean> upgrades;
 
-    ShopImpl() {
+    ShopModelImpl() {
         this.upgrades = new EnumMap<>(UpgradeEnum.class);
         for (final UpgradeEnum currentUpgrade : UpgradeEnum.values()) {
             this.upgrades.put(currentUpgrade, false);

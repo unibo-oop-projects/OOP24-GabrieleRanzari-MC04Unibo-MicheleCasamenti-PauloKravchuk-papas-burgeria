@@ -16,9 +16,18 @@ import java.util.List;
  */
 @Singleton
 public class RegisterModelImpl implements RegisterModel {
-    private final List<Customer> registerLine = new LinkedList<>();
-    private final List<Customer> waitLine = new LinkedList<>();
-    private CustomerThread customerThread = new CustomerThread(0, -1, null, this);
+    private final List<Customer> registerLine;
+    private final List<Customer> waitLine;
+    private CustomerThread customerThread;
+
+    /**
+     * Constructs the register model.
+     */
+    public RegisterModelImpl() {
+        this.registerLine = new LinkedList<>();
+        this.waitLine = new LinkedList<>();
+        this.customerThread = new CustomerThread(0, -1, null, this);
+    }
 
     /**
      * {@inheritDoc}

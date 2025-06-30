@@ -46,11 +46,16 @@ public class MenuViewImpl extends AbstractBaseView {
     private final transient GameController gameController;
     private final transient List<SlotView> slotViews;
 
+    /** Play button. */
     private final JButton playButton;
+    /** Resume button. */
     private final JButton resumeButton;
+    /** Saves button. */
     private final JButton savesButton;
+    /** Panel containing save slots. */
     private final JPanel slotPanel;
 
+    /** Used to check whether play screen has already played. */
     private boolean playShown;
 
     /**

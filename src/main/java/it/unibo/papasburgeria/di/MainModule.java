@@ -8,6 +8,13 @@ import com.google.inject.AbstractModule;
 public class MainModule extends AbstractModule {
 
     /**
+     * Constructs a main module that installs all the others and is wired into Guice.
+     */
+    public MainModule() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -57,11 +57,10 @@ class OrderSelectionControllerImplTest {
     }
 
     /**
-     * Tests {@link OrderSelectionControllerImpl#getHamburger()}
-     * and ensures it returns a copy.
+     * Tests {@link OrderSelectionControllerImpl#getHamburger()}.
      */
     @Test
-    void testGetHamburgerReturnsCopy() {
+    void testGetHamburger() {
         final HamburgerModel original = gameModel.getHamburgerOnAssembly();
         original.addIngredient(new IngredientModelImpl(IngredientEnum.BOTTOM_BUN));
         gameModel.setHamburgerOnAssembly(original);

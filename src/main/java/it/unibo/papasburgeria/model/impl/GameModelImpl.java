@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.DaysEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.util.ArrayList;
@@ -47,10 +47,10 @@ public class GameModelImpl implements GameModel {
     private int balance;
     private int currentSaveSlot;
 
-    private Hamburger hamburgerOnAssembly;
+    private HamburgerModel hamburgerOnAssembly;
     private Patty[][] pattiesOnGrill;
     private List<Patty> cookedPatties;
-    private Order selectedOrder;
+    private OrderModel selectedOrder;
 
     /**
      * Default constructor, initializes the model's variables.
@@ -80,16 +80,16 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Hamburger getHamburgerOnAssembly() {
-        return new HamburgerImpl(hamburgerOnAssembly.getIngredients());
+    public HamburgerModel getHamburgerOnAssembly() {
+        return new HamburgerModelImpl(hamburgerOnAssembly.getIngredients());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setHamburgerOnAssembly(final Hamburger hamburger) {
-        this.hamburgerOnAssembly = new HamburgerImpl(hamburger.getIngredients());
+    public void setHamburgerOnAssembly(final HamburgerModel hamburger) {
+        this.hamburgerOnAssembly = new HamburgerModelImpl(hamburger.getIngredients());
     }
 
     /**
@@ -177,7 +177,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Order getSelectedOrder() {
+    public OrderModel getSelectedOrder() {
         if (Objects.isNull(selectedOrder)) {
             return null;
         } else {
@@ -189,7 +189,7 @@ public class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void setSelectedOrder(final Order order) {
+    public void setSelectedOrder(final OrderModel order) {
         selectedOrder = order;
     }
 
@@ -214,7 +214,7 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public final void reset() {
-        hamburgerOnAssembly = new HamburgerImpl();
+        hamburgerOnAssembly = new HamburgerModelImpl();
         pattiesOnGrill = new Patty[GRILL_ROWS][GRILL_COLUMNS];
         cookedPatties = new ArrayList<>();
         selectedOrder = null;

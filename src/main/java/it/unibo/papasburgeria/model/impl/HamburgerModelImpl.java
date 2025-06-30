@@ -1,8 +1,8 @@
 package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.Patty;
 import org.tinylog.Logger;
 
@@ -18,9 +18,9 @@ import static it.unibo.papasburgeria.model.IngredientEnum.TOP_BUN;
  * Implementation of Hamburger.
  *
  * <p>
- * See {@link Hamburger} for interface details.
+ * See {@link HamburgerModel} for interface details.
  */
-public class HamburgerImpl implements Hamburger {
+public class HamburgerModelImpl implements HamburgerModel {
     /**
      * Defines the minimum number of ingredients of a hamburger.
      */
@@ -30,12 +30,12 @@ public class HamburgerImpl implements Hamburger {
      */
     public static final int MAX_INGREDIENTS = 10;
 
-    private final List<Ingredient> ingredientList;
+    private final List<IngredientModel> ingredientList;
 
     /**
      * Default constructor, creates an empty hamburger.
      */
-    public HamburgerImpl() {
+    public HamburgerModelImpl() {
         ingredientList = new ArrayList<>();
     }
 
@@ -44,9 +44,9 @@ public class HamburgerImpl implements Hamburger {
      *
      * @param ingredientList the list of ingredients
      */
-    public HamburgerImpl(final List<Ingredient> ingredientList) {
+    public HamburgerModelImpl(final List<IngredientModel> ingredientList) {
         this.ingredientList = new ArrayList<>();
-        for (final Ingredient ingredient : ingredientList) {
+        for (final IngredientModel ingredient : ingredientList) {
             addIngredient(ingredient);
         }
     }
@@ -57,18 +57,18 @@ public class HamburgerImpl implements Hamburger {
      * @param availableIngredients the list of unlocked ingredient types
      * @return the randomly generated hamburger
      */
-    public static Hamburger generateRandomHamburger(final List<IngredientEnum> availableIngredients) {
-        final Hamburger hamburger = new HamburgerImpl();
+    public static HamburgerModel generateRandomHamburger(final List<IngredientEnum> availableIngredients) {
+        final HamburgerModel hamburger = new HamburgerModelImpl();
         final List<IngredientEnum> currentIngredients = new ArrayList<>(availableIngredients);
         currentIngredients.remove(TOP_BUN);
         currentIngredients.remove(BOTTOM_BUN);
-        hamburger.addIngredient(new IngredientImpl(BOTTOM_BUN));
+        hamburger.addIngredient(new IngredientModelImpl(BOTTOM_BUN));
 
         if (!currentIngredients.isEmpty()) {
             final int ingredientNumber = (int) ((Math.random() * (MAX_INGREDIENTS - MIN_INGREDIENTS)) + MIN_INGREDIENTS);
 
             for (int i = 0; i < ingredientNumber; i++) {
-                Ingredient ingredient;
+                IngredientModel ingredient;
                 do {
                     final IngredientEnum ingredientType =
                             currentIngredients.get((int) (Math.random() * currentIngredients.size()));
@@ -77,13 +77,13 @@ public class HamburgerImpl implements Hamburger {
                         ((Patty) ingredient).setTopCookLevel(ThreadLocalRandom.current().nextDouble());
                         ((Patty) ingredient).setBottomCookLevel(ThreadLocalRandom.current().nextDouble());
                     } else {
-                        ingredient = new IngredientImpl(ingredientType);
+                        ingredient = new IngredientModelImpl(ingredientType);
                     }
                 } while (!hamburger.addIngredient(ingredient));
             }
         }
 
-        hamburger.addIngredient(new IngredientImpl(TOP_BUN));
+        hamburger.addIngredient(new IngredientModelImpl(TOP_BUN));
         return hamburger;
     }
 
@@ -91,7 +91,7 @@ public class HamburgerImpl implements Hamburger {
      * {@inheritDoc}
      */
     @Override
-    public final boolean addIngredient(final Ingredient ingredient) {
+    public final boolean addIngredient(final IngredientModel ingredient) {
         if (ingredientList.isEmpty() && ingredient.getIngredientType() != BOTTOM_BUN) {
             Logger.debug("first ingredient is NOT a bun");
             return false;
@@ -102,7 +102,7 @@ public class HamburgerImpl implements Hamburger {
         }
 
         if (ingredientList.isEmpty()) {
-            ingredient.setPlacementAccuracy(IngredientImpl.PERFECT_ACCURACY);
+            ingredient.setPlacementAccuracy(IngredientModelImpl.PERFECT_ACCURACY);
         }
 
         ingredientList.add(ingredient);
@@ -125,7 +125,7 @@ public class HamburgerImpl implements Hamburger {
      * {@inheritDoc}
      */
     @Override
-    public List<Ingredient> getIngredients() {
+    public List<IngredientModel> getIngredients() {
         return List.copyOf(ingredientList);
     }
 
@@ -133,8 +133,8 @@ public class HamburgerImpl implements Hamburger {
      * {@inheritDoc}
      */
     @Override
-    public Hamburger copyOf() {
-        return new HamburgerImpl(ingredientList);
+    public HamburgerModel copyOf() {
+        return new HamburgerModelImpl(ingredientList);
     }
 
     /**
@@ -143,7 +143,7 @@ public class HamburgerImpl implements Hamburger {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        for (final Ingredient ingredient : ingredientList) {
+        for (final IngredientModel ingredient : ingredientList) {
             sb.append(ingredient.toString()).append(", ");
         }
         sb.append(']');

@@ -5,10 +5,10 @@ import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.controller.api.EvaluateBurgerController;
 import it.unibo.papasburgeria.controller.api.GameController;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Customer;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
+import it.unibo.papasburgeria.model.api.CustomerModel;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
+import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.scene.SceneType;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
@@ -180,11 +180,11 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
     /**
      * Hamburger read and displayed in this view.
      */
-    private transient Hamburger burger;
+    private transient HamburgerModel burger;
     /**
      * Order read and displayed in this view.
      */
-    private transient Order order;
+    private transient OrderModel order;
 
     @Inject
     EvaluateBurgerViewImpl(final EvaluateBurgerController controller,
@@ -296,7 +296,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
 
         customerController.addBalance(payment + tip);
 
-        for (final Customer currentCustomer : customerController.getWaitLine()) {
+        for (final CustomerModel currentCustomer : customerController.getWaitLine()) {
             if (currentCustomer.getOrder().getOrderNumber() == this.order.getOrderNumber()) {
                 customerController.serveCustomer(currentCustomer);
                 if (DEBUG_MODE) {
@@ -343,7 +343,7 @@ public class EvaluateBurgerViewImpl extends AbstractBaseView {
                 BurgerAssemblyViewImpl.HAMBURGER_Y_POS_SCALE, new ArrayList<>(), g);
 
         final Sprite orderSprite = new SpriteImpl(resourceService.getImage("order.png"),
-                new IngredientImpl(IngredientEnum.CHEESE),
+                new IngredientModelImpl(IngredientEnum.CHEESE),
                 OrderSelectionViewImpl.ORDER_SELECTED_X_POSITION,
                 OrderSelectionViewImpl.ORDER_SELECTED_Y_POSITION,
                 DrawingManagerImpl.ORDER_X_SIZE_SCALE,

@@ -10,9 +10,9 @@ import java.util.Objects;
  *
  * <p>
  * See {@link Patty} for interface details.
- * See {@link IngredientImpl} for superclass details.
+ * See {@link IngredientModelImpl} for superclass details.
  */
-public class PattyImpl extends IngredientImpl implements Patty {
+public class PattyImpl extends IngredientModelImpl implements Patty {
     /**
      * Defines the maximum cook level.
      */

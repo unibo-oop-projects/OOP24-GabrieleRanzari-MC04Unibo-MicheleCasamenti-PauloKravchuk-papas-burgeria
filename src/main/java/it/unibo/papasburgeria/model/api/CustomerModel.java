@@ -3,14 +3,14 @@ package it.unibo.papasburgeria.model.api;
 /**
  * Interface used for creating Customers in the game. They generate orders and evaluate Burgers.
  */
-public interface Customer {
+public interface CustomerModel {
 
     /**
      * Get the customer's order.
      *
      * @return the customer's order.
      */
-    Order getOrder();
+    OrderModel getOrder();
 
     /**
      * Get the customer's skin type.

@@ -3,7 +3,7 @@ package it.unibo.papasburgeria.view.impl;
 import com.google.inject.Inject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.papasburgeria.controller.api.CustomerController;
-import it.unibo.papasburgeria.model.api.Customer;
+import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.utils.api.SfxService;
 import it.unibo.papasburgeria.view.impl.components.ScalableLayoutImpl;
@@ -133,11 +133,11 @@ public class RegisterViewImpl extends AbstractBaseView {
     /**
      * A map containing all the customers in the regiserLine and their JLabel.
      */
-    private transient Map<Customer, JLabel> registerLineView = new LinkedHashMap<>();
+    private transient Map<CustomerModel, JLabel> registerLineView = new LinkedHashMap<>();
     /**
      * A map containing all the customers in the waitLine and their JLabel.
      */
-    private transient Map<Customer, JLabel> waitLineView = new LinkedHashMap<>();
+    private transient Map<CustomerModel, JLabel> waitLineView = new LinkedHashMap<>();
 
     /**
      * Constructs a RegisterView.
@@ -209,7 +209,7 @@ public class RegisterViewImpl extends AbstractBaseView {
         /* if the customers do not coincide */
         if (!waitLineView.keySet().equals(customerController.getWaitLine().stream().collect(Collectors.toSet()))) {
             /* remove all customers' JLabels */
-            for (final Entry<Customer, JLabel> entry : waitLineView.entrySet()) {
+            for (final Entry<CustomerModel, JLabel> entry : waitLineView.entrySet()) {
                 if (panel.isAncestorOf(entry.getValue())) {
                     panel.remove(entry.getValue());
                 }
@@ -217,7 +217,7 @@ public class RegisterViewImpl extends AbstractBaseView {
             waitLineView.clear();
 
             /* and fill them back up */
-            for (final Customer customer : customerController.getWaitLine()) {
+            for (final CustomerModel customer : customerController.getWaitLine()) {
                 final ImageIcon iconImage = new ImageIcon(
                         resourceService.getImage(CUSTOMER_FILE_NAME
                                 + FILE_SEPARATOR
@@ -229,7 +229,7 @@ public class RegisterViewImpl extends AbstractBaseView {
 
             /* and finally print five of them */
             int position = 0;
-            for (final Entry<Customer, JLabel> entry : waitLineView.entrySet()) {
+            for (final Entry<CustomerModel, JLabel> entry : waitLineView.entrySet()) {
                 if (position < MAX_DISPLAYABLE_CUSTOMERS) {
                     panel.add(entry.getValue(),
                             new ScaleConstraintImpl(
@@ -247,7 +247,7 @@ public class RegisterViewImpl extends AbstractBaseView {
         /* if the customers do not coincide */
         if (!registerLineView.keySet().equals(customerController.getRegisterLine().stream().collect(Collectors.toSet()))) {
             /* remove all customers' JLabels */
-            for (final Entry<Customer, JLabel> entry : registerLineView.entrySet()) {
+            for (final Entry<CustomerModel, JLabel> entry : registerLineView.entrySet()) {
                 if (panel.isAncestorOf(entry.getValue())) {
                     panel.remove(entry.getValue());
                 }
@@ -255,7 +255,7 @@ public class RegisterViewImpl extends AbstractBaseView {
             registerLineView.clear();
 
             /* and fill them back up */
-            for (final Customer customer : customerController.getRegisterLine()) {
+            for (final CustomerModel customer : customerController.getRegisterLine()) {
                 final ImageIcon iconImage = new ImageIcon(
                         resourceService.getImage(CUSTOMER_FILE_NAME
                                 + FILE_SEPARATOR
@@ -267,7 +267,7 @@ public class RegisterViewImpl extends AbstractBaseView {
 
             /* and finally print five of them */
             int position = 0;
-            for (final Entry<Customer, JLabel> entry : registerLineView.entrySet()) {
+            for (final Entry<CustomerModel, JLabel> entry : registerLineView.entrySet()) {
                 if (position < MAX_DISPLAYABLE_CUSTOMERS) {
                     panel.add(entry.getValue(),
                             new ScaleConstraintImpl(

@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 
 /**
  * Manages the appearance of the evaluateBurger station.
@@ -12,14 +12,14 @@ public interface EvaluateBurgerController {
      *
      * @return the hamburger on assembly in game model.
      */
-    Hamburger getHamburgerOnAssembly();
+    HamburgerModel getHamburgerOnAssembly();
 
     /**
      * get the order selected in game model.
      *
      * @return the selected order in game model.
      */
-    Order getSelectedOrder();
+    OrderModel getSelectedOrder();
 
     /**
      * Empties the current hamburger on assemblyline.

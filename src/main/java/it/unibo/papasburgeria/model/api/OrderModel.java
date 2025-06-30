@@ -3,13 +3,13 @@ package it.unibo.papasburgeria.model.api;
 /**
  * Interface with the instructions used for the hamburger's assembly.
  */
-public interface Order {
+public interface OrderModel {
     /**
      * Get the hamburger from this order.
      *
      * @return the current hamburger's order.
      */
-    Hamburger getHamburger();
+    HamburgerModel getHamburger();
 
     /**
      * Return the order number.
@@ -23,5 +23,5 @@ public interface Order {
      *
      * @return the copy.
      */
-    Order copyOf();
+    OrderModel copyOf();
 }

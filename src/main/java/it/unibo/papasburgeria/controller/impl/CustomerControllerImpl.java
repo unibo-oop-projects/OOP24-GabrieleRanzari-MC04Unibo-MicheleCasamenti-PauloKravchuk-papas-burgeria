@@ -5,15 +5,15 @@ import com.google.inject.Singleton;
 import it.unibo.papasburgeria.controller.api.CustomerController;
 import it.unibo.papasburgeria.model.CustomerDifficultyEnum;
 import it.unibo.papasburgeria.model.UpgradeEnum;
-import it.unibo.papasburgeria.model.api.Customer;
+import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.PantryModel;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.model.api.RegisterModel;
-import it.unibo.papasburgeria.model.api.Shop;
-import it.unibo.papasburgeria.model.impl.HamburgerImpl;
+import it.unibo.papasburgeria.model.api.ShopModel;
+import it.unibo.papasburgeria.model.impl.HamburgerModelImpl;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,14 +32,14 @@ public class CustomerControllerImpl implements CustomerController {
      */
     public static final double DEFAULT_TIP = 0.05;
     private final GameModel model;
-    private final Shop shop;
+    private final ShopModel shop;
     private final RegisterModel registerModel;
     private final PantryModel pantryModel;
 
     @Inject
     CustomerControllerImpl(
             final GameModel model,
-            final Shop shop,
+            final ShopModel shop,
             final RegisterModel registerModel,
             final PantryModel pantryModel) {
         this.model = model;
@@ -52,7 +52,7 @@ public class CustomerControllerImpl implements CustomerController {
      * {@inheritDoc}
      */
     @Override
-    public void serveCustomer(final Customer customer) {
+    public void serveCustomer(final CustomerModel customer) {
         registerModel.removeCustomerWaitLine(customer);
     }
 
@@ -120,7 +120,7 @@ public class CustomerControllerImpl implements CustomerController {
      * {@inheritDoc}
      */
     @Override
-    public List<Customer> getRegisterLine() {
+    public List<CustomerModel> getRegisterLine() {
         return registerModel.getRegisterLine();
     }
 
@@ -128,7 +128,7 @@ public class CustomerControllerImpl implements CustomerController {
      * {@inheritDoc}
      */
     @Override
-    public List<Customer> getWaitLine() {
+    public List<CustomerModel> getWaitLine() {
         return registerModel.getWaitLine();
     }
 
@@ -136,7 +136,7 @@ public class CustomerControllerImpl implements CustomerController {
      * {@inheritDoc}
      */
     @Override
-    public void takeOrderFromCustomer(final Customer customer) {
+    public void takeOrderFromCustomer(final CustomerModel customer) {
         registerModel.removeCustomerRegisterLine(customer);
         registerModel.addCustomerWaitLine(customer);
     }
@@ -145,10 +145,10 @@ public class CustomerControllerImpl implements CustomerController {
      * {@inheritDoc}
      */
     @Override
-    public double calculateSatisfactionPercentage(final Hamburger startingHamburger,
-                                                  final Hamburger madeHamburger) {
-        final List<Ingredient> list1 = startingHamburger.getIngredients();
-        final List<Ingredient> list2 = madeHamburger.getIngredients();
+    public double calculateSatisfactionPercentage(final HamburgerModel startingHamburger,
+                                                  final HamburgerModel madeHamburger) {
+        final List<IngredientModel> list1 = startingHamburger.getIngredients();
+        final List<IngredientModel> list2 = madeHamburger.getIngredients();
 
         /*if either of them are empty, give no money */
         if (list1 == null || list2 == null || list1.isEmpty() || list2.isEmpty()) {
@@ -197,7 +197,7 @@ public class CustomerControllerImpl implements CustomerController {
         }
 
         double placementAccuracyTotal = 0.0;
-        for (final Ingredient ingredient : list1) {
+        for (final IngredientModel ingredient : list1) {
             placementAccuracyTotal += ingredient.getPlacementAccuracy();
         }
         /* calculates the placement accuracy (1 - (averageAccuracy)) */
@@ -208,7 +208,7 @@ public class CustomerControllerImpl implements CustomerController {
         }
 
         /* calculates the difficulty percentage (size/maxsize) */
-        final double difficultyPercentage = (double) list1.size() / HamburgerImpl.MAX_INGREDIENTS;
+        final double difficultyPercentage = (double) list1.size() / HamburgerModelImpl.MAX_INGREDIENTS;
 
         return (difficultyPercentage + similarityPercentage + placementPercentage + pattySimilarityPercentage) / 4;
     }

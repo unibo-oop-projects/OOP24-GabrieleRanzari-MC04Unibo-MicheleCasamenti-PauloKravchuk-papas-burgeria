@@ -2,7 +2,7 @@ package it.unibo.papasburgeria.model.impl;
 
 import com.google.inject.Singleton;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Customer;
+import it.unibo.papasburgeria.model.api.CustomerModel;
 import it.unibo.papasburgeria.model.api.RegisterModel;
 
 import java.util.LinkedList;
@@ -16,8 +16,8 @@ import java.util.List;
  */
 @Singleton
 public class RegisterModelImpl implements RegisterModel {
-    private final List<Customer> registerLine;
-    private final List<Customer> waitLine;
+    private final List<CustomerModel> registerLine;
+    private final List<CustomerModel> waitLine;
     private CustomerThread customerThread;
 
     /**
@@ -54,7 +54,7 @@ public class RegisterModelImpl implements RegisterModel {
      * {@inheritDoc}
      */
     @Override
-    public void addCustomerRegisterLine(final Customer customer) {
+    public void addCustomerRegisterLine(final CustomerModel customer) {
         customer.setInRegisterLine(true);
         registerLine.add(customer);
     }
@@ -63,7 +63,7 @@ public class RegisterModelImpl implements RegisterModel {
      * {@inheritDoc}
      */
     @Override
-    public void removeCustomerRegisterLine(final Customer customer) {
+    public void removeCustomerRegisterLine(final CustomerModel customer) {
         customer.setInRegisterLine(false);
         registerLine.remove(customer);
     }
@@ -72,7 +72,7 @@ public class RegisterModelImpl implements RegisterModel {
      * {@inheritDoc}
      */
     @Override
-    public void addCustomerWaitLine(final Customer customer) {
+    public void addCustomerWaitLine(final CustomerModel customer) {
         customer.setInWaitLine(true);
         waitLine.add(customer);
     }
@@ -81,7 +81,7 @@ public class RegisterModelImpl implements RegisterModel {
      * {@inheritDoc}
      */
     @Override
-    public void removeCustomerWaitLine(final Customer customer) {
+    public void removeCustomerWaitLine(final CustomerModel customer) {
         waitLine.remove(customer);
     }
 
@@ -99,7 +99,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void clearRegisterLine() {
-        for (final Customer customer : registerLine) {
+        for (final CustomerModel customer : registerLine) {
             customer.setInRegisterLine(false);
         }
         registerLine.clear();
@@ -110,7 +110,7 @@ public class RegisterModelImpl implements RegisterModel {
      */
     @Override
     public void clearWaitLine() {
-        for (final Customer customer : waitLine) {
+        for (final CustomerModel customer : waitLine) {
             customer.setInWaitLine(false);
         }
         waitLine.clear();
@@ -120,7 +120,7 @@ public class RegisterModelImpl implements RegisterModel {
      * @return the register line
      */
     @Override
-    public List<Customer> getRegisterLine() {
+    public List<CustomerModel> getRegisterLine() {
         return List.copyOf(registerLine);
     }
 
@@ -128,7 +128,7 @@ public class RegisterModelImpl implements RegisterModel {
      * @return the wait line
      */
     @Override
-    public List<Customer> getWaitLine() {
+    public List<CustomerModel> getWaitLine() {
         return List.copyOf(waitLine);
     }
 

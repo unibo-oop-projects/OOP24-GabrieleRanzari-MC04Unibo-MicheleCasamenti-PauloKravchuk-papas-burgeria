@@ -28,28 +28,28 @@ public interface RegisterModel {
      *
      * @param customer Customer added to end of register line.
      */
-    void addCustomerRegisterLine(Customer customer);
+    void addCustomerRegisterLine(CustomerModel customer);
 
     /**
      * Removes a customer from the register line.
      *
      * @param customer Customer added to end of register line.
      */
-    void removeCustomerRegisterLine(Customer customer);
+    void removeCustomerRegisterLine(CustomerModel customer);
 
     /**
      * Adds a customer to the wait line.
      *
      * @param customer Customer added to end of wait line.
      */
-    void addCustomerWaitLine(Customer customer);
+    void addCustomerWaitLine(CustomerModel customer);
 
     /**
      * Removes a customer from the register line.
      *
      * @param customer Customer removed from wait line.
      */
-    void removeCustomerWaitLine(Customer customer);
+    void removeCustomerWaitLine(CustomerModel customer);
 
     /**
      * Empties the Register line.
@@ -78,12 +78,12 @@ public interface RegisterModel {
      *
      * @return the register line.
      */
-    List<Customer> getRegisterLine();
+    List<CustomerModel> getRegisterLine();
 
     /**
      * Get the register line.
      *
      * @return the wait line
      */
-    List<Customer> getWaitLine();
+    List<CustomerModel> getWaitLine();
 }

@@ -1,8 +1,8 @@
 package it.unibo.papasburgeria.controller.api;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface BurgerAssemblyController {
      * @param ingredient the ingredient to add
      * @return true if the ingredient was added, false otherwise
      */
-    boolean addIngredient(Ingredient ingredient);
+    boolean addIngredient(IngredientModel ingredient);
 
     /**
      * Removes the last ingredient added to the hamburger.
@@ -30,7 +30,7 @@ public interface BurgerAssemblyController {
      *
      * @return the hamburger
      */
-    Hamburger getHamburgerOnAssembly();
+    HamburgerModel getHamburgerOnAssembly();
 
     /**
      * Checks if the ingredient type is unlocked.
@@ -76,7 +76,7 @@ public interface BurgerAssemblyController {
      * @param ingredient the ingredient whose accuracy will be updated
      * @param accuracy   the new accuracy value
      */
-    void changeIngredientAccuracy(Ingredient ingredient, double accuracy);
+    void changeIngredientAccuracy(IngredientModel ingredient, double accuracy);
 
     /**
      * Returns the list of unlocked ingredient types.

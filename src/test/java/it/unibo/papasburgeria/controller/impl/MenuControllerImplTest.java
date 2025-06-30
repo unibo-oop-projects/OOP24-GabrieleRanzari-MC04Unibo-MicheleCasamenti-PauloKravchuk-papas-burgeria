@@ -3,8 +3,8 @@ package it.unibo.papasburgeria.controller.impl;
 import it.unibo.papasburgeria.controller.api.MenuController;
 import it.unibo.papasburgeria.model.UpgradeEnum;
 import it.unibo.papasburgeria.model.api.GameModel;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 import it.unibo.papasburgeria.model.api.Patty;
 import it.unibo.papasburgeria.utils.api.SaveService;
 import it.unibo.papasburgeria.utils.impl.saving.SaveInfo;
@@ -178,7 +178,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public Hamburger getHamburgerOnAssembly() {
+        public HamburgerModel getHamburgerOnAssembly() {
             return null;
         }
 
@@ -186,7 +186,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public void setHamburgerOnAssembly(final Hamburger hamburger) {
+        public void setHamburgerOnAssembly(final HamburgerModel hamburger) {
         }
 
         /**
@@ -253,7 +253,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public Order getSelectedOrder() {
+        public OrderModel getSelectedOrder() {
             return null;
         }
 
@@ -261,7 +261,7 @@ class MenuControllerImplTest {
          * {@inheritDoc}
          */
         @Override
-        public void setSelectedOrder(final Order order) {
+        public void setSelectedOrder(final OrderModel order) {
         }
 
         /**

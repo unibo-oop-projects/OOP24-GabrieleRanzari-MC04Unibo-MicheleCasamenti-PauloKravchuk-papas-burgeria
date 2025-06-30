@@ -1,8 +1,8 @@
 package it.unibo.papasburgeria.view.api.components;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 import it.unibo.papasburgeria.model.api.Patty;
 
 import java.awt.Dimension;
@@ -26,7 +26,7 @@ public interface DrawingManager {
      * @param graphics                  the graphics
      */
     void drawHamburger(
-            Hamburger hamburger,
+            HamburgerModel hamburger,
             Dimension frameSize,
             double bottomBunXPosScale,
             double bottomBunYPosScale,
@@ -59,7 +59,7 @@ public interface DrawingManager {
      */
     void drawOrder(
             Sprite sprite,
-            Order order,
+            OrderModel order,
             Dimension frameSize,
             Graphics graphics
     );
@@ -98,8 +98,8 @@ public interface DrawingManager {
      * @param spriteOrders          the map of orders for every sprite
      */
     void generateOrderSprites(
-            List<Order> orders,
+            List<OrderModel> orders,
             List<Sprite> draggableOrderSprites,
-            Map<Sprite, Order> spriteOrders
+            Map<Sprite, OrderModel> spriteOrders
     );
 }

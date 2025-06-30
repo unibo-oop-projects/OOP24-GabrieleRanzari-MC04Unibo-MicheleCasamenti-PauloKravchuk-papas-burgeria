@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.controller.api;
 
-import it.unibo.papasburgeria.model.api.Customer;
-import it.unibo.papasburgeria.model.api.Hamburger;
+import it.unibo.papasburgeria.model.api.CustomerModel;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ public interface CustomerController {
      *
      * @param customer the customer to serve.
      */
-    void serveCustomer(Customer customer);
+    void serveCustomer(CustomerModel customer);
 
     /**
      * Takes the order from the selected customer.
      *
      * @param customer the customer to take the order from.
      */
-    void takeOrderFromCustomer(Customer customer);
+    void takeOrderFromCustomer(CustomerModel customer);
 
     /**
      * clears both lines for the day.
@@ -50,14 +50,14 @@ public interface CustomerController {
      *
      * @return the customer line.
      */
-    List<Customer> getRegisterLine();
+    List<CustomerModel> getRegisterLine();
 
     /**
      * Gets the waitLine.
      *
      * @return the wait line.
      */
-    List<Customer> getWaitLine();
+    List<CustomerModel> getWaitLine();
 
     /**
      * calculates the satisfaction percentage of the customer.
@@ -66,7 +66,7 @@ public interface CustomerController {
      * @param madeHamburger     the hamburger cooked by the player
      * @return the satisfaction percentage
      */
-    double calculateSatisfactionPercentage(Hamburger startingHamburger, Hamburger madeHamburger);
+    double calculateSatisfactionPercentage(HamburgerModel startingHamburger, HamburgerModel madeHamburger);
 
     /**
      * calculates the payment based on the satisfaction percentage.

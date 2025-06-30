@@ -1,8 +1,8 @@
 package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import java.util.List;
  * Implementation of Order.
  *
  * <p>
- * See {@link Order} for interface details.
+ * See {@link OrderModel} for interface details.
  */
-public class OrderImpl implements Order {
+public class OrderModelImpl implements OrderModel {
     private final int orderNumber;
-    private final Hamburger hamburger;
+    private final HamburgerModel hamburger;
 
     /**
      * Costructor that generates an order with a given Hamburger.
@@ -22,7 +22,7 @@ public class OrderImpl implements Order {
      * @param hamburger   hamburger added to order.
      * @param orderNumber the order number.
      */
-    public OrderImpl(final Hamburger hamburger, final int orderNumber) {
+    public OrderModelImpl(final HamburgerModel hamburger, final int orderNumber) {
         this.hamburger = hamburger.copyOf();
         this.orderNumber = orderNumber;
     }
@@ -33,16 +33,16 @@ public class OrderImpl implements Order {
      * @param availableIngredients possible ingredients used to generate a random hamburger.
      * @param orderNumber          the order number.
      */
-    public OrderImpl(final List<IngredientEnum> availableIngredients, final int orderNumber) {
+    public OrderModelImpl(final List<IngredientEnum> availableIngredients, final int orderNumber) {
         this.orderNumber = orderNumber;
-        hamburger = HamburgerImpl.generateRandomHamburger(availableIngredients);
+        hamburger = HamburgerModelImpl.generateRandomHamburger(availableIngredients);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Hamburger getHamburger() {
+    public HamburgerModel getHamburger() {
         return hamburger.copyOf();
     }
 
@@ -58,8 +58,8 @@ public class OrderImpl implements Order {
      * {@inheritDoc}
      */
     @Override
-    public Order copyOf() {
-        return new OrderImpl(hamburger.copyOf(), orderNumber);
+    public OrderModel copyOf() {
+        return new OrderModelImpl(hamburger.copyOf(), orderNumber);
     }
 
     /**

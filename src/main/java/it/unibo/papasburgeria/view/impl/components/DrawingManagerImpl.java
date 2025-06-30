@@ -3,11 +3,11 @@ package it.unibo.papasburgeria.view.impl.components;
 import com.google.inject.Inject;
 import it.unibo.papasburgeria.model.DegreesOfDonenessEnum;
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Hamburger;
-import it.unibo.papasburgeria.model.api.Ingredient;
-import it.unibo.papasburgeria.model.api.Order;
+import it.unibo.papasburgeria.model.api.HamburgerModel;
+import it.unibo.papasburgeria.model.api.IngredientModel;
+import it.unibo.papasburgeria.model.api.OrderModel;
 import it.unibo.papasburgeria.model.api.Patty;
-import it.unibo.papasburgeria.model.impl.IngredientImpl;
+import it.unibo.papasburgeria.model.impl.IngredientModelImpl;
 import it.unibo.papasburgeria.utils.api.ResourceService;
 import it.unibo.papasburgeria.view.api.components.DrawingManager;
 import it.unibo.papasburgeria.view.api.components.Sprite;
@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import static it.unibo.papasburgeria.model.IngredientEnum.PATTY;
-import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_LEFT_ACCURACY;
-import static it.unibo.papasburgeria.model.impl.IngredientImpl.MAX_RIGHT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.IngredientModelImpl.MAX_LEFT_ACCURACY;
+import static it.unibo.papasburgeria.model.impl.IngredientModelImpl.MAX_RIGHT_ACCURACY;
 import static it.unibo.papasburgeria.model.impl.PattyImpl.MIN_COOK_LEVEL;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_SPACING;
 import static it.unibo.papasburgeria.view.impl.BurgerAssemblyViewImpl.HAMBURGER_X_POS_SCALE;
@@ -80,7 +80,7 @@ public class DrawingManagerImpl implements DrawingManager {
     /**
      * Defines the ingredient of the orders.
      */
-    public static final Ingredient ORDER_INGREDIENT = new IngredientImpl(IngredientEnum.TOP_BUN);
+    public static final IngredientModel ORDER_INGREDIENT = new IngredientModelImpl(IngredientEnum.TOP_BUN);
 
     private static final double ORDER_X_POS_SCALE = 0.68;
     private static final double ORDER_Y_POS_SCALE = 0.02;
@@ -139,17 +139,17 @@ public class DrawingManagerImpl implements DrawingManager {
      */
     @Override
     public final void drawHamburger(
-            final Hamburger hamburger,
+            final HamburgerModel hamburger,
             final Dimension frameSize,
             final double bottomBunXPosScale,
             final double bottomBunYPosScale,
             final List<Sprite> draggableHamburgerSprites,
             final Graphics graphics
     ) {
-        final List<Ingredient> hamburgerIngredients = hamburger.getIngredients();
+        final List<IngredientModel> hamburgerIngredients = hamburger.getIngredients();
         double pbPositionYScale = bottomBunYPosScale;
         Sprite sprite = null;
-        for (final Ingredient ingredient : hamburgerIngredients) {
+        for (final IngredientModel ingredient : hamburgerIngredients) {
             final double pbPositionXScale =
                     getPositionXScaleFromAccuracy(ingredient.getPlacementAccuracy(), bottomBunXPosScale);
             if (ingredient instanceof Patty) {
@@ -209,7 +209,7 @@ public class DrawingManagerImpl implements DrawingManager {
     @Override
     public void drawOrder(
             final Sprite sprite,
-            final Order order,
+            final OrderModel order,
             final Dimension frameSize,
             final Graphics graphics
     ) {
@@ -226,7 +226,7 @@ public class DrawingManagerImpl implements DrawingManager {
         graphics.drawString("0" + order.getOrderNumber(), numberXPosition, numberYPosition);
 
         double ingredientPbPositionYScale = ORDER_INGREDIENT_Y_POS_SCALE;
-        for (final Ingredient ingredient : order.getHamburger().getIngredients()) {
+        for (final IngredientModel ingredient : order.getHamburger().getIngredients()) {
             final Sprite ingredientSprite;
             if (ingredient instanceof Patty) {
                 ingredientSprite = generatePattySprite((Patty) ingredient,
@@ -304,14 +304,14 @@ public class DrawingManagerImpl implements DrawingManager {
      */
     @Override
     public void generateOrderSprites(
-            final List<Order> orders,
+            final List<OrderModel> orders,
             final List<Sprite> draggableOrderSprites,
-            final Map<Sprite, Order> spriteOrders
+            final Map<Sprite, OrderModel> spriteOrders
     ) {
         double pbPositionXScale = ORDER_X_POS_SCALE;
         final double orderSpacing =
                 (1.0 - ORDER_X_POS_SCALE - ORDER_X_SIZE_SCALE) / (orders.size() - 1);
-        for (final Order order : orders) {
+        for (final OrderModel order : orders) {
             final Sprite sprite =
                     new SpriteImpl(orderCard, ORDER_INGREDIENT,
                             pbPositionXScale, ORDER_Y_POS_SCALE,
@@ -375,13 +375,13 @@ public class DrawingManagerImpl implements DrawingManager {
             topCookLevel = bottomCookLevel;
         }
 
-        final String pattyName = ((Ingredient) patty).getIngredientType().getName()
+        final String pattyName = ((IngredientModel) patty).getIngredientType().getName()
                 + SEPARATOR + topDegree.getName() + EXTENSION;
-        final Sprite pattySprite = new SpriteImpl(pattyImages.get(pattyName), (Ingredient) patty,
+        final Sprite pattySprite = new SpriteImpl(pattyImages.get(pattyName), (IngredientModel) patty,
                 pbPositionXScale, pbPositionYScale, pbSizeXScale, pbSizeYScale);
 
         if (topDegree != bottomDegree) {
-            final String pattyBottomName = ((Ingredient) patty).getIngredientType().getName()
+            final String pattyBottomName = ((IngredientModel) patty).getIngredientType().getName()
                     + BOTTOM_EXTENSION + SEPARATOR + bottomDegree.getName() + EXTENSION;
             pattySprite.addImage(pattyImages.get(pattyBottomName));
         }

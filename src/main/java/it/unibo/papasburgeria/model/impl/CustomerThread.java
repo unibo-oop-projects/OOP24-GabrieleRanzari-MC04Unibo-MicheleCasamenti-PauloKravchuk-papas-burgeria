@@ -51,7 +51,7 @@ class CustomerThread extends Thread {
                     if (DEBUG_MODE) {
                         Logger.info("Customer has arrived");
                     }
-                    model.addCustomerRegisterLine(new CustomerImpl(unlockedIngredients, generatedCustomers + 1));
+                    model.addCustomerRegisterLine(new CustomerModelImpl(unlockedIngredients, generatedCustomers + 1));
                     generatedCustomers++;
                     if (generatedCustomers >= customerAmount) {
                         interrupt();

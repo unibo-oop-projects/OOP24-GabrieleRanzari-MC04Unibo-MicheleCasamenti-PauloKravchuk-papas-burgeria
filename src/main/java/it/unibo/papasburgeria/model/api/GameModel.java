@@ -19,14 +19,14 @@ public interface GameModel {
      *
      * @return the hamburger
      */
-    Hamburger getHamburgerOnAssembly();
+    HamburgerModel getHamburgerOnAssembly();
 
     /**
      * Sets the hamburger on assembly to the new hamburger.
      *
      * @param hamburger the new hamburger
      */
-    void setHamburgerOnAssembly(Hamburger hamburger);
+    void setHamburgerOnAssembly(HamburgerModel hamburger);
 
     /**
      * Returns the matrix of patties that are on the grill.
@@ -89,14 +89,14 @@ public interface GameModel {
      *
      * @return the order
      */
-    Order getSelectedOrder();
+    OrderModel getSelectedOrder();
 
     /**
      * Sets a new order as the selected one.
      *
      * @param order the selected order
      */
-    void setSelectedOrder(Order order);
+    void setSelectedOrder(OrderModel order);
 
     /**
      * Used to obtain the currently selected save slot.

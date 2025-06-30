@@ -1,7 +1,7 @@
 package it.unibo.papasburgeria.model.impl;
 
 import it.unibo.papasburgeria.model.IngredientEnum;
-import it.unibo.papasburgeria.model.api.Ingredient;
+import it.unibo.papasburgeria.model.api.IngredientModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,21 +10,21 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 /**
- * Test class for {@link IngredientImpl}.
+ * Test class for {@link IngredientModelImpl}.
  */
 class IngredientImplTest {
-    private IngredientImpl ingredient;
+    private IngredientModelImpl ingredient;
 
     /**
      * Called before each test.
      */
     @BeforeEach
     void setUp() {
-        ingredient = new IngredientImpl(IngredientEnum.LETTUCE);
+        ingredient = new IngredientModelImpl(IngredientEnum.LETTUCE);
     }
 
     /**
-     * Tests {@link IngredientImpl#IngredientImpl(IngredientEnum)}.
+     * Tests {@link IngredientModelImpl#IngredientImpl(IngredientEnum)}.
      */
     @Test
     void testInitialState() {
@@ -32,19 +32,19 @@ class IngredientImplTest {
     }
 
     /**
-     * Tests {@link IngredientImpl#IngredientImpl(Ingredient)}.
+     * Tests {@link IngredientModelImpl#IngredientImpl(IngredientModel)}.
      */
     @Test
     void testCopyConstructor() {
         ingredient.setPlacementAccuracy(0.5);
-        final IngredientImpl copy = new IngredientImpl(ingredient);
+        final IngredientModelImpl copy = new IngredientModelImpl(ingredient);
         assertEquals(ingredient.getIngredientType(), copy.getIngredientType());
         assertEquals(0.5, copy.getPlacementAccuracy());
         assertNotSame(ingredient, copy);
     }
 
     /**
-     * Tests {@link IngredientImpl#getIngredientType()}.
+     * Tests {@link IngredientModelImpl#getIngredientType()}.
      */
     @Test
     void testGetIngredientType() {
@@ -52,8 +52,8 @@ class IngredientImplTest {
     }
 
     /**
-     * Tests {@link IngredientImpl#setPlacementAccuracy(double)}
-     * and {@link IngredientImpl#getPlacementAccuracy()}.
+     * Tests {@link IngredientModelImpl#setPlacementAccuracy(double)}
+     * and {@link IngredientModelImpl#getPlacementAccuracy()}.
      */
     @Test
     void testSetAndGetPlacementAccuracy() {
@@ -63,13 +63,13 @@ class IngredientImplTest {
     }
 
     /**
-     * Tests {@link IngredientImpl#equals(Object)}
-     * and {@link IngredientImpl#hashCode()}.
+     * Tests {@link IngredientModelImpl#equals(Object)}
+     * and {@link IngredientModelImpl#hashCode()}.
      */
     @Test
     void testEqualsAndHashCode() {
-        final IngredientImpl sameType = new IngredientImpl(IngredientEnum.LETTUCE);
-        final IngredientImpl differentType = new IngredientImpl(IngredientEnum.TOMATO);
+        final IngredientModelImpl sameType = new IngredientModelImpl(IngredientEnum.LETTUCE);
+        final IngredientModelImpl differentType = new IngredientModelImpl(IngredientEnum.TOMATO);
 
         assertEquals(ingredient, sameType);
         assertEquals(ingredient.hashCode(), sameType.hashCode());

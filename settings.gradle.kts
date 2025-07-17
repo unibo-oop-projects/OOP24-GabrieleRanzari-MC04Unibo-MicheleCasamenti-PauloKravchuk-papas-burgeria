@@ -1,5 +1,16 @@
-rootProject.name = "OOP24-papas-burgeria"
-
+rootProject.name = "oop-24-papas-burgeria"
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.10.0"
+    id("com.gradle.develocity") version "4.1"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
+develocity {
+    buildScan {
+        termsOfUseUrl = "https://gradle.com/terms-of-service"
+        termsOfUseAgree = "yes"
+        uploadInBackground = !System.getenv("CI").toBoolean()
+        buildScanPublished {
+            file("scan-journal.log").writeText("$buildScanId - $buildScanUri\n")
+        }
+    }
 }
